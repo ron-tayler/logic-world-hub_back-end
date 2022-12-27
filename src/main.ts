@@ -7,6 +7,8 @@ import bodyParser from 'body-parser';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { container } from "@/container";
 
+const SERVER_PORT = process.env.SERVER_PORT || 3000;
+
 let server = new InversifyExpressServer(container,null,{
     rootPath: "/api/v1"
 });
@@ -23,4 +25,6 @@ server.setConfig((app) => {
 });
 
 let app = server.build();
-app.listen(3000);
+app.listen(SERVER_PORT,() => {
+    console.log(`Server started on port ${SERVER_PORT}`)
+});
