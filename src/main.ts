@@ -6,6 +6,7 @@ import "reflect-metadata";
 import bodyParser from 'body-parser';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { container } from "@/container";
+import ErrorHandler from "@/Errors/ErrorHandler";
 
 let server = new InversifyExpressServer(container,null,{
     rootPath: "/api/v1"
@@ -13,6 +14,7 @@ let server = new InversifyExpressServer(container,null,{
 server.setConfig((app) => {
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
+    app.use(ErrorHandler);
     app.use((req, res, next) => {
         res.setHeader("Content-Type","application/json;charset=UTF-8")
         res.setHeader("Access-Control-Allow-Origin","*")
