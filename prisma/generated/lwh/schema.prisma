@@ -1,0 +1,182 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
+  output          = "./generated/lwh"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  nick       String   @db.Text
+  createDate DateTime @default(now()) @db.DateTime(0)
+  is_active  Boolean  @default(false)
+  avatar     String   @default("")
+
+  UserAuth        UserAuth?
+  ModsCollections ModsCollection[]
+  ModAuthors      ModAuthor[]
+  ModIssues       ModIssue[]
+  ModIssuePosts   ModIssuePost[]
+  ModsLists       ModsList[]
+  ModsFavorits    ModsFavorits[]
+  ModSubscribers  ModSubscribers[]
+  ModDownloads    ModDownload[]
+}
+
+model UserAuth {
+  userId   Int    @unique
+  email    String
+  password String
+
+  User User @relation(fields: [userId], references: [id])
+}
+
+model ModsCollection {
+  id          Int      @id @default(autoincrement())
+  avatar      String
+  name        String
+  description String
+  createDate  DateTime @default(now())
+  is_active   Boolean  @default(false)
+  author_id   Int
+
+  Author User  @relation(fields: [author_id], references: [id])
+  Mods   Mod[]
+}
+
+model Mod {
+  id               Int      @id @default(autoincrement())
+  avatar           String
+  name             String
+  description      String
+  createDate       DateTime @default(now())
+  is_active        Boolean  @default(false)
+  collection_id    Int
+  views            Int
+  readme_type      Int
+  readme           String
+  change_list_type Int
+  change_list      String
+  repository       String
+  docs_url         String
+
+  Collection  ModsCollection   @relation(fields: [collection_id], references: [id])
+  Images      ModImage[]
+  Authors     ModAuthor[]
+  Tags        ModTag[]
+  Versions    ModVersion[]
+  Lists       ModsList[]
+  Issues      ModIssue[]
+  Favorits    ModsFavorits[]
+  Subscribers ModSubscribers[]
+  Downloads   ModDownload[]
+}
+
+model ModAuthor {
+  mod_id  Int
+  user_id Int
+  type    Int
+
+  User User @relation(fields: [user_id], references: [id])
+  Mod  Mod  @relation(fields: [mod_id], references: [id])
+
+  @@unique([mod_id, user_id])
+}
+
+model ModImage {
+  id     Int    @id @default(autoincrement())
+  mod_id Int
+  url    String
+
+  Mod Mod @relation(fields: [mod_id], references: [id])
+}
+
+model ModTag {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  Mod Mod[]
+}
+
+model ModVersion {
+  id           Int      @id @default(autoincrement())
+  mod_id       Int
+  version      String
+  game_version String
+  releaseDate  DateTime
+
+  Mod       Mod           @relation(fields: [mod_id], references: [id])
+  Downloads ModDownload[]
+}
+
+model ModIssue {
+  id         Int      @id @default(autoincrement())
+  mod_id     Int
+  name       String
+  type       Int
+  author_id  Int
+  createDate DateTime
+
+  Mod          Mod            @relation(fields: [mod_id], references: [id])
+  Author       User           @relation(fields: [author_id], references: [id])
+  ModIssuePost ModIssuePost[]
+}
+
+model ModIssuePost {
+  id         Int      @id @default(autoincrement())
+  issue_id   Int
+  author_id  Int
+  createDate DateTime
+  text       String
+
+  Issue  ModIssue @relation(fields: [issue_id], references: [id])
+  Author User     @relation(fields: [author_id], references: [id])
+}
+
+model ModsList {
+  id        Int     @id @default(autoincrement())
+  author_id Int
+  is_public Boolean
+  name      String
+
+  Author User  @relation(fields: [author_id], references: [id])
+  Mods   Mod[]
+}
+
+model ModsFavorits {
+  user_id Int
+  mod_id  Int
+
+  User User @relation(fields: [user_id], references: [id])
+  Mod  Mod  @relation(fields: [mod_id], references: [id])
+
+  @@unique([mod_id, user_id])
+}
+
+model ModSubscribers {
+  user_id Int
+  mod_id  Int
+
+  User User @relation(fields: [user_id], references: [id])
+  Mod  Mod  @relation(fields: [mod_id], references: [id])
+
+  @@unique([mod_id, user_id])
+}
+
+model ModDownload {
+  user_id    Int
+  mod_id     Int
+  version_id Int
+
+  User    User       @relation(fields: [user_id], references: [id])
+  Mod     Mod        @relation(fields: [mod_id], references: [id], map: "ModDownload_mod_id_fkey")
+  Version ModVersion @relation(fields: [version_id], references: [id], map: "ModDownload_version_id_fkey")
+
+  @@unique([user_id, mod_id])
+  @@index([mod_id], map: "ModDownload_mod_id_fkey")
+  @@index([version_id], map: "ModDownload_version_id_fkey")
+}

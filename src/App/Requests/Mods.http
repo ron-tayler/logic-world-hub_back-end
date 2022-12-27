@@ -1,0 +1,32 @@
+GET http://localhost:3000/api/v1/mods/all
+Accept: application/json
+
+###
+GET http://localhost:3000/api/v1/mods/mod/1
+
+###
+GET http://localhost:3000/api/v1/mods/mod/1/tags
+
+###
+GET http://localhost:3000/api/v1/mods/mod/1/images
+
+###
+GET http://localhost:3000/api/v1/mods/mod/1/versions
+
+###
+GET http://localhost:3000/api/v1/mods/mod/1/authors
+
+###
+GET http://localhost:3000/api/v1/mods/mod/1/readme
+
+###
+GET http://localhost:3000/api/v1/mods/mod/1/change-log
+
+###
+GET http://localhost:3000/api/v1/mods/mod/1/issues
+
+###
+GET http://localhost:3000/api/v1/mods/mod/1/issue/1
+
+###
+GET http://localhost:3000/api/v1/mods/mod/1/metrics
