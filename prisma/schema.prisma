@@ -107,7 +107,7 @@ model ModVersion {
   mod_id       Int
   version      String
   game_version String
-  releaseDate  DateTime
+  releaseDate  DateTime @default(now())
 
   Mod       Mod           @relation(fields: [mod_id], references: [id])
   Downloads ModDownload[]
@@ -119,7 +119,7 @@ model ModIssue {
   name       String
   type       Int
   author_id  Int
-  createDate DateTime
+  createDate DateTime @default(now())
 
   Mod          Mod            @relation(fields: [mod_id], references: [id])
   Author       User           @relation(fields: [author_id], references: [id])
@@ -130,7 +130,7 @@ model ModIssuePost {
   id         Int      @id @default(autoincrement())
   issue_id   Int
   author_id  Int
-  createDate DateTime
+  createDate DateTime @default(now())
   text       String
 
   Issue  ModIssue @relation(fields: [issue_id], references: [id])

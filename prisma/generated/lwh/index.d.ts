@@ -15576,7 +15576,7 @@ export namespace Prisma {
   export type ModVersionCreateInput = {
     version: string
     game_version: string
-    releaseDate: Date | string
+    releaseDate?: Date | string
     Mod: ModCreateNestedOneWithoutVersionsInput
     Downloads?: ModDownloadCreateNestedManyWithoutVersionInput
   }
@@ -15586,7 +15586,7 @@ export namespace Prisma {
     mod_id: number
     version: string
     game_version: string
-    releaseDate: Date | string
+    releaseDate?: Date | string
     Downloads?: ModDownloadUncheckedCreateNestedManyWithoutVersionInput
   }
 
@@ -15612,7 +15612,7 @@ export namespace Prisma {
     mod_id: number
     version: string
     game_version: string
-    releaseDate: Date | string
+    releaseDate?: Date | string
   }
 
   export type ModVersionUpdateManyMutationInput = {
@@ -15632,7 +15632,7 @@ export namespace Prisma {
   export type ModIssueCreateInput = {
     name: string
     type: number
-    createDate: Date | string
+    createDate?: Date | string
     Mod: ModCreateNestedOneWithoutIssuesInput
     Author: UserCreateNestedOneWithoutModIssuesInput
     ModIssuePost?: ModIssuePostCreateNestedManyWithoutIssueInput
@@ -15644,7 +15644,7 @@ export namespace Prisma {
     name: string
     type: number
     author_id: number
-    createDate: Date | string
+    createDate?: Date | string
     ModIssuePost?: ModIssuePostUncheckedCreateNestedManyWithoutIssueInput
   }
 
@@ -15673,7 +15673,7 @@ export namespace Prisma {
     name: string
     type: number
     author_id: number
-    createDate: Date | string
+    createDate?: Date | string
   }
 
   export type ModIssueUpdateManyMutationInput = {
@@ -15692,7 +15692,7 @@ export namespace Prisma {
   }
 
   export type ModIssuePostCreateInput = {
-    createDate: Date | string
+    createDate?: Date | string
     text: string
     Issue: ModIssueCreateNestedOneWithoutModIssuePostInput
     Author: UserCreateNestedOneWithoutModIssuePostsInput
@@ -15702,7 +15702,7 @@ export namespace Prisma {
     id?: number
     issue_id: number
     author_id: number
-    createDate: Date | string
+    createDate?: Date | string
     text: string
   }
 
@@ -15725,7 +15725,7 @@ export namespace Prisma {
     id?: number
     issue_id: number
     author_id: number
-    createDate: Date | string
+    createDate?: Date | string
     text: string
   }
 
@@ -18033,7 +18033,7 @@ export namespace Prisma {
   export type ModIssueCreateWithoutAuthorInput = {
     name: string
     type: number
-    createDate: Date | string
+    createDate?: Date | string
     Mod: ModCreateNestedOneWithoutIssuesInput
     ModIssuePost?: ModIssuePostCreateNestedManyWithoutIssueInput
   }
@@ -18043,7 +18043,7 @@ export namespace Prisma {
     mod_id: number
     name: string
     type: number
-    createDate: Date | string
+    createDate?: Date | string
     ModIssuePost?: ModIssuePostUncheckedCreateNestedManyWithoutIssueInput
   }
 
@@ -18058,7 +18058,7 @@ export namespace Prisma {
   }
 
   export type ModIssuePostCreateWithoutAuthorInput = {
-    createDate: Date | string
+    createDate?: Date | string
     text: string
     Issue: ModIssueCreateNestedOneWithoutModIssuePostInput
   }
@@ -18066,7 +18066,7 @@ export namespace Prisma {
   export type ModIssuePostUncheckedCreateWithoutAuthorInput = {
     id?: number
     issue_id: number
-    createDate: Date | string
+    createDate?: Date | string
     text: string
   }
 
@@ -18701,7 +18701,7 @@ export namespace Prisma {
   export type ModVersionCreateWithoutModInput = {
     version: string
     game_version: string
-    releaseDate: Date | string
+    releaseDate?: Date | string
     Downloads?: ModDownloadCreateNestedManyWithoutVersionInput
   }
 
@@ -18709,7 +18709,7 @@ export namespace Prisma {
     id?: number
     version: string
     game_version: string
-    releaseDate: Date | string
+    releaseDate?: Date | string
     Downloads?: ModDownloadUncheckedCreateNestedManyWithoutVersionInput
   }
 
@@ -18744,7 +18744,7 @@ export namespace Prisma {
   export type ModIssueCreateWithoutModInput = {
     name: string
     type: number
-    createDate: Date | string
+    createDate?: Date | string
     Author: UserCreateNestedOneWithoutModIssuesInput
     ModIssuePost?: ModIssuePostCreateNestedManyWithoutIssueInput
   }
@@ -18754,7 +18754,7 @@ export namespace Prisma {
     name: string
     type: number
     author_id: number
-    createDate: Date | string
+    createDate?: Date | string
     ModIssuePost?: ModIssuePostUncheckedCreateNestedManyWithoutIssueInput
   }
 
@@ -19613,7 +19613,7 @@ export namespace Prisma {
   }
 
   export type ModIssuePostCreateWithoutIssueInput = {
-    createDate: Date | string
+    createDate?: Date | string
     text: string
     Author: UserCreateNestedOneWithoutModIssuePostsInput
   }
@@ -19621,7 +19621,7 @@ export namespace Prisma {
   export type ModIssuePostUncheckedCreateWithoutIssueInput = {
     id?: number
     author_id: number
-    createDate: Date | string
+    createDate?: Date | string
     text: string
   }
 
@@ -19744,7 +19744,7 @@ export namespace Prisma {
   export type ModIssueCreateWithoutModIssuePostInput = {
     name: string
     type: number
-    createDate: Date | string
+    createDate?: Date | string
     Mod: ModCreateNestedOneWithoutIssuesInput
     Author: UserCreateNestedOneWithoutModIssuesInput
   }
@@ -19755,7 +19755,7 @@ export namespace Prisma {
     name: string
     type: number
     author_id: number
-    createDate: Date | string
+    createDate?: Date | string
   }
 
   export type ModIssueCreateOrConnectWithoutModIssuePostInput = {
@@ -20452,7 +20452,7 @@ export namespace Prisma {
   export type ModVersionCreateWithoutDownloadsInput = {
     version: string
     game_version: string
-    releaseDate: Date | string
+    releaseDate?: Date | string
     Mod: ModCreateNestedOneWithoutVersionsInput
   }
 
@@ -20461,7 +20461,7 @@ export namespace Prisma {
     mod_id: number
     version: string
     game_version: string
-    releaseDate: Date | string
+    releaseDate?: Date | string
   }
 
   export type ModVersionCreateOrConnectWithoutDownloadsInput = {
@@ -20598,13 +20598,13 @@ export namespace Prisma {
     mod_id: number
     name: string
     type: number
-    createDate: Date | string
+    createDate?: Date | string
   }
 
   export type ModIssuePostCreateManyAuthorInput = {
     id?: number
     issue_id: number
-    createDate: Date | string
+    createDate?: Date | string
     text: string
   }
 
@@ -20868,7 +20868,7 @@ export namespace Prisma {
     id?: number
     version: string
     game_version: string
-    releaseDate: Date | string
+    releaseDate?: Date | string
   }
 
   export type ModIssueCreateManyModInput = {
@@ -20876,7 +20876,7 @@ export namespace Prisma {
     name: string
     type: number
     author_id: number
-    createDate: Date | string
+    createDate?: Date | string
   }
 
   export type ModsFavoritsCreateManyModInput = {
@@ -21125,7 +21125,7 @@ export namespace Prisma {
   export type ModIssuePostCreateManyIssueInput = {
     id?: number
     author_id: number
-    createDate: Date | string
+    createDate?: Date | string
     text: string
   }
 
