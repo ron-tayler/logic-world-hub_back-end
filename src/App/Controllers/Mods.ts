@@ -269,11 +269,9 @@ export class ControllerModsGetMods {
         const issue_id = Number(id)
         if(isNaN(issue_id)) throw new Error("Error issue_id")
         if(text_raw == undefined || text_raw.length<1) throw new Error("Error text")
-        const text = text_raw
 
-        // Запрос в БД
+        const post = await this._model_mod.createIssuePost(issue_id,author_id,text_raw)
 
-        // Возврат ID поста
-        return "OK"
+        return post.id
     }
 }
