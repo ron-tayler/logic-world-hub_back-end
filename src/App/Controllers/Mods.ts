@@ -1,8 +1,9 @@
 import {inject} from "inversify";
 import {ModelMod} from "@/App/Model/Mods/Mod";
-import {controller, httpGet, queryParam, requestParam} from "inversify-express-utils";
+import {controller, httpGet, httpPost, queryParam, requestParam, requestBody, request} from "inversify-express-utils";
 import {Author, Issue, IssueMinimal, IssuePost, ModMinimal, SchemaMod, Tag, Version} from "@/App/Schemes/Mod";
 import {HelperObject} from "@/Helpers/Object";
+import {IOCreateIssue} from "@/App/Schemes/Requests/CreateIssue";
 
 // (a * t) + ((1 - a) * p)
 // a = 1/кол-во активности за день
@@ -238,4 +239,41 @@ export class ControllerModsGetMods {
         return {}
     }
 
+    @httpPost("/mod/:mod_id/issue/create")
+    async createModIssue(
+        @requestParam("mod_id") id: string,
+        @requestBody() body_raw: unknown
+    ){
+        const author_id = 1
+        const issue_id = Number(id)
+        if(isNaN(issue_id)) throw new Error("Error issue_id")
+        const result = IOCreateIssue.decode(body_raw)
+        if(result._tag == "Left")
+            throw new Error("Error in json")
+        const issue = result.right
+        if(issue.name.length < 1) throw new Error("Error name")
+        if(issue.text.length < 1) throw new Error("Error text")
+
+        // Запрос в БД
+
+        // Возврат ID issue
+        return "OK"
+    }
+
+    @httpPost("/mod/issue/:issue_id/post/send")
+    async sendModIssuePost(
+        @requestParam("issue_id") id: string,
+        @queryParam("text") text_raw: string|undefined
+    ){
+        const author_id = 1
+        const issue_id = Number(id)
+        if(isNaN(issue_id)) throw new Error("Error issue_id")
+        if(text_raw == undefined || text_raw.length<1) throw new Error("Error text")
+        const text = text_raw
+
+        // Запрос в БД
+
+        // Возврат ID поста
+        return "OK"
+    }
 }
