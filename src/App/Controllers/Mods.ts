@@ -245,19 +245,19 @@ export class ControllerModsGetMods {
         @requestBody() body_raw: unknown
     ){
         const author_id = 1
-        const issue_id = Number(id)
-        if(isNaN(issue_id)) throw new Error("Error issue_id")
+        const mod_id = Number(id)
+        if(isNaN(mod_id)) throw new Error("Error issue_id")
         const result = IOCreateIssue.decode(body_raw)
         if(result._tag == "Left")
             throw new Error("Error in json")
-        const issue = result.right
-        if(issue.name.length < 1) throw new Error("Error name")
-        if(issue.text.length < 1) throw new Error("Error text")
+        const issue_data = result.right
+        if(issue_data.name.length < 1) throw new Error("Error name")
+        if(issue_data.text.length < 1) throw new Error("Error text")
 
-        // Запрос в БД
+        const issue = await this._model_mod.createIssue(mod_id,author_id,issue_data.name,issue_data.type)
+        await this._model_mod.createIssuePost(issue.id,author_id,issue_data.text)
 
-        // Возврат ID issue
-        return "OK"
+        return issue.id
     }
 
     @httpPost("/mod/issue/:issue_id/post/send")
