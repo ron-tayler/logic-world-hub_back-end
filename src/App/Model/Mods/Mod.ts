@@ -134,6 +134,26 @@ export class ModelMod {
                 }
             })
     }
+
+    createIssue(issue_id: number, author_id:number, text: string) {
+        return this._prisma.modIssuePost.create({
+            data: {
+                createDate: new Date(),
+                text,
+                Author: {
+                    connect: {
+                        id: author_id
+                    }
+                },
+                Issue: {
+                    connect: {
+                        id: issue_id
+                    }
+                }
+            }
+        })
+    }
+
     getIssues(mod_id: number){
         return this._prisma.mod
             .findUnique({where:{id: mod_id}})
