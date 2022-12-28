@@ -113,11 +113,18 @@ model ModVersion {
   Downloads ModDownload[]
 }
 
+enum ModIssueType {
+    GENERAL
+    BUGS
+    ANNOUNCEMENTS
+    IDEAS
+}
+
 model ModIssue {
   id         Int      @id @default(autoincrement())
   mod_id     Int
   name       String   @db.VarChar(100)
-  type       Int
+  type       ModIssueType
   author_id  Int
   createDate DateTime @default(now())
 
