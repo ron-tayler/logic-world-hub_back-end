@@ -1,8 +1,10 @@
 import {inject} from "inversify";
+import * as IO from "io-ts"
 import {ModelMod} from "@/App/Model/Mods/Mod";
-import {controller, httpGet, queryParam, requestParam} from "inversify-express-utils";
+import {controller, httpGet, httpPost, queryParam, requestParam, requestBody, request} from "inversify-express-utils";
 import {Author, Issue, IssueMinimal, IssuePost, ModMinimal, SchemaMod, Tag, Version} from "@/App/Schemes/Mod";
 import {HelperObject} from "@/Helpers/Object";
+import {IOCreateIssue} from "@/App/Schemes/Requests/CreateIssue";
 
 // (a * t) + ((1 - a) * p)
 // a = 1/кол-во активности за день
@@ -238,4 +240,43 @@ export class ControllerModsGetMods {
         return {}
     }
 
+    @httpPost("/mod/:mod_id/issue/create")
+    async createModIssue(
+        @requestParam("mod_id") id: string,
+        @requestBody() body_raw: unknown
+    ){
+        const author_id = 1
+        const mod_id = Number(id)
+        if(isNaN(mod_id)) throw new Error("Error issue_id")
+        const result = IOCreateIssue.decode(body_raw)
+        if(result._tag == "Left")
+            throw new Error("Error in json")
+        const issue_data = result.right
+        if(issue_data.name.length < 1) throw new Error("Error name")
+        if(issue_data.text.length < 1) throw new Error("Error text")
+
+        const issue = await this._model_mod.createIssue(mod_id,author_id,issue_data.name,issue_data.type)
+        await this._model_mod.createIssuePost(issue.id,author_id,issue_data.text)
+
+        return "OK"
+    }
+
+    @httpPost("/mod/issue/:issue_id/post/send")
+    async sendModIssuePost(
+        @requestParam("issue_id") id: string,
+        @requestBody() body_raw: unknown
+    ){
+        const author_id = 1
+        const issue_id = Number(id)
+        if(isNaN(issue_id)) throw new Error("Error issue_id")
+        const data = IO.type({
+            text: IO.string
+        }).decode(body_raw)
+        if(data._tag == "Left") throw new Error("Error text")
+        if(data.right.text.length<1) throw new Error("Error text")
+
+        await this._model_mod.createIssuePost(issue_id,author_id,data.right.text)
+
+        return "OK"
+    }
 }
