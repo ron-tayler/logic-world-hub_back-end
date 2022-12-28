@@ -1,5 +1,6 @@
 import {injectable, inject} from "inversify"
 import {PrismaClient} from "@/../prisma/generated/lwh";
+import {ModIssueTypes} from "@/App/Schemes/Types";
 
 @injectable()
 export class ModelMod {
@@ -134,6 +135,7 @@ export class ModelMod {
                 }
             })
     }
+
     getIssues(mod_id: number){
         return this._prisma.mod
             .findUnique({where:{id: mod_id}})
@@ -204,6 +206,44 @@ export class ModelMod {
             }
         })
     }
+    createIssue(mod_id: number, author_id: number, name: string, type: ModIssueTypes) {
+        return this._prisma.modIssue.create({
+            data: {
+                createDate: new Date(),
+                name,
+                type,
+                Mod: {
+                    connect: {
+                        id: mod_id
+                    }
+                },
+                Author: {
+                    connect: {
+                        id: author_id
+                    }
+                }
+            }
+        })
+    }
+    createIssuePost(issue_id: number, author_id: number, text: string) {
+        return this._prisma.modIssuePost.create({
+            data: {
+                createDate: new Date(),
+                text,
+                Author: {
+                    connect: {
+                        id: author_id
+                    }
+                },
+                Issue: {
+                    connect: {
+                        id: issue_id
+                    }
+                }
+            }
+        })
+    }
+
 
     isActive(mod_id: number){
         return this._prisma.mod.findUnique({
