@@ -186,7 +186,12 @@ exports.Prisma.SortOrder = makeEnum({
   asc: 'asc',
   desc: 'desc'
 });
-
+exports.ModIssueType = makeEnum({
+  GENERAL: 'GENERAL',
+  BUGS: 'BUGS',
+  ANNOUNCEMENTS: 'ANNOUNCEMENTS',
+  IDEAS: 'IDEAS'
+});
 
 exports.Prisma.ModelName = makeEnum({
   User: 'User',

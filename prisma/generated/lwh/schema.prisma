@@ -14,7 +14,7 @@ model User {
   nick       String   @db.Text
   createDate DateTime @default(now()) @db.DateTime(0)
   is_active  Boolean  @default(false)
-  avatar     String   @default("")
+  avatar     String   @db.VarChar(255) @default("")
 
   UserAuth        UserAuth?
   ModsCollections ModsCollection[]
@@ -29,17 +29,17 @@ model User {
 
 model UserAuth {
   userId   Int    @unique
-  email    String
-  password String
+  email    String @db.VarChar(100)
+  password String @db.VarChar(100)
 
   User User @relation(fields: [userId], references: [id])
 }
 
 model ModsCollection {
   id          Int      @id @default(autoincrement())
-  avatar      String
-  name        String
-  description String
+  avatar      String   @db.VarChar(255)
+  name        String   @db.VarChar(100)
+  description String   @db.Text
   createDate  DateTime @default(now())
   is_active   Boolean  @default(false)
   author_id   Int
@@ -50,19 +50,19 @@ model ModsCollection {
 
 model Mod {
   id               Int      @id @default(autoincrement())
-  avatar           String
-  name             String
-  description      String
+  avatar           String   @db.VarChar(255)
+  name             String   @db.VarChar(100)
+  description      String   @db.Text
   createDate       DateTime @default(now())
   is_active        Boolean  @default(false)
   collection_id    Int
   views            Int
   readme_type      Int
-  readme           String
+  readme           String   @db.Text
   change_list_type Int
-  change_list      String
-  repository       String
-  docs_url         String
+  change_list      String   @db.Text
+  repository       String   @db.VarChar(255)
+  docs_url         String   @db.VarChar(255)
 
   Collection  ModsCollection   @relation(fields: [collection_id], references: [id])
   Images      ModImage[]
@@ -90,14 +90,14 @@ model ModAuthor {
 model ModImage {
   id     Int    @id @default(autoincrement())
   mod_id Int
-  url    String
+  url    String @db.VarChar(255)
 
   Mod Mod @relation(fields: [mod_id], references: [id])
 }
 
 model ModTag {
   id   Int    @id @default(autoincrement())
-  name String
+  name String @db.VarChar(100)
 
   Mod Mod[]
 }
@@ -105,19 +105,26 @@ model ModTag {
 model ModVersion {
   id           Int      @id @default(autoincrement())
   mod_id       Int
-  version      String
-  game_version String
+  version      String   @db.VarChar(30)
+  game_version String   @db.VarChar(30)
   releaseDate  DateTime @default(now())
 
   Mod       Mod           @relation(fields: [mod_id], references: [id])
   Downloads ModDownload[]
 }
 
+enum ModIssueType {
+    GENERAL
+    BUGS
+    ANNOUNCEMENTS
+    IDEAS
+}
+
 model ModIssue {
   id         Int      @id @default(autoincrement())
   mod_id     Int
-  name       String
-  type       Int
+  name       String   @db.VarChar(100)
+  type       ModIssueType
   author_id  Int
   createDate DateTime @default(now())
 
@@ -131,7 +138,7 @@ model ModIssuePost {
   issue_id   Int
   author_id  Int
   createDate DateTime @default(now())
-  text       String
+  text       String   @db.Text
 
   Issue  ModIssue @relation(fields: [issue_id], references: [id])
   Author User     @relation(fields: [author_id], references: [id])
@@ -141,7 +148,7 @@ model ModsList {
   id        Int     @id @default(autoincrement())
   author_id Int
   is_public Boolean
-  name      String
+  name      String  @db.VarChar(100)
 
   Author User  @relation(fields: [author_id], references: [id])
   Mods   Mod[]

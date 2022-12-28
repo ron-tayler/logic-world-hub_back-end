@@ -118,7 +118,7 @@ export type ModIssue = {
   id: number
   mod_id: number
   name: string
-  type: number
+  type: ModIssueType
   author_id: number
   createDate: Date
 }
@@ -173,6 +173,23 @@ export type ModDownload = {
   mod_id: number
   version_id: number
 }
+
+
+/**
+ * Enums
+ */
+
+// Based on
+// https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
+
+export const ModIssueType: {
+  GENERAL: 'GENERAL',
+  BUGS: 'BUGS',
+  ANNOUNCEMENTS: 'ANNOUNCEMENTS',
+  IDEAS: 'IDEAS'
+};
+
+export type ModIssueType = (typeof ModIssueType)[keyof typeof ModIssueType]
 
 
 /**
@@ -8818,14 +8835,12 @@ export namespace Prisma {
   export type ModIssueAvgAggregateOutputType = {
     id: number | null
     mod_id: number | null
-    type: number | null
     author_id: number | null
   }
 
   export type ModIssueSumAggregateOutputType = {
     id: number | null
     mod_id: number | null
-    type: number | null
     author_id: number | null
   }
 
@@ -8833,7 +8848,7 @@ export namespace Prisma {
     id: number | null
     mod_id: number | null
     name: string | null
-    type: number | null
+    type: ModIssueType | null
     author_id: number | null
     createDate: Date | null
   }
@@ -8842,7 +8857,7 @@ export namespace Prisma {
     id: number | null
     mod_id: number | null
     name: string | null
-    type: number | null
+    type: ModIssueType | null
     author_id: number | null
     createDate: Date | null
   }
@@ -8861,14 +8876,12 @@ export namespace Prisma {
   export type ModIssueAvgAggregateInputType = {
     id?: true
     mod_id?: true
-    type?: true
     author_id?: true
   }
 
   export type ModIssueSumAggregateInputType = {
     id?: true
     mod_id?: true
-    type?: true
     author_id?: true
   }
 
@@ -8996,7 +9009,7 @@ export namespace Prisma {
     id: number
     mod_id: number
     name: string
-    type: number
+    type: ModIssueType
     author_id: number
     createDate: Date
     _count: ModIssueCountAggregateOutputType | null
@@ -14837,7 +14850,7 @@ export namespace Prisma {
     id?: IntFilter | number
     mod_id?: IntFilter | number
     name?: StringFilter | string
-    type?: IntFilter | number
+    type?: EnumModIssueTypeFilter | ModIssueType
     author_id?: IntFilter | number
     createDate?: DateTimeFilter | Date | string
     Mod?: XOR<ModRelationFilter, ModWhereInput>
@@ -14882,7 +14895,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter | number
     mod_id?: IntWithAggregatesFilter | number
     name?: StringWithAggregatesFilter | string
-    type?: IntWithAggregatesFilter | number
+    type?: EnumModIssueTypeWithAggregatesFilter | ModIssueType
     author_id?: IntWithAggregatesFilter | number
     createDate?: DateTimeWithAggregatesFilter | Date | string
   }
@@ -15631,7 +15644,7 @@ export namespace Prisma {
 
   export type ModIssueCreateInput = {
     name: string
-    type: number
+    type: ModIssueType
     createDate?: Date | string
     Mod: ModCreateNestedOneWithoutIssuesInput
     Author: UserCreateNestedOneWithoutModIssuesInput
@@ -15642,7 +15655,7 @@ export namespace Prisma {
     id?: number
     mod_id: number
     name: string
-    type: number
+    type: ModIssueType
     author_id: number
     createDate?: Date | string
     ModIssuePost?: ModIssuePostUncheckedCreateNestedManyWithoutIssueInput
@@ -15650,7 +15663,7 @@ export namespace Prisma {
 
   export type ModIssueUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    type?: IntFieldUpdateOperationsInput | number
+    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     Mod?: ModUpdateOneRequiredWithoutIssuesInput
     Author?: UserUpdateOneRequiredWithoutModIssuesInput
@@ -15661,7 +15674,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: IntFieldUpdateOperationsInput | number
+    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
     author_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     ModIssuePost?: ModIssuePostUncheckedUpdateManyWithoutIssueInput
@@ -15671,14 +15684,14 @@ export namespace Prisma {
     id?: number
     mod_id: number
     name: string
-    type: number
+    type: ModIssueType
     author_id: number
     createDate?: Date | string
   }
 
   export type ModIssueUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    type?: IntFieldUpdateOperationsInput | number
+    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15686,7 +15699,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: IntFieldUpdateOperationsInput | number
+    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
     author_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16420,6 +16433,13 @@ export namespace Prisma {
     mod_id?: SortOrder
   }
 
+  export type EnumModIssueTypeFilter = {
+    equals?: ModIssueType
+    in?: Enumerable<ModIssueType>
+    notIn?: Enumerable<ModIssueType>
+    not?: NestedEnumModIssueTypeFilter | ModIssueType
+  }
+
   export type ModIssueCountOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
@@ -16432,7 +16452,6 @@ export namespace Prisma {
   export type ModIssueAvgOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
-    type?: SortOrder
     author_id?: SortOrder
   }
 
@@ -16457,8 +16476,17 @@ export namespace Prisma {
   export type ModIssueSumOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
-    type?: SortOrder
     author_id?: SortOrder
+  }
+
+  export type EnumModIssueTypeWithAggregatesFilter = {
+    equals?: ModIssueType
+    in?: Enumerable<ModIssueType>
+    notIn?: Enumerable<ModIssueType>
+    not?: NestedEnumModIssueTypeWithAggregatesFilter | ModIssueType
+    _count?: NestedIntFilter
+    _min?: NestedEnumModIssueTypeFilter
+    _max?: NestedEnumModIssueTypeFilter
   }
 
   export type ModIssueRelationFilter = {
@@ -17637,6 +17665,10 @@ export namespace Prisma {
     connect?: Enumerable<ModIssuePostWhereUniqueInput>
   }
 
+  export type EnumModIssueTypeFieldUpdateOperationsInput = {
+    set?: ModIssueType
+  }
+
   export type ModUpdateOneRequiredWithoutIssuesInput = {
     create?: XOR<ModCreateWithoutIssuesInput, ModUncheckedCreateWithoutIssuesInput>
     connectOrCreate?: ModCreateOrConnectWithoutIssuesInput
@@ -17966,6 +17998,23 @@ export namespace Prisma {
     _max?: NestedBoolFilter
   }
 
+  export type NestedEnumModIssueTypeFilter = {
+    equals?: ModIssueType
+    in?: Enumerable<ModIssueType>
+    notIn?: Enumerable<ModIssueType>
+    not?: NestedEnumModIssueTypeFilter | ModIssueType
+  }
+
+  export type NestedEnumModIssueTypeWithAggregatesFilter = {
+    equals?: ModIssueType
+    in?: Enumerable<ModIssueType>
+    notIn?: Enumerable<ModIssueType>
+    not?: NestedEnumModIssueTypeWithAggregatesFilter | ModIssueType
+    _count?: NestedIntFilter
+    _min?: NestedEnumModIssueTypeFilter
+    _max?: NestedEnumModIssueTypeFilter
+  }
+
   export type UserAuthCreateWithoutUserInput = {
     email: string
     password: string
@@ -18032,7 +18081,7 @@ export namespace Prisma {
 
   export type ModIssueCreateWithoutAuthorInput = {
     name: string
-    type: number
+    type: ModIssueType
     createDate?: Date | string
     Mod: ModCreateNestedOneWithoutIssuesInput
     ModIssuePost?: ModIssuePostCreateNestedManyWithoutIssueInput
@@ -18042,7 +18091,7 @@ export namespace Prisma {
     id?: number
     mod_id: number
     name: string
-    type: number
+    type: ModIssueType
     createDate?: Date | string
     ModIssuePost?: ModIssuePostUncheckedCreateNestedManyWithoutIssueInput
   }
@@ -18251,7 +18300,7 @@ export namespace Prisma {
     id?: IntFilter | number
     mod_id?: IntFilter | number
     name?: StringFilter | string
-    type?: IntFilter | number
+    type?: EnumModIssueTypeFilter | ModIssueType
     author_id?: IntFilter | number
     createDate?: DateTimeFilter | Date | string
   }
@@ -18743,7 +18792,7 @@ export namespace Prisma {
 
   export type ModIssueCreateWithoutModInput = {
     name: string
-    type: number
+    type: ModIssueType
     createDate?: Date | string
     Author: UserCreateNestedOneWithoutModIssuesInput
     ModIssuePost?: ModIssuePostCreateNestedManyWithoutIssueInput
@@ -18752,7 +18801,7 @@ export namespace Prisma {
   export type ModIssueUncheckedCreateWithoutModInput = {
     id?: number
     name: string
-    type: number
+    type: ModIssueType
     author_id: number
     createDate?: Date | string
     ModIssuePost?: ModIssuePostUncheckedCreateNestedManyWithoutIssueInput
@@ -19743,7 +19792,7 @@ export namespace Prisma {
 
   export type ModIssueCreateWithoutModIssuePostInput = {
     name: string
-    type: number
+    type: ModIssueType
     createDate?: Date | string
     Mod: ModCreateNestedOneWithoutIssuesInput
     Author: UserCreateNestedOneWithoutModIssuesInput
@@ -19753,7 +19802,7 @@ export namespace Prisma {
     id?: number
     mod_id: number
     name: string
-    type: number
+    type: ModIssueType
     author_id: number
     createDate?: Date | string
   }
@@ -19806,7 +19855,7 @@ export namespace Prisma {
 
   export type ModIssueUpdateWithoutModIssuePostInput = {
     name?: StringFieldUpdateOperationsInput | string
-    type?: IntFieldUpdateOperationsInput | number
+    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     Mod?: ModUpdateOneRequiredWithoutIssuesInput
     Author?: UserUpdateOneRequiredWithoutModIssuesInput
@@ -19816,7 +19865,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: IntFieldUpdateOperationsInput | number
+    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
     author_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20597,7 +20646,7 @@ export namespace Prisma {
     id?: number
     mod_id: number
     name: string
-    type: number
+    type: ModIssueType
     createDate?: Date | string
   }
 
@@ -20672,7 +20721,7 @@ export namespace Prisma {
 
   export type ModIssueUpdateWithoutAuthorInput = {
     name?: StringFieldUpdateOperationsInput | string
-    type?: IntFieldUpdateOperationsInput | number
+    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     Mod?: ModUpdateOneRequiredWithoutIssuesInput
     ModIssuePost?: ModIssuePostUpdateManyWithoutIssueInput
@@ -20682,7 +20731,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: IntFieldUpdateOperationsInput | number
+    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     ModIssuePost?: ModIssuePostUncheckedUpdateManyWithoutIssueInput
   }
@@ -20691,7 +20740,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: IntFieldUpdateOperationsInput | number
+    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20874,7 +20923,7 @@ export namespace Prisma {
   export type ModIssueCreateManyModInput = {
     id?: number
     name: string
-    type: number
+    type: ModIssueType
     author_id: number
     createDate?: Date | string
   }
@@ -20979,7 +21028,7 @@ export namespace Prisma {
 
   export type ModIssueUpdateWithoutModInput = {
     name?: StringFieldUpdateOperationsInput | string
-    type?: IntFieldUpdateOperationsInput | number
+    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     Author?: UserUpdateOneRequiredWithoutModIssuesInput
     ModIssuePost?: ModIssuePostUpdateManyWithoutIssueInput
@@ -20988,7 +21037,7 @@ export namespace Prisma {
   export type ModIssueUncheckedUpdateWithoutModInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: IntFieldUpdateOperationsInput | number
+    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
     author_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     ModIssuePost?: ModIssuePostUncheckedUpdateManyWithoutIssueInput
@@ -20997,7 +21046,7 @@ export namespace Prisma {
   export type ModIssueUncheckedUpdateManyWithoutIssuesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: IntFieldUpdateOperationsInput | number
+    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
     author_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }

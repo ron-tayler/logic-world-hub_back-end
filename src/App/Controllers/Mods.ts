@@ -5,6 +5,8 @@ import {controller, httpGet, httpPost, queryParam, requestParam, requestBody, re
 import {Author, Issue, IssueMinimal, IssuePost, ModMinimal, SchemaMod, Tag, Version} from "@/App/Schemes/Mod";
 import {HelperObject} from "@/Helpers/Object";
 import {IOCreateIssue} from "@/App/Schemes/Requests/CreateIssue";
+import {ModIssueTypes} from "@/App/Schemes/Types";
+import {ModIssueType} from "../../../prisma/generated/lwh";
 
 // (a * t) + ((1 - a) * p)
 // a = 1/кол-во активности за день
@@ -180,7 +182,7 @@ export class ControllerModsGetMods {
         return issues.map(issue=>Issue.encode({
             id: issue.id,
             name: issue.name,
-            type: issue.type,
+            type: ModIssueTypes[issue.type],
             posts: issue._count.ModIssuePost,
             createDate: issue.createDate,
             author: {
@@ -211,7 +213,7 @@ export class ControllerModsGetMods {
             issue: IssueMinimal.encode({
                 id: issue.id,
                 name: issue.name,
-                type: issue.type,
+                type: ModIssueTypes[issue.type],
                 author: {
                     id: issue.Author.id,
                     nick: issue.Author.nick
@@ -254,8 +256,10 @@ export class ControllerModsGetMods {
         const issue_data = result.right
         if(issue_data.name.length < 1) throw new Error("Error name")
         if(issue_data.text.length < 1) throw new Error("Error text")
+        const issue_type = ModIssueTypes[issue_data.type] as ModIssueType|undefined
+        if(issue_type == undefined) throw new Error("Error type")
 
-        const issue = await this._model_mod.createIssue(mod_id,author_id,issue_data.name,issue_data.type)
+        const issue = await this._model_mod.createIssue(mod_id,author_id,issue_data.name,issue_type)
         await this._model_mod.createIssuePost(issue.id,author_id,issue_data.text)
 
         return "OK"

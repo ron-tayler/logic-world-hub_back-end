@@ -1,6 +1,5 @@
 import {injectable, inject} from "inversify"
-import {PrismaClient} from "@/../prisma/generated/lwh";
-import {ModIssueTypes} from "@/App/Schemes/Types";
+import {PrismaClient, ModIssueType} from "@/../prisma/generated/lwh";
 
 @injectable()
 export class ModelMod {
@@ -206,7 +205,7 @@ export class ModelMod {
             }
         })
     }
-    createIssue(mod_id: number, author_id: number, name: string, type: ModIssueTypes) {
+    createIssue(mod_id: number, author_id: number, name: string, type: ModIssueType) {
         return this._prisma.modIssue.create({
             data: {
                 createDate: new Date(),
