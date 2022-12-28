@@ -1,4 +1,5 @@
 import {inject} from "inversify";
+import * as IO from "io-ts"
 import {ModelMod} from "@/App/Model/Mods/Mod";
 import {controller, httpGet, httpPost, queryParam, requestParam, requestBody, request} from "inversify-express-utils";
 import {Author, Issue, IssueMinimal, IssuePost, ModMinimal, SchemaMod, Tag, Version} from "@/App/Schemes/Mod";
@@ -257,21 +258,25 @@ export class ControllerModsGetMods {
         const issue = await this._model_mod.createIssue(mod_id,author_id,issue_data.name,issue_data.type)
         await this._model_mod.createIssuePost(issue.id,author_id,issue_data.text)
 
-        return issue.id
+        return "OK"
     }
 
     @httpPost("/mod/issue/:issue_id/post/send")
     async sendModIssuePost(
         @requestParam("issue_id") id: string,
-        @queryParam("text") text_raw: string|undefined
+        @requestBody() body_raw: unknown
     ){
         const author_id = 1
         const issue_id = Number(id)
         if(isNaN(issue_id)) throw new Error("Error issue_id")
-        if(text_raw == undefined || text_raw.length<1) throw new Error("Error text")
+        const data = IO.type({
+            text: IO.string
+        }).decode(body_raw)
+        if(data._tag == "Left") throw new Error("Error text")
+        if(data.right.text.length<1) throw new Error("Error text")
 
-        const post = await this._model_mod.createIssuePost(issue_id,author_id,text_raw)
+        await this._model_mod.createIssuePost(issue_id,author_id,data.right.text)
 
-        return post.id
+        return "OK"
     }
 }
