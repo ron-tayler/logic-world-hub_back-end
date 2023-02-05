@@ -10,10 +10,10 @@ import {ModIssueType} from "../../../prisma/generated/lwh";
 
 // (a * t) + ((1 - a) * p)
 // a = 1/кол-во активности за день
-// t =
+// t = Date.now()
 
 @controller("/mods")
-export class ControllerModsGetMods {
+export class ControllerModsGetMods extends BaseHttpController {
     @inject("Model/Mods/Mod") private _model_mod!: ModelMod
 
     @httpGet("/most-downloaded")
