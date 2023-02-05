@@ -1,6 +1,6 @@
 import {inject} from "inversify"
 import {provide, fluentProvide} from "inversify-binding-decorators"
-import {PrismaClient, ModIssueType} from "@/../prisma/generated/lwh";
+import {PrismaClient, Mod_Issue_Type} from "@/../prisma/generated/lwh";
 
 @fluentProvide("Model/Mods/Mod")
     .inSingletonScope()
@@ -38,7 +38,7 @@ export class ModelMod {
         })
     }
     getModsOrderByUpdated(skip: number = 0, take: number = 10){
-        return this._prisma.modVersion.groupBy({
+        return this._prisma.mod_Version.groupBy({
             by: ["mod_id"],
             _max:{
                 releaseDate: true
@@ -177,7 +177,7 @@ export class ModelMod {
             })
     }
     getIssue(mod_id: number, issue_id: number){
-        return this._prisma.modIssue.findUnique({
+        return this._prisma.mod_Issue.findUnique({
             where:{id: issue_id},
             select:{
                 id: true,
@@ -208,8 +208,8 @@ export class ModelMod {
             }
         })
     }
-    createIssue(mod_id: number, author_id: number, name: string, type: ModIssueType) {
-        return this._prisma.modIssue.create({
+    createIssue(mod_id: number, author_id: number, name: string, type: Mod_Issue_Type) {
+        return this._prisma.mod_Issue.create({
             data: {
                 createDate: new Date(),
                 name,
@@ -228,7 +228,7 @@ export class ModelMod {
         })
     }
     createIssuePost(issue_id: number, author_id: number, text: string) {
-        return this._prisma.modIssuePost.create({
+        return this._prisma.mod_Issue_Post.create({
             data: {
                 createDate: new Date(),
                 text,
