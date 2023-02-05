@@ -5,8 +5,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model User {
@@ -14,20 +15,21 @@ model User {
   nick       String   @db.Text
   createDate DateTime @default(now()) @db.DateTime(0)
   is_active  Boolean  @default(false)
-  avatar     String   @db.VarChar(255) @default("")
+  avatar     String   @default("") @db.VarChar(255)
 
-  UserAuth        UserAuth?
-  ModsCollections ModsCollection[]
-  ModAuthors      ModAuthor[]
-  ModIssues       ModIssue[]
-  ModIssuePosts   ModIssuePost[]
-  ModsLists       ModsList[]
-  ModsFavorits    ModsFavorits[]
-  ModSubscribers  ModSubscribers[]
-  ModDownloads    ModDownload[]
+  UserAuth        User_Auth?
+  ModsCollections Mods_Collection[]
+  ModAuthors      Mod_Author[]
+  ModIssues       Mod_Issue[]
+  ModIssuePosts   Mod_Issue_Post[]
+  ModsLists       Mods_List[]
+  ModsFavorits    Mods_Favorits[]
+  ModSubscribers  Mod_Subscribers[]
+  ModDownloads    Mod_Download[]
+  UserSession     User_Session[]
 }
 
-model UserAuth {
+model User_Auth {
   userId   Int    @unique
   email    String @db.VarChar(100)
   password String @db.VarChar(100)
@@ -35,7 +37,7 @@ model UserAuth {
   User User @relation(fields: [userId], references: [id])
 }
 
-model ModsCollection {
+model Mods_Collection {
   id          Int      @id @default(autoincrement())
   avatar      String   @db.VarChar(255)
   name        String   @db.VarChar(100)
@@ -64,19 +66,19 @@ model Mod {
   repository       String   @db.VarChar(255)
   docs_url         String   @db.VarChar(255)
 
-  Collection  ModsCollection   @relation(fields: [collection_id], references: [id])
-  Images      ModImage[]
-  Authors     ModAuthor[]
-  Tags        ModTag[]
-  Versions    ModVersion[]
-  Lists       ModsList[]
-  Issues      ModIssue[]
-  Favorits    ModsFavorits[]
-  Subscribers ModSubscribers[]
-  Downloads   ModDownload[]
+  Collection  Mods_Collection   @relation(fields: [collection_id], references: [id])
+  Images      Mod_Image[]
+  Authors     Mod_Author[]
+  Tags        Mod_Tag[]
+  Versions    Mod_Version[]
+  Lists       Mods_List[]
+  Issues      Mod_Issue[]
+  Favorits    Mods_Favorits[]
+  Subscribers Mod_Subscribers[]
+  Downloads   Mod_Download[]
 }
 
-model ModAuthor {
+model Mod_Author {
   mod_id  Int
   user_id Int
   type    Int
@@ -87,7 +89,7 @@ model ModAuthor {
   @@unique([mod_id, user_id])
 }
 
-model ModImage {
+model Mod_Image {
   id     Int    @id @default(autoincrement())
   mod_id Int
   url    String @db.VarChar(255)
@@ -95,56 +97,56 @@ model ModImage {
   Mod Mod @relation(fields: [mod_id], references: [id])
 }
 
-model ModTag {
+model Mod_Tag {
   id   Int    @id @default(autoincrement())
   name String @db.VarChar(100)
 
   Mod Mod[]
 }
 
-model ModVersion {
+model Mod_Version {
   id           Int      @id @default(autoincrement())
   mod_id       Int
   version      String   @db.VarChar(30)
   game_version String   @db.VarChar(30)
   releaseDate  DateTime @default(now())
 
-  Mod       Mod           @relation(fields: [mod_id], references: [id])
-  Downloads ModDownload[]
+  Mod       Mod            @relation(fields: [mod_id], references: [id])
+  Downloads Mod_Download[]
 }
 
-enum ModIssueType {
-    GENERAL
-    BUGS
-    ANNOUNCEMENTS
-    IDEAS
+enum Mod_Issue_Type {
+  GENERAL
+  BUGS
+  ANNOUNCEMENTS
+  IDEAS
 }
 
-model ModIssue {
-  id         Int      @id @default(autoincrement())
+model Mod_Issue {
+  id         Int            @id @default(autoincrement())
   mod_id     Int
-  name       String   @db.VarChar(100)
-  type       ModIssueType
+  name       String         @db.VarChar(100)
+  type       Mod_Issue_Type
   author_id  Int
-  createDate DateTime @default(now())
+  createDate DateTime       @default(now())
 
-  Mod          Mod            @relation(fields: [mod_id], references: [id])
-  Author       User           @relation(fields: [author_id], references: [id])
-  ModIssuePost ModIssuePost[]
+  Mod          Mod              @relation(fields: [mod_id], references: [id])
+  Author       User             @relation(fields: [author_id], references: [id])
+  ModIssuePost Mod_Issue_Post[]
 }
 
-model ModIssuePost {
+model Mod_Issue_Post {
   id         Int      @id @default(autoincrement())
   issue_id   Int
   author_id  Int
   createDate DateTime @default(now())
   text       String   @db.Text
 
-  Issue  ModIssue @relation(fields: [issue_id], references: [id])
-  Author User     @relation(fields: [author_id], references: [id])
+  Issue  Mod_Issue @relation(fields: [issue_id], references: [id])
+  Author User      @relation(fields: [author_id], references: [id])
 }
 
-model ModsList {
+model Mods_List {
   id        Int     @id @default(autoincrement())
   author_id Int
   is_public Boolean
@@ -154,7 +156,7 @@ model ModsList {
   Mods   Mod[]
 }
 
-model ModsFavorits {
+model Mods_Favorits {
   user_id Int
   mod_id  Int
 
@@ -164,7 +166,7 @@ model ModsFavorits {
   @@unique([mod_id, user_id])
 }
 
-model ModSubscribers {
+model Mod_Subscribers {
   user_id Int
   mod_id  Int
 
@@ -174,16 +176,69 @@ model ModSubscribers {
   @@unique([mod_id, user_id])
 }
 
-model ModDownload {
+model Mod_Download {
   user_id    Int
   mod_id     Int
   version_id Int
 
-  User    User       @relation(fields: [user_id], references: [id])
-  Mod     Mod        @relation(fields: [mod_id], references: [id], map: "ModDownload_mod_id_fkey")
-  Version ModVersion @relation(fields: [version_id], references: [id], map: "ModDownload_version_id_fkey")
+  User    User        @relation(fields: [user_id], references: [id])
+  Mod     Mod         @relation(fields: [mod_id], references: [id], map: "ModDownload_mod_id_fkey")
+  Version Mod_Version @relation(fields: [version_id], references: [id], map: "ModDownload_version_id_fkey")
 
   @@unique([user_id, mod_id])
   @@index([mod_id], map: "ModDownload_mod_id_fkey")
   @@index([version_id], map: "ModDownload_version_id_fkey")
+}
+
+enum User_Agent_Type {
+  WEBKIT
+  OPERA
+  IE
+  CHROME
+  SAFARI
+  MOBILE_SAFARI
+  FIREFOX
+  MOZILLA
+  ANDROID
+  OTHER
+}
+
+enum User_Agent_OS {
+  WINDOWS
+  LINUX
+  IOS
+  ANDROID
+  OTHER
+}
+
+model User_Session {
+  id              Int             @id @default(autoincrement())
+  userId          Int
+  userAgent       String          @db.Text
+  userAgentType   User_Agent_Type
+  userAgentOS     User_Agent_OS
+  userAgentDevice String          @db.Text
+  uuid            String          @db.VarChar(100)
+  ipv4            String          @db.VarChar(100)
+  is_active       Boolean         @default(false)
+
+  User   User         @relation(fields: [userId], references: [id])
+  Tokens User_Token[]
+}
+
+enum User_Token_Type {
+  AUTH
+  REFRESH
+  ACCESS
+}
+
+model User_Token {
+  id          Int             @id @default(autoincrement())
+  sessionId   Int
+  type        User_Token_Type
+  token       String          @db.VarChar(100)
+  createDate  DateTime        @default(now()) @db.DateTime(0)
+  is_enable   Boolean         @default(false)
+
+  Session User_Session @relation(fields: [sessionId], references: [id])
 }

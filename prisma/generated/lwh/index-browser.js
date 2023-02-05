@@ -84,13 +84,13 @@ exports.Prisma.UserScalarFieldEnum = makeEnum({
   avatar: 'avatar'
 });
 
-exports.Prisma.UserAuthScalarFieldEnum = makeEnum({
+exports.Prisma.User_AuthScalarFieldEnum = makeEnum({
   userId: 'userId',
   email: 'email',
   password: 'password'
 });
 
-exports.Prisma.ModsCollectionScalarFieldEnum = makeEnum({
+exports.Prisma.Mods_CollectionScalarFieldEnum = makeEnum({
   id: 'id',
   avatar: 'avatar',
   name: 'name',
@@ -117,24 +117,24 @@ exports.Prisma.ModScalarFieldEnum = makeEnum({
   docs_url: 'docs_url'
 });
 
-exports.Prisma.ModAuthorScalarFieldEnum = makeEnum({
+exports.Prisma.Mod_AuthorScalarFieldEnum = makeEnum({
   mod_id: 'mod_id',
   user_id: 'user_id',
   type: 'type'
 });
 
-exports.Prisma.ModImageScalarFieldEnum = makeEnum({
+exports.Prisma.Mod_ImageScalarFieldEnum = makeEnum({
   id: 'id',
   mod_id: 'mod_id',
   url: 'url'
 });
 
-exports.Prisma.ModTagScalarFieldEnum = makeEnum({
+exports.Prisma.Mod_TagScalarFieldEnum = makeEnum({
   id: 'id',
   name: 'name'
 });
 
-exports.Prisma.ModVersionScalarFieldEnum = makeEnum({
+exports.Prisma.Mod_VersionScalarFieldEnum = makeEnum({
   id: 'id',
   mod_id: 'mod_id',
   version: 'version',
@@ -142,7 +142,7 @@ exports.Prisma.ModVersionScalarFieldEnum = makeEnum({
   releaseDate: 'releaseDate'
 });
 
-exports.Prisma.ModIssueScalarFieldEnum = makeEnum({
+exports.Prisma.Mod_IssueScalarFieldEnum = makeEnum({
   id: 'id',
   mod_id: 'mod_id',
   name: 'name',
@@ -151,7 +151,7 @@ exports.Prisma.ModIssueScalarFieldEnum = makeEnum({
   createDate: 'createDate'
 });
 
-exports.Prisma.ModIssuePostScalarFieldEnum = makeEnum({
+exports.Prisma.Mod_Issue_PostScalarFieldEnum = makeEnum({
   id: 'id',
   issue_id: 'issue_id',
   author_id: 'author_id',
@@ -159,55 +159,105 @@ exports.Prisma.ModIssuePostScalarFieldEnum = makeEnum({
   text: 'text'
 });
 
-exports.Prisma.ModsListScalarFieldEnum = makeEnum({
+exports.Prisma.Mods_ListScalarFieldEnum = makeEnum({
   id: 'id',
   author_id: 'author_id',
   is_public: 'is_public',
   name: 'name'
 });
 
-exports.Prisma.ModsFavoritsScalarFieldEnum = makeEnum({
+exports.Prisma.Mods_FavoritsScalarFieldEnum = makeEnum({
   user_id: 'user_id',
   mod_id: 'mod_id'
 });
 
-exports.Prisma.ModSubscribersScalarFieldEnum = makeEnum({
+exports.Prisma.Mod_SubscribersScalarFieldEnum = makeEnum({
   user_id: 'user_id',
   mod_id: 'mod_id'
 });
 
-exports.Prisma.ModDownloadScalarFieldEnum = makeEnum({
+exports.Prisma.Mod_DownloadScalarFieldEnum = makeEnum({
   user_id: 'user_id',
   mod_id: 'mod_id',
   version_id: 'version_id'
+});
+
+exports.Prisma.User_SessionScalarFieldEnum = makeEnum({
+  id: 'id',
+  userId: 'userId',
+  userAgent: 'userAgent',
+  userAgentType: 'userAgentType',
+  userAgentOS: 'userAgentOS',
+  userAgentDevice: 'userAgentDevice',
+  uuid: 'uuid',
+  ipv4: 'ipv4',
+  is_active: 'is_active'
+});
+
+exports.Prisma.User_TokenScalarFieldEnum = makeEnum({
+  id: 'id',
+  sessionId: 'sessionId',
+  type: 'type',
+  token: 'token',
+  createDate: 'createDate',
+  is_enable: 'is_enable'
 });
 
 exports.Prisma.SortOrder = makeEnum({
   asc: 'asc',
   desc: 'desc'
 });
-exports.ModIssueType = makeEnum({
+exports.Mod_Issue_Type = makeEnum({
   GENERAL: 'GENERAL',
   BUGS: 'BUGS',
   ANNOUNCEMENTS: 'ANNOUNCEMENTS',
   IDEAS: 'IDEAS'
 });
 
+exports.User_Agent_Type = makeEnum({
+  WEBKIT: 'WEBKIT',
+  OPERA: 'OPERA',
+  IE: 'IE',
+  CHROME: 'CHROME',
+  SAFARI: 'SAFARI',
+  MOBILE_SAFARI: 'MOBILE_SAFARI',
+  FIREFOX: 'FIREFOX',
+  MOZILLA: 'MOZILLA',
+  ANDROID: 'ANDROID',
+  OTHER: 'OTHER'
+});
+
+exports.User_Agent_OS = makeEnum({
+  WINDOWS: 'WINDOWS',
+  LINUX: 'LINUX',
+  IOS: 'IOS',
+  ANDROID: 'ANDROID',
+  OTHER: 'OTHER'
+});
+
+exports.User_Token_Type = makeEnum({
+  AUTH: 'AUTH',
+  REFRESH: 'REFRESH',
+  ACCESS: 'ACCESS'
+});
+
 exports.Prisma.ModelName = makeEnum({
   User: 'User',
-  UserAuth: 'UserAuth',
-  ModsCollection: 'ModsCollection',
+  User_Auth: 'User_Auth',
+  Mods_Collection: 'Mods_Collection',
   Mod: 'Mod',
-  ModAuthor: 'ModAuthor',
-  ModImage: 'ModImage',
-  ModTag: 'ModTag',
-  ModVersion: 'ModVersion',
-  ModIssue: 'ModIssue',
-  ModIssuePost: 'ModIssuePost',
-  ModsList: 'ModsList',
-  ModsFavorits: 'ModsFavorits',
-  ModSubscribers: 'ModSubscribers',
-  ModDownload: 'ModDownload'
+  Mod_Author: 'Mod_Author',
+  Mod_Image: 'Mod_Image',
+  Mod_Tag: 'Mod_Tag',
+  Mod_Version: 'Mod_Version',
+  Mod_Issue: 'Mod_Issue',
+  Mod_Issue_Post: 'Mod_Issue_Post',
+  Mods_List: 'Mods_List',
+  Mods_Favorits: 'Mods_Favorits',
+  Mod_Subscribers: 'Mod_Subscribers',
+  Mod_Download: 'Mod_Download',
+  User_Session: 'User_Session',
+  User_Token: 'User_Token'
 });
 
 /**

@@ -25,20 +25,20 @@ export type User = {
 }
 
 /**
- * Model UserAuth
+ * Model User_Auth
  * 
  */
-export type UserAuth = {
+export type User_Auth = {
   userId: number
   email: string
   password: string
 }
 
 /**
- * Model ModsCollection
+ * Model Mods_Collection
  * 
  */
-export type ModsCollection = {
+export type Mods_Collection = {
   id: number
   avatar: string
   name: string
@@ -70,39 +70,39 @@ export type Mod = {
 }
 
 /**
- * Model ModAuthor
+ * Model Mod_Author
  * 
  */
-export type ModAuthor = {
+export type Mod_Author = {
   mod_id: number
   user_id: number
   type: number
 }
 
 /**
- * Model ModImage
+ * Model Mod_Image
  * 
  */
-export type ModImage = {
+export type Mod_Image = {
   id: number
   mod_id: number
   url: string
 }
 
 /**
- * Model ModTag
+ * Model Mod_Tag
  * 
  */
-export type ModTag = {
+export type Mod_Tag = {
   id: number
   name: string
 }
 
 /**
- * Model ModVersion
+ * Model Mod_Version
  * 
  */
-export type ModVersion = {
+export type Mod_Version = {
   id: number
   mod_id: number
   version: string
@@ -111,23 +111,23 @@ export type ModVersion = {
 }
 
 /**
- * Model ModIssue
+ * Model Mod_Issue
  * 
  */
-export type ModIssue = {
+export type Mod_Issue = {
   id: number
   mod_id: number
   name: string
-  type: ModIssueType
+  type: Mod_Issue_Type
   author_id: number
   createDate: Date
 }
 
 /**
- * Model ModIssuePost
+ * Model Mod_Issue_Post
  * 
  */
-export type ModIssuePost = {
+export type Mod_Issue_Post = {
   id: number
   issue_id: number
   author_id: number
@@ -136,10 +136,10 @@ export type ModIssuePost = {
 }
 
 /**
- * Model ModsList
+ * Model Mods_List
  * 
  */
-export type ModsList = {
+export type Mods_List = {
   id: number
   author_id: number
   is_public: boolean
@@ -147,31 +147,60 @@ export type ModsList = {
 }
 
 /**
- * Model ModsFavorits
+ * Model Mods_Favorits
  * 
  */
-export type ModsFavorits = {
+export type Mods_Favorits = {
   user_id: number
   mod_id: number
 }
 
 /**
- * Model ModSubscribers
+ * Model Mod_Subscribers
  * 
  */
-export type ModSubscribers = {
+export type Mod_Subscribers = {
   user_id: number
   mod_id: number
 }
 
 /**
- * Model ModDownload
+ * Model Mod_Download
  * 
  */
-export type ModDownload = {
+export type Mod_Download = {
   user_id: number
   mod_id: number
   version_id: number
+}
+
+/**
+ * Model User_Session
+ * 
+ */
+export type User_Session = {
+  id: number
+  userId: number
+  userAgent: string
+  userAgentType: User_Agent_Type
+  userAgentOS: User_Agent_OS
+  userAgentDevice: string
+  uuid: string
+  ipv4: string
+  is_active: boolean
+}
+
+/**
+ * Model User_Token
+ * 
+ */
+export type User_Token = {
+  id: number
+  sessionId: number
+  type: User_Token_Type
+  token: string
+  createDate: Date
+  is_enable: boolean
 }
 
 
@@ -182,14 +211,50 @@ export type ModDownload = {
 // Based on
 // https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
 
-export const ModIssueType: {
+export const Mod_Issue_Type: {
   GENERAL: 'GENERAL',
   BUGS: 'BUGS',
   ANNOUNCEMENTS: 'ANNOUNCEMENTS',
   IDEAS: 'IDEAS'
 };
 
-export type ModIssueType = (typeof ModIssueType)[keyof typeof ModIssueType]
+export type Mod_Issue_Type = (typeof Mod_Issue_Type)[keyof typeof Mod_Issue_Type]
+
+
+export const User_Agent_Type: {
+  WEBKIT: 'WEBKIT',
+  OPERA: 'OPERA',
+  IE: 'IE',
+  CHROME: 'CHROME',
+  SAFARI: 'SAFARI',
+  MOBILE_SAFARI: 'MOBILE_SAFARI',
+  FIREFOX: 'FIREFOX',
+  MOZILLA: 'MOZILLA',
+  ANDROID: 'ANDROID',
+  OTHER: 'OTHER'
+};
+
+export type User_Agent_Type = (typeof User_Agent_Type)[keyof typeof User_Agent_Type]
+
+
+export const User_Agent_OS: {
+  WINDOWS: 'WINDOWS',
+  LINUX: 'LINUX',
+  IOS: 'IOS',
+  ANDROID: 'ANDROID',
+  OTHER: 'OTHER'
+};
+
+export type User_Agent_OS = (typeof User_Agent_OS)[keyof typeof User_Agent_OS]
+
+
+export const User_Token_Type: {
+  AUTH: 'AUTH',
+  REFRESH: 'REFRESH',
+  ACCESS: 'ACCESS'
+};
+
+export type User_Token_Type = (typeof User_Token_Type)[keyof typeof User_Token_Type]
 
 
 /**
@@ -345,24 +410,24 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<GlobalReject>;
 
   /**
-   * `prisma.userAuth`: Exposes CRUD operations for the **UserAuth** model.
+   * `prisma.user_Auth`: Exposes CRUD operations for the **User_Auth** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more UserAuths
-    * const userAuths = await prisma.userAuth.findMany()
+    * // Fetch zero or more User_Auths
+    * const user_Auths = await prisma.user_Auth.findMany()
     * ```
     */
-  get userAuth(): Prisma.UserAuthDelegate<GlobalReject>;
+  get user_Auth(): Prisma.User_AuthDelegate<GlobalReject>;
 
   /**
-   * `prisma.modsCollection`: Exposes CRUD operations for the **ModsCollection** model.
+   * `prisma.mods_Collection`: Exposes CRUD operations for the **Mods_Collection** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ModsCollections
-    * const modsCollections = await prisma.modsCollection.findMany()
+    * // Fetch zero or more Mods_Collections
+    * const mods_Collections = await prisma.mods_Collection.findMany()
     * ```
     */
-  get modsCollection(): Prisma.ModsCollectionDelegate<GlobalReject>;
+  get mods_Collection(): Prisma.Mods_CollectionDelegate<GlobalReject>;
 
   /**
    * `prisma.mod`: Exposes CRUD operations for the **Mod** model.
@@ -375,104 +440,124 @@ export class PrismaClient<
   get mod(): Prisma.ModDelegate<GlobalReject>;
 
   /**
-   * `prisma.modAuthor`: Exposes CRUD operations for the **ModAuthor** model.
+   * `prisma.mod_Author`: Exposes CRUD operations for the **Mod_Author** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ModAuthors
-    * const modAuthors = await prisma.modAuthor.findMany()
+    * // Fetch zero or more Mod_Authors
+    * const mod_Authors = await prisma.mod_Author.findMany()
     * ```
     */
-  get modAuthor(): Prisma.ModAuthorDelegate<GlobalReject>;
+  get mod_Author(): Prisma.Mod_AuthorDelegate<GlobalReject>;
 
   /**
-   * `prisma.modImage`: Exposes CRUD operations for the **ModImage** model.
+   * `prisma.mod_Image`: Exposes CRUD operations for the **Mod_Image** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ModImages
-    * const modImages = await prisma.modImage.findMany()
+    * // Fetch zero or more Mod_Images
+    * const mod_Images = await prisma.mod_Image.findMany()
     * ```
     */
-  get modImage(): Prisma.ModImageDelegate<GlobalReject>;
+  get mod_Image(): Prisma.Mod_ImageDelegate<GlobalReject>;
 
   /**
-   * `prisma.modTag`: Exposes CRUD operations for the **ModTag** model.
+   * `prisma.mod_Tag`: Exposes CRUD operations for the **Mod_Tag** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ModTags
-    * const modTags = await prisma.modTag.findMany()
+    * // Fetch zero or more Mod_Tags
+    * const mod_Tags = await prisma.mod_Tag.findMany()
     * ```
     */
-  get modTag(): Prisma.ModTagDelegate<GlobalReject>;
+  get mod_Tag(): Prisma.Mod_TagDelegate<GlobalReject>;
 
   /**
-   * `prisma.modVersion`: Exposes CRUD operations for the **ModVersion** model.
+   * `prisma.mod_Version`: Exposes CRUD operations for the **Mod_Version** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ModVersions
-    * const modVersions = await prisma.modVersion.findMany()
+    * // Fetch zero or more Mod_Versions
+    * const mod_Versions = await prisma.mod_Version.findMany()
     * ```
     */
-  get modVersion(): Prisma.ModVersionDelegate<GlobalReject>;
+  get mod_Version(): Prisma.Mod_VersionDelegate<GlobalReject>;
 
   /**
-   * `prisma.modIssue`: Exposes CRUD operations for the **ModIssue** model.
+   * `prisma.mod_Issue`: Exposes CRUD operations for the **Mod_Issue** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ModIssues
-    * const modIssues = await prisma.modIssue.findMany()
+    * // Fetch zero or more Mod_Issues
+    * const mod_Issues = await prisma.mod_Issue.findMany()
     * ```
     */
-  get modIssue(): Prisma.ModIssueDelegate<GlobalReject>;
+  get mod_Issue(): Prisma.Mod_IssueDelegate<GlobalReject>;
 
   /**
-   * `prisma.modIssuePost`: Exposes CRUD operations for the **ModIssuePost** model.
+   * `prisma.mod_Issue_Post`: Exposes CRUD operations for the **Mod_Issue_Post** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ModIssuePosts
-    * const modIssuePosts = await prisma.modIssuePost.findMany()
+    * // Fetch zero or more Mod_Issue_Posts
+    * const mod_Issue_Posts = await prisma.mod_Issue_Post.findMany()
     * ```
     */
-  get modIssuePost(): Prisma.ModIssuePostDelegate<GlobalReject>;
+  get mod_Issue_Post(): Prisma.Mod_Issue_PostDelegate<GlobalReject>;
 
   /**
-   * `prisma.modsList`: Exposes CRUD operations for the **ModsList** model.
+   * `prisma.mods_List`: Exposes CRUD operations for the **Mods_List** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ModsLists
-    * const modsLists = await prisma.modsList.findMany()
+    * // Fetch zero or more Mods_Lists
+    * const mods_Lists = await prisma.mods_List.findMany()
     * ```
     */
-  get modsList(): Prisma.ModsListDelegate<GlobalReject>;
+  get mods_List(): Prisma.Mods_ListDelegate<GlobalReject>;
 
   /**
-   * `prisma.modsFavorits`: Exposes CRUD operations for the **ModsFavorits** model.
+   * `prisma.mods_Favorits`: Exposes CRUD operations for the **Mods_Favorits** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ModsFavorits
-    * const modsFavorits = await prisma.modsFavorits.findMany()
+    * // Fetch zero or more Mods_Favorits
+    * const mods_Favorits = await prisma.mods_Favorits.findMany()
     * ```
     */
-  get modsFavorits(): Prisma.ModsFavoritsDelegate<GlobalReject>;
+  get mods_Favorits(): Prisma.Mods_FavoritsDelegate<GlobalReject>;
 
   /**
-   * `prisma.modSubscribers`: Exposes CRUD operations for the **ModSubscribers** model.
+   * `prisma.mod_Subscribers`: Exposes CRUD operations for the **Mod_Subscribers** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ModSubscribers
-    * const modSubscribers = await prisma.modSubscribers.findMany()
+    * // Fetch zero or more Mod_Subscribers
+    * const mod_Subscribers = await prisma.mod_Subscribers.findMany()
     * ```
     */
-  get modSubscribers(): Prisma.ModSubscribersDelegate<GlobalReject>;
+  get mod_Subscribers(): Prisma.Mod_SubscribersDelegate<GlobalReject>;
 
   /**
-   * `prisma.modDownload`: Exposes CRUD operations for the **ModDownload** model.
+   * `prisma.mod_Download`: Exposes CRUD operations for the **Mod_Download** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ModDownloads
-    * const modDownloads = await prisma.modDownload.findMany()
+    * // Fetch zero or more Mod_Downloads
+    * const mod_Downloads = await prisma.mod_Download.findMany()
     * ```
     */
-  get modDownload(): Prisma.ModDownloadDelegate<GlobalReject>;
+  get mod_Download(): Prisma.Mod_DownloadDelegate<GlobalReject>;
+
+  /**
+   * `prisma.user_Session`: Exposes CRUD operations for the **User_Session** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more User_Sessions
+    * const user_Sessions = await prisma.user_Session.findMany()
+    * ```
+    */
+  get user_Session(): Prisma.User_SessionDelegate<GlobalReject>;
+
+  /**
+   * `prisma.user_Token`: Exposes CRUD operations for the **User_Token** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more User_Tokens
+    * const user_Tokens = await prisma.user_Token.findMany()
+    * ```
+    */
+  get user_Token(): Prisma.User_TokenDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -890,19 +975,21 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    UserAuth: 'UserAuth',
-    ModsCollection: 'ModsCollection',
+    User_Auth: 'User_Auth',
+    Mods_Collection: 'Mods_Collection',
     Mod: 'Mod',
-    ModAuthor: 'ModAuthor',
-    ModImage: 'ModImage',
-    ModTag: 'ModTag',
-    ModVersion: 'ModVersion',
-    ModIssue: 'ModIssue',
-    ModIssuePost: 'ModIssuePost',
-    ModsList: 'ModsList',
-    ModsFavorits: 'ModsFavorits',
-    ModSubscribers: 'ModSubscribers',
-    ModDownload: 'ModDownload'
+    Mod_Author: 'Mod_Author',
+    Mod_Image: 'Mod_Image',
+    Mod_Tag: 'Mod_Tag',
+    Mod_Version: 'Mod_Version',
+    Mod_Issue: 'Mod_Issue',
+    Mod_Issue_Post: 'Mod_Issue_Post',
+    Mods_List: 'Mods_List',
+    Mods_Favorits: 'Mods_Favorits',
+    Mod_Subscribers: 'Mod_Subscribers',
+    Mod_Download: 'Mod_Download',
+    User_Session: 'User_Session',
+    User_Token: 'User_Token'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1080,6 +1167,7 @@ export namespace Prisma {
     ModsFavorits: number
     ModSubscribers: number
     ModDownloads: number
+    UserSession: number
   }
 
   export type UserCountOutputTypeSelect = {
@@ -1091,6 +1179,7 @@ export namespace Prisma {
     ModsFavorits?: boolean
     ModSubscribers?: boolean
     ModDownloads?: boolean
+    UserSession?: boolean
   }
 
   export type UserCountOutputTypeGetPayload<
@@ -1130,35 +1219,35 @@ export namespace Prisma {
 
 
   /**
-   * Count Type ModsCollectionCountOutputType
+   * Count Type Mods_CollectionCountOutputType
    */
 
 
-  export type ModsCollectionCountOutputType = {
+  export type Mods_CollectionCountOutputType = {
     Mods: number
   }
 
-  export type ModsCollectionCountOutputTypeSelect = {
+  export type Mods_CollectionCountOutputTypeSelect = {
     Mods?: boolean
   }
 
-  export type ModsCollectionCountOutputTypeGetPayload<
-    S extends boolean | null | undefined | ModsCollectionCountOutputTypeArgs,
+  export type Mods_CollectionCountOutputTypeGetPayload<
+    S extends boolean | null | undefined | Mods_CollectionCountOutputTypeArgs,
     U = keyof S
       > = S extends true
-        ? ModsCollectionCountOutputType
+        ? Mods_CollectionCountOutputType
     : S extends undefined
     ? never
-    : S extends ModsCollectionCountOutputTypeArgs
+    : S extends Mods_CollectionCountOutputTypeArgs
     ?'include' extends U
-    ? ModsCollectionCountOutputType 
+    ? Mods_CollectionCountOutputType 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-    P extends keyof ModsCollectionCountOutputType ? ModsCollectionCountOutputType[P] : never
+    P extends keyof Mods_CollectionCountOutputType ? Mods_CollectionCountOutputType[P] : never
   } 
-    : ModsCollectionCountOutputType
-  : ModsCollectionCountOutputType
+    : Mods_CollectionCountOutputType
+  : Mods_CollectionCountOutputType
 
 
 
@@ -1166,14 +1255,14 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModsCollectionCountOutputType without action
+   * Mods_CollectionCountOutputType without action
    */
-  export type ModsCollectionCountOutputTypeArgs = {
+  export type Mods_CollectionCountOutputTypeArgs = {
     /**
-     * Select specific fields to fetch from the ModsCollectionCountOutputType
+     * Select specific fields to fetch from the Mods_CollectionCountOutputType
      * 
     **/
-    select?: ModsCollectionCountOutputTypeSelect | null
+    select?: Mods_CollectionCountOutputTypeSelect | null
   }
 
 
@@ -1244,35 +1333,35 @@ export namespace Prisma {
 
 
   /**
-   * Count Type ModTagCountOutputType
+   * Count Type Mod_TagCountOutputType
    */
 
 
-  export type ModTagCountOutputType = {
+  export type Mod_TagCountOutputType = {
     Mod: number
   }
 
-  export type ModTagCountOutputTypeSelect = {
+  export type Mod_TagCountOutputTypeSelect = {
     Mod?: boolean
   }
 
-  export type ModTagCountOutputTypeGetPayload<
-    S extends boolean | null | undefined | ModTagCountOutputTypeArgs,
+  export type Mod_TagCountOutputTypeGetPayload<
+    S extends boolean | null | undefined | Mod_TagCountOutputTypeArgs,
     U = keyof S
       > = S extends true
-        ? ModTagCountOutputType
+        ? Mod_TagCountOutputType
     : S extends undefined
     ? never
-    : S extends ModTagCountOutputTypeArgs
+    : S extends Mod_TagCountOutputTypeArgs
     ?'include' extends U
-    ? ModTagCountOutputType 
+    ? Mod_TagCountOutputType 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-    P extends keyof ModTagCountOutputType ? ModTagCountOutputType[P] : never
+    P extends keyof Mod_TagCountOutputType ? Mod_TagCountOutputType[P] : never
   } 
-    : ModTagCountOutputType
-  : ModTagCountOutputType
+    : Mod_TagCountOutputType
+  : Mod_TagCountOutputType
 
 
 
@@ -1280,48 +1369,48 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModTagCountOutputType without action
+   * Mod_TagCountOutputType without action
    */
-  export type ModTagCountOutputTypeArgs = {
+  export type Mod_TagCountOutputTypeArgs = {
     /**
-     * Select specific fields to fetch from the ModTagCountOutputType
+     * Select specific fields to fetch from the Mod_TagCountOutputType
      * 
     **/
-    select?: ModTagCountOutputTypeSelect | null
+    select?: Mod_TagCountOutputTypeSelect | null
   }
 
 
 
   /**
-   * Count Type ModVersionCountOutputType
+   * Count Type Mod_VersionCountOutputType
    */
 
 
-  export type ModVersionCountOutputType = {
+  export type Mod_VersionCountOutputType = {
     Downloads: number
   }
 
-  export type ModVersionCountOutputTypeSelect = {
+  export type Mod_VersionCountOutputTypeSelect = {
     Downloads?: boolean
   }
 
-  export type ModVersionCountOutputTypeGetPayload<
-    S extends boolean | null | undefined | ModVersionCountOutputTypeArgs,
+  export type Mod_VersionCountOutputTypeGetPayload<
+    S extends boolean | null | undefined | Mod_VersionCountOutputTypeArgs,
     U = keyof S
       > = S extends true
-        ? ModVersionCountOutputType
+        ? Mod_VersionCountOutputType
     : S extends undefined
     ? never
-    : S extends ModVersionCountOutputTypeArgs
+    : S extends Mod_VersionCountOutputTypeArgs
     ?'include' extends U
-    ? ModVersionCountOutputType 
+    ? Mod_VersionCountOutputType 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-    P extends keyof ModVersionCountOutputType ? ModVersionCountOutputType[P] : never
+    P extends keyof Mod_VersionCountOutputType ? Mod_VersionCountOutputType[P] : never
   } 
-    : ModVersionCountOutputType
-  : ModVersionCountOutputType
+    : Mod_VersionCountOutputType
+  : Mod_VersionCountOutputType
 
 
 
@@ -1329,48 +1418,48 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModVersionCountOutputType without action
+   * Mod_VersionCountOutputType without action
    */
-  export type ModVersionCountOutputTypeArgs = {
+  export type Mod_VersionCountOutputTypeArgs = {
     /**
-     * Select specific fields to fetch from the ModVersionCountOutputType
+     * Select specific fields to fetch from the Mod_VersionCountOutputType
      * 
     **/
-    select?: ModVersionCountOutputTypeSelect | null
+    select?: Mod_VersionCountOutputTypeSelect | null
   }
 
 
 
   /**
-   * Count Type ModIssueCountOutputType
+   * Count Type Mod_IssueCountOutputType
    */
 
 
-  export type ModIssueCountOutputType = {
+  export type Mod_IssueCountOutputType = {
     ModIssuePost: number
   }
 
-  export type ModIssueCountOutputTypeSelect = {
+  export type Mod_IssueCountOutputTypeSelect = {
     ModIssuePost?: boolean
   }
 
-  export type ModIssueCountOutputTypeGetPayload<
-    S extends boolean | null | undefined | ModIssueCountOutputTypeArgs,
+  export type Mod_IssueCountOutputTypeGetPayload<
+    S extends boolean | null | undefined | Mod_IssueCountOutputTypeArgs,
     U = keyof S
       > = S extends true
-        ? ModIssueCountOutputType
+        ? Mod_IssueCountOutputType
     : S extends undefined
     ? never
-    : S extends ModIssueCountOutputTypeArgs
+    : S extends Mod_IssueCountOutputTypeArgs
     ?'include' extends U
-    ? ModIssueCountOutputType 
+    ? Mod_IssueCountOutputType 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-    P extends keyof ModIssueCountOutputType ? ModIssueCountOutputType[P] : never
+    P extends keyof Mod_IssueCountOutputType ? Mod_IssueCountOutputType[P] : never
   } 
-    : ModIssueCountOutputType
-  : ModIssueCountOutputType
+    : Mod_IssueCountOutputType
+  : Mod_IssueCountOutputType
 
 
 
@@ -1378,48 +1467,48 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModIssueCountOutputType without action
+   * Mod_IssueCountOutputType without action
    */
-  export type ModIssueCountOutputTypeArgs = {
+  export type Mod_IssueCountOutputTypeArgs = {
     /**
-     * Select specific fields to fetch from the ModIssueCountOutputType
+     * Select specific fields to fetch from the Mod_IssueCountOutputType
      * 
     **/
-    select?: ModIssueCountOutputTypeSelect | null
+    select?: Mod_IssueCountOutputTypeSelect | null
   }
 
 
 
   /**
-   * Count Type ModsListCountOutputType
+   * Count Type Mods_ListCountOutputType
    */
 
 
-  export type ModsListCountOutputType = {
+  export type Mods_ListCountOutputType = {
     Mods: number
   }
 
-  export type ModsListCountOutputTypeSelect = {
+  export type Mods_ListCountOutputTypeSelect = {
     Mods?: boolean
   }
 
-  export type ModsListCountOutputTypeGetPayload<
-    S extends boolean | null | undefined | ModsListCountOutputTypeArgs,
+  export type Mods_ListCountOutputTypeGetPayload<
+    S extends boolean | null | undefined | Mods_ListCountOutputTypeArgs,
     U = keyof S
       > = S extends true
-        ? ModsListCountOutputType
+        ? Mods_ListCountOutputType
     : S extends undefined
     ? never
-    : S extends ModsListCountOutputTypeArgs
+    : S extends Mods_ListCountOutputTypeArgs
     ?'include' extends U
-    ? ModsListCountOutputType 
+    ? Mods_ListCountOutputType 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-    P extends keyof ModsListCountOutputType ? ModsListCountOutputType[P] : never
+    P extends keyof Mods_ListCountOutputType ? Mods_ListCountOutputType[P] : never
   } 
-    : ModsListCountOutputType
-  : ModsListCountOutputType
+    : Mods_ListCountOutputType
+  : Mods_ListCountOutputType
 
 
 
@@ -1427,14 +1516,63 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModsListCountOutputType without action
+   * Mods_ListCountOutputType without action
    */
-  export type ModsListCountOutputTypeArgs = {
+  export type Mods_ListCountOutputTypeArgs = {
     /**
-     * Select specific fields to fetch from the ModsListCountOutputType
+     * Select specific fields to fetch from the Mods_ListCountOutputType
      * 
     **/
-    select?: ModsListCountOutputTypeSelect | null
+    select?: Mods_ListCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type User_SessionCountOutputType
+   */
+
+
+  export type User_SessionCountOutputType = {
+    Tokens: number
+  }
+
+  export type User_SessionCountOutputTypeSelect = {
+    Tokens?: boolean
+  }
+
+  export type User_SessionCountOutputTypeGetPayload<
+    S extends boolean | null | undefined | User_SessionCountOutputTypeArgs,
+    U = keyof S
+      > = S extends true
+        ? User_SessionCountOutputType
+    : S extends undefined
+    ? never
+    : S extends User_SessionCountOutputTypeArgs
+    ?'include' extends U
+    ? User_SessionCountOutputType 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]:
+    P extends keyof User_SessionCountOutputType ? User_SessionCountOutputType[P] : never
+  } 
+    : User_SessionCountOutputType
+  : User_SessionCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * User_SessionCountOutputType without action
+   */
+  export type User_SessionCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the User_SessionCountOutputType
+     * 
+    **/
+    select?: User_SessionCountOutputTypeSelect | null
   }
 
 
@@ -1648,28 +1786,30 @@ export namespace Prisma {
     createDate?: boolean
     is_active?: boolean
     avatar?: boolean
-    UserAuth?: boolean | UserAuthArgs
-    ModsCollections?: boolean | ModsCollectionFindManyArgs
-    ModAuthors?: boolean | ModAuthorFindManyArgs
-    ModIssues?: boolean | ModIssueFindManyArgs
-    ModIssuePosts?: boolean | ModIssuePostFindManyArgs
-    ModsLists?: boolean | ModsListFindManyArgs
-    ModsFavorits?: boolean | ModsFavoritsFindManyArgs
-    ModSubscribers?: boolean | ModSubscribersFindManyArgs
-    ModDownloads?: boolean | ModDownloadFindManyArgs
+    UserAuth?: boolean | User_AuthArgs
+    ModsCollections?: boolean | Mods_CollectionFindManyArgs
+    ModAuthors?: boolean | Mod_AuthorFindManyArgs
+    ModIssues?: boolean | Mod_IssueFindManyArgs
+    ModIssuePosts?: boolean | Mod_Issue_PostFindManyArgs
+    ModsLists?: boolean | Mods_ListFindManyArgs
+    ModsFavorits?: boolean | Mods_FavoritsFindManyArgs
+    ModSubscribers?: boolean | Mod_SubscribersFindManyArgs
+    ModDownloads?: boolean | Mod_DownloadFindManyArgs
+    UserSession?: boolean | User_SessionFindManyArgs
     _count?: boolean | UserCountOutputTypeArgs
   }
 
   export type UserInclude = {
-    UserAuth?: boolean | UserAuthArgs
-    ModsCollections?: boolean | ModsCollectionFindManyArgs
-    ModAuthors?: boolean | ModAuthorFindManyArgs
-    ModIssues?: boolean | ModIssueFindManyArgs
-    ModIssuePosts?: boolean | ModIssuePostFindManyArgs
-    ModsLists?: boolean | ModsListFindManyArgs
-    ModsFavorits?: boolean | ModsFavoritsFindManyArgs
-    ModSubscribers?: boolean | ModSubscribersFindManyArgs
-    ModDownloads?: boolean | ModDownloadFindManyArgs
+    UserAuth?: boolean | User_AuthArgs
+    ModsCollections?: boolean | Mods_CollectionFindManyArgs
+    ModAuthors?: boolean | Mod_AuthorFindManyArgs
+    ModIssues?: boolean | Mod_IssueFindManyArgs
+    ModIssuePosts?: boolean | Mod_Issue_PostFindManyArgs
+    ModsLists?: boolean | Mods_ListFindManyArgs
+    ModsFavorits?: boolean | Mods_FavoritsFindManyArgs
+    ModSubscribers?: boolean | Mod_SubscribersFindManyArgs
+    ModDownloads?: boolean | Mod_DownloadFindManyArgs
+    UserSession?: boolean | User_SessionFindManyArgs
     _count?: boolean | UserCountOutputTypeArgs
   }
 
@@ -1684,29 +1824,31 @@ export namespace Prisma {
     ?'include' extends U
     ? User  & {
     [P in TrueKeys<S['include']>]:
-        P extends 'UserAuth' ? UserAuthGetPayload<S['include'][P]> | null :
-        P extends 'ModsCollections' ? Array < ModsCollectionGetPayload<S['include'][P]>>  :
-        P extends 'ModAuthors' ? Array < ModAuthorGetPayload<S['include'][P]>>  :
-        P extends 'ModIssues' ? Array < ModIssueGetPayload<S['include'][P]>>  :
-        P extends 'ModIssuePosts' ? Array < ModIssuePostGetPayload<S['include'][P]>>  :
-        P extends 'ModsLists' ? Array < ModsListGetPayload<S['include'][P]>>  :
-        P extends 'ModsFavorits' ? Array < ModsFavoritsGetPayload<S['include'][P]>>  :
-        P extends 'ModSubscribers' ? Array < ModSubscribersGetPayload<S['include'][P]>>  :
-        P extends 'ModDownloads' ? Array < ModDownloadGetPayload<S['include'][P]>>  :
+        P extends 'UserAuth' ? User_AuthGetPayload<S['include'][P]> | null :
+        P extends 'ModsCollections' ? Array < Mods_CollectionGetPayload<S['include'][P]>>  :
+        P extends 'ModAuthors' ? Array < Mod_AuthorGetPayload<S['include'][P]>>  :
+        P extends 'ModIssues' ? Array < Mod_IssueGetPayload<S['include'][P]>>  :
+        P extends 'ModIssuePosts' ? Array < Mod_Issue_PostGetPayload<S['include'][P]>>  :
+        P extends 'ModsLists' ? Array < Mods_ListGetPayload<S['include'][P]>>  :
+        P extends 'ModsFavorits' ? Array < Mods_FavoritsGetPayload<S['include'][P]>>  :
+        P extends 'ModSubscribers' ? Array < Mod_SubscribersGetPayload<S['include'][P]>>  :
+        P extends 'ModDownloads' ? Array < Mod_DownloadGetPayload<S['include'][P]>>  :
+        P extends 'UserSession' ? Array < User_SessionGetPayload<S['include'][P]>>  :
         P extends '_count' ? UserCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-        P extends 'UserAuth' ? UserAuthGetPayload<S['select'][P]> | null :
-        P extends 'ModsCollections' ? Array < ModsCollectionGetPayload<S['select'][P]>>  :
-        P extends 'ModAuthors' ? Array < ModAuthorGetPayload<S['select'][P]>>  :
-        P extends 'ModIssues' ? Array < ModIssueGetPayload<S['select'][P]>>  :
-        P extends 'ModIssuePosts' ? Array < ModIssuePostGetPayload<S['select'][P]>>  :
-        P extends 'ModsLists' ? Array < ModsListGetPayload<S['select'][P]>>  :
-        P extends 'ModsFavorits' ? Array < ModsFavoritsGetPayload<S['select'][P]>>  :
-        P extends 'ModSubscribers' ? Array < ModSubscribersGetPayload<S['select'][P]>>  :
-        P extends 'ModDownloads' ? Array < ModDownloadGetPayload<S['select'][P]>>  :
+        P extends 'UserAuth' ? User_AuthGetPayload<S['select'][P]> | null :
+        P extends 'ModsCollections' ? Array < Mods_CollectionGetPayload<S['select'][P]>>  :
+        P extends 'ModAuthors' ? Array < Mod_AuthorGetPayload<S['select'][P]>>  :
+        P extends 'ModIssues' ? Array < Mod_IssueGetPayload<S['select'][P]>>  :
+        P extends 'ModIssuePosts' ? Array < Mod_Issue_PostGetPayload<S['select'][P]>>  :
+        P extends 'ModsLists' ? Array < Mods_ListGetPayload<S['select'][P]>>  :
+        P extends 'ModsFavorits' ? Array < Mods_FavoritsGetPayload<S['select'][P]>>  :
+        P extends 'ModSubscribers' ? Array < Mod_SubscribersGetPayload<S['select'][P]>>  :
+        P extends 'ModDownloads' ? Array < Mod_DownloadGetPayload<S['select'][P]>>  :
+        P extends 'UserSession' ? Array < User_SessionGetPayload<S['select'][P]>>  :
         P extends '_count' ? UserCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof User ? User[P] : never
   } 
     : User
@@ -2047,23 +2189,25 @@ export namespace Prisma {
     constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
     readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
-    UserAuth<T extends UserAuthArgs = {}>(args?: Subset<T, UserAuthArgs>): CheckSelect<T, Prisma__UserAuthClient<UserAuth | null >, Prisma__UserAuthClient<UserAuthGetPayload<T> | null >>;
+    UserAuth<T extends User_AuthArgs = {}>(args?: Subset<T, User_AuthArgs>): CheckSelect<T, Prisma__User_AuthClient<User_Auth | null >, Prisma__User_AuthClient<User_AuthGetPayload<T> | null >>;
 
-    ModsCollections<T extends ModsCollectionFindManyArgs = {}>(args?: Subset<T, ModsCollectionFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModsCollection>>, PrismaPromise<Array<ModsCollectionGetPayload<T>>>>;
+    ModsCollections<T extends Mods_CollectionFindManyArgs = {}>(args?: Subset<T, Mods_CollectionFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mods_Collection>>, PrismaPromise<Array<Mods_CollectionGetPayload<T>>>>;
 
-    ModAuthors<T extends ModAuthorFindManyArgs = {}>(args?: Subset<T, ModAuthorFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModAuthor>>, PrismaPromise<Array<ModAuthorGetPayload<T>>>>;
+    ModAuthors<T extends Mod_AuthorFindManyArgs = {}>(args?: Subset<T, Mod_AuthorFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Author>>, PrismaPromise<Array<Mod_AuthorGetPayload<T>>>>;
 
-    ModIssues<T extends ModIssueFindManyArgs = {}>(args?: Subset<T, ModIssueFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModIssue>>, PrismaPromise<Array<ModIssueGetPayload<T>>>>;
+    ModIssues<T extends Mod_IssueFindManyArgs = {}>(args?: Subset<T, Mod_IssueFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Issue>>, PrismaPromise<Array<Mod_IssueGetPayload<T>>>>;
 
-    ModIssuePosts<T extends ModIssuePostFindManyArgs = {}>(args?: Subset<T, ModIssuePostFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModIssuePost>>, PrismaPromise<Array<ModIssuePostGetPayload<T>>>>;
+    ModIssuePosts<T extends Mod_Issue_PostFindManyArgs = {}>(args?: Subset<T, Mod_Issue_PostFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Issue_Post>>, PrismaPromise<Array<Mod_Issue_PostGetPayload<T>>>>;
 
-    ModsLists<T extends ModsListFindManyArgs = {}>(args?: Subset<T, ModsListFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModsList>>, PrismaPromise<Array<ModsListGetPayload<T>>>>;
+    ModsLists<T extends Mods_ListFindManyArgs = {}>(args?: Subset<T, Mods_ListFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mods_List>>, PrismaPromise<Array<Mods_ListGetPayload<T>>>>;
 
-    ModsFavorits<T extends ModsFavoritsFindManyArgs = {}>(args?: Subset<T, ModsFavoritsFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModsFavorits>>, PrismaPromise<Array<ModsFavoritsGetPayload<T>>>>;
+    ModsFavorits<T extends Mods_FavoritsFindManyArgs = {}>(args?: Subset<T, Mods_FavoritsFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mods_Favorits>>, PrismaPromise<Array<Mods_FavoritsGetPayload<T>>>>;
 
-    ModSubscribers<T extends ModSubscribersFindManyArgs = {}>(args?: Subset<T, ModSubscribersFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModSubscribers>>, PrismaPromise<Array<ModSubscribersGetPayload<T>>>>;
+    ModSubscribers<T extends Mod_SubscribersFindManyArgs = {}>(args?: Subset<T, Mod_SubscribersFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Subscribers>>, PrismaPromise<Array<Mod_SubscribersGetPayload<T>>>>;
 
-    ModDownloads<T extends ModDownloadFindManyArgs = {}>(args?: Subset<T, ModDownloadFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModDownload>>, PrismaPromise<Array<ModDownloadGetPayload<T>>>>;
+    ModDownloads<T extends Mod_DownloadFindManyArgs = {}>(args?: Subset<T, Mod_DownloadFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Download>>, PrismaPromise<Array<Mod_DownloadGetPayload<T>>>>;
+
+    UserSession<T extends User_SessionFindManyArgs = {}>(args?: Subset<T, User_SessionFindManyArgs>): CheckSelect<T, PrismaPromise<Array<User_Session>>, PrismaPromise<Array<User_SessionGetPayload<T>>>>;
 
     private get _document();
     /**
@@ -2394,39 +2538,39 @@ export namespace Prisma {
 
 
   /**
-   * Model UserAuth
+   * Model User_Auth
    */
 
 
-  export type AggregateUserAuth = {
-    _count: UserAuthCountAggregateOutputType | null
-    _avg: UserAuthAvgAggregateOutputType | null
-    _sum: UserAuthSumAggregateOutputType | null
-    _min: UserAuthMinAggregateOutputType | null
-    _max: UserAuthMaxAggregateOutputType | null
+  export type AggregateUser_Auth = {
+    _count: User_AuthCountAggregateOutputType | null
+    _avg: User_AuthAvgAggregateOutputType | null
+    _sum: User_AuthSumAggregateOutputType | null
+    _min: User_AuthMinAggregateOutputType | null
+    _max: User_AuthMaxAggregateOutputType | null
   }
 
-  export type UserAuthAvgAggregateOutputType = {
+  export type User_AuthAvgAggregateOutputType = {
     userId: number | null
   }
 
-  export type UserAuthSumAggregateOutputType = {
+  export type User_AuthSumAggregateOutputType = {
     userId: number | null
   }
 
-  export type UserAuthMinAggregateOutputType = {
-    userId: number | null
-    email: string | null
-    password: string | null
-  }
-
-  export type UserAuthMaxAggregateOutputType = {
+  export type User_AuthMinAggregateOutputType = {
     userId: number | null
     email: string | null
     password: string | null
   }
 
-  export type UserAuthCountAggregateOutputType = {
+  export type User_AuthMaxAggregateOutputType = {
+    userId: number | null
+    email: string | null
+    password: string | null
+  }
+
+  export type User_AuthCountAggregateOutputType = {
     userId: number
     email: number
     password: number
@@ -2434,296 +2578,296 @@ export namespace Prisma {
   }
 
 
-  export type UserAuthAvgAggregateInputType = {
+  export type User_AuthAvgAggregateInputType = {
     userId?: true
   }
 
-  export type UserAuthSumAggregateInputType = {
+  export type User_AuthSumAggregateInputType = {
     userId?: true
   }
 
-  export type UserAuthMinAggregateInputType = {
-    userId?: true
-    email?: true
-    password?: true
-  }
-
-  export type UserAuthMaxAggregateInputType = {
+  export type User_AuthMinAggregateInputType = {
     userId?: true
     email?: true
     password?: true
   }
 
-  export type UserAuthCountAggregateInputType = {
+  export type User_AuthMaxAggregateInputType = {
+    userId?: true
+    email?: true
+    password?: true
+  }
+
+  export type User_AuthCountAggregateInputType = {
     userId?: true
     email?: true
     password?: true
     _all?: true
   }
 
-  export type UserAuthAggregateArgs = {
+  export type User_AuthAggregateArgs = {
     /**
-     * Filter which UserAuth to aggregate.
+     * Filter which User_Auth to aggregate.
      * 
     **/
-    where?: UserAuthWhereInput
+    where?: User_AuthWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UserAuths to fetch.
+     * Determine the order of User_Auths to fetch.
      * 
     **/
-    orderBy?: Enumerable<UserAuthOrderByWithRelationInput>
+    orderBy?: Enumerable<User_AuthOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: UserAuthWhereUniqueInput
+    cursor?: User_AuthWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UserAuths from the position of the cursor.
+     * Take `±n` User_Auths from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UserAuths.
+     * Skip the first `n` User_Auths.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned UserAuths
+     * Count returned User_Auths
     **/
-    _count?: true | UserAuthCountAggregateInputType
+    _count?: true | User_AuthCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: UserAuthAvgAggregateInputType
+    _avg?: User_AuthAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: UserAuthSumAggregateInputType
+    _sum?: User_AuthSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: UserAuthMinAggregateInputType
+    _min?: User_AuthMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: UserAuthMaxAggregateInputType
+    _max?: User_AuthMaxAggregateInputType
   }
 
-  export type GetUserAuthAggregateType<T extends UserAuthAggregateArgs> = {
-        [P in keyof T & keyof AggregateUserAuth]: P extends '_count' | 'count'
+  export type GetUser_AuthAggregateType<T extends User_AuthAggregateArgs> = {
+        [P in keyof T & keyof AggregateUser_Auth]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateUserAuth[P]>
-      : GetScalarType<T[P], AggregateUserAuth[P]>
+        : GetScalarType<T[P], AggregateUser_Auth[P]>
+      : GetScalarType<T[P], AggregateUser_Auth[P]>
   }
 
 
 
 
-  export type UserAuthGroupByArgs = {
-    where?: UserAuthWhereInput
-    orderBy?: Enumerable<UserAuthOrderByWithAggregationInput>
-    by: Array<UserAuthScalarFieldEnum>
-    having?: UserAuthScalarWhereWithAggregatesInput
+  export type User_AuthGroupByArgs = {
+    where?: User_AuthWhereInput
+    orderBy?: Enumerable<User_AuthOrderByWithAggregationInput>
+    by: Array<User_AuthScalarFieldEnum>
+    having?: User_AuthScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: UserAuthCountAggregateInputType | true
-    _avg?: UserAuthAvgAggregateInputType
-    _sum?: UserAuthSumAggregateInputType
-    _min?: UserAuthMinAggregateInputType
-    _max?: UserAuthMaxAggregateInputType
+    _count?: User_AuthCountAggregateInputType | true
+    _avg?: User_AuthAvgAggregateInputType
+    _sum?: User_AuthSumAggregateInputType
+    _min?: User_AuthMinAggregateInputType
+    _max?: User_AuthMaxAggregateInputType
   }
 
 
-  export type UserAuthGroupByOutputType = {
+  export type User_AuthGroupByOutputType = {
     userId: number
     email: string
     password: string
-    _count: UserAuthCountAggregateOutputType | null
-    _avg: UserAuthAvgAggregateOutputType | null
-    _sum: UserAuthSumAggregateOutputType | null
-    _min: UserAuthMinAggregateOutputType | null
-    _max: UserAuthMaxAggregateOutputType | null
+    _count: User_AuthCountAggregateOutputType | null
+    _avg: User_AuthAvgAggregateOutputType | null
+    _sum: User_AuthSumAggregateOutputType | null
+    _min: User_AuthMinAggregateOutputType | null
+    _max: User_AuthMaxAggregateOutputType | null
   }
 
-  type GetUserAuthGroupByPayload<T extends UserAuthGroupByArgs> = PrismaPromise<
+  type GetUser_AuthGroupByPayload<T extends User_AuthGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<UserAuthGroupByOutputType, T['by']> &
+      PickArray<User_AuthGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof UserAuthGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof User_AuthGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], UserAuthGroupByOutputType[P]>
-            : GetScalarType<T[P], UserAuthGroupByOutputType[P]>
+              : GetScalarType<T[P], User_AuthGroupByOutputType[P]>
+            : GetScalarType<T[P], User_AuthGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type UserAuthSelect = {
+  export type User_AuthSelect = {
     userId?: boolean
     email?: boolean
     password?: boolean
     User?: boolean | UserArgs
   }
 
-  export type UserAuthInclude = {
+  export type User_AuthInclude = {
     User?: boolean | UserArgs
   }
 
-  export type UserAuthGetPayload<
-    S extends boolean | null | undefined | UserAuthArgs,
+  export type User_AuthGetPayload<
+    S extends boolean | null | undefined | User_AuthArgs,
     U = keyof S
       > = S extends true
-        ? UserAuth
+        ? User_Auth
     : S extends undefined
     ? never
-    : S extends UserAuthArgs | UserAuthFindManyArgs
+    : S extends User_AuthArgs | User_AuthFindManyArgs
     ?'include' extends U
-    ? UserAuth  & {
+    ? User_Auth  & {
     [P in TrueKeys<S['include']>]:
         P extends 'User' ? UserGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-        P extends 'User' ? UserGetPayload<S['select'][P]> :  P extends keyof UserAuth ? UserAuth[P] : never
+        P extends 'User' ? UserGetPayload<S['select'][P]> :  P extends keyof User_Auth ? User_Auth[P] : never
   } 
-    : UserAuth
-  : UserAuth
+    : User_Auth
+  : User_Auth
 
 
-  type UserAuthCountArgs = Merge<
-    Omit<UserAuthFindManyArgs, 'select' | 'include'> & {
-      select?: UserAuthCountAggregateInputType | true
+  type User_AuthCountArgs = Merge<
+    Omit<User_AuthFindManyArgs, 'select' | 'include'> & {
+      select?: User_AuthCountAggregateInputType | true
     }
   >
 
-  export interface UserAuthDelegate<GlobalRejectSettings> {
+  export interface User_AuthDelegate<GlobalRejectSettings> {
     /**
-     * Find zero or one UserAuth that matches the filter.
-     * @param {UserAuthFindUniqueArgs} args - Arguments to find a UserAuth
+     * Find zero or one User_Auth that matches the filter.
+     * @param {User_AuthFindUniqueArgs} args - Arguments to find a User_Auth
      * @example
-     * // Get one UserAuth
-     * const userAuth = await prisma.userAuth.findUnique({
+     * // Get one User_Auth
+     * const user_Auth = await prisma.user_Auth.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends UserAuthFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, UserAuthFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'UserAuth'> extends True ? CheckSelect<T, Prisma__UserAuthClient<UserAuth>, Prisma__UserAuthClient<UserAuthGetPayload<T>>> : CheckSelect<T, Prisma__UserAuthClient<UserAuth | null >, Prisma__UserAuthClient<UserAuthGetPayload<T> | null >>
+    findUnique<T extends User_AuthFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, User_AuthFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'User_Auth'> extends True ? CheckSelect<T, Prisma__User_AuthClient<User_Auth>, Prisma__User_AuthClient<User_AuthGetPayload<T>>> : CheckSelect<T, Prisma__User_AuthClient<User_Auth | null >, Prisma__User_AuthClient<User_AuthGetPayload<T> | null >>
 
     /**
-     * Find the first UserAuth that matches the filter.
+     * Find the first User_Auth that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserAuthFindFirstArgs} args - Arguments to find a UserAuth
+     * @param {User_AuthFindFirstArgs} args - Arguments to find a User_Auth
      * @example
-     * // Get one UserAuth
-     * const userAuth = await prisma.userAuth.findFirst({
+     * // Get one User_Auth
+     * const user_Auth = await prisma.user_Auth.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends UserAuthFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, UserAuthFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'UserAuth'> extends True ? CheckSelect<T, Prisma__UserAuthClient<UserAuth>, Prisma__UserAuthClient<UserAuthGetPayload<T>>> : CheckSelect<T, Prisma__UserAuthClient<UserAuth | null >, Prisma__UserAuthClient<UserAuthGetPayload<T> | null >>
+    findFirst<T extends User_AuthFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, User_AuthFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'User_Auth'> extends True ? CheckSelect<T, Prisma__User_AuthClient<User_Auth>, Prisma__User_AuthClient<User_AuthGetPayload<T>>> : CheckSelect<T, Prisma__User_AuthClient<User_Auth | null >, Prisma__User_AuthClient<User_AuthGetPayload<T> | null >>
 
     /**
-     * Find zero or more UserAuths that matches the filter.
+     * Find zero or more User_Auths that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserAuthFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {User_AuthFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all UserAuths
-     * const userAuths = await prisma.userAuth.findMany()
+     * // Get all User_Auths
+     * const user_Auths = await prisma.user_Auth.findMany()
      * 
-     * // Get first 10 UserAuths
-     * const userAuths = await prisma.userAuth.findMany({ take: 10 })
+     * // Get first 10 User_Auths
+     * const user_Auths = await prisma.user_Auth.findMany({ take: 10 })
      * 
      * // Only select the `userId`
-     * const userAuthWithUserIdOnly = await prisma.userAuth.findMany({ select: { userId: true } })
+     * const user_AuthWithUserIdOnly = await prisma.user_Auth.findMany({ select: { userId: true } })
      * 
     **/
-    findMany<T extends UserAuthFindManyArgs>(
-      args?: SelectSubset<T, UserAuthFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<UserAuth>>, PrismaPromise<Array<UserAuthGetPayload<T>>>>
+    findMany<T extends User_AuthFindManyArgs>(
+      args?: SelectSubset<T, User_AuthFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<User_Auth>>, PrismaPromise<Array<User_AuthGetPayload<T>>>>
 
     /**
-     * Create a UserAuth.
-     * @param {UserAuthCreateArgs} args - Arguments to create a UserAuth.
+     * Create a User_Auth.
+     * @param {User_AuthCreateArgs} args - Arguments to create a User_Auth.
      * @example
-     * // Create one UserAuth
-     * const UserAuth = await prisma.userAuth.create({
+     * // Create one User_Auth
+     * const User_Auth = await prisma.user_Auth.create({
      *   data: {
-     *     // ... data to create a UserAuth
+     *     // ... data to create a User_Auth
      *   }
      * })
      * 
     **/
-    create<T extends UserAuthCreateArgs>(
-      args: SelectSubset<T, UserAuthCreateArgs>
-    ): CheckSelect<T, Prisma__UserAuthClient<UserAuth>, Prisma__UserAuthClient<UserAuthGetPayload<T>>>
+    create<T extends User_AuthCreateArgs>(
+      args: SelectSubset<T, User_AuthCreateArgs>
+    ): CheckSelect<T, Prisma__User_AuthClient<User_Auth>, Prisma__User_AuthClient<User_AuthGetPayload<T>>>
 
     /**
-     * Create many UserAuths.
-     *     @param {UserAuthCreateManyArgs} args - Arguments to create many UserAuths.
+     * Create many User_Auths.
+     *     @param {User_AuthCreateManyArgs} args - Arguments to create many User_Auths.
      *     @example
-     *     // Create many UserAuths
-     *     const userAuth = await prisma.userAuth.createMany({
+     *     // Create many User_Auths
+     *     const user_Auth = await prisma.user_Auth.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends UserAuthCreateManyArgs>(
-      args?: SelectSubset<T, UserAuthCreateManyArgs>
+    createMany<T extends User_AuthCreateManyArgs>(
+      args?: SelectSubset<T, User_AuthCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a UserAuth.
-     * @param {UserAuthDeleteArgs} args - Arguments to delete one UserAuth.
+     * Delete a User_Auth.
+     * @param {User_AuthDeleteArgs} args - Arguments to delete one User_Auth.
      * @example
-     * // Delete one UserAuth
-     * const UserAuth = await prisma.userAuth.delete({
+     * // Delete one User_Auth
+     * const User_Auth = await prisma.user_Auth.delete({
      *   where: {
-     *     // ... filter to delete one UserAuth
+     *     // ... filter to delete one User_Auth
      *   }
      * })
      * 
     **/
-    delete<T extends UserAuthDeleteArgs>(
-      args: SelectSubset<T, UserAuthDeleteArgs>
-    ): CheckSelect<T, Prisma__UserAuthClient<UserAuth>, Prisma__UserAuthClient<UserAuthGetPayload<T>>>
+    delete<T extends User_AuthDeleteArgs>(
+      args: SelectSubset<T, User_AuthDeleteArgs>
+    ): CheckSelect<T, Prisma__User_AuthClient<User_Auth>, Prisma__User_AuthClient<User_AuthGetPayload<T>>>
 
     /**
-     * Update one UserAuth.
-     * @param {UserAuthUpdateArgs} args - Arguments to update one UserAuth.
+     * Update one User_Auth.
+     * @param {User_AuthUpdateArgs} args - Arguments to update one User_Auth.
      * @example
-     * // Update one UserAuth
-     * const userAuth = await prisma.userAuth.update({
+     * // Update one User_Auth
+     * const user_Auth = await prisma.user_Auth.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2733,34 +2877,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends UserAuthUpdateArgs>(
-      args: SelectSubset<T, UserAuthUpdateArgs>
-    ): CheckSelect<T, Prisma__UserAuthClient<UserAuth>, Prisma__UserAuthClient<UserAuthGetPayload<T>>>
+    update<T extends User_AuthUpdateArgs>(
+      args: SelectSubset<T, User_AuthUpdateArgs>
+    ): CheckSelect<T, Prisma__User_AuthClient<User_Auth>, Prisma__User_AuthClient<User_AuthGetPayload<T>>>
 
     /**
-     * Delete zero or more UserAuths.
-     * @param {UserAuthDeleteManyArgs} args - Arguments to filter UserAuths to delete.
+     * Delete zero or more User_Auths.
+     * @param {User_AuthDeleteManyArgs} args - Arguments to filter User_Auths to delete.
      * @example
-     * // Delete a few UserAuths
-     * const { count } = await prisma.userAuth.deleteMany({
+     * // Delete a few User_Auths
+     * const { count } = await prisma.user_Auth.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends UserAuthDeleteManyArgs>(
-      args?: SelectSubset<T, UserAuthDeleteManyArgs>
+    deleteMany<T extends User_AuthDeleteManyArgs>(
+      args?: SelectSubset<T, User_AuthDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more UserAuths.
+     * Update zero or more User_Auths.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserAuthUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {User_AuthUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many UserAuths
-     * const userAuth = await prisma.userAuth.updateMany({
+     * // Update many User_Auths
+     * const user_Auth = await prisma.user_Auth.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2770,59 +2914,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends UserAuthUpdateManyArgs>(
-      args: SelectSubset<T, UserAuthUpdateManyArgs>
+    updateMany<T extends User_AuthUpdateManyArgs>(
+      args: SelectSubset<T, User_AuthUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one UserAuth.
-     * @param {UserAuthUpsertArgs} args - Arguments to update or create a UserAuth.
+     * Create or update one User_Auth.
+     * @param {User_AuthUpsertArgs} args - Arguments to update or create a User_Auth.
      * @example
-     * // Update or create a UserAuth
-     * const userAuth = await prisma.userAuth.upsert({
+     * // Update or create a User_Auth
+     * const user_Auth = await prisma.user_Auth.upsert({
      *   create: {
-     *     // ... data to create a UserAuth
+     *     // ... data to create a User_Auth
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the UserAuth we want to update
+     *     // ... the filter for the User_Auth we want to update
      *   }
      * })
     **/
-    upsert<T extends UserAuthUpsertArgs>(
-      args: SelectSubset<T, UserAuthUpsertArgs>
-    ): CheckSelect<T, Prisma__UserAuthClient<UserAuth>, Prisma__UserAuthClient<UserAuthGetPayload<T>>>
+    upsert<T extends User_AuthUpsertArgs>(
+      args: SelectSubset<T, User_AuthUpsertArgs>
+    ): CheckSelect<T, Prisma__User_AuthClient<User_Auth>, Prisma__User_AuthClient<User_AuthGetPayload<T>>>
 
     /**
-     * Count the number of UserAuths.
+     * Count the number of User_Auths.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserAuthCountArgs} args - Arguments to filter UserAuths to count.
+     * @param {User_AuthCountArgs} args - Arguments to filter User_Auths to count.
      * @example
-     * // Count the number of UserAuths
-     * const count = await prisma.userAuth.count({
+     * // Count the number of User_Auths
+     * const count = await prisma.user_Auth.count({
      *   where: {
-     *     // ... the filter for the UserAuths we want to count
+     *     // ... the filter for the User_Auths we want to count
      *   }
      * })
     **/
-    count<T extends UserAuthCountArgs>(
-      args?: Subset<T, UserAuthCountArgs>,
+    count<T extends User_AuthCountArgs>(
+      args?: Subset<T, User_AuthCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], UserAuthCountAggregateOutputType>
+          : GetScalarType<T['select'], User_AuthCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a UserAuth.
+     * Allows you to perform aggregations operations on a User_Auth.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserAuthAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {User_AuthAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -2842,13 +2986,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends UserAuthAggregateArgs>(args: Subset<T, UserAuthAggregateArgs>): PrismaPromise<GetUserAuthAggregateType<T>>
+    aggregate<T extends User_AuthAggregateArgs>(args: Subset<T, User_AuthAggregateArgs>): PrismaPromise<GetUser_AuthAggregateType<T>>
 
     /**
-     * Group by UserAuth.
+     * Group by User_Auth.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserAuthGroupByArgs} args - Group by arguments.
+     * @param {User_AuthGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -2863,14 +3007,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends UserAuthGroupByArgs,
+      T extends User_AuthGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UserAuthGroupByArgs['orderBy'] }
-        : { orderBy?: UserAuthGroupByArgs['orderBy'] },
+        ? { orderBy: User_AuthGroupByArgs['orderBy'] }
+        : { orderBy?: User_AuthGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -2919,16 +3063,16 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, UserAuthGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserAuthGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, User_AuthGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUser_AuthGroupByPayload<T> : PrismaPromise<InputErrors>
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for UserAuth.
+   * The delegate class that acts as a "Promise-like" for User_Auth.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__UserAuthClient<T> implements PrismaPromise<T> {
+  export class Prisma__User_AuthClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -2973,342 +3117,332 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * UserAuth findUnique
+   * User_Auth findUnique
    */
-  export type UserAuthFindUniqueArgs = {
+  export type User_AuthFindUniqueArgs = {
     /**
-     * Select specific fields to fetch from the UserAuth
+     * Select specific fields to fetch from the User_Auth
      * 
     **/
-    select?: UserAuthSelect | null
+    select?: User_AuthSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: UserAuthInclude | null
+    include?: User_AuthInclude | null
     /**
-     * Throw an Error if a UserAuth can't be found
+     * Throw an Error if a User_Auth can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which UserAuth to fetch.
+     * Filter, which User_Auth to fetch.
      * 
     **/
-    where: UserAuthWhereUniqueInput
+    where: User_AuthWhereUniqueInput
   }
 
 
   /**
-   * UserAuth findFirst
+   * User_Auth findFirst
    */
-  export type UserAuthFindFirstArgs = {
+  export type User_AuthFindFirstArgs = {
     /**
-     * Select specific fields to fetch from the UserAuth
+     * Select specific fields to fetch from the User_Auth
      * 
     **/
-    select?: UserAuthSelect | null
+    select?: User_AuthSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: UserAuthInclude | null
+    include?: User_AuthInclude | null
     /**
-     * Throw an Error if a UserAuth can't be found
+     * Throw an Error if a User_Auth can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which UserAuth to fetch.
+     * Filter, which User_Auth to fetch.
      * 
     **/
-    where?: UserAuthWhereInput
+    where?: User_AuthWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UserAuths to fetch.
+     * Determine the order of User_Auths to fetch.
      * 
     **/
-    orderBy?: Enumerable<UserAuthOrderByWithRelationInput>
+    orderBy?: Enumerable<User_AuthOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for UserAuths.
+     * Sets the position for searching for User_Auths.
      * 
     **/
-    cursor?: UserAuthWhereUniqueInput
+    cursor?: User_AuthWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UserAuths from the position of the cursor.
+     * Take `±n` User_Auths from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UserAuths.
+     * Skip the first `n` User_Auths.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of UserAuths.
+     * Filter by unique combinations of User_Auths.
      * 
     **/
-    distinct?: Enumerable<UserAuthScalarFieldEnum>
+    distinct?: Enumerable<User_AuthScalarFieldEnum>
   }
 
 
   /**
-   * UserAuth findMany
+   * User_Auth findMany
    */
-  export type UserAuthFindManyArgs = {
+  export type User_AuthFindManyArgs = {
     /**
-     * Select specific fields to fetch from the UserAuth
+     * Select specific fields to fetch from the User_Auth
      * 
     **/
-    select?: UserAuthSelect | null
+    select?: User_AuthSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: UserAuthInclude | null
+    include?: User_AuthInclude | null
     /**
-     * Filter, which UserAuths to fetch.
+     * Filter, which User_Auths to fetch.
      * 
     **/
-    where?: UserAuthWhereInput
+    where?: User_AuthWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UserAuths to fetch.
+     * Determine the order of User_Auths to fetch.
      * 
     **/
-    orderBy?: Enumerable<UserAuthOrderByWithRelationInput>
+    orderBy?: Enumerable<User_AuthOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing UserAuths.
+     * Sets the position for listing User_Auths.
      * 
     **/
-    cursor?: UserAuthWhereUniqueInput
+    cursor?: User_AuthWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UserAuths from the position of the cursor.
+     * Take `±n` User_Auths from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UserAuths.
+     * Skip the first `n` User_Auths.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<UserAuthScalarFieldEnum>
+    distinct?: Enumerable<User_AuthScalarFieldEnum>
   }
 
 
   /**
-   * UserAuth create
+   * User_Auth create
    */
-  export type UserAuthCreateArgs = {
+  export type User_AuthCreateArgs = {
     /**
-     * Select specific fields to fetch from the UserAuth
+     * Select specific fields to fetch from the User_Auth
      * 
     **/
-    select?: UserAuthSelect | null
+    select?: User_AuthSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: UserAuthInclude | null
+    include?: User_AuthInclude | null
     /**
-     * The data needed to create a UserAuth.
+     * The data needed to create a User_Auth.
      * 
     **/
-    data: XOR<UserAuthCreateInput, UserAuthUncheckedCreateInput>
+    data: XOR<User_AuthCreateInput, User_AuthUncheckedCreateInput>
   }
 
 
   /**
-   * UserAuth createMany
+   * User_Auth createMany
    */
-  export type UserAuthCreateManyArgs = {
+  export type User_AuthCreateManyArgs = {
     /**
-     * The data used to create many UserAuths.
+     * The data used to create many User_Auths.
      * 
     **/
-    data: Enumerable<UserAuthCreateManyInput>
+    data: Enumerable<User_AuthCreateManyInput>
     skipDuplicates?: boolean
   }
 
 
   /**
-   * UserAuth update
+   * User_Auth update
    */
-  export type UserAuthUpdateArgs = {
+  export type User_AuthUpdateArgs = {
     /**
-     * Select specific fields to fetch from the UserAuth
+     * Select specific fields to fetch from the User_Auth
      * 
     **/
-    select?: UserAuthSelect | null
+    select?: User_AuthSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: UserAuthInclude | null
+    include?: User_AuthInclude | null
     /**
-     * The data needed to update a UserAuth.
+     * The data needed to update a User_Auth.
      * 
     **/
-    data: XOR<UserAuthUpdateInput, UserAuthUncheckedUpdateInput>
+    data: XOR<User_AuthUpdateInput, User_AuthUncheckedUpdateInput>
     /**
-     * Choose, which UserAuth to update.
+     * Choose, which User_Auth to update.
      * 
     **/
-    where: UserAuthWhereUniqueInput
+    where: User_AuthWhereUniqueInput
   }
 
 
   /**
-   * UserAuth updateMany
+   * User_Auth updateMany
    */
-  export type UserAuthUpdateManyArgs = {
+  export type User_AuthUpdateManyArgs = {
     /**
-     * The data used to update UserAuths.
+     * The data used to update User_Auths.
      * 
     **/
-    data: XOR<UserAuthUpdateManyMutationInput, UserAuthUncheckedUpdateManyInput>
+    data: XOR<User_AuthUpdateManyMutationInput, User_AuthUncheckedUpdateManyInput>
     /**
-     * Filter which UserAuths to update
+     * Filter which User_Auths to update
      * 
     **/
-    where?: UserAuthWhereInput
+    where?: User_AuthWhereInput
   }
 
 
   /**
-   * UserAuth upsert
+   * User_Auth upsert
    */
-  export type UserAuthUpsertArgs = {
+  export type User_AuthUpsertArgs = {
     /**
-     * Select specific fields to fetch from the UserAuth
+     * Select specific fields to fetch from the User_Auth
      * 
     **/
-    select?: UserAuthSelect | null
+    select?: User_AuthSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: UserAuthInclude | null
+    include?: User_AuthInclude | null
     /**
-     * The filter to search for the UserAuth to update in case it exists.
+     * The filter to search for the User_Auth to update in case it exists.
      * 
     **/
-    where: UserAuthWhereUniqueInput
+    where: User_AuthWhereUniqueInput
     /**
-     * In case the UserAuth found by the `where` argument doesn't exist, create a new UserAuth with this data.
+     * In case the User_Auth found by the `where` argument doesn't exist, create a new User_Auth with this data.
      * 
     **/
-    create: XOR<UserAuthCreateInput, UserAuthUncheckedCreateInput>
+    create: XOR<User_AuthCreateInput, User_AuthUncheckedCreateInput>
     /**
-     * In case the UserAuth was found with the provided `where` argument, update it with this data.
+     * In case the User_Auth was found with the provided `where` argument, update it with this data.
      * 
     **/
-    update: XOR<UserAuthUpdateInput, UserAuthUncheckedUpdateInput>
+    update: XOR<User_AuthUpdateInput, User_AuthUncheckedUpdateInput>
   }
 
 
   /**
-   * UserAuth delete
+   * User_Auth delete
    */
-  export type UserAuthDeleteArgs = {
+  export type User_AuthDeleteArgs = {
     /**
-     * Select specific fields to fetch from the UserAuth
+     * Select specific fields to fetch from the User_Auth
      * 
     **/
-    select?: UserAuthSelect | null
+    select?: User_AuthSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: UserAuthInclude | null
+    include?: User_AuthInclude | null
     /**
-     * Filter which UserAuth to delete.
+     * Filter which User_Auth to delete.
      * 
     **/
-    where: UserAuthWhereUniqueInput
+    where: User_AuthWhereUniqueInput
   }
 
 
   /**
-   * UserAuth deleteMany
+   * User_Auth deleteMany
    */
-  export type UserAuthDeleteManyArgs = {
+  export type User_AuthDeleteManyArgs = {
     /**
-     * Filter which UserAuths to delete
+     * Filter which User_Auths to delete
      * 
     **/
-    where?: UserAuthWhereInput
+    where?: User_AuthWhereInput
   }
 
 
   /**
-   * UserAuth without action
+   * User_Auth without action
    */
-  export type UserAuthArgs = {
+  export type User_AuthArgs = {
     /**
-     * Select specific fields to fetch from the UserAuth
+     * Select specific fields to fetch from the User_Auth
      * 
     **/
-    select?: UserAuthSelect | null
+    select?: User_AuthSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: UserAuthInclude | null
+    include?: User_AuthInclude | null
   }
 
 
 
   /**
-   * Model ModsCollection
+   * Model Mods_Collection
    */
 
 
-  export type AggregateModsCollection = {
-    _count: ModsCollectionCountAggregateOutputType | null
-    _avg: ModsCollectionAvgAggregateOutputType | null
-    _sum: ModsCollectionSumAggregateOutputType | null
-    _min: ModsCollectionMinAggregateOutputType | null
-    _max: ModsCollectionMaxAggregateOutputType | null
+  export type AggregateMods_Collection = {
+    _count: Mods_CollectionCountAggregateOutputType | null
+    _avg: Mods_CollectionAvgAggregateOutputType | null
+    _sum: Mods_CollectionSumAggregateOutputType | null
+    _min: Mods_CollectionMinAggregateOutputType | null
+    _max: Mods_CollectionMaxAggregateOutputType | null
   }
 
-  export type ModsCollectionAvgAggregateOutputType = {
+  export type Mods_CollectionAvgAggregateOutputType = {
     id: number | null
     author_id: number | null
   }
 
-  export type ModsCollectionSumAggregateOutputType = {
+  export type Mods_CollectionSumAggregateOutputType = {
     id: number | null
     author_id: number | null
   }
 
-  export type ModsCollectionMinAggregateOutputType = {
-    id: number | null
-    avatar: string | null
-    name: string | null
-    description: string | null
-    createDate: Date | null
-    is_active: boolean | null
-    author_id: number | null
-  }
-
-  export type ModsCollectionMaxAggregateOutputType = {
+  export type Mods_CollectionMinAggregateOutputType = {
     id: number | null
     avatar: string | null
     name: string | null
@@ -3318,7 +3452,17 @@ export namespace Prisma {
     author_id: number | null
   }
 
-  export type ModsCollectionCountAggregateOutputType = {
+  export type Mods_CollectionMaxAggregateOutputType = {
+    id: number | null
+    avatar: string | null
+    name: string | null
+    description: string | null
+    createDate: Date | null
+    is_active: boolean | null
+    author_id: number | null
+  }
+
+  export type Mods_CollectionCountAggregateOutputType = {
     id: number
     avatar: number
     name: number
@@ -3330,27 +3474,17 @@ export namespace Prisma {
   }
 
 
-  export type ModsCollectionAvgAggregateInputType = {
+  export type Mods_CollectionAvgAggregateInputType = {
     id?: true
     author_id?: true
   }
 
-  export type ModsCollectionSumAggregateInputType = {
+  export type Mods_CollectionSumAggregateInputType = {
     id?: true
     author_id?: true
   }
 
-  export type ModsCollectionMinAggregateInputType = {
-    id?: true
-    avatar?: true
-    name?: true
-    description?: true
-    createDate?: true
-    is_active?: true
-    author_id?: true
-  }
-
-  export type ModsCollectionMaxAggregateInputType = {
+  export type Mods_CollectionMinAggregateInputType = {
     id?: true
     avatar?: true
     name?: true
@@ -3360,7 +3494,17 @@ export namespace Prisma {
     author_id?: true
   }
 
-  export type ModsCollectionCountAggregateInputType = {
+  export type Mods_CollectionMaxAggregateInputType = {
+    id?: true
+    avatar?: true
+    name?: true
+    description?: true
+    createDate?: true
+    is_active?: true
+    author_id?: true
+  }
+
+  export type Mods_CollectionCountAggregateInputType = {
     id?: true
     avatar?: true
     name?: true
@@ -3371,99 +3515,99 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type ModsCollectionAggregateArgs = {
+  export type Mods_CollectionAggregateArgs = {
     /**
-     * Filter which ModsCollection to aggregate.
+     * Filter which Mods_Collection to aggregate.
      * 
     **/
-    where?: ModsCollectionWhereInput
+    where?: Mods_CollectionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModsCollections to fetch.
+     * Determine the order of Mods_Collections to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModsCollectionOrderByWithRelationInput>
+    orderBy?: Enumerable<Mods_CollectionOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: ModsCollectionWhereUniqueInput
+    cursor?: Mods_CollectionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModsCollections from the position of the cursor.
+     * Take `±n` Mods_Collections from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModsCollections.
+     * Skip the first `n` Mods_Collections.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ModsCollections
+     * Count returned Mods_Collections
     **/
-    _count?: true | ModsCollectionCountAggregateInputType
+    _count?: true | Mods_CollectionCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ModsCollectionAvgAggregateInputType
+    _avg?: Mods_CollectionAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ModsCollectionSumAggregateInputType
+    _sum?: Mods_CollectionSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ModsCollectionMinAggregateInputType
+    _min?: Mods_CollectionMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ModsCollectionMaxAggregateInputType
+    _max?: Mods_CollectionMaxAggregateInputType
   }
 
-  export type GetModsCollectionAggregateType<T extends ModsCollectionAggregateArgs> = {
-        [P in keyof T & keyof AggregateModsCollection]: P extends '_count' | 'count'
+  export type GetMods_CollectionAggregateType<T extends Mods_CollectionAggregateArgs> = {
+        [P in keyof T & keyof AggregateMods_Collection]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateModsCollection[P]>
-      : GetScalarType<T[P], AggregateModsCollection[P]>
+        : GetScalarType<T[P], AggregateMods_Collection[P]>
+      : GetScalarType<T[P], AggregateMods_Collection[P]>
   }
 
 
 
 
-  export type ModsCollectionGroupByArgs = {
-    where?: ModsCollectionWhereInput
-    orderBy?: Enumerable<ModsCollectionOrderByWithAggregationInput>
-    by: Array<ModsCollectionScalarFieldEnum>
-    having?: ModsCollectionScalarWhereWithAggregatesInput
+  export type Mods_CollectionGroupByArgs = {
+    where?: Mods_CollectionWhereInput
+    orderBy?: Enumerable<Mods_CollectionOrderByWithAggregationInput>
+    by: Array<Mods_CollectionScalarFieldEnum>
+    having?: Mods_CollectionScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ModsCollectionCountAggregateInputType | true
-    _avg?: ModsCollectionAvgAggregateInputType
-    _sum?: ModsCollectionSumAggregateInputType
-    _min?: ModsCollectionMinAggregateInputType
-    _max?: ModsCollectionMaxAggregateInputType
+    _count?: Mods_CollectionCountAggregateInputType | true
+    _avg?: Mods_CollectionAvgAggregateInputType
+    _sum?: Mods_CollectionSumAggregateInputType
+    _min?: Mods_CollectionMinAggregateInputType
+    _max?: Mods_CollectionMaxAggregateInputType
   }
 
 
-  export type ModsCollectionGroupByOutputType = {
+  export type Mods_CollectionGroupByOutputType = {
     id: number
     avatar: string
     name: string
@@ -3471,28 +3615,28 @@ export namespace Prisma {
     createDate: Date
     is_active: boolean
     author_id: number
-    _count: ModsCollectionCountAggregateOutputType | null
-    _avg: ModsCollectionAvgAggregateOutputType | null
-    _sum: ModsCollectionSumAggregateOutputType | null
-    _min: ModsCollectionMinAggregateOutputType | null
-    _max: ModsCollectionMaxAggregateOutputType | null
+    _count: Mods_CollectionCountAggregateOutputType | null
+    _avg: Mods_CollectionAvgAggregateOutputType | null
+    _sum: Mods_CollectionSumAggregateOutputType | null
+    _min: Mods_CollectionMinAggregateOutputType | null
+    _max: Mods_CollectionMaxAggregateOutputType | null
   }
 
-  type GetModsCollectionGroupByPayload<T extends ModsCollectionGroupByArgs> = PrismaPromise<
+  type GetMods_CollectionGroupByPayload<T extends Mods_CollectionGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<ModsCollectionGroupByOutputType, T['by']> &
+      PickArray<Mods_CollectionGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ModsCollectionGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Mods_CollectionGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ModsCollectionGroupByOutputType[P]>
-            : GetScalarType<T[P], ModsCollectionGroupByOutputType[P]>
+              : GetScalarType<T[P], Mods_CollectionGroupByOutputType[P]>
+            : GetScalarType<T[P], Mods_CollectionGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ModsCollectionSelect = {
+  export type Mods_CollectionSelect = {
     id?: boolean
     avatar?: boolean
     name?: boolean
@@ -3502,154 +3646,154 @@ export namespace Prisma {
     author_id?: boolean
     Author?: boolean | UserArgs
     Mods?: boolean | ModFindManyArgs
-    _count?: boolean | ModsCollectionCountOutputTypeArgs
+    _count?: boolean | Mods_CollectionCountOutputTypeArgs
   }
 
-  export type ModsCollectionInclude = {
+  export type Mods_CollectionInclude = {
     Author?: boolean | UserArgs
     Mods?: boolean | ModFindManyArgs
-    _count?: boolean | ModsCollectionCountOutputTypeArgs
+    _count?: boolean | Mods_CollectionCountOutputTypeArgs
   }
 
-  export type ModsCollectionGetPayload<
-    S extends boolean | null | undefined | ModsCollectionArgs,
+  export type Mods_CollectionGetPayload<
+    S extends boolean | null | undefined | Mods_CollectionArgs,
     U = keyof S
       > = S extends true
-        ? ModsCollection
+        ? Mods_Collection
     : S extends undefined
     ? never
-    : S extends ModsCollectionArgs | ModsCollectionFindManyArgs
+    : S extends Mods_CollectionArgs | Mods_CollectionFindManyArgs
     ?'include' extends U
-    ? ModsCollection  & {
+    ? Mods_Collection  & {
     [P in TrueKeys<S['include']>]:
         P extends 'Author' ? UserGetPayload<S['include'][P]> :
         P extends 'Mods' ? Array < ModGetPayload<S['include'][P]>>  :
-        P extends '_count' ? ModsCollectionCountOutputTypeGetPayload<S['include'][P]> :  never
+        P extends '_count' ? Mods_CollectionCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
         P extends 'Author' ? UserGetPayload<S['select'][P]> :
         P extends 'Mods' ? Array < ModGetPayload<S['select'][P]>>  :
-        P extends '_count' ? ModsCollectionCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof ModsCollection ? ModsCollection[P] : never
+        P extends '_count' ? Mods_CollectionCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Mods_Collection ? Mods_Collection[P] : never
   } 
-    : ModsCollection
-  : ModsCollection
+    : Mods_Collection
+  : Mods_Collection
 
 
-  type ModsCollectionCountArgs = Merge<
-    Omit<ModsCollectionFindManyArgs, 'select' | 'include'> & {
-      select?: ModsCollectionCountAggregateInputType | true
+  type Mods_CollectionCountArgs = Merge<
+    Omit<Mods_CollectionFindManyArgs, 'select' | 'include'> & {
+      select?: Mods_CollectionCountAggregateInputType | true
     }
   >
 
-  export interface ModsCollectionDelegate<GlobalRejectSettings> {
+  export interface Mods_CollectionDelegate<GlobalRejectSettings> {
     /**
-     * Find zero or one ModsCollection that matches the filter.
-     * @param {ModsCollectionFindUniqueArgs} args - Arguments to find a ModsCollection
+     * Find zero or one Mods_Collection that matches the filter.
+     * @param {Mods_CollectionFindUniqueArgs} args - Arguments to find a Mods_Collection
      * @example
-     * // Get one ModsCollection
-     * const modsCollection = await prisma.modsCollection.findUnique({
+     * // Get one Mods_Collection
+     * const mods_Collection = await prisma.mods_Collection.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ModsCollectionFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ModsCollectionFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ModsCollection'> extends True ? CheckSelect<T, Prisma__ModsCollectionClient<ModsCollection>, Prisma__ModsCollectionClient<ModsCollectionGetPayload<T>>> : CheckSelect<T, Prisma__ModsCollectionClient<ModsCollection | null >, Prisma__ModsCollectionClient<ModsCollectionGetPayload<T> | null >>
+    findUnique<T extends Mods_CollectionFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, Mods_CollectionFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Mods_Collection'> extends True ? CheckSelect<T, Prisma__Mods_CollectionClient<Mods_Collection>, Prisma__Mods_CollectionClient<Mods_CollectionGetPayload<T>>> : CheckSelect<T, Prisma__Mods_CollectionClient<Mods_Collection | null >, Prisma__Mods_CollectionClient<Mods_CollectionGetPayload<T> | null >>
 
     /**
-     * Find the first ModsCollection that matches the filter.
+     * Find the first Mods_Collection that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsCollectionFindFirstArgs} args - Arguments to find a ModsCollection
+     * @param {Mods_CollectionFindFirstArgs} args - Arguments to find a Mods_Collection
      * @example
-     * // Get one ModsCollection
-     * const modsCollection = await prisma.modsCollection.findFirst({
+     * // Get one Mods_Collection
+     * const mods_Collection = await prisma.mods_Collection.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ModsCollectionFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ModsCollectionFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ModsCollection'> extends True ? CheckSelect<T, Prisma__ModsCollectionClient<ModsCollection>, Prisma__ModsCollectionClient<ModsCollectionGetPayload<T>>> : CheckSelect<T, Prisma__ModsCollectionClient<ModsCollection | null >, Prisma__ModsCollectionClient<ModsCollectionGetPayload<T> | null >>
+    findFirst<T extends Mods_CollectionFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, Mods_CollectionFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Mods_Collection'> extends True ? CheckSelect<T, Prisma__Mods_CollectionClient<Mods_Collection>, Prisma__Mods_CollectionClient<Mods_CollectionGetPayload<T>>> : CheckSelect<T, Prisma__Mods_CollectionClient<Mods_Collection | null >, Prisma__Mods_CollectionClient<Mods_CollectionGetPayload<T> | null >>
 
     /**
-     * Find zero or more ModsCollections that matches the filter.
+     * Find zero or more Mods_Collections that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsCollectionFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {Mods_CollectionFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ModsCollections
-     * const modsCollections = await prisma.modsCollection.findMany()
+     * // Get all Mods_Collections
+     * const mods_Collections = await prisma.mods_Collection.findMany()
      * 
-     * // Get first 10 ModsCollections
-     * const modsCollections = await prisma.modsCollection.findMany({ take: 10 })
+     * // Get first 10 Mods_Collections
+     * const mods_Collections = await prisma.mods_Collection.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const modsCollectionWithIdOnly = await prisma.modsCollection.findMany({ select: { id: true } })
+     * const mods_CollectionWithIdOnly = await prisma.mods_Collection.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends ModsCollectionFindManyArgs>(
-      args?: SelectSubset<T, ModsCollectionFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<ModsCollection>>, PrismaPromise<Array<ModsCollectionGetPayload<T>>>>
+    findMany<T extends Mods_CollectionFindManyArgs>(
+      args?: SelectSubset<T, Mods_CollectionFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Mods_Collection>>, PrismaPromise<Array<Mods_CollectionGetPayload<T>>>>
 
     /**
-     * Create a ModsCollection.
-     * @param {ModsCollectionCreateArgs} args - Arguments to create a ModsCollection.
+     * Create a Mods_Collection.
+     * @param {Mods_CollectionCreateArgs} args - Arguments to create a Mods_Collection.
      * @example
-     * // Create one ModsCollection
-     * const ModsCollection = await prisma.modsCollection.create({
+     * // Create one Mods_Collection
+     * const Mods_Collection = await prisma.mods_Collection.create({
      *   data: {
-     *     // ... data to create a ModsCollection
+     *     // ... data to create a Mods_Collection
      *   }
      * })
      * 
     **/
-    create<T extends ModsCollectionCreateArgs>(
-      args: SelectSubset<T, ModsCollectionCreateArgs>
-    ): CheckSelect<T, Prisma__ModsCollectionClient<ModsCollection>, Prisma__ModsCollectionClient<ModsCollectionGetPayload<T>>>
+    create<T extends Mods_CollectionCreateArgs>(
+      args: SelectSubset<T, Mods_CollectionCreateArgs>
+    ): CheckSelect<T, Prisma__Mods_CollectionClient<Mods_Collection>, Prisma__Mods_CollectionClient<Mods_CollectionGetPayload<T>>>
 
     /**
-     * Create many ModsCollections.
-     *     @param {ModsCollectionCreateManyArgs} args - Arguments to create many ModsCollections.
+     * Create many Mods_Collections.
+     *     @param {Mods_CollectionCreateManyArgs} args - Arguments to create many Mods_Collections.
      *     @example
-     *     // Create many ModsCollections
-     *     const modsCollection = await prisma.modsCollection.createMany({
+     *     // Create many Mods_Collections
+     *     const mods_Collection = await prisma.mods_Collection.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ModsCollectionCreateManyArgs>(
-      args?: SelectSubset<T, ModsCollectionCreateManyArgs>
+    createMany<T extends Mods_CollectionCreateManyArgs>(
+      args?: SelectSubset<T, Mods_CollectionCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a ModsCollection.
-     * @param {ModsCollectionDeleteArgs} args - Arguments to delete one ModsCollection.
+     * Delete a Mods_Collection.
+     * @param {Mods_CollectionDeleteArgs} args - Arguments to delete one Mods_Collection.
      * @example
-     * // Delete one ModsCollection
-     * const ModsCollection = await prisma.modsCollection.delete({
+     * // Delete one Mods_Collection
+     * const Mods_Collection = await prisma.mods_Collection.delete({
      *   where: {
-     *     // ... filter to delete one ModsCollection
+     *     // ... filter to delete one Mods_Collection
      *   }
      * })
      * 
     **/
-    delete<T extends ModsCollectionDeleteArgs>(
-      args: SelectSubset<T, ModsCollectionDeleteArgs>
-    ): CheckSelect<T, Prisma__ModsCollectionClient<ModsCollection>, Prisma__ModsCollectionClient<ModsCollectionGetPayload<T>>>
+    delete<T extends Mods_CollectionDeleteArgs>(
+      args: SelectSubset<T, Mods_CollectionDeleteArgs>
+    ): CheckSelect<T, Prisma__Mods_CollectionClient<Mods_Collection>, Prisma__Mods_CollectionClient<Mods_CollectionGetPayload<T>>>
 
     /**
-     * Update one ModsCollection.
-     * @param {ModsCollectionUpdateArgs} args - Arguments to update one ModsCollection.
+     * Update one Mods_Collection.
+     * @param {Mods_CollectionUpdateArgs} args - Arguments to update one Mods_Collection.
      * @example
-     * // Update one ModsCollection
-     * const modsCollection = await prisma.modsCollection.update({
+     * // Update one Mods_Collection
+     * const mods_Collection = await prisma.mods_Collection.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3659,34 +3803,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ModsCollectionUpdateArgs>(
-      args: SelectSubset<T, ModsCollectionUpdateArgs>
-    ): CheckSelect<T, Prisma__ModsCollectionClient<ModsCollection>, Prisma__ModsCollectionClient<ModsCollectionGetPayload<T>>>
+    update<T extends Mods_CollectionUpdateArgs>(
+      args: SelectSubset<T, Mods_CollectionUpdateArgs>
+    ): CheckSelect<T, Prisma__Mods_CollectionClient<Mods_Collection>, Prisma__Mods_CollectionClient<Mods_CollectionGetPayload<T>>>
 
     /**
-     * Delete zero or more ModsCollections.
-     * @param {ModsCollectionDeleteManyArgs} args - Arguments to filter ModsCollections to delete.
+     * Delete zero or more Mods_Collections.
+     * @param {Mods_CollectionDeleteManyArgs} args - Arguments to filter Mods_Collections to delete.
      * @example
-     * // Delete a few ModsCollections
-     * const { count } = await prisma.modsCollection.deleteMany({
+     * // Delete a few Mods_Collections
+     * const { count } = await prisma.mods_Collection.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ModsCollectionDeleteManyArgs>(
-      args?: SelectSubset<T, ModsCollectionDeleteManyArgs>
+    deleteMany<T extends Mods_CollectionDeleteManyArgs>(
+      args?: SelectSubset<T, Mods_CollectionDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ModsCollections.
+     * Update zero or more Mods_Collections.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsCollectionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {Mods_CollectionUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ModsCollections
-     * const modsCollection = await prisma.modsCollection.updateMany({
+     * // Update many Mods_Collections
+     * const mods_Collection = await prisma.mods_Collection.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3696,59 +3840,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ModsCollectionUpdateManyArgs>(
-      args: SelectSubset<T, ModsCollectionUpdateManyArgs>
+    updateMany<T extends Mods_CollectionUpdateManyArgs>(
+      args: SelectSubset<T, Mods_CollectionUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one ModsCollection.
-     * @param {ModsCollectionUpsertArgs} args - Arguments to update or create a ModsCollection.
+     * Create or update one Mods_Collection.
+     * @param {Mods_CollectionUpsertArgs} args - Arguments to update or create a Mods_Collection.
      * @example
-     * // Update or create a ModsCollection
-     * const modsCollection = await prisma.modsCollection.upsert({
+     * // Update or create a Mods_Collection
+     * const mods_Collection = await prisma.mods_Collection.upsert({
      *   create: {
-     *     // ... data to create a ModsCollection
+     *     // ... data to create a Mods_Collection
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ModsCollection we want to update
+     *     // ... the filter for the Mods_Collection we want to update
      *   }
      * })
     **/
-    upsert<T extends ModsCollectionUpsertArgs>(
-      args: SelectSubset<T, ModsCollectionUpsertArgs>
-    ): CheckSelect<T, Prisma__ModsCollectionClient<ModsCollection>, Prisma__ModsCollectionClient<ModsCollectionGetPayload<T>>>
+    upsert<T extends Mods_CollectionUpsertArgs>(
+      args: SelectSubset<T, Mods_CollectionUpsertArgs>
+    ): CheckSelect<T, Prisma__Mods_CollectionClient<Mods_Collection>, Prisma__Mods_CollectionClient<Mods_CollectionGetPayload<T>>>
 
     /**
-     * Count the number of ModsCollections.
+     * Count the number of Mods_Collections.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsCollectionCountArgs} args - Arguments to filter ModsCollections to count.
+     * @param {Mods_CollectionCountArgs} args - Arguments to filter Mods_Collections to count.
      * @example
-     * // Count the number of ModsCollections
-     * const count = await prisma.modsCollection.count({
+     * // Count the number of Mods_Collections
+     * const count = await prisma.mods_Collection.count({
      *   where: {
-     *     // ... the filter for the ModsCollections we want to count
+     *     // ... the filter for the Mods_Collections we want to count
      *   }
      * })
     **/
-    count<T extends ModsCollectionCountArgs>(
-      args?: Subset<T, ModsCollectionCountArgs>,
+    count<T extends Mods_CollectionCountArgs>(
+      args?: Subset<T, Mods_CollectionCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ModsCollectionCountAggregateOutputType>
+          : GetScalarType<T['select'], Mods_CollectionCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ModsCollection.
+     * Allows you to perform aggregations operations on a Mods_Collection.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsCollectionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Mods_CollectionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -3768,13 +3912,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ModsCollectionAggregateArgs>(args: Subset<T, ModsCollectionAggregateArgs>): PrismaPromise<GetModsCollectionAggregateType<T>>
+    aggregate<T extends Mods_CollectionAggregateArgs>(args: Subset<T, Mods_CollectionAggregateArgs>): PrismaPromise<GetMods_CollectionAggregateType<T>>
 
     /**
-     * Group by ModsCollection.
+     * Group by Mods_Collection.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsCollectionGroupByArgs} args - Group by arguments.
+     * @param {Mods_CollectionGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -3789,14 +3933,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ModsCollectionGroupByArgs,
+      T extends Mods_CollectionGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ModsCollectionGroupByArgs['orderBy'] }
-        : { orderBy?: ModsCollectionGroupByArgs['orderBy'] },
+        ? { orderBy: Mods_CollectionGroupByArgs['orderBy'] }
+        : { orderBy?: Mods_CollectionGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -3845,16 +3989,16 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ModsCollectionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModsCollectionGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, Mods_CollectionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMods_CollectionGroupByPayload<T> : PrismaPromise<InputErrors>
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ModsCollection.
+   * The delegate class that acts as a "Promise-like" for Mods_Collection.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ModsCollectionClient<T> implements PrismaPromise<T> {
+  export class Prisma__Mods_CollectionClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -3901,304 +4045,304 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModsCollection findUnique
+   * Mods_Collection findUnique
    */
-  export type ModsCollectionFindUniqueArgs = {
+  export type Mods_CollectionFindUniqueArgs = {
     /**
-     * Select specific fields to fetch from the ModsCollection
+     * Select specific fields to fetch from the Mods_Collection
      * 
     **/
-    select?: ModsCollectionSelect | null
+    select?: Mods_CollectionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsCollectionInclude | null
+    include?: Mods_CollectionInclude | null
     /**
-     * Throw an Error if a ModsCollection can't be found
+     * Throw an Error if a Mods_Collection can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModsCollection to fetch.
+     * Filter, which Mods_Collection to fetch.
      * 
     **/
-    where: ModsCollectionWhereUniqueInput
+    where: Mods_CollectionWhereUniqueInput
   }
 
 
   /**
-   * ModsCollection findFirst
+   * Mods_Collection findFirst
    */
-  export type ModsCollectionFindFirstArgs = {
+  export type Mods_CollectionFindFirstArgs = {
     /**
-     * Select specific fields to fetch from the ModsCollection
+     * Select specific fields to fetch from the Mods_Collection
      * 
     **/
-    select?: ModsCollectionSelect | null
+    select?: Mods_CollectionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsCollectionInclude | null
+    include?: Mods_CollectionInclude | null
     /**
-     * Throw an Error if a ModsCollection can't be found
+     * Throw an Error if a Mods_Collection can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModsCollection to fetch.
+     * Filter, which Mods_Collection to fetch.
      * 
     **/
-    where?: ModsCollectionWhereInput
+    where?: Mods_CollectionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModsCollections to fetch.
+     * Determine the order of Mods_Collections to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModsCollectionOrderByWithRelationInput>
+    orderBy?: Enumerable<Mods_CollectionOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ModsCollections.
+     * Sets the position for searching for Mods_Collections.
      * 
     **/
-    cursor?: ModsCollectionWhereUniqueInput
+    cursor?: Mods_CollectionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModsCollections from the position of the cursor.
+     * Take `±n` Mods_Collections from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModsCollections.
+     * Skip the first `n` Mods_Collections.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ModsCollections.
+     * Filter by unique combinations of Mods_Collections.
      * 
     **/
-    distinct?: Enumerable<ModsCollectionScalarFieldEnum>
+    distinct?: Enumerable<Mods_CollectionScalarFieldEnum>
   }
 
 
   /**
-   * ModsCollection findMany
+   * Mods_Collection findMany
    */
-  export type ModsCollectionFindManyArgs = {
+  export type Mods_CollectionFindManyArgs = {
     /**
-     * Select specific fields to fetch from the ModsCollection
+     * Select specific fields to fetch from the Mods_Collection
      * 
     **/
-    select?: ModsCollectionSelect | null
+    select?: Mods_CollectionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsCollectionInclude | null
+    include?: Mods_CollectionInclude | null
     /**
-     * Filter, which ModsCollections to fetch.
+     * Filter, which Mods_Collections to fetch.
      * 
     **/
-    where?: ModsCollectionWhereInput
+    where?: Mods_CollectionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModsCollections to fetch.
+     * Determine the order of Mods_Collections to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModsCollectionOrderByWithRelationInput>
+    orderBy?: Enumerable<Mods_CollectionOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ModsCollections.
+     * Sets the position for listing Mods_Collections.
      * 
     **/
-    cursor?: ModsCollectionWhereUniqueInput
+    cursor?: Mods_CollectionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModsCollections from the position of the cursor.
+     * Take `±n` Mods_Collections from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModsCollections.
+     * Skip the first `n` Mods_Collections.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<ModsCollectionScalarFieldEnum>
+    distinct?: Enumerable<Mods_CollectionScalarFieldEnum>
   }
 
 
   /**
-   * ModsCollection create
+   * Mods_Collection create
    */
-  export type ModsCollectionCreateArgs = {
+  export type Mods_CollectionCreateArgs = {
     /**
-     * Select specific fields to fetch from the ModsCollection
+     * Select specific fields to fetch from the Mods_Collection
      * 
     **/
-    select?: ModsCollectionSelect | null
+    select?: Mods_CollectionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsCollectionInclude | null
+    include?: Mods_CollectionInclude | null
     /**
-     * The data needed to create a ModsCollection.
+     * The data needed to create a Mods_Collection.
      * 
     **/
-    data: XOR<ModsCollectionCreateInput, ModsCollectionUncheckedCreateInput>
+    data: XOR<Mods_CollectionCreateInput, Mods_CollectionUncheckedCreateInput>
   }
 
 
   /**
-   * ModsCollection createMany
+   * Mods_Collection createMany
    */
-  export type ModsCollectionCreateManyArgs = {
+  export type Mods_CollectionCreateManyArgs = {
     /**
-     * The data used to create many ModsCollections.
+     * The data used to create many Mods_Collections.
      * 
     **/
-    data: Enumerable<ModsCollectionCreateManyInput>
+    data: Enumerable<Mods_CollectionCreateManyInput>
     skipDuplicates?: boolean
   }
 
 
   /**
-   * ModsCollection update
+   * Mods_Collection update
    */
-  export type ModsCollectionUpdateArgs = {
+  export type Mods_CollectionUpdateArgs = {
     /**
-     * Select specific fields to fetch from the ModsCollection
+     * Select specific fields to fetch from the Mods_Collection
      * 
     **/
-    select?: ModsCollectionSelect | null
+    select?: Mods_CollectionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsCollectionInclude | null
+    include?: Mods_CollectionInclude | null
     /**
-     * The data needed to update a ModsCollection.
+     * The data needed to update a Mods_Collection.
      * 
     **/
-    data: XOR<ModsCollectionUpdateInput, ModsCollectionUncheckedUpdateInput>
+    data: XOR<Mods_CollectionUpdateInput, Mods_CollectionUncheckedUpdateInput>
     /**
-     * Choose, which ModsCollection to update.
+     * Choose, which Mods_Collection to update.
      * 
     **/
-    where: ModsCollectionWhereUniqueInput
+    where: Mods_CollectionWhereUniqueInput
   }
 
 
   /**
-   * ModsCollection updateMany
+   * Mods_Collection updateMany
    */
-  export type ModsCollectionUpdateManyArgs = {
+  export type Mods_CollectionUpdateManyArgs = {
     /**
-     * The data used to update ModsCollections.
+     * The data used to update Mods_Collections.
      * 
     **/
-    data: XOR<ModsCollectionUpdateManyMutationInput, ModsCollectionUncheckedUpdateManyInput>
+    data: XOR<Mods_CollectionUpdateManyMutationInput, Mods_CollectionUncheckedUpdateManyInput>
     /**
-     * Filter which ModsCollections to update
+     * Filter which Mods_Collections to update
      * 
     **/
-    where?: ModsCollectionWhereInput
+    where?: Mods_CollectionWhereInput
   }
 
 
   /**
-   * ModsCollection upsert
+   * Mods_Collection upsert
    */
-  export type ModsCollectionUpsertArgs = {
+  export type Mods_CollectionUpsertArgs = {
     /**
-     * Select specific fields to fetch from the ModsCollection
+     * Select specific fields to fetch from the Mods_Collection
      * 
     **/
-    select?: ModsCollectionSelect | null
+    select?: Mods_CollectionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsCollectionInclude | null
+    include?: Mods_CollectionInclude | null
     /**
-     * The filter to search for the ModsCollection to update in case it exists.
+     * The filter to search for the Mods_Collection to update in case it exists.
      * 
     **/
-    where: ModsCollectionWhereUniqueInput
+    where: Mods_CollectionWhereUniqueInput
     /**
-     * In case the ModsCollection found by the `where` argument doesn't exist, create a new ModsCollection with this data.
+     * In case the Mods_Collection found by the `where` argument doesn't exist, create a new Mods_Collection with this data.
      * 
     **/
-    create: XOR<ModsCollectionCreateInput, ModsCollectionUncheckedCreateInput>
+    create: XOR<Mods_CollectionCreateInput, Mods_CollectionUncheckedCreateInput>
     /**
-     * In case the ModsCollection was found with the provided `where` argument, update it with this data.
+     * In case the Mods_Collection was found with the provided `where` argument, update it with this data.
      * 
     **/
-    update: XOR<ModsCollectionUpdateInput, ModsCollectionUncheckedUpdateInput>
+    update: XOR<Mods_CollectionUpdateInput, Mods_CollectionUncheckedUpdateInput>
   }
 
 
   /**
-   * ModsCollection delete
+   * Mods_Collection delete
    */
-  export type ModsCollectionDeleteArgs = {
+  export type Mods_CollectionDeleteArgs = {
     /**
-     * Select specific fields to fetch from the ModsCollection
+     * Select specific fields to fetch from the Mods_Collection
      * 
     **/
-    select?: ModsCollectionSelect | null
+    select?: Mods_CollectionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsCollectionInclude | null
+    include?: Mods_CollectionInclude | null
     /**
-     * Filter which ModsCollection to delete.
+     * Filter which Mods_Collection to delete.
      * 
     **/
-    where: ModsCollectionWhereUniqueInput
+    where: Mods_CollectionWhereUniqueInput
   }
 
 
   /**
-   * ModsCollection deleteMany
+   * Mods_Collection deleteMany
    */
-  export type ModsCollectionDeleteManyArgs = {
+  export type Mods_CollectionDeleteManyArgs = {
     /**
-     * Filter which ModsCollections to delete
+     * Filter which Mods_Collections to delete
      * 
     **/
-    where?: ModsCollectionWhereInput
+    where?: Mods_CollectionWhereInput
   }
 
 
   /**
-   * ModsCollection without action
+   * Mods_Collection without action
    */
-  export type ModsCollectionArgs = {
+  export type Mods_CollectionArgs = {
     /**
-     * Select specific fields to fetch from the ModsCollection
+     * Select specific fields to fetch from the Mods_Collection
      * 
     **/
-    select?: ModsCollectionSelect | null
+    select?: Mods_CollectionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsCollectionInclude | null
+    include?: Mods_CollectionInclude | null
   }
 
 
@@ -4496,30 +4640,30 @@ export namespace Prisma {
     change_list?: boolean
     repository?: boolean
     docs_url?: boolean
-    Collection?: boolean | ModsCollectionArgs
-    Images?: boolean | ModImageFindManyArgs
-    Authors?: boolean | ModAuthorFindManyArgs
-    Tags?: boolean | ModTagFindManyArgs
-    Versions?: boolean | ModVersionFindManyArgs
-    Lists?: boolean | ModsListFindManyArgs
-    Issues?: boolean | ModIssueFindManyArgs
-    Favorits?: boolean | ModsFavoritsFindManyArgs
-    Subscribers?: boolean | ModSubscribersFindManyArgs
-    Downloads?: boolean | ModDownloadFindManyArgs
+    Collection?: boolean | Mods_CollectionArgs
+    Images?: boolean | Mod_ImageFindManyArgs
+    Authors?: boolean | Mod_AuthorFindManyArgs
+    Tags?: boolean | Mod_TagFindManyArgs
+    Versions?: boolean | Mod_VersionFindManyArgs
+    Lists?: boolean | Mods_ListFindManyArgs
+    Issues?: boolean | Mod_IssueFindManyArgs
+    Favorits?: boolean | Mods_FavoritsFindManyArgs
+    Subscribers?: boolean | Mod_SubscribersFindManyArgs
+    Downloads?: boolean | Mod_DownloadFindManyArgs
     _count?: boolean | ModCountOutputTypeArgs
   }
 
   export type ModInclude = {
-    Collection?: boolean | ModsCollectionArgs
-    Images?: boolean | ModImageFindManyArgs
-    Authors?: boolean | ModAuthorFindManyArgs
-    Tags?: boolean | ModTagFindManyArgs
-    Versions?: boolean | ModVersionFindManyArgs
-    Lists?: boolean | ModsListFindManyArgs
-    Issues?: boolean | ModIssueFindManyArgs
-    Favorits?: boolean | ModsFavoritsFindManyArgs
-    Subscribers?: boolean | ModSubscribersFindManyArgs
-    Downloads?: boolean | ModDownloadFindManyArgs
+    Collection?: boolean | Mods_CollectionArgs
+    Images?: boolean | Mod_ImageFindManyArgs
+    Authors?: boolean | Mod_AuthorFindManyArgs
+    Tags?: boolean | Mod_TagFindManyArgs
+    Versions?: boolean | Mod_VersionFindManyArgs
+    Lists?: boolean | Mods_ListFindManyArgs
+    Issues?: boolean | Mod_IssueFindManyArgs
+    Favorits?: boolean | Mods_FavoritsFindManyArgs
+    Subscribers?: boolean | Mod_SubscribersFindManyArgs
+    Downloads?: boolean | Mod_DownloadFindManyArgs
     _count?: boolean | ModCountOutputTypeArgs
   }
 
@@ -4534,31 +4678,31 @@ export namespace Prisma {
     ?'include' extends U
     ? Mod  & {
     [P in TrueKeys<S['include']>]:
-        P extends 'Collection' ? ModsCollectionGetPayload<S['include'][P]> :
-        P extends 'Images' ? Array < ModImageGetPayload<S['include'][P]>>  :
-        P extends 'Authors' ? Array < ModAuthorGetPayload<S['include'][P]>>  :
-        P extends 'Tags' ? Array < ModTagGetPayload<S['include'][P]>>  :
-        P extends 'Versions' ? Array < ModVersionGetPayload<S['include'][P]>>  :
-        P extends 'Lists' ? Array < ModsListGetPayload<S['include'][P]>>  :
-        P extends 'Issues' ? Array < ModIssueGetPayload<S['include'][P]>>  :
-        P extends 'Favorits' ? Array < ModsFavoritsGetPayload<S['include'][P]>>  :
-        P extends 'Subscribers' ? Array < ModSubscribersGetPayload<S['include'][P]>>  :
-        P extends 'Downloads' ? Array < ModDownloadGetPayload<S['include'][P]>>  :
+        P extends 'Collection' ? Mods_CollectionGetPayload<S['include'][P]> :
+        P extends 'Images' ? Array < Mod_ImageGetPayload<S['include'][P]>>  :
+        P extends 'Authors' ? Array < Mod_AuthorGetPayload<S['include'][P]>>  :
+        P extends 'Tags' ? Array < Mod_TagGetPayload<S['include'][P]>>  :
+        P extends 'Versions' ? Array < Mod_VersionGetPayload<S['include'][P]>>  :
+        P extends 'Lists' ? Array < Mods_ListGetPayload<S['include'][P]>>  :
+        P extends 'Issues' ? Array < Mod_IssueGetPayload<S['include'][P]>>  :
+        P extends 'Favorits' ? Array < Mods_FavoritsGetPayload<S['include'][P]>>  :
+        P extends 'Subscribers' ? Array < Mod_SubscribersGetPayload<S['include'][P]>>  :
+        P extends 'Downloads' ? Array < Mod_DownloadGetPayload<S['include'][P]>>  :
         P extends '_count' ? ModCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-        P extends 'Collection' ? ModsCollectionGetPayload<S['select'][P]> :
-        P extends 'Images' ? Array < ModImageGetPayload<S['select'][P]>>  :
-        P extends 'Authors' ? Array < ModAuthorGetPayload<S['select'][P]>>  :
-        P extends 'Tags' ? Array < ModTagGetPayload<S['select'][P]>>  :
-        P extends 'Versions' ? Array < ModVersionGetPayload<S['select'][P]>>  :
-        P extends 'Lists' ? Array < ModsListGetPayload<S['select'][P]>>  :
-        P extends 'Issues' ? Array < ModIssueGetPayload<S['select'][P]>>  :
-        P extends 'Favorits' ? Array < ModsFavoritsGetPayload<S['select'][P]>>  :
-        P extends 'Subscribers' ? Array < ModSubscribersGetPayload<S['select'][P]>>  :
-        P extends 'Downloads' ? Array < ModDownloadGetPayload<S['select'][P]>>  :
+        P extends 'Collection' ? Mods_CollectionGetPayload<S['select'][P]> :
+        P extends 'Images' ? Array < Mod_ImageGetPayload<S['select'][P]>>  :
+        P extends 'Authors' ? Array < Mod_AuthorGetPayload<S['select'][P]>>  :
+        P extends 'Tags' ? Array < Mod_TagGetPayload<S['select'][P]>>  :
+        P extends 'Versions' ? Array < Mod_VersionGetPayload<S['select'][P]>>  :
+        P extends 'Lists' ? Array < Mods_ListGetPayload<S['select'][P]>>  :
+        P extends 'Issues' ? Array < Mod_IssueGetPayload<S['select'][P]>>  :
+        P extends 'Favorits' ? Array < Mods_FavoritsGetPayload<S['select'][P]>>  :
+        P extends 'Subscribers' ? Array < Mod_SubscribersGetPayload<S['select'][P]>>  :
+        P extends 'Downloads' ? Array < Mod_DownloadGetPayload<S['select'][P]>>  :
         P extends '_count' ? ModCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Mod ? Mod[P] : never
   } 
     : Mod
@@ -4899,25 +5043,25 @@ export namespace Prisma {
     constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
     readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
-    Collection<T extends ModsCollectionArgs = {}>(args?: Subset<T, ModsCollectionArgs>): CheckSelect<T, Prisma__ModsCollectionClient<ModsCollection | null >, Prisma__ModsCollectionClient<ModsCollectionGetPayload<T> | null >>;
+    Collection<T extends Mods_CollectionArgs = {}>(args?: Subset<T, Mods_CollectionArgs>): CheckSelect<T, Prisma__Mods_CollectionClient<Mods_Collection | null >, Prisma__Mods_CollectionClient<Mods_CollectionGetPayload<T> | null >>;
 
-    Images<T extends ModImageFindManyArgs = {}>(args?: Subset<T, ModImageFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModImage>>, PrismaPromise<Array<ModImageGetPayload<T>>>>;
+    Images<T extends Mod_ImageFindManyArgs = {}>(args?: Subset<T, Mod_ImageFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Image>>, PrismaPromise<Array<Mod_ImageGetPayload<T>>>>;
 
-    Authors<T extends ModAuthorFindManyArgs = {}>(args?: Subset<T, ModAuthorFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModAuthor>>, PrismaPromise<Array<ModAuthorGetPayload<T>>>>;
+    Authors<T extends Mod_AuthorFindManyArgs = {}>(args?: Subset<T, Mod_AuthorFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Author>>, PrismaPromise<Array<Mod_AuthorGetPayload<T>>>>;
 
-    Tags<T extends ModTagFindManyArgs = {}>(args?: Subset<T, ModTagFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModTag>>, PrismaPromise<Array<ModTagGetPayload<T>>>>;
+    Tags<T extends Mod_TagFindManyArgs = {}>(args?: Subset<T, Mod_TagFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Tag>>, PrismaPromise<Array<Mod_TagGetPayload<T>>>>;
 
-    Versions<T extends ModVersionFindManyArgs = {}>(args?: Subset<T, ModVersionFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModVersion>>, PrismaPromise<Array<ModVersionGetPayload<T>>>>;
+    Versions<T extends Mod_VersionFindManyArgs = {}>(args?: Subset<T, Mod_VersionFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Version>>, PrismaPromise<Array<Mod_VersionGetPayload<T>>>>;
 
-    Lists<T extends ModsListFindManyArgs = {}>(args?: Subset<T, ModsListFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModsList>>, PrismaPromise<Array<ModsListGetPayload<T>>>>;
+    Lists<T extends Mods_ListFindManyArgs = {}>(args?: Subset<T, Mods_ListFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mods_List>>, PrismaPromise<Array<Mods_ListGetPayload<T>>>>;
 
-    Issues<T extends ModIssueFindManyArgs = {}>(args?: Subset<T, ModIssueFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModIssue>>, PrismaPromise<Array<ModIssueGetPayload<T>>>>;
+    Issues<T extends Mod_IssueFindManyArgs = {}>(args?: Subset<T, Mod_IssueFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Issue>>, PrismaPromise<Array<Mod_IssueGetPayload<T>>>>;
 
-    Favorits<T extends ModsFavoritsFindManyArgs = {}>(args?: Subset<T, ModsFavoritsFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModsFavorits>>, PrismaPromise<Array<ModsFavoritsGetPayload<T>>>>;
+    Favorits<T extends Mods_FavoritsFindManyArgs = {}>(args?: Subset<T, Mods_FavoritsFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mods_Favorits>>, PrismaPromise<Array<Mods_FavoritsGetPayload<T>>>>;
 
-    Subscribers<T extends ModSubscribersFindManyArgs = {}>(args?: Subset<T, ModSubscribersFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModSubscribers>>, PrismaPromise<Array<ModSubscribersGetPayload<T>>>>;
+    Subscribers<T extends Mod_SubscribersFindManyArgs = {}>(args?: Subset<T, Mod_SubscribersFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Subscribers>>, PrismaPromise<Array<Mod_SubscribersGetPayload<T>>>>;
 
-    Downloads<T extends ModDownloadFindManyArgs = {}>(args?: Subset<T, ModDownloadFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModDownload>>, PrismaPromise<Array<ModDownloadGetPayload<T>>>>;
+    Downloads<T extends Mod_DownloadFindManyArgs = {}>(args?: Subset<T, Mod_DownloadFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Download>>, PrismaPromise<Array<Mod_DownloadGetPayload<T>>>>;
 
     private get _document();
     /**
@@ -5248,43 +5392,43 @@ export namespace Prisma {
 
 
   /**
-   * Model ModAuthor
+   * Model Mod_Author
    */
 
 
-  export type AggregateModAuthor = {
-    _count: ModAuthorCountAggregateOutputType | null
-    _avg: ModAuthorAvgAggregateOutputType | null
-    _sum: ModAuthorSumAggregateOutputType | null
-    _min: ModAuthorMinAggregateOutputType | null
-    _max: ModAuthorMaxAggregateOutputType | null
+  export type AggregateMod_Author = {
+    _count: Mod_AuthorCountAggregateOutputType | null
+    _avg: Mod_AuthorAvgAggregateOutputType | null
+    _sum: Mod_AuthorSumAggregateOutputType | null
+    _min: Mod_AuthorMinAggregateOutputType | null
+    _max: Mod_AuthorMaxAggregateOutputType | null
   }
 
-  export type ModAuthorAvgAggregateOutputType = {
+  export type Mod_AuthorAvgAggregateOutputType = {
     mod_id: number | null
     user_id: number | null
     type: number | null
   }
 
-  export type ModAuthorSumAggregateOutputType = {
+  export type Mod_AuthorSumAggregateOutputType = {
     mod_id: number | null
     user_id: number | null
     type: number | null
   }
 
-  export type ModAuthorMinAggregateOutputType = {
+  export type Mod_AuthorMinAggregateOutputType = {
     mod_id: number | null
     user_id: number | null
     type: number | null
   }
 
-  export type ModAuthorMaxAggregateOutputType = {
+  export type Mod_AuthorMaxAggregateOutputType = {
     mod_id: number | null
     user_id: number | null
     type: number | null
   }
 
-  export type ModAuthorCountAggregateOutputType = {
+  export type Mod_AuthorCountAggregateOutputType = {
     mod_id: number
     user_id: number
     type: number
@@ -5292,155 +5436,155 @@ export namespace Prisma {
   }
 
 
-  export type ModAuthorAvgAggregateInputType = {
+  export type Mod_AuthorAvgAggregateInputType = {
     mod_id?: true
     user_id?: true
     type?: true
   }
 
-  export type ModAuthorSumAggregateInputType = {
+  export type Mod_AuthorSumAggregateInputType = {
     mod_id?: true
     user_id?: true
     type?: true
   }
 
-  export type ModAuthorMinAggregateInputType = {
+  export type Mod_AuthorMinAggregateInputType = {
     mod_id?: true
     user_id?: true
     type?: true
   }
 
-  export type ModAuthorMaxAggregateInputType = {
+  export type Mod_AuthorMaxAggregateInputType = {
     mod_id?: true
     user_id?: true
     type?: true
   }
 
-  export type ModAuthorCountAggregateInputType = {
+  export type Mod_AuthorCountAggregateInputType = {
     mod_id?: true
     user_id?: true
     type?: true
     _all?: true
   }
 
-  export type ModAuthorAggregateArgs = {
+  export type Mod_AuthorAggregateArgs = {
     /**
-     * Filter which ModAuthor to aggregate.
+     * Filter which Mod_Author to aggregate.
      * 
     **/
-    where?: ModAuthorWhereInput
+    where?: Mod_AuthorWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModAuthors to fetch.
+     * Determine the order of Mod_Authors to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModAuthorOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_AuthorOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: ModAuthorWhereUniqueInput
+    cursor?: Mod_AuthorWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModAuthors from the position of the cursor.
+     * Take `±n` Mod_Authors from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModAuthors.
+     * Skip the first `n` Mod_Authors.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ModAuthors
+     * Count returned Mod_Authors
     **/
-    _count?: true | ModAuthorCountAggregateInputType
+    _count?: true | Mod_AuthorCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ModAuthorAvgAggregateInputType
+    _avg?: Mod_AuthorAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ModAuthorSumAggregateInputType
+    _sum?: Mod_AuthorSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ModAuthorMinAggregateInputType
+    _min?: Mod_AuthorMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ModAuthorMaxAggregateInputType
+    _max?: Mod_AuthorMaxAggregateInputType
   }
 
-  export type GetModAuthorAggregateType<T extends ModAuthorAggregateArgs> = {
-        [P in keyof T & keyof AggregateModAuthor]: P extends '_count' | 'count'
+  export type GetMod_AuthorAggregateType<T extends Mod_AuthorAggregateArgs> = {
+        [P in keyof T & keyof AggregateMod_Author]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateModAuthor[P]>
-      : GetScalarType<T[P], AggregateModAuthor[P]>
+        : GetScalarType<T[P], AggregateMod_Author[P]>
+      : GetScalarType<T[P], AggregateMod_Author[P]>
   }
 
 
 
 
-  export type ModAuthorGroupByArgs = {
-    where?: ModAuthorWhereInput
-    orderBy?: Enumerable<ModAuthorOrderByWithAggregationInput>
-    by: Array<ModAuthorScalarFieldEnum>
-    having?: ModAuthorScalarWhereWithAggregatesInput
+  export type Mod_AuthorGroupByArgs = {
+    where?: Mod_AuthorWhereInput
+    orderBy?: Enumerable<Mod_AuthorOrderByWithAggregationInput>
+    by: Array<Mod_AuthorScalarFieldEnum>
+    having?: Mod_AuthorScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ModAuthorCountAggregateInputType | true
-    _avg?: ModAuthorAvgAggregateInputType
-    _sum?: ModAuthorSumAggregateInputType
-    _min?: ModAuthorMinAggregateInputType
-    _max?: ModAuthorMaxAggregateInputType
+    _count?: Mod_AuthorCountAggregateInputType | true
+    _avg?: Mod_AuthorAvgAggregateInputType
+    _sum?: Mod_AuthorSumAggregateInputType
+    _min?: Mod_AuthorMinAggregateInputType
+    _max?: Mod_AuthorMaxAggregateInputType
   }
 
 
-  export type ModAuthorGroupByOutputType = {
+  export type Mod_AuthorGroupByOutputType = {
     mod_id: number
     user_id: number
     type: number
-    _count: ModAuthorCountAggregateOutputType | null
-    _avg: ModAuthorAvgAggregateOutputType | null
-    _sum: ModAuthorSumAggregateOutputType | null
-    _min: ModAuthorMinAggregateOutputType | null
-    _max: ModAuthorMaxAggregateOutputType | null
+    _count: Mod_AuthorCountAggregateOutputType | null
+    _avg: Mod_AuthorAvgAggregateOutputType | null
+    _sum: Mod_AuthorSumAggregateOutputType | null
+    _min: Mod_AuthorMinAggregateOutputType | null
+    _max: Mod_AuthorMaxAggregateOutputType | null
   }
 
-  type GetModAuthorGroupByPayload<T extends ModAuthorGroupByArgs> = PrismaPromise<
+  type GetMod_AuthorGroupByPayload<T extends Mod_AuthorGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<ModAuthorGroupByOutputType, T['by']> &
+      PickArray<Mod_AuthorGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ModAuthorGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Mod_AuthorGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ModAuthorGroupByOutputType[P]>
-            : GetScalarType<T[P], ModAuthorGroupByOutputType[P]>
+              : GetScalarType<T[P], Mod_AuthorGroupByOutputType[P]>
+            : GetScalarType<T[P], Mod_AuthorGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ModAuthorSelect = {
+  export type Mod_AuthorSelect = {
     mod_id?: boolean
     user_id?: boolean
     type?: boolean
@@ -5448,21 +5592,21 @@ export namespace Prisma {
     Mod?: boolean | ModArgs
   }
 
-  export type ModAuthorInclude = {
+  export type Mod_AuthorInclude = {
     User?: boolean | UserArgs
     Mod?: boolean | ModArgs
   }
 
-  export type ModAuthorGetPayload<
-    S extends boolean | null | undefined | ModAuthorArgs,
+  export type Mod_AuthorGetPayload<
+    S extends boolean | null | undefined | Mod_AuthorArgs,
     U = keyof S
       > = S extends true
-        ? ModAuthor
+        ? Mod_Author
     : S extends undefined
     ? never
-    : S extends ModAuthorArgs | ModAuthorFindManyArgs
+    : S extends Mod_AuthorArgs | Mod_AuthorFindManyArgs
     ?'include' extends U
-    ? ModAuthor  & {
+    ? Mod_Author  & {
     [P in TrueKeys<S['include']>]:
         P extends 'User' ? UserGetPayload<S['include'][P]> :
         P extends 'Mod' ? ModGetPayload<S['include'][P]> :  never
@@ -5471,125 +5615,125 @@ export namespace Prisma {
     ? {
     [P in TrueKeys<S['select']>]:
         P extends 'User' ? UserGetPayload<S['select'][P]> :
-        P extends 'Mod' ? ModGetPayload<S['select'][P]> :  P extends keyof ModAuthor ? ModAuthor[P] : never
+        P extends 'Mod' ? ModGetPayload<S['select'][P]> :  P extends keyof Mod_Author ? Mod_Author[P] : never
   } 
-    : ModAuthor
-  : ModAuthor
+    : Mod_Author
+  : Mod_Author
 
 
-  type ModAuthorCountArgs = Merge<
-    Omit<ModAuthorFindManyArgs, 'select' | 'include'> & {
-      select?: ModAuthorCountAggregateInputType | true
+  type Mod_AuthorCountArgs = Merge<
+    Omit<Mod_AuthorFindManyArgs, 'select' | 'include'> & {
+      select?: Mod_AuthorCountAggregateInputType | true
     }
   >
 
-  export interface ModAuthorDelegate<GlobalRejectSettings> {
+  export interface Mod_AuthorDelegate<GlobalRejectSettings> {
     /**
-     * Find zero or one ModAuthor that matches the filter.
-     * @param {ModAuthorFindUniqueArgs} args - Arguments to find a ModAuthor
+     * Find zero or one Mod_Author that matches the filter.
+     * @param {Mod_AuthorFindUniqueArgs} args - Arguments to find a Mod_Author
      * @example
-     * // Get one ModAuthor
-     * const modAuthor = await prisma.modAuthor.findUnique({
+     * // Get one Mod_Author
+     * const mod_Author = await prisma.mod_Author.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ModAuthorFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ModAuthorFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ModAuthor'> extends True ? CheckSelect<T, Prisma__ModAuthorClient<ModAuthor>, Prisma__ModAuthorClient<ModAuthorGetPayload<T>>> : CheckSelect<T, Prisma__ModAuthorClient<ModAuthor | null >, Prisma__ModAuthorClient<ModAuthorGetPayload<T> | null >>
+    findUnique<T extends Mod_AuthorFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, Mod_AuthorFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Mod_Author'> extends True ? CheckSelect<T, Prisma__Mod_AuthorClient<Mod_Author>, Prisma__Mod_AuthorClient<Mod_AuthorGetPayload<T>>> : CheckSelect<T, Prisma__Mod_AuthorClient<Mod_Author | null >, Prisma__Mod_AuthorClient<Mod_AuthorGetPayload<T> | null >>
 
     /**
-     * Find the first ModAuthor that matches the filter.
+     * Find the first Mod_Author that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModAuthorFindFirstArgs} args - Arguments to find a ModAuthor
+     * @param {Mod_AuthorFindFirstArgs} args - Arguments to find a Mod_Author
      * @example
-     * // Get one ModAuthor
-     * const modAuthor = await prisma.modAuthor.findFirst({
+     * // Get one Mod_Author
+     * const mod_Author = await prisma.mod_Author.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ModAuthorFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ModAuthorFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ModAuthor'> extends True ? CheckSelect<T, Prisma__ModAuthorClient<ModAuthor>, Prisma__ModAuthorClient<ModAuthorGetPayload<T>>> : CheckSelect<T, Prisma__ModAuthorClient<ModAuthor | null >, Prisma__ModAuthorClient<ModAuthorGetPayload<T> | null >>
+    findFirst<T extends Mod_AuthorFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, Mod_AuthorFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Mod_Author'> extends True ? CheckSelect<T, Prisma__Mod_AuthorClient<Mod_Author>, Prisma__Mod_AuthorClient<Mod_AuthorGetPayload<T>>> : CheckSelect<T, Prisma__Mod_AuthorClient<Mod_Author | null >, Prisma__Mod_AuthorClient<Mod_AuthorGetPayload<T> | null >>
 
     /**
-     * Find zero or more ModAuthors that matches the filter.
+     * Find zero or more Mod_Authors that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModAuthorFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {Mod_AuthorFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ModAuthors
-     * const modAuthors = await prisma.modAuthor.findMany()
+     * // Get all Mod_Authors
+     * const mod_Authors = await prisma.mod_Author.findMany()
      * 
-     * // Get first 10 ModAuthors
-     * const modAuthors = await prisma.modAuthor.findMany({ take: 10 })
+     * // Get first 10 Mod_Authors
+     * const mod_Authors = await prisma.mod_Author.findMany({ take: 10 })
      * 
      * // Only select the `mod_id`
-     * const modAuthorWithMod_idOnly = await prisma.modAuthor.findMany({ select: { mod_id: true } })
+     * const mod_AuthorWithMod_idOnly = await prisma.mod_Author.findMany({ select: { mod_id: true } })
      * 
     **/
-    findMany<T extends ModAuthorFindManyArgs>(
-      args?: SelectSubset<T, ModAuthorFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<ModAuthor>>, PrismaPromise<Array<ModAuthorGetPayload<T>>>>
+    findMany<T extends Mod_AuthorFindManyArgs>(
+      args?: SelectSubset<T, Mod_AuthorFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Mod_Author>>, PrismaPromise<Array<Mod_AuthorGetPayload<T>>>>
 
     /**
-     * Create a ModAuthor.
-     * @param {ModAuthorCreateArgs} args - Arguments to create a ModAuthor.
+     * Create a Mod_Author.
+     * @param {Mod_AuthorCreateArgs} args - Arguments to create a Mod_Author.
      * @example
-     * // Create one ModAuthor
-     * const ModAuthor = await prisma.modAuthor.create({
+     * // Create one Mod_Author
+     * const Mod_Author = await prisma.mod_Author.create({
      *   data: {
-     *     // ... data to create a ModAuthor
+     *     // ... data to create a Mod_Author
      *   }
      * })
      * 
     **/
-    create<T extends ModAuthorCreateArgs>(
-      args: SelectSubset<T, ModAuthorCreateArgs>
-    ): CheckSelect<T, Prisma__ModAuthorClient<ModAuthor>, Prisma__ModAuthorClient<ModAuthorGetPayload<T>>>
+    create<T extends Mod_AuthorCreateArgs>(
+      args: SelectSubset<T, Mod_AuthorCreateArgs>
+    ): CheckSelect<T, Prisma__Mod_AuthorClient<Mod_Author>, Prisma__Mod_AuthorClient<Mod_AuthorGetPayload<T>>>
 
     /**
-     * Create many ModAuthors.
-     *     @param {ModAuthorCreateManyArgs} args - Arguments to create many ModAuthors.
+     * Create many Mod_Authors.
+     *     @param {Mod_AuthorCreateManyArgs} args - Arguments to create many Mod_Authors.
      *     @example
-     *     // Create many ModAuthors
-     *     const modAuthor = await prisma.modAuthor.createMany({
+     *     // Create many Mod_Authors
+     *     const mod_Author = await prisma.mod_Author.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ModAuthorCreateManyArgs>(
-      args?: SelectSubset<T, ModAuthorCreateManyArgs>
+    createMany<T extends Mod_AuthorCreateManyArgs>(
+      args?: SelectSubset<T, Mod_AuthorCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a ModAuthor.
-     * @param {ModAuthorDeleteArgs} args - Arguments to delete one ModAuthor.
+     * Delete a Mod_Author.
+     * @param {Mod_AuthorDeleteArgs} args - Arguments to delete one Mod_Author.
      * @example
-     * // Delete one ModAuthor
-     * const ModAuthor = await prisma.modAuthor.delete({
+     * // Delete one Mod_Author
+     * const Mod_Author = await prisma.mod_Author.delete({
      *   where: {
-     *     // ... filter to delete one ModAuthor
+     *     // ... filter to delete one Mod_Author
      *   }
      * })
      * 
     **/
-    delete<T extends ModAuthorDeleteArgs>(
-      args: SelectSubset<T, ModAuthorDeleteArgs>
-    ): CheckSelect<T, Prisma__ModAuthorClient<ModAuthor>, Prisma__ModAuthorClient<ModAuthorGetPayload<T>>>
+    delete<T extends Mod_AuthorDeleteArgs>(
+      args: SelectSubset<T, Mod_AuthorDeleteArgs>
+    ): CheckSelect<T, Prisma__Mod_AuthorClient<Mod_Author>, Prisma__Mod_AuthorClient<Mod_AuthorGetPayload<T>>>
 
     /**
-     * Update one ModAuthor.
-     * @param {ModAuthorUpdateArgs} args - Arguments to update one ModAuthor.
+     * Update one Mod_Author.
+     * @param {Mod_AuthorUpdateArgs} args - Arguments to update one Mod_Author.
      * @example
-     * // Update one ModAuthor
-     * const modAuthor = await prisma.modAuthor.update({
+     * // Update one Mod_Author
+     * const mod_Author = await prisma.mod_Author.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5599,34 +5743,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ModAuthorUpdateArgs>(
-      args: SelectSubset<T, ModAuthorUpdateArgs>
-    ): CheckSelect<T, Prisma__ModAuthorClient<ModAuthor>, Prisma__ModAuthorClient<ModAuthorGetPayload<T>>>
+    update<T extends Mod_AuthorUpdateArgs>(
+      args: SelectSubset<T, Mod_AuthorUpdateArgs>
+    ): CheckSelect<T, Prisma__Mod_AuthorClient<Mod_Author>, Prisma__Mod_AuthorClient<Mod_AuthorGetPayload<T>>>
 
     /**
-     * Delete zero or more ModAuthors.
-     * @param {ModAuthorDeleteManyArgs} args - Arguments to filter ModAuthors to delete.
+     * Delete zero or more Mod_Authors.
+     * @param {Mod_AuthorDeleteManyArgs} args - Arguments to filter Mod_Authors to delete.
      * @example
-     * // Delete a few ModAuthors
-     * const { count } = await prisma.modAuthor.deleteMany({
+     * // Delete a few Mod_Authors
+     * const { count } = await prisma.mod_Author.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ModAuthorDeleteManyArgs>(
-      args?: SelectSubset<T, ModAuthorDeleteManyArgs>
+    deleteMany<T extends Mod_AuthorDeleteManyArgs>(
+      args?: SelectSubset<T, Mod_AuthorDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ModAuthors.
+     * Update zero or more Mod_Authors.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModAuthorUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {Mod_AuthorUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ModAuthors
-     * const modAuthor = await prisma.modAuthor.updateMany({
+     * // Update many Mod_Authors
+     * const mod_Author = await prisma.mod_Author.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5636,59 +5780,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ModAuthorUpdateManyArgs>(
-      args: SelectSubset<T, ModAuthorUpdateManyArgs>
+    updateMany<T extends Mod_AuthorUpdateManyArgs>(
+      args: SelectSubset<T, Mod_AuthorUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one ModAuthor.
-     * @param {ModAuthorUpsertArgs} args - Arguments to update or create a ModAuthor.
+     * Create or update one Mod_Author.
+     * @param {Mod_AuthorUpsertArgs} args - Arguments to update or create a Mod_Author.
      * @example
-     * // Update or create a ModAuthor
-     * const modAuthor = await prisma.modAuthor.upsert({
+     * // Update or create a Mod_Author
+     * const mod_Author = await prisma.mod_Author.upsert({
      *   create: {
-     *     // ... data to create a ModAuthor
+     *     // ... data to create a Mod_Author
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ModAuthor we want to update
+     *     // ... the filter for the Mod_Author we want to update
      *   }
      * })
     **/
-    upsert<T extends ModAuthorUpsertArgs>(
-      args: SelectSubset<T, ModAuthorUpsertArgs>
-    ): CheckSelect<T, Prisma__ModAuthorClient<ModAuthor>, Prisma__ModAuthorClient<ModAuthorGetPayload<T>>>
+    upsert<T extends Mod_AuthorUpsertArgs>(
+      args: SelectSubset<T, Mod_AuthorUpsertArgs>
+    ): CheckSelect<T, Prisma__Mod_AuthorClient<Mod_Author>, Prisma__Mod_AuthorClient<Mod_AuthorGetPayload<T>>>
 
     /**
-     * Count the number of ModAuthors.
+     * Count the number of Mod_Authors.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModAuthorCountArgs} args - Arguments to filter ModAuthors to count.
+     * @param {Mod_AuthorCountArgs} args - Arguments to filter Mod_Authors to count.
      * @example
-     * // Count the number of ModAuthors
-     * const count = await prisma.modAuthor.count({
+     * // Count the number of Mod_Authors
+     * const count = await prisma.mod_Author.count({
      *   where: {
-     *     // ... the filter for the ModAuthors we want to count
+     *     // ... the filter for the Mod_Authors we want to count
      *   }
      * })
     **/
-    count<T extends ModAuthorCountArgs>(
-      args?: Subset<T, ModAuthorCountArgs>,
+    count<T extends Mod_AuthorCountArgs>(
+      args?: Subset<T, Mod_AuthorCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ModAuthorCountAggregateOutputType>
+          : GetScalarType<T['select'], Mod_AuthorCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ModAuthor.
+     * Allows you to perform aggregations operations on a Mod_Author.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModAuthorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Mod_AuthorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -5708,13 +5852,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ModAuthorAggregateArgs>(args: Subset<T, ModAuthorAggregateArgs>): PrismaPromise<GetModAuthorAggregateType<T>>
+    aggregate<T extends Mod_AuthorAggregateArgs>(args: Subset<T, Mod_AuthorAggregateArgs>): PrismaPromise<GetMod_AuthorAggregateType<T>>
 
     /**
-     * Group by ModAuthor.
+     * Group by Mod_Author.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModAuthorGroupByArgs} args - Group by arguments.
+     * @param {Mod_AuthorGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -5729,14 +5873,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ModAuthorGroupByArgs,
+      T extends Mod_AuthorGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ModAuthorGroupByArgs['orderBy'] }
-        : { orderBy?: ModAuthorGroupByArgs['orderBy'] },
+        ? { orderBy: Mod_AuthorGroupByArgs['orderBy'] }
+        : { orderBy?: Mod_AuthorGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -5785,16 +5929,16 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ModAuthorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModAuthorGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, Mod_AuthorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMod_AuthorGroupByPayload<T> : PrismaPromise<InputErrors>
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ModAuthor.
+   * The delegate class that acts as a "Promise-like" for Mod_Author.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ModAuthorClient<T> implements PrismaPromise<T> {
+  export class Prisma__Mod_AuthorClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -5841,344 +5985,344 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModAuthor findUnique
+   * Mod_Author findUnique
    */
-  export type ModAuthorFindUniqueArgs = {
+  export type Mod_AuthorFindUniqueArgs = {
     /**
-     * Select specific fields to fetch from the ModAuthor
+     * Select specific fields to fetch from the Mod_Author
      * 
     **/
-    select?: ModAuthorSelect | null
+    select?: Mod_AuthorSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModAuthorInclude | null
+    include?: Mod_AuthorInclude | null
     /**
-     * Throw an Error if a ModAuthor can't be found
+     * Throw an Error if a Mod_Author can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModAuthor to fetch.
+     * Filter, which Mod_Author to fetch.
      * 
     **/
-    where: ModAuthorWhereUniqueInput
+    where: Mod_AuthorWhereUniqueInput
   }
 
 
   /**
-   * ModAuthor findFirst
+   * Mod_Author findFirst
    */
-  export type ModAuthorFindFirstArgs = {
+  export type Mod_AuthorFindFirstArgs = {
     /**
-     * Select specific fields to fetch from the ModAuthor
+     * Select specific fields to fetch from the Mod_Author
      * 
     **/
-    select?: ModAuthorSelect | null
+    select?: Mod_AuthorSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModAuthorInclude | null
+    include?: Mod_AuthorInclude | null
     /**
-     * Throw an Error if a ModAuthor can't be found
+     * Throw an Error if a Mod_Author can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModAuthor to fetch.
+     * Filter, which Mod_Author to fetch.
      * 
     **/
-    where?: ModAuthorWhereInput
+    where?: Mod_AuthorWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModAuthors to fetch.
+     * Determine the order of Mod_Authors to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModAuthorOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_AuthorOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ModAuthors.
+     * Sets the position for searching for Mod_Authors.
      * 
     **/
-    cursor?: ModAuthorWhereUniqueInput
+    cursor?: Mod_AuthorWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModAuthors from the position of the cursor.
+     * Take `±n` Mod_Authors from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModAuthors.
+     * Skip the first `n` Mod_Authors.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ModAuthors.
+     * Filter by unique combinations of Mod_Authors.
      * 
     **/
-    distinct?: Enumerable<ModAuthorScalarFieldEnum>
+    distinct?: Enumerable<Mod_AuthorScalarFieldEnum>
   }
 
 
   /**
-   * ModAuthor findMany
+   * Mod_Author findMany
    */
-  export type ModAuthorFindManyArgs = {
+  export type Mod_AuthorFindManyArgs = {
     /**
-     * Select specific fields to fetch from the ModAuthor
+     * Select specific fields to fetch from the Mod_Author
      * 
     **/
-    select?: ModAuthorSelect | null
+    select?: Mod_AuthorSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModAuthorInclude | null
+    include?: Mod_AuthorInclude | null
     /**
-     * Filter, which ModAuthors to fetch.
+     * Filter, which Mod_Authors to fetch.
      * 
     **/
-    where?: ModAuthorWhereInput
+    where?: Mod_AuthorWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModAuthors to fetch.
+     * Determine the order of Mod_Authors to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModAuthorOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_AuthorOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ModAuthors.
+     * Sets the position for listing Mod_Authors.
      * 
     **/
-    cursor?: ModAuthorWhereUniqueInput
+    cursor?: Mod_AuthorWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModAuthors from the position of the cursor.
+     * Take `±n` Mod_Authors from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModAuthors.
+     * Skip the first `n` Mod_Authors.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<ModAuthorScalarFieldEnum>
+    distinct?: Enumerable<Mod_AuthorScalarFieldEnum>
   }
 
 
   /**
-   * ModAuthor create
+   * Mod_Author create
    */
-  export type ModAuthorCreateArgs = {
+  export type Mod_AuthorCreateArgs = {
     /**
-     * Select specific fields to fetch from the ModAuthor
+     * Select specific fields to fetch from the Mod_Author
      * 
     **/
-    select?: ModAuthorSelect | null
+    select?: Mod_AuthorSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModAuthorInclude | null
+    include?: Mod_AuthorInclude | null
     /**
-     * The data needed to create a ModAuthor.
+     * The data needed to create a Mod_Author.
      * 
     **/
-    data: XOR<ModAuthorCreateInput, ModAuthorUncheckedCreateInput>
+    data: XOR<Mod_AuthorCreateInput, Mod_AuthorUncheckedCreateInput>
   }
 
 
   /**
-   * ModAuthor createMany
+   * Mod_Author createMany
    */
-  export type ModAuthorCreateManyArgs = {
+  export type Mod_AuthorCreateManyArgs = {
     /**
-     * The data used to create many ModAuthors.
+     * The data used to create many Mod_Authors.
      * 
     **/
-    data: Enumerable<ModAuthorCreateManyInput>
+    data: Enumerable<Mod_AuthorCreateManyInput>
     skipDuplicates?: boolean
   }
 
 
   /**
-   * ModAuthor update
+   * Mod_Author update
    */
-  export type ModAuthorUpdateArgs = {
+  export type Mod_AuthorUpdateArgs = {
     /**
-     * Select specific fields to fetch from the ModAuthor
+     * Select specific fields to fetch from the Mod_Author
      * 
     **/
-    select?: ModAuthorSelect | null
+    select?: Mod_AuthorSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModAuthorInclude | null
+    include?: Mod_AuthorInclude | null
     /**
-     * The data needed to update a ModAuthor.
+     * The data needed to update a Mod_Author.
      * 
     **/
-    data: XOR<ModAuthorUpdateInput, ModAuthorUncheckedUpdateInput>
+    data: XOR<Mod_AuthorUpdateInput, Mod_AuthorUncheckedUpdateInput>
     /**
-     * Choose, which ModAuthor to update.
+     * Choose, which Mod_Author to update.
      * 
     **/
-    where: ModAuthorWhereUniqueInput
+    where: Mod_AuthorWhereUniqueInput
   }
 
 
   /**
-   * ModAuthor updateMany
+   * Mod_Author updateMany
    */
-  export type ModAuthorUpdateManyArgs = {
+  export type Mod_AuthorUpdateManyArgs = {
     /**
-     * The data used to update ModAuthors.
+     * The data used to update Mod_Authors.
      * 
     **/
-    data: XOR<ModAuthorUpdateManyMutationInput, ModAuthorUncheckedUpdateManyInput>
+    data: XOR<Mod_AuthorUpdateManyMutationInput, Mod_AuthorUncheckedUpdateManyInput>
     /**
-     * Filter which ModAuthors to update
+     * Filter which Mod_Authors to update
      * 
     **/
-    where?: ModAuthorWhereInput
+    where?: Mod_AuthorWhereInput
   }
 
 
   /**
-   * ModAuthor upsert
+   * Mod_Author upsert
    */
-  export type ModAuthorUpsertArgs = {
+  export type Mod_AuthorUpsertArgs = {
     /**
-     * Select specific fields to fetch from the ModAuthor
+     * Select specific fields to fetch from the Mod_Author
      * 
     **/
-    select?: ModAuthorSelect | null
+    select?: Mod_AuthorSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModAuthorInclude | null
+    include?: Mod_AuthorInclude | null
     /**
-     * The filter to search for the ModAuthor to update in case it exists.
+     * The filter to search for the Mod_Author to update in case it exists.
      * 
     **/
-    where: ModAuthorWhereUniqueInput
+    where: Mod_AuthorWhereUniqueInput
     /**
-     * In case the ModAuthor found by the `where` argument doesn't exist, create a new ModAuthor with this data.
+     * In case the Mod_Author found by the `where` argument doesn't exist, create a new Mod_Author with this data.
      * 
     **/
-    create: XOR<ModAuthorCreateInput, ModAuthorUncheckedCreateInput>
+    create: XOR<Mod_AuthorCreateInput, Mod_AuthorUncheckedCreateInput>
     /**
-     * In case the ModAuthor was found with the provided `where` argument, update it with this data.
+     * In case the Mod_Author was found with the provided `where` argument, update it with this data.
      * 
     **/
-    update: XOR<ModAuthorUpdateInput, ModAuthorUncheckedUpdateInput>
+    update: XOR<Mod_AuthorUpdateInput, Mod_AuthorUncheckedUpdateInput>
   }
 
 
   /**
-   * ModAuthor delete
+   * Mod_Author delete
    */
-  export type ModAuthorDeleteArgs = {
+  export type Mod_AuthorDeleteArgs = {
     /**
-     * Select specific fields to fetch from the ModAuthor
+     * Select specific fields to fetch from the Mod_Author
      * 
     **/
-    select?: ModAuthorSelect | null
+    select?: Mod_AuthorSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModAuthorInclude | null
+    include?: Mod_AuthorInclude | null
     /**
-     * Filter which ModAuthor to delete.
+     * Filter which Mod_Author to delete.
      * 
     **/
-    where: ModAuthorWhereUniqueInput
+    where: Mod_AuthorWhereUniqueInput
   }
 
 
   /**
-   * ModAuthor deleteMany
+   * Mod_Author deleteMany
    */
-  export type ModAuthorDeleteManyArgs = {
+  export type Mod_AuthorDeleteManyArgs = {
     /**
-     * Filter which ModAuthors to delete
+     * Filter which Mod_Authors to delete
      * 
     **/
-    where?: ModAuthorWhereInput
+    where?: Mod_AuthorWhereInput
   }
 
 
   /**
-   * ModAuthor without action
+   * Mod_Author without action
    */
-  export type ModAuthorArgs = {
+  export type Mod_AuthorArgs = {
     /**
-     * Select specific fields to fetch from the ModAuthor
+     * Select specific fields to fetch from the Mod_Author
      * 
     **/
-    select?: ModAuthorSelect | null
+    select?: Mod_AuthorSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModAuthorInclude | null
+    include?: Mod_AuthorInclude | null
   }
 
 
 
   /**
-   * Model ModImage
+   * Model Mod_Image
    */
 
 
-  export type AggregateModImage = {
-    _count: ModImageCountAggregateOutputType | null
-    _avg: ModImageAvgAggregateOutputType | null
-    _sum: ModImageSumAggregateOutputType | null
-    _min: ModImageMinAggregateOutputType | null
-    _max: ModImageMaxAggregateOutputType | null
+  export type AggregateMod_Image = {
+    _count: Mod_ImageCountAggregateOutputType | null
+    _avg: Mod_ImageAvgAggregateOutputType | null
+    _sum: Mod_ImageSumAggregateOutputType | null
+    _min: Mod_ImageMinAggregateOutputType | null
+    _max: Mod_ImageMaxAggregateOutputType | null
   }
 
-  export type ModImageAvgAggregateOutputType = {
+  export type Mod_ImageAvgAggregateOutputType = {
     id: number | null
     mod_id: number | null
   }
 
-  export type ModImageSumAggregateOutputType = {
+  export type Mod_ImageSumAggregateOutputType = {
     id: number | null
     mod_id: number | null
   }
 
-  export type ModImageMinAggregateOutputType = {
-    id: number | null
-    mod_id: number | null
-    url: string | null
-  }
-
-  export type ModImageMaxAggregateOutputType = {
+  export type Mod_ImageMinAggregateOutputType = {
     id: number | null
     mod_id: number | null
     url: string | null
   }
 
-  export type ModImageCountAggregateOutputType = {
+  export type Mod_ImageMaxAggregateOutputType = {
+    id: number | null
+    mod_id: number | null
+    url: string | null
+  }
+
+  export type Mod_ImageCountAggregateOutputType = {
     id: number
     mod_id: number
     url: number
@@ -6186,298 +6330,298 @@ export namespace Prisma {
   }
 
 
-  export type ModImageAvgAggregateInputType = {
+  export type Mod_ImageAvgAggregateInputType = {
     id?: true
     mod_id?: true
   }
 
-  export type ModImageSumAggregateInputType = {
+  export type Mod_ImageSumAggregateInputType = {
     id?: true
     mod_id?: true
   }
 
-  export type ModImageMinAggregateInputType = {
-    id?: true
-    mod_id?: true
-    url?: true
-  }
-
-  export type ModImageMaxAggregateInputType = {
+  export type Mod_ImageMinAggregateInputType = {
     id?: true
     mod_id?: true
     url?: true
   }
 
-  export type ModImageCountAggregateInputType = {
+  export type Mod_ImageMaxAggregateInputType = {
+    id?: true
+    mod_id?: true
+    url?: true
+  }
+
+  export type Mod_ImageCountAggregateInputType = {
     id?: true
     mod_id?: true
     url?: true
     _all?: true
   }
 
-  export type ModImageAggregateArgs = {
+  export type Mod_ImageAggregateArgs = {
     /**
-     * Filter which ModImage to aggregate.
+     * Filter which Mod_Image to aggregate.
      * 
     **/
-    where?: ModImageWhereInput
+    where?: Mod_ImageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModImages to fetch.
+     * Determine the order of Mod_Images to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModImageOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_ImageOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: ModImageWhereUniqueInput
+    cursor?: Mod_ImageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModImages from the position of the cursor.
+     * Take `±n` Mod_Images from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModImages.
+     * Skip the first `n` Mod_Images.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ModImages
+     * Count returned Mod_Images
     **/
-    _count?: true | ModImageCountAggregateInputType
+    _count?: true | Mod_ImageCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ModImageAvgAggregateInputType
+    _avg?: Mod_ImageAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ModImageSumAggregateInputType
+    _sum?: Mod_ImageSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ModImageMinAggregateInputType
+    _min?: Mod_ImageMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ModImageMaxAggregateInputType
+    _max?: Mod_ImageMaxAggregateInputType
   }
 
-  export type GetModImageAggregateType<T extends ModImageAggregateArgs> = {
-        [P in keyof T & keyof AggregateModImage]: P extends '_count' | 'count'
+  export type GetMod_ImageAggregateType<T extends Mod_ImageAggregateArgs> = {
+        [P in keyof T & keyof AggregateMod_Image]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateModImage[P]>
-      : GetScalarType<T[P], AggregateModImage[P]>
+        : GetScalarType<T[P], AggregateMod_Image[P]>
+      : GetScalarType<T[P], AggregateMod_Image[P]>
   }
 
 
 
 
-  export type ModImageGroupByArgs = {
-    where?: ModImageWhereInput
-    orderBy?: Enumerable<ModImageOrderByWithAggregationInput>
-    by: Array<ModImageScalarFieldEnum>
-    having?: ModImageScalarWhereWithAggregatesInput
+  export type Mod_ImageGroupByArgs = {
+    where?: Mod_ImageWhereInput
+    orderBy?: Enumerable<Mod_ImageOrderByWithAggregationInput>
+    by: Array<Mod_ImageScalarFieldEnum>
+    having?: Mod_ImageScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ModImageCountAggregateInputType | true
-    _avg?: ModImageAvgAggregateInputType
-    _sum?: ModImageSumAggregateInputType
-    _min?: ModImageMinAggregateInputType
-    _max?: ModImageMaxAggregateInputType
+    _count?: Mod_ImageCountAggregateInputType | true
+    _avg?: Mod_ImageAvgAggregateInputType
+    _sum?: Mod_ImageSumAggregateInputType
+    _min?: Mod_ImageMinAggregateInputType
+    _max?: Mod_ImageMaxAggregateInputType
   }
 
 
-  export type ModImageGroupByOutputType = {
+  export type Mod_ImageGroupByOutputType = {
     id: number
     mod_id: number
     url: string
-    _count: ModImageCountAggregateOutputType | null
-    _avg: ModImageAvgAggregateOutputType | null
-    _sum: ModImageSumAggregateOutputType | null
-    _min: ModImageMinAggregateOutputType | null
-    _max: ModImageMaxAggregateOutputType | null
+    _count: Mod_ImageCountAggregateOutputType | null
+    _avg: Mod_ImageAvgAggregateOutputType | null
+    _sum: Mod_ImageSumAggregateOutputType | null
+    _min: Mod_ImageMinAggregateOutputType | null
+    _max: Mod_ImageMaxAggregateOutputType | null
   }
 
-  type GetModImageGroupByPayload<T extends ModImageGroupByArgs> = PrismaPromise<
+  type GetMod_ImageGroupByPayload<T extends Mod_ImageGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<ModImageGroupByOutputType, T['by']> &
+      PickArray<Mod_ImageGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ModImageGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Mod_ImageGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ModImageGroupByOutputType[P]>
-            : GetScalarType<T[P], ModImageGroupByOutputType[P]>
+              : GetScalarType<T[P], Mod_ImageGroupByOutputType[P]>
+            : GetScalarType<T[P], Mod_ImageGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ModImageSelect = {
+  export type Mod_ImageSelect = {
     id?: boolean
     mod_id?: boolean
     url?: boolean
     Mod?: boolean | ModArgs
   }
 
-  export type ModImageInclude = {
+  export type Mod_ImageInclude = {
     Mod?: boolean | ModArgs
   }
 
-  export type ModImageGetPayload<
-    S extends boolean | null | undefined | ModImageArgs,
+  export type Mod_ImageGetPayload<
+    S extends boolean | null | undefined | Mod_ImageArgs,
     U = keyof S
       > = S extends true
-        ? ModImage
+        ? Mod_Image
     : S extends undefined
     ? never
-    : S extends ModImageArgs | ModImageFindManyArgs
+    : S extends Mod_ImageArgs | Mod_ImageFindManyArgs
     ?'include' extends U
-    ? ModImage  & {
+    ? Mod_Image  & {
     [P in TrueKeys<S['include']>]:
         P extends 'Mod' ? ModGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-        P extends 'Mod' ? ModGetPayload<S['select'][P]> :  P extends keyof ModImage ? ModImage[P] : never
+        P extends 'Mod' ? ModGetPayload<S['select'][P]> :  P extends keyof Mod_Image ? Mod_Image[P] : never
   } 
-    : ModImage
-  : ModImage
+    : Mod_Image
+  : Mod_Image
 
 
-  type ModImageCountArgs = Merge<
-    Omit<ModImageFindManyArgs, 'select' | 'include'> & {
-      select?: ModImageCountAggregateInputType | true
+  type Mod_ImageCountArgs = Merge<
+    Omit<Mod_ImageFindManyArgs, 'select' | 'include'> & {
+      select?: Mod_ImageCountAggregateInputType | true
     }
   >
 
-  export interface ModImageDelegate<GlobalRejectSettings> {
+  export interface Mod_ImageDelegate<GlobalRejectSettings> {
     /**
-     * Find zero or one ModImage that matches the filter.
-     * @param {ModImageFindUniqueArgs} args - Arguments to find a ModImage
+     * Find zero or one Mod_Image that matches the filter.
+     * @param {Mod_ImageFindUniqueArgs} args - Arguments to find a Mod_Image
      * @example
-     * // Get one ModImage
-     * const modImage = await prisma.modImage.findUnique({
+     * // Get one Mod_Image
+     * const mod_Image = await prisma.mod_Image.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ModImageFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ModImageFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ModImage'> extends True ? CheckSelect<T, Prisma__ModImageClient<ModImage>, Prisma__ModImageClient<ModImageGetPayload<T>>> : CheckSelect<T, Prisma__ModImageClient<ModImage | null >, Prisma__ModImageClient<ModImageGetPayload<T> | null >>
+    findUnique<T extends Mod_ImageFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, Mod_ImageFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Mod_Image'> extends True ? CheckSelect<T, Prisma__Mod_ImageClient<Mod_Image>, Prisma__Mod_ImageClient<Mod_ImageGetPayload<T>>> : CheckSelect<T, Prisma__Mod_ImageClient<Mod_Image | null >, Prisma__Mod_ImageClient<Mod_ImageGetPayload<T> | null >>
 
     /**
-     * Find the first ModImage that matches the filter.
+     * Find the first Mod_Image that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModImageFindFirstArgs} args - Arguments to find a ModImage
+     * @param {Mod_ImageFindFirstArgs} args - Arguments to find a Mod_Image
      * @example
-     * // Get one ModImage
-     * const modImage = await prisma.modImage.findFirst({
+     * // Get one Mod_Image
+     * const mod_Image = await prisma.mod_Image.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ModImageFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ModImageFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ModImage'> extends True ? CheckSelect<T, Prisma__ModImageClient<ModImage>, Prisma__ModImageClient<ModImageGetPayload<T>>> : CheckSelect<T, Prisma__ModImageClient<ModImage | null >, Prisma__ModImageClient<ModImageGetPayload<T> | null >>
+    findFirst<T extends Mod_ImageFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, Mod_ImageFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Mod_Image'> extends True ? CheckSelect<T, Prisma__Mod_ImageClient<Mod_Image>, Prisma__Mod_ImageClient<Mod_ImageGetPayload<T>>> : CheckSelect<T, Prisma__Mod_ImageClient<Mod_Image | null >, Prisma__Mod_ImageClient<Mod_ImageGetPayload<T> | null >>
 
     /**
-     * Find zero or more ModImages that matches the filter.
+     * Find zero or more Mod_Images that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModImageFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {Mod_ImageFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ModImages
-     * const modImages = await prisma.modImage.findMany()
+     * // Get all Mod_Images
+     * const mod_Images = await prisma.mod_Image.findMany()
      * 
-     * // Get first 10 ModImages
-     * const modImages = await prisma.modImage.findMany({ take: 10 })
+     * // Get first 10 Mod_Images
+     * const mod_Images = await prisma.mod_Image.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const modImageWithIdOnly = await prisma.modImage.findMany({ select: { id: true } })
+     * const mod_ImageWithIdOnly = await prisma.mod_Image.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends ModImageFindManyArgs>(
-      args?: SelectSubset<T, ModImageFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<ModImage>>, PrismaPromise<Array<ModImageGetPayload<T>>>>
+    findMany<T extends Mod_ImageFindManyArgs>(
+      args?: SelectSubset<T, Mod_ImageFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Mod_Image>>, PrismaPromise<Array<Mod_ImageGetPayload<T>>>>
 
     /**
-     * Create a ModImage.
-     * @param {ModImageCreateArgs} args - Arguments to create a ModImage.
+     * Create a Mod_Image.
+     * @param {Mod_ImageCreateArgs} args - Arguments to create a Mod_Image.
      * @example
-     * // Create one ModImage
-     * const ModImage = await prisma.modImage.create({
+     * // Create one Mod_Image
+     * const Mod_Image = await prisma.mod_Image.create({
      *   data: {
-     *     // ... data to create a ModImage
+     *     // ... data to create a Mod_Image
      *   }
      * })
      * 
     **/
-    create<T extends ModImageCreateArgs>(
-      args: SelectSubset<T, ModImageCreateArgs>
-    ): CheckSelect<T, Prisma__ModImageClient<ModImage>, Prisma__ModImageClient<ModImageGetPayload<T>>>
+    create<T extends Mod_ImageCreateArgs>(
+      args: SelectSubset<T, Mod_ImageCreateArgs>
+    ): CheckSelect<T, Prisma__Mod_ImageClient<Mod_Image>, Prisma__Mod_ImageClient<Mod_ImageGetPayload<T>>>
 
     /**
-     * Create many ModImages.
-     *     @param {ModImageCreateManyArgs} args - Arguments to create many ModImages.
+     * Create many Mod_Images.
+     *     @param {Mod_ImageCreateManyArgs} args - Arguments to create many Mod_Images.
      *     @example
-     *     // Create many ModImages
-     *     const modImage = await prisma.modImage.createMany({
+     *     // Create many Mod_Images
+     *     const mod_Image = await prisma.mod_Image.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ModImageCreateManyArgs>(
-      args?: SelectSubset<T, ModImageCreateManyArgs>
+    createMany<T extends Mod_ImageCreateManyArgs>(
+      args?: SelectSubset<T, Mod_ImageCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a ModImage.
-     * @param {ModImageDeleteArgs} args - Arguments to delete one ModImage.
+     * Delete a Mod_Image.
+     * @param {Mod_ImageDeleteArgs} args - Arguments to delete one Mod_Image.
      * @example
-     * // Delete one ModImage
-     * const ModImage = await prisma.modImage.delete({
+     * // Delete one Mod_Image
+     * const Mod_Image = await prisma.mod_Image.delete({
      *   where: {
-     *     // ... filter to delete one ModImage
+     *     // ... filter to delete one Mod_Image
      *   }
      * })
      * 
     **/
-    delete<T extends ModImageDeleteArgs>(
-      args: SelectSubset<T, ModImageDeleteArgs>
-    ): CheckSelect<T, Prisma__ModImageClient<ModImage>, Prisma__ModImageClient<ModImageGetPayload<T>>>
+    delete<T extends Mod_ImageDeleteArgs>(
+      args: SelectSubset<T, Mod_ImageDeleteArgs>
+    ): CheckSelect<T, Prisma__Mod_ImageClient<Mod_Image>, Prisma__Mod_ImageClient<Mod_ImageGetPayload<T>>>
 
     /**
-     * Update one ModImage.
-     * @param {ModImageUpdateArgs} args - Arguments to update one ModImage.
+     * Update one Mod_Image.
+     * @param {Mod_ImageUpdateArgs} args - Arguments to update one Mod_Image.
      * @example
-     * // Update one ModImage
-     * const modImage = await prisma.modImage.update({
+     * // Update one Mod_Image
+     * const mod_Image = await prisma.mod_Image.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6487,34 +6631,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ModImageUpdateArgs>(
-      args: SelectSubset<T, ModImageUpdateArgs>
-    ): CheckSelect<T, Prisma__ModImageClient<ModImage>, Prisma__ModImageClient<ModImageGetPayload<T>>>
+    update<T extends Mod_ImageUpdateArgs>(
+      args: SelectSubset<T, Mod_ImageUpdateArgs>
+    ): CheckSelect<T, Prisma__Mod_ImageClient<Mod_Image>, Prisma__Mod_ImageClient<Mod_ImageGetPayload<T>>>
 
     /**
-     * Delete zero or more ModImages.
-     * @param {ModImageDeleteManyArgs} args - Arguments to filter ModImages to delete.
+     * Delete zero or more Mod_Images.
+     * @param {Mod_ImageDeleteManyArgs} args - Arguments to filter Mod_Images to delete.
      * @example
-     * // Delete a few ModImages
-     * const { count } = await prisma.modImage.deleteMany({
+     * // Delete a few Mod_Images
+     * const { count } = await prisma.mod_Image.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ModImageDeleteManyArgs>(
-      args?: SelectSubset<T, ModImageDeleteManyArgs>
+    deleteMany<T extends Mod_ImageDeleteManyArgs>(
+      args?: SelectSubset<T, Mod_ImageDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ModImages.
+     * Update zero or more Mod_Images.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModImageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {Mod_ImageUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ModImages
-     * const modImage = await prisma.modImage.updateMany({
+     * // Update many Mod_Images
+     * const mod_Image = await prisma.mod_Image.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6524,59 +6668,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ModImageUpdateManyArgs>(
-      args: SelectSubset<T, ModImageUpdateManyArgs>
+    updateMany<T extends Mod_ImageUpdateManyArgs>(
+      args: SelectSubset<T, Mod_ImageUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one ModImage.
-     * @param {ModImageUpsertArgs} args - Arguments to update or create a ModImage.
+     * Create or update one Mod_Image.
+     * @param {Mod_ImageUpsertArgs} args - Arguments to update or create a Mod_Image.
      * @example
-     * // Update or create a ModImage
-     * const modImage = await prisma.modImage.upsert({
+     * // Update or create a Mod_Image
+     * const mod_Image = await prisma.mod_Image.upsert({
      *   create: {
-     *     // ... data to create a ModImage
+     *     // ... data to create a Mod_Image
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ModImage we want to update
+     *     // ... the filter for the Mod_Image we want to update
      *   }
      * })
     **/
-    upsert<T extends ModImageUpsertArgs>(
-      args: SelectSubset<T, ModImageUpsertArgs>
-    ): CheckSelect<T, Prisma__ModImageClient<ModImage>, Prisma__ModImageClient<ModImageGetPayload<T>>>
+    upsert<T extends Mod_ImageUpsertArgs>(
+      args: SelectSubset<T, Mod_ImageUpsertArgs>
+    ): CheckSelect<T, Prisma__Mod_ImageClient<Mod_Image>, Prisma__Mod_ImageClient<Mod_ImageGetPayload<T>>>
 
     /**
-     * Count the number of ModImages.
+     * Count the number of Mod_Images.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModImageCountArgs} args - Arguments to filter ModImages to count.
+     * @param {Mod_ImageCountArgs} args - Arguments to filter Mod_Images to count.
      * @example
-     * // Count the number of ModImages
-     * const count = await prisma.modImage.count({
+     * // Count the number of Mod_Images
+     * const count = await prisma.mod_Image.count({
      *   where: {
-     *     // ... the filter for the ModImages we want to count
+     *     // ... the filter for the Mod_Images we want to count
      *   }
      * })
     **/
-    count<T extends ModImageCountArgs>(
-      args?: Subset<T, ModImageCountArgs>,
+    count<T extends Mod_ImageCountArgs>(
+      args?: Subset<T, Mod_ImageCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ModImageCountAggregateOutputType>
+          : GetScalarType<T['select'], Mod_ImageCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ModImage.
+     * Allows you to perform aggregations operations on a Mod_Image.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModImageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Mod_ImageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -6596,13 +6740,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ModImageAggregateArgs>(args: Subset<T, ModImageAggregateArgs>): PrismaPromise<GetModImageAggregateType<T>>
+    aggregate<T extends Mod_ImageAggregateArgs>(args: Subset<T, Mod_ImageAggregateArgs>): PrismaPromise<GetMod_ImageAggregateType<T>>
 
     /**
-     * Group by ModImage.
+     * Group by Mod_Image.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModImageGroupByArgs} args - Group by arguments.
+     * @param {Mod_ImageGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -6617,14 +6761,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ModImageGroupByArgs,
+      T extends Mod_ImageGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ModImageGroupByArgs['orderBy'] }
-        : { orderBy?: ModImageGroupByArgs['orderBy'] },
+        ? { orderBy: Mod_ImageGroupByArgs['orderBy'] }
+        : { orderBy?: Mod_ImageGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -6673,16 +6817,16 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ModImageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModImageGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, Mod_ImageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMod_ImageGroupByPayload<T> : PrismaPromise<InputErrors>
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ModImage.
+   * The delegate class that acts as a "Promise-like" for Mod_Image.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ModImageClient<T> implements PrismaPromise<T> {
+  export class Prisma__Mod_ImageClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -6727,635 +6871,635 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModImage findUnique
+   * Mod_Image findUnique
    */
-  export type ModImageFindUniqueArgs = {
+  export type Mod_ImageFindUniqueArgs = {
     /**
-     * Select specific fields to fetch from the ModImage
+     * Select specific fields to fetch from the Mod_Image
      * 
     **/
-    select?: ModImageSelect | null
+    select?: Mod_ImageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModImageInclude | null
+    include?: Mod_ImageInclude | null
     /**
-     * Throw an Error if a ModImage can't be found
+     * Throw an Error if a Mod_Image can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModImage to fetch.
+     * Filter, which Mod_Image to fetch.
      * 
     **/
-    where: ModImageWhereUniqueInput
+    where: Mod_ImageWhereUniqueInput
   }
 
 
   /**
-   * ModImage findFirst
+   * Mod_Image findFirst
    */
-  export type ModImageFindFirstArgs = {
+  export type Mod_ImageFindFirstArgs = {
     /**
-     * Select specific fields to fetch from the ModImage
+     * Select specific fields to fetch from the Mod_Image
      * 
     **/
-    select?: ModImageSelect | null
+    select?: Mod_ImageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModImageInclude | null
+    include?: Mod_ImageInclude | null
     /**
-     * Throw an Error if a ModImage can't be found
+     * Throw an Error if a Mod_Image can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModImage to fetch.
+     * Filter, which Mod_Image to fetch.
      * 
     **/
-    where?: ModImageWhereInput
+    where?: Mod_ImageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModImages to fetch.
+     * Determine the order of Mod_Images to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModImageOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_ImageOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ModImages.
+     * Sets the position for searching for Mod_Images.
      * 
     **/
-    cursor?: ModImageWhereUniqueInput
+    cursor?: Mod_ImageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModImages from the position of the cursor.
+     * Take `±n` Mod_Images from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModImages.
+     * Skip the first `n` Mod_Images.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ModImages.
+     * Filter by unique combinations of Mod_Images.
      * 
     **/
-    distinct?: Enumerable<ModImageScalarFieldEnum>
+    distinct?: Enumerable<Mod_ImageScalarFieldEnum>
   }
 
 
   /**
-   * ModImage findMany
+   * Mod_Image findMany
    */
-  export type ModImageFindManyArgs = {
+  export type Mod_ImageFindManyArgs = {
     /**
-     * Select specific fields to fetch from the ModImage
+     * Select specific fields to fetch from the Mod_Image
      * 
     **/
-    select?: ModImageSelect | null
+    select?: Mod_ImageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModImageInclude | null
+    include?: Mod_ImageInclude | null
     /**
-     * Filter, which ModImages to fetch.
+     * Filter, which Mod_Images to fetch.
      * 
     **/
-    where?: ModImageWhereInput
+    where?: Mod_ImageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModImages to fetch.
+     * Determine the order of Mod_Images to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModImageOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_ImageOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ModImages.
+     * Sets the position for listing Mod_Images.
      * 
     **/
-    cursor?: ModImageWhereUniqueInput
+    cursor?: Mod_ImageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModImages from the position of the cursor.
+     * Take `±n` Mod_Images from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModImages.
+     * Skip the first `n` Mod_Images.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<ModImageScalarFieldEnum>
+    distinct?: Enumerable<Mod_ImageScalarFieldEnum>
   }
 
 
   /**
-   * ModImage create
+   * Mod_Image create
    */
-  export type ModImageCreateArgs = {
+  export type Mod_ImageCreateArgs = {
     /**
-     * Select specific fields to fetch from the ModImage
+     * Select specific fields to fetch from the Mod_Image
      * 
     **/
-    select?: ModImageSelect | null
+    select?: Mod_ImageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModImageInclude | null
+    include?: Mod_ImageInclude | null
     /**
-     * The data needed to create a ModImage.
+     * The data needed to create a Mod_Image.
      * 
     **/
-    data: XOR<ModImageCreateInput, ModImageUncheckedCreateInput>
+    data: XOR<Mod_ImageCreateInput, Mod_ImageUncheckedCreateInput>
   }
 
 
   /**
-   * ModImage createMany
+   * Mod_Image createMany
    */
-  export type ModImageCreateManyArgs = {
+  export type Mod_ImageCreateManyArgs = {
     /**
-     * The data used to create many ModImages.
+     * The data used to create many Mod_Images.
      * 
     **/
-    data: Enumerable<ModImageCreateManyInput>
+    data: Enumerable<Mod_ImageCreateManyInput>
     skipDuplicates?: boolean
   }
 
 
   /**
-   * ModImage update
+   * Mod_Image update
    */
-  export type ModImageUpdateArgs = {
+  export type Mod_ImageUpdateArgs = {
     /**
-     * Select specific fields to fetch from the ModImage
+     * Select specific fields to fetch from the Mod_Image
      * 
     **/
-    select?: ModImageSelect | null
+    select?: Mod_ImageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModImageInclude | null
+    include?: Mod_ImageInclude | null
     /**
-     * The data needed to update a ModImage.
+     * The data needed to update a Mod_Image.
      * 
     **/
-    data: XOR<ModImageUpdateInput, ModImageUncheckedUpdateInput>
+    data: XOR<Mod_ImageUpdateInput, Mod_ImageUncheckedUpdateInput>
     /**
-     * Choose, which ModImage to update.
+     * Choose, which Mod_Image to update.
      * 
     **/
-    where: ModImageWhereUniqueInput
+    where: Mod_ImageWhereUniqueInput
   }
 
 
   /**
-   * ModImage updateMany
+   * Mod_Image updateMany
    */
-  export type ModImageUpdateManyArgs = {
+  export type Mod_ImageUpdateManyArgs = {
     /**
-     * The data used to update ModImages.
+     * The data used to update Mod_Images.
      * 
     **/
-    data: XOR<ModImageUpdateManyMutationInput, ModImageUncheckedUpdateManyInput>
+    data: XOR<Mod_ImageUpdateManyMutationInput, Mod_ImageUncheckedUpdateManyInput>
     /**
-     * Filter which ModImages to update
+     * Filter which Mod_Images to update
      * 
     **/
-    where?: ModImageWhereInput
+    where?: Mod_ImageWhereInput
   }
 
 
   /**
-   * ModImage upsert
+   * Mod_Image upsert
    */
-  export type ModImageUpsertArgs = {
+  export type Mod_ImageUpsertArgs = {
     /**
-     * Select specific fields to fetch from the ModImage
+     * Select specific fields to fetch from the Mod_Image
      * 
     **/
-    select?: ModImageSelect | null
+    select?: Mod_ImageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModImageInclude | null
+    include?: Mod_ImageInclude | null
     /**
-     * The filter to search for the ModImage to update in case it exists.
+     * The filter to search for the Mod_Image to update in case it exists.
      * 
     **/
-    where: ModImageWhereUniqueInput
+    where: Mod_ImageWhereUniqueInput
     /**
-     * In case the ModImage found by the `where` argument doesn't exist, create a new ModImage with this data.
+     * In case the Mod_Image found by the `where` argument doesn't exist, create a new Mod_Image with this data.
      * 
     **/
-    create: XOR<ModImageCreateInput, ModImageUncheckedCreateInput>
+    create: XOR<Mod_ImageCreateInput, Mod_ImageUncheckedCreateInput>
     /**
-     * In case the ModImage was found with the provided `where` argument, update it with this data.
+     * In case the Mod_Image was found with the provided `where` argument, update it with this data.
      * 
     **/
-    update: XOR<ModImageUpdateInput, ModImageUncheckedUpdateInput>
+    update: XOR<Mod_ImageUpdateInput, Mod_ImageUncheckedUpdateInput>
   }
 
 
   /**
-   * ModImage delete
+   * Mod_Image delete
    */
-  export type ModImageDeleteArgs = {
+  export type Mod_ImageDeleteArgs = {
     /**
-     * Select specific fields to fetch from the ModImage
+     * Select specific fields to fetch from the Mod_Image
      * 
     **/
-    select?: ModImageSelect | null
+    select?: Mod_ImageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModImageInclude | null
+    include?: Mod_ImageInclude | null
     /**
-     * Filter which ModImage to delete.
+     * Filter which Mod_Image to delete.
      * 
     **/
-    where: ModImageWhereUniqueInput
+    where: Mod_ImageWhereUniqueInput
   }
 
 
   /**
-   * ModImage deleteMany
+   * Mod_Image deleteMany
    */
-  export type ModImageDeleteManyArgs = {
+  export type Mod_ImageDeleteManyArgs = {
     /**
-     * Filter which ModImages to delete
+     * Filter which Mod_Images to delete
      * 
     **/
-    where?: ModImageWhereInput
+    where?: Mod_ImageWhereInput
   }
 
 
   /**
-   * ModImage without action
+   * Mod_Image without action
    */
-  export type ModImageArgs = {
+  export type Mod_ImageArgs = {
     /**
-     * Select specific fields to fetch from the ModImage
+     * Select specific fields to fetch from the Mod_Image
      * 
     **/
-    select?: ModImageSelect | null
+    select?: Mod_ImageSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModImageInclude | null
+    include?: Mod_ImageInclude | null
   }
 
 
 
   /**
-   * Model ModTag
+   * Model Mod_Tag
    */
 
 
-  export type AggregateModTag = {
-    _count: ModTagCountAggregateOutputType | null
-    _avg: ModTagAvgAggregateOutputType | null
-    _sum: ModTagSumAggregateOutputType | null
-    _min: ModTagMinAggregateOutputType | null
-    _max: ModTagMaxAggregateOutputType | null
+  export type AggregateMod_Tag = {
+    _count: Mod_TagCountAggregateOutputType | null
+    _avg: Mod_TagAvgAggregateOutputType | null
+    _sum: Mod_TagSumAggregateOutputType | null
+    _min: Mod_TagMinAggregateOutputType | null
+    _max: Mod_TagMaxAggregateOutputType | null
   }
 
-  export type ModTagAvgAggregateOutputType = {
+  export type Mod_TagAvgAggregateOutputType = {
     id: number | null
   }
 
-  export type ModTagSumAggregateOutputType = {
+  export type Mod_TagSumAggregateOutputType = {
     id: number | null
   }
 
-  export type ModTagMinAggregateOutputType = {
-    id: number | null
-    name: string | null
-  }
-
-  export type ModTagMaxAggregateOutputType = {
+  export type Mod_TagMinAggregateOutputType = {
     id: number | null
     name: string | null
   }
 
-  export type ModTagCountAggregateOutputType = {
+  export type Mod_TagMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+  }
+
+  export type Mod_TagCountAggregateOutputType = {
     id: number
     name: number
     _all: number
   }
 
 
-  export type ModTagAvgAggregateInputType = {
+  export type Mod_TagAvgAggregateInputType = {
     id?: true
   }
 
-  export type ModTagSumAggregateInputType = {
+  export type Mod_TagSumAggregateInputType = {
     id?: true
   }
 
-  export type ModTagMinAggregateInputType = {
-    id?: true
-    name?: true
-  }
-
-  export type ModTagMaxAggregateInputType = {
+  export type Mod_TagMinAggregateInputType = {
     id?: true
     name?: true
   }
 
-  export type ModTagCountAggregateInputType = {
+  export type Mod_TagMaxAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type Mod_TagCountAggregateInputType = {
     id?: true
     name?: true
     _all?: true
   }
 
-  export type ModTagAggregateArgs = {
+  export type Mod_TagAggregateArgs = {
     /**
-     * Filter which ModTag to aggregate.
+     * Filter which Mod_Tag to aggregate.
      * 
     **/
-    where?: ModTagWhereInput
+    where?: Mod_TagWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModTags to fetch.
+     * Determine the order of Mod_Tags to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModTagOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_TagOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: ModTagWhereUniqueInput
+    cursor?: Mod_TagWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModTags from the position of the cursor.
+     * Take `±n` Mod_Tags from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModTags.
+     * Skip the first `n` Mod_Tags.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ModTags
+     * Count returned Mod_Tags
     **/
-    _count?: true | ModTagCountAggregateInputType
+    _count?: true | Mod_TagCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ModTagAvgAggregateInputType
+    _avg?: Mod_TagAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ModTagSumAggregateInputType
+    _sum?: Mod_TagSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ModTagMinAggregateInputType
+    _min?: Mod_TagMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ModTagMaxAggregateInputType
+    _max?: Mod_TagMaxAggregateInputType
   }
 
-  export type GetModTagAggregateType<T extends ModTagAggregateArgs> = {
-        [P in keyof T & keyof AggregateModTag]: P extends '_count' | 'count'
+  export type GetMod_TagAggregateType<T extends Mod_TagAggregateArgs> = {
+        [P in keyof T & keyof AggregateMod_Tag]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateModTag[P]>
-      : GetScalarType<T[P], AggregateModTag[P]>
+        : GetScalarType<T[P], AggregateMod_Tag[P]>
+      : GetScalarType<T[P], AggregateMod_Tag[P]>
   }
 
 
 
 
-  export type ModTagGroupByArgs = {
-    where?: ModTagWhereInput
-    orderBy?: Enumerable<ModTagOrderByWithAggregationInput>
-    by: Array<ModTagScalarFieldEnum>
-    having?: ModTagScalarWhereWithAggregatesInput
+  export type Mod_TagGroupByArgs = {
+    where?: Mod_TagWhereInput
+    orderBy?: Enumerable<Mod_TagOrderByWithAggregationInput>
+    by: Array<Mod_TagScalarFieldEnum>
+    having?: Mod_TagScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ModTagCountAggregateInputType | true
-    _avg?: ModTagAvgAggregateInputType
-    _sum?: ModTagSumAggregateInputType
-    _min?: ModTagMinAggregateInputType
-    _max?: ModTagMaxAggregateInputType
+    _count?: Mod_TagCountAggregateInputType | true
+    _avg?: Mod_TagAvgAggregateInputType
+    _sum?: Mod_TagSumAggregateInputType
+    _min?: Mod_TagMinAggregateInputType
+    _max?: Mod_TagMaxAggregateInputType
   }
 
 
-  export type ModTagGroupByOutputType = {
+  export type Mod_TagGroupByOutputType = {
     id: number
     name: string
-    _count: ModTagCountAggregateOutputType | null
-    _avg: ModTagAvgAggregateOutputType | null
-    _sum: ModTagSumAggregateOutputType | null
-    _min: ModTagMinAggregateOutputType | null
-    _max: ModTagMaxAggregateOutputType | null
+    _count: Mod_TagCountAggregateOutputType | null
+    _avg: Mod_TagAvgAggregateOutputType | null
+    _sum: Mod_TagSumAggregateOutputType | null
+    _min: Mod_TagMinAggregateOutputType | null
+    _max: Mod_TagMaxAggregateOutputType | null
   }
 
-  type GetModTagGroupByPayload<T extends ModTagGroupByArgs> = PrismaPromise<
+  type GetMod_TagGroupByPayload<T extends Mod_TagGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<ModTagGroupByOutputType, T['by']> &
+      PickArray<Mod_TagGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ModTagGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Mod_TagGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ModTagGroupByOutputType[P]>
-            : GetScalarType<T[P], ModTagGroupByOutputType[P]>
+              : GetScalarType<T[P], Mod_TagGroupByOutputType[P]>
+            : GetScalarType<T[P], Mod_TagGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ModTagSelect = {
+  export type Mod_TagSelect = {
     id?: boolean
     name?: boolean
     Mod?: boolean | ModFindManyArgs
-    _count?: boolean | ModTagCountOutputTypeArgs
+    _count?: boolean | Mod_TagCountOutputTypeArgs
   }
 
-  export type ModTagInclude = {
+  export type Mod_TagInclude = {
     Mod?: boolean | ModFindManyArgs
-    _count?: boolean | ModTagCountOutputTypeArgs
+    _count?: boolean | Mod_TagCountOutputTypeArgs
   }
 
-  export type ModTagGetPayload<
-    S extends boolean | null | undefined | ModTagArgs,
+  export type Mod_TagGetPayload<
+    S extends boolean | null | undefined | Mod_TagArgs,
     U = keyof S
       > = S extends true
-        ? ModTag
+        ? Mod_Tag
     : S extends undefined
     ? never
-    : S extends ModTagArgs | ModTagFindManyArgs
+    : S extends Mod_TagArgs | Mod_TagFindManyArgs
     ?'include' extends U
-    ? ModTag  & {
+    ? Mod_Tag  & {
     [P in TrueKeys<S['include']>]:
         P extends 'Mod' ? Array < ModGetPayload<S['include'][P]>>  :
-        P extends '_count' ? ModTagCountOutputTypeGetPayload<S['include'][P]> :  never
+        P extends '_count' ? Mod_TagCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
         P extends 'Mod' ? Array < ModGetPayload<S['select'][P]>>  :
-        P extends '_count' ? ModTagCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof ModTag ? ModTag[P] : never
+        P extends '_count' ? Mod_TagCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Mod_Tag ? Mod_Tag[P] : never
   } 
-    : ModTag
-  : ModTag
+    : Mod_Tag
+  : Mod_Tag
 
 
-  type ModTagCountArgs = Merge<
-    Omit<ModTagFindManyArgs, 'select' | 'include'> & {
-      select?: ModTagCountAggregateInputType | true
+  type Mod_TagCountArgs = Merge<
+    Omit<Mod_TagFindManyArgs, 'select' | 'include'> & {
+      select?: Mod_TagCountAggregateInputType | true
     }
   >
 
-  export interface ModTagDelegate<GlobalRejectSettings> {
+  export interface Mod_TagDelegate<GlobalRejectSettings> {
     /**
-     * Find zero or one ModTag that matches the filter.
-     * @param {ModTagFindUniqueArgs} args - Arguments to find a ModTag
+     * Find zero or one Mod_Tag that matches the filter.
+     * @param {Mod_TagFindUniqueArgs} args - Arguments to find a Mod_Tag
      * @example
-     * // Get one ModTag
-     * const modTag = await prisma.modTag.findUnique({
+     * // Get one Mod_Tag
+     * const mod_Tag = await prisma.mod_Tag.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ModTagFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ModTagFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ModTag'> extends True ? CheckSelect<T, Prisma__ModTagClient<ModTag>, Prisma__ModTagClient<ModTagGetPayload<T>>> : CheckSelect<T, Prisma__ModTagClient<ModTag | null >, Prisma__ModTagClient<ModTagGetPayload<T> | null >>
+    findUnique<T extends Mod_TagFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, Mod_TagFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Mod_Tag'> extends True ? CheckSelect<T, Prisma__Mod_TagClient<Mod_Tag>, Prisma__Mod_TagClient<Mod_TagGetPayload<T>>> : CheckSelect<T, Prisma__Mod_TagClient<Mod_Tag | null >, Prisma__Mod_TagClient<Mod_TagGetPayload<T> | null >>
 
     /**
-     * Find the first ModTag that matches the filter.
+     * Find the first Mod_Tag that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModTagFindFirstArgs} args - Arguments to find a ModTag
+     * @param {Mod_TagFindFirstArgs} args - Arguments to find a Mod_Tag
      * @example
-     * // Get one ModTag
-     * const modTag = await prisma.modTag.findFirst({
+     * // Get one Mod_Tag
+     * const mod_Tag = await prisma.mod_Tag.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ModTagFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ModTagFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ModTag'> extends True ? CheckSelect<T, Prisma__ModTagClient<ModTag>, Prisma__ModTagClient<ModTagGetPayload<T>>> : CheckSelect<T, Prisma__ModTagClient<ModTag | null >, Prisma__ModTagClient<ModTagGetPayload<T> | null >>
+    findFirst<T extends Mod_TagFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, Mod_TagFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Mod_Tag'> extends True ? CheckSelect<T, Prisma__Mod_TagClient<Mod_Tag>, Prisma__Mod_TagClient<Mod_TagGetPayload<T>>> : CheckSelect<T, Prisma__Mod_TagClient<Mod_Tag | null >, Prisma__Mod_TagClient<Mod_TagGetPayload<T> | null >>
 
     /**
-     * Find zero or more ModTags that matches the filter.
+     * Find zero or more Mod_Tags that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModTagFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {Mod_TagFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ModTags
-     * const modTags = await prisma.modTag.findMany()
+     * // Get all Mod_Tags
+     * const mod_Tags = await prisma.mod_Tag.findMany()
      * 
-     * // Get first 10 ModTags
-     * const modTags = await prisma.modTag.findMany({ take: 10 })
+     * // Get first 10 Mod_Tags
+     * const mod_Tags = await prisma.mod_Tag.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const modTagWithIdOnly = await prisma.modTag.findMany({ select: { id: true } })
+     * const mod_TagWithIdOnly = await prisma.mod_Tag.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends ModTagFindManyArgs>(
-      args?: SelectSubset<T, ModTagFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<ModTag>>, PrismaPromise<Array<ModTagGetPayload<T>>>>
+    findMany<T extends Mod_TagFindManyArgs>(
+      args?: SelectSubset<T, Mod_TagFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Mod_Tag>>, PrismaPromise<Array<Mod_TagGetPayload<T>>>>
 
     /**
-     * Create a ModTag.
-     * @param {ModTagCreateArgs} args - Arguments to create a ModTag.
+     * Create a Mod_Tag.
+     * @param {Mod_TagCreateArgs} args - Arguments to create a Mod_Tag.
      * @example
-     * // Create one ModTag
-     * const ModTag = await prisma.modTag.create({
+     * // Create one Mod_Tag
+     * const Mod_Tag = await prisma.mod_Tag.create({
      *   data: {
-     *     // ... data to create a ModTag
+     *     // ... data to create a Mod_Tag
      *   }
      * })
      * 
     **/
-    create<T extends ModTagCreateArgs>(
-      args: SelectSubset<T, ModTagCreateArgs>
-    ): CheckSelect<T, Prisma__ModTagClient<ModTag>, Prisma__ModTagClient<ModTagGetPayload<T>>>
+    create<T extends Mod_TagCreateArgs>(
+      args: SelectSubset<T, Mod_TagCreateArgs>
+    ): CheckSelect<T, Prisma__Mod_TagClient<Mod_Tag>, Prisma__Mod_TagClient<Mod_TagGetPayload<T>>>
 
     /**
-     * Create many ModTags.
-     *     @param {ModTagCreateManyArgs} args - Arguments to create many ModTags.
+     * Create many Mod_Tags.
+     *     @param {Mod_TagCreateManyArgs} args - Arguments to create many Mod_Tags.
      *     @example
-     *     // Create many ModTags
-     *     const modTag = await prisma.modTag.createMany({
+     *     // Create many Mod_Tags
+     *     const mod_Tag = await prisma.mod_Tag.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ModTagCreateManyArgs>(
-      args?: SelectSubset<T, ModTagCreateManyArgs>
+    createMany<T extends Mod_TagCreateManyArgs>(
+      args?: SelectSubset<T, Mod_TagCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a ModTag.
-     * @param {ModTagDeleteArgs} args - Arguments to delete one ModTag.
+     * Delete a Mod_Tag.
+     * @param {Mod_TagDeleteArgs} args - Arguments to delete one Mod_Tag.
      * @example
-     * // Delete one ModTag
-     * const ModTag = await prisma.modTag.delete({
+     * // Delete one Mod_Tag
+     * const Mod_Tag = await prisma.mod_Tag.delete({
      *   where: {
-     *     // ... filter to delete one ModTag
+     *     // ... filter to delete one Mod_Tag
      *   }
      * })
      * 
     **/
-    delete<T extends ModTagDeleteArgs>(
-      args: SelectSubset<T, ModTagDeleteArgs>
-    ): CheckSelect<T, Prisma__ModTagClient<ModTag>, Prisma__ModTagClient<ModTagGetPayload<T>>>
+    delete<T extends Mod_TagDeleteArgs>(
+      args: SelectSubset<T, Mod_TagDeleteArgs>
+    ): CheckSelect<T, Prisma__Mod_TagClient<Mod_Tag>, Prisma__Mod_TagClient<Mod_TagGetPayload<T>>>
 
     /**
-     * Update one ModTag.
-     * @param {ModTagUpdateArgs} args - Arguments to update one ModTag.
+     * Update one Mod_Tag.
+     * @param {Mod_TagUpdateArgs} args - Arguments to update one Mod_Tag.
      * @example
-     * // Update one ModTag
-     * const modTag = await prisma.modTag.update({
+     * // Update one Mod_Tag
+     * const mod_Tag = await prisma.mod_Tag.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7365,34 +7509,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ModTagUpdateArgs>(
-      args: SelectSubset<T, ModTagUpdateArgs>
-    ): CheckSelect<T, Prisma__ModTagClient<ModTag>, Prisma__ModTagClient<ModTagGetPayload<T>>>
+    update<T extends Mod_TagUpdateArgs>(
+      args: SelectSubset<T, Mod_TagUpdateArgs>
+    ): CheckSelect<T, Prisma__Mod_TagClient<Mod_Tag>, Prisma__Mod_TagClient<Mod_TagGetPayload<T>>>
 
     /**
-     * Delete zero or more ModTags.
-     * @param {ModTagDeleteManyArgs} args - Arguments to filter ModTags to delete.
+     * Delete zero or more Mod_Tags.
+     * @param {Mod_TagDeleteManyArgs} args - Arguments to filter Mod_Tags to delete.
      * @example
-     * // Delete a few ModTags
-     * const { count } = await prisma.modTag.deleteMany({
+     * // Delete a few Mod_Tags
+     * const { count } = await prisma.mod_Tag.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ModTagDeleteManyArgs>(
-      args?: SelectSubset<T, ModTagDeleteManyArgs>
+    deleteMany<T extends Mod_TagDeleteManyArgs>(
+      args?: SelectSubset<T, Mod_TagDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ModTags.
+     * Update zero or more Mod_Tags.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModTagUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {Mod_TagUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ModTags
-     * const modTag = await prisma.modTag.updateMany({
+     * // Update many Mod_Tags
+     * const mod_Tag = await prisma.mod_Tag.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7402,59 +7546,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ModTagUpdateManyArgs>(
-      args: SelectSubset<T, ModTagUpdateManyArgs>
+    updateMany<T extends Mod_TagUpdateManyArgs>(
+      args: SelectSubset<T, Mod_TagUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one ModTag.
-     * @param {ModTagUpsertArgs} args - Arguments to update or create a ModTag.
+     * Create or update one Mod_Tag.
+     * @param {Mod_TagUpsertArgs} args - Arguments to update or create a Mod_Tag.
      * @example
-     * // Update or create a ModTag
-     * const modTag = await prisma.modTag.upsert({
+     * // Update or create a Mod_Tag
+     * const mod_Tag = await prisma.mod_Tag.upsert({
      *   create: {
-     *     // ... data to create a ModTag
+     *     // ... data to create a Mod_Tag
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ModTag we want to update
+     *     // ... the filter for the Mod_Tag we want to update
      *   }
      * })
     **/
-    upsert<T extends ModTagUpsertArgs>(
-      args: SelectSubset<T, ModTagUpsertArgs>
-    ): CheckSelect<T, Prisma__ModTagClient<ModTag>, Prisma__ModTagClient<ModTagGetPayload<T>>>
+    upsert<T extends Mod_TagUpsertArgs>(
+      args: SelectSubset<T, Mod_TagUpsertArgs>
+    ): CheckSelect<T, Prisma__Mod_TagClient<Mod_Tag>, Prisma__Mod_TagClient<Mod_TagGetPayload<T>>>
 
     /**
-     * Count the number of ModTags.
+     * Count the number of Mod_Tags.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModTagCountArgs} args - Arguments to filter ModTags to count.
+     * @param {Mod_TagCountArgs} args - Arguments to filter Mod_Tags to count.
      * @example
-     * // Count the number of ModTags
-     * const count = await prisma.modTag.count({
+     * // Count the number of Mod_Tags
+     * const count = await prisma.mod_Tag.count({
      *   where: {
-     *     // ... the filter for the ModTags we want to count
+     *     // ... the filter for the Mod_Tags we want to count
      *   }
      * })
     **/
-    count<T extends ModTagCountArgs>(
-      args?: Subset<T, ModTagCountArgs>,
+    count<T extends Mod_TagCountArgs>(
+      args?: Subset<T, Mod_TagCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ModTagCountAggregateOutputType>
+          : GetScalarType<T['select'], Mod_TagCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ModTag.
+     * Allows you to perform aggregations operations on a Mod_Tag.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModTagAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Mod_TagAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -7474,13 +7618,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ModTagAggregateArgs>(args: Subset<T, ModTagAggregateArgs>): PrismaPromise<GetModTagAggregateType<T>>
+    aggregate<T extends Mod_TagAggregateArgs>(args: Subset<T, Mod_TagAggregateArgs>): PrismaPromise<GetMod_TagAggregateType<T>>
 
     /**
-     * Group by ModTag.
+     * Group by Mod_Tag.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModTagGroupByArgs} args - Group by arguments.
+     * @param {Mod_TagGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -7495,14 +7639,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ModTagGroupByArgs,
+      T extends Mod_TagGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ModTagGroupByArgs['orderBy'] }
-        : { orderBy?: ModTagGroupByArgs['orderBy'] },
+        ? { orderBy: Mod_TagGroupByArgs['orderBy'] }
+        : { orderBy?: Mod_TagGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -7551,16 +7695,16 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ModTagGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModTagGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, Mod_TagGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMod_TagGroupByPayload<T> : PrismaPromise<InputErrors>
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ModTag.
+   * The delegate class that acts as a "Promise-like" for Mod_Tag.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ModTagClient<T> implements PrismaPromise<T> {
+  export class Prisma__Mod_TagClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -7605,340 +7749,332 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModTag findUnique
+   * Mod_Tag findUnique
    */
-  export type ModTagFindUniqueArgs = {
+  export type Mod_TagFindUniqueArgs = {
     /**
-     * Select specific fields to fetch from the ModTag
+     * Select specific fields to fetch from the Mod_Tag
      * 
     **/
-    select?: ModTagSelect | null
+    select?: Mod_TagSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModTagInclude | null
+    include?: Mod_TagInclude | null
     /**
-     * Throw an Error if a ModTag can't be found
+     * Throw an Error if a Mod_Tag can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModTag to fetch.
+     * Filter, which Mod_Tag to fetch.
      * 
     **/
-    where: ModTagWhereUniqueInput
+    where: Mod_TagWhereUniqueInput
   }
 
 
   /**
-   * ModTag findFirst
+   * Mod_Tag findFirst
    */
-  export type ModTagFindFirstArgs = {
+  export type Mod_TagFindFirstArgs = {
     /**
-     * Select specific fields to fetch from the ModTag
+     * Select specific fields to fetch from the Mod_Tag
      * 
     **/
-    select?: ModTagSelect | null
+    select?: Mod_TagSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModTagInclude | null
+    include?: Mod_TagInclude | null
     /**
-     * Throw an Error if a ModTag can't be found
+     * Throw an Error if a Mod_Tag can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModTag to fetch.
+     * Filter, which Mod_Tag to fetch.
      * 
     **/
-    where?: ModTagWhereInput
+    where?: Mod_TagWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModTags to fetch.
+     * Determine the order of Mod_Tags to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModTagOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_TagOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ModTags.
+     * Sets the position for searching for Mod_Tags.
      * 
     **/
-    cursor?: ModTagWhereUniqueInput
+    cursor?: Mod_TagWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModTags from the position of the cursor.
+     * Take `±n` Mod_Tags from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModTags.
+     * Skip the first `n` Mod_Tags.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ModTags.
+     * Filter by unique combinations of Mod_Tags.
      * 
     **/
-    distinct?: Enumerable<ModTagScalarFieldEnum>
+    distinct?: Enumerable<Mod_TagScalarFieldEnum>
   }
 
 
   /**
-   * ModTag findMany
+   * Mod_Tag findMany
    */
-  export type ModTagFindManyArgs = {
+  export type Mod_TagFindManyArgs = {
     /**
-     * Select specific fields to fetch from the ModTag
+     * Select specific fields to fetch from the Mod_Tag
      * 
     **/
-    select?: ModTagSelect | null
+    select?: Mod_TagSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModTagInclude | null
+    include?: Mod_TagInclude | null
     /**
-     * Filter, which ModTags to fetch.
+     * Filter, which Mod_Tags to fetch.
      * 
     **/
-    where?: ModTagWhereInput
+    where?: Mod_TagWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModTags to fetch.
+     * Determine the order of Mod_Tags to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModTagOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_TagOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ModTags.
+     * Sets the position for listing Mod_Tags.
      * 
     **/
-    cursor?: ModTagWhereUniqueInput
+    cursor?: Mod_TagWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModTags from the position of the cursor.
+     * Take `±n` Mod_Tags from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModTags.
+     * Skip the first `n` Mod_Tags.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<ModTagScalarFieldEnum>
+    distinct?: Enumerable<Mod_TagScalarFieldEnum>
   }
 
 
   /**
-   * ModTag create
+   * Mod_Tag create
    */
-  export type ModTagCreateArgs = {
+  export type Mod_TagCreateArgs = {
     /**
-     * Select specific fields to fetch from the ModTag
+     * Select specific fields to fetch from the Mod_Tag
      * 
     **/
-    select?: ModTagSelect | null
+    select?: Mod_TagSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModTagInclude | null
+    include?: Mod_TagInclude | null
     /**
-     * The data needed to create a ModTag.
+     * The data needed to create a Mod_Tag.
      * 
     **/
-    data: XOR<ModTagCreateInput, ModTagUncheckedCreateInput>
+    data: XOR<Mod_TagCreateInput, Mod_TagUncheckedCreateInput>
   }
 
 
   /**
-   * ModTag createMany
+   * Mod_Tag createMany
    */
-  export type ModTagCreateManyArgs = {
+  export type Mod_TagCreateManyArgs = {
     /**
-     * The data used to create many ModTags.
+     * The data used to create many Mod_Tags.
      * 
     **/
-    data: Enumerable<ModTagCreateManyInput>
+    data: Enumerable<Mod_TagCreateManyInput>
     skipDuplicates?: boolean
   }
 
 
   /**
-   * ModTag update
+   * Mod_Tag update
    */
-  export type ModTagUpdateArgs = {
+  export type Mod_TagUpdateArgs = {
     /**
-     * Select specific fields to fetch from the ModTag
+     * Select specific fields to fetch from the Mod_Tag
      * 
     **/
-    select?: ModTagSelect | null
+    select?: Mod_TagSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModTagInclude | null
+    include?: Mod_TagInclude | null
     /**
-     * The data needed to update a ModTag.
+     * The data needed to update a Mod_Tag.
      * 
     **/
-    data: XOR<ModTagUpdateInput, ModTagUncheckedUpdateInput>
+    data: XOR<Mod_TagUpdateInput, Mod_TagUncheckedUpdateInput>
     /**
-     * Choose, which ModTag to update.
+     * Choose, which Mod_Tag to update.
      * 
     **/
-    where: ModTagWhereUniqueInput
+    where: Mod_TagWhereUniqueInput
   }
 
 
   /**
-   * ModTag updateMany
+   * Mod_Tag updateMany
    */
-  export type ModTagUpdateManyArgs = {
+  export type Mod_TagUpdateManyArgs = {
     /**
-     * The data used to update ModTags.
+     * The data used to update Mod_Tags.
      * 
     **/
-    data: XOR<ModTagUpdateManyMutationInput, ModTagUncheckedUpdateManyInput>
+    data: XOR<Mod_TagUpdateManyMutationInput, Mod_TagUncheckedUpdateManyInput>
     /**
-     * Filter which ModTags to update
+     * Filter which Mod_Tags to update
      * 
     **/
-    where?: ModTagWhereInput
+    where?: Mod_TagWhereInput
   }
 
 
   /**
-   * ModTag upsert
+   * Mod_Tag upsert
    */
-  export type ModTagUpsertArgs = {
+  export type Mod_TagUpsertArgs = {
     /**
-     * Select specific fields to fetch from the ModTag
+     * Select specific fields to fetch from the Mod_Tag
      * 
     **/
-    select?: ModTagSelect | null
+    select?: Mod_TagSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModTagInclude | null
+    include?: Mod_TagInclude | null
     /**
-     * The filter to search for the ModTag to update in case it exists.
+     * The filter to search for the Mod_Tag to update in case it exists.
      * 
     **/
-    where: ModTagWhereUniqueInput
+    where: Mod_TagWhereUniqueInput
     /**
-     * In case the ModTag found by the `where` argument doesn't exist, create a new ModTag with this data.
+     * In case the Mod_Tag found by the `where` argument doesn't exist, create a new Mod_Tag with this data.
      * 
     **/
-    create: XOR<ModTagCreateInput, ModTagUncheckedCreateInput>
+    create: XOR<Mod_TagCreateInput, Mod_TagUncheckedCreateInput>
     /**
-     * In case the ModTag was found with the provided `where` argument, update it with this data.
+     * In case the Mod_Tag was found with the provided `where` argument, update it with this data.
      * 
     **/
-    update: XOR<ModTagUpdateInput, ModTagUncheckedUpdateInput>
+    update: XOR<Mod_TagUpdateInput, Mod_TagUncheckedUpdateInput>
   }
 
 
   /**
-   * ModTag delete
+   * Mod_Tag delete
    */
-  export type ModTagDeleteArgs = {
+  export type Mod_TagDeleteArgs = {
     /**
-     * Select specific fields to fetch from the ModTag
+     * Select specific fields to fetch from the Mod_Tag
      * 
     **/
-    select?: ModTagSelect | null
+    select?: Mod_TagSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModTagInclude | null
+    include?: Mod_TagInclude | null
     /**
-     * Filter which ModTag to delete.
+     * Filter which Mod_Tag to delete.
      * 
     **/
-    where: ModTagWhereUniqueInput
+    where: Mod_TagWhereUniqueInput
   }
 
 
   /**
-   * ModTag deleteMany
+   * Mod_Tag deleteMany
    */
-  export type ModTagDeleteManyArgs = {
+  export type Mod_TagDeleteManyArgs = {
     /**
-     * Filter which ModTags to delete
+     * Filter which Mod_Tags to delete
      * 
     **/
-    where?: ModTagWhereInput
+    where?: Mod_TagWhereInput
   }
 
 
   /**
-   * ModTag without action
+   * Mod_Tag without action
    */
-  export type ModTagArgs = {
+  export type Mod_TagArgs = {
     /**
-     * Select specific fields to fetch from the ModTag
+     * Select specific fields to fetch from the Mod_Tag
      * 
     **/
-    select?: ModTagSelect | null
+    select?: Mod_TagSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModTagInclude | null
+    include?: Mod_TagInclude | null
   }
 
 
 
   /**
-   * Model ModVersion
+   * Model Mod_Version
    */
 
 
-  export type AggregateModVersion = {
-    _count: ModVersionCountAggregateOutputType | null
-    _avg: ModVersionAvgAggregateOutputType | null
-    _sum: ModVersionSumAggregateOutputType | null
-    _min: ModVersionMinAggregateOutputType | null
-    _max: ModVersionMaxAggregateOutputType | null
+  export type AggregateMod_Version = {
+    _count: Mod_VersionCountAggregateOutputType | null
+    _avg: Mod_VersionAvgAggregateOutputType | null
+    _sum: Mod_VersionSumAggregateOutputType | null
+    _min: Mod_VersionMinAggregateOutputType | null
+    _max: Mod_VersionMaxAggregateOutputType | null
   }
 
-  export type ModVersionAvgAggregateOutputType = {
+  export type Mod_VersionAvgAggregateOutputType = {
     id: number | null
     mod_id: number | null
   }
 
-  export type ModVersionSumAggregateOutputType = {
+  export type Mod_VersionSumAggregateOutputType = {
     id: number | null
     mod_id: number | null
   }
 
-  export type ModVersionMinAggregateOutputType = {
-    id: number | null
-    mod_id: number | null
-    version: string | null
-    game_version: string | null
-    releaseDate: Date | null
-  }
-
-  export type ModVersionMaxAggregateOutputType = {
+  export type Mod_VersionMinAggregateOutputType = {
     id: number | null
     mod_id: number | null
     version: string | null
@@ -7946,7 +8082,15 @@ export namespace Prisma {
     releaseDate: Date | null
   }
 
-  export type ModVersionCountAggregateOutputType = {
+  export type Mod_VersionMaxAggregateOutputType = {
+    id: number | null
+    mod_id: number | null
+    version: string | null
+    game_version: string | null
+    releaseDate: Date | null
+  }
+
+  export type Mod_VersionCountAggregateOutputType = {
     id: number
     mod_id: number
     version: number
@@ -7956,25 +8100,17 @@ export namespace Prisma {
   }
 
 
-  export type ModVersionAvgAggregateInputType = {
+  export type Mod_VersionAvgAggregateInputType = {
     id?: true
     mod_id?: true
   }
 
-  export type ModVersionSumAggregateInputType = {
+  export type Mod_VersionSumAggregateInputType = {
     id?: true
     mod_id?: true
   }
 
-  export type ModVersionMinAggregateInputType = {
-    id?: true
-    mod_id?: true
-    version?: true
-    game_version?: true
-    releaseDate?: true
-  }
-
-  export type ModVersionMaxAggregateInputType = {
+  export type Mod_VersionMinAggregateInputType = {
     id?: true
     mod_id?: true
     version?: true
@@ -7982,7 +8118,15 @@ export namespace Prisma {
     releaseDate?: true
   }
 
-  export type ModVersionCountAggregateInputType = {
+  export type Mod_VersionMaxAggregateInputType = {
+    id?: true
+    mod_id?: true
+    version?: true
+    game_version?: true
+    releaseDate?: true
+  }
+
+  export type Mod_VersionCountAggregateInputType = {
     id?: true
     mod_id?: true
     version?: true
@@ -7991,281 +8135,281 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type ModVersionAggregateArgs = {
+  export type Mod_VersionAggregateArgs = {
     /**
-     * Filter which ModVersion to aggregate.
+     * Filter which Mod_Version to aggregate.
      * 
     **/
-    where?: ModVersionWhereInput
+    where?: Mod_VersionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModVersions to fetch.
+     * Determine the order of Mod_Versions to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModVersionOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_VersionOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: ModVersionWhereUniqueInput
+    cursor?: Mod_VersionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModVersions from the position of the cursor.
+     * Take `±n` Mod_Versions from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModVersions.
+     * Skip the first `n` Mod_Versions.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ModVersions
+     * Count returned Mod_Versions
     **/
-    _count?: true | ModVersionCountAggregateInputType
+    _count?: true | Mod_VersionCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ModVersionAvgAggregateInputType
+    _avg?: Mod_VersionAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ModVersionSumAggregateInputType
+    _sum?: Mod_VersionSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ModVersionMinAggregateInputType
+    _min?: Mod_VersionMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ModVersionMaxAggregateInputType
+    _max?: Mod_VersionMaxAggregateInputType
   }
 
-  export type GetModVersionAggregateType<T extends ModVersionAggregateArgs> = {
-        [P in keyof T & keyof AggregateModVersion]: P extends '_count' | 'count'
+  export type GetMod_VersionAggregateType<T extends Mod_VersionAggregateArgs> = {
+        [P in keyof T & keyof AggregateMod_Version]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateModVersion[P]>
-      : GetScalarType<T[P], AggregateModVersion[P]>
+        : GetScalarType<T[P], AggregateMod_Version[P]>
+      : GetScalarType<T[P], AggregateMod_Version[P]>
   }
 
 
 
 
-  export type ModVersionGroupByArgs = {
-    where?: ModVersionWhereInput
-    orderBy?: Enumerable<ModVersionOrderByWithAggregationInput>
-    by: Array<ModVersionScalarFieldEnum>
-    having?: ModVersionScalarWhereWithAggregatesInput
+  export type Mod_VersionGroupByArgs = {
+    where?: Mod_VersionWhereInput
+    orderBy?: Enumerable<Mod_VersionOrderByWithAggregationInput>
+    by: Array<Mod_VersionScalarFieldEnum>
+    having?: Mod_VersionScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ModVersionCountAggregateInputType | true
-    _avg?: ModVersionAvgAggregateInputType
-    _sum?: ModVersionSumAggregateInputType
-    _min?: ModVersionMinAggregateInputType
-    _max?: ModVersionMaxAggregateInputType
+    _count?: Mod_VersionCountAggregateInputType | true
+    _avg?: Mod_VersionAvgAggregateInputType
+    _sum?: Mod_VersionSumAggregateInputType
+    _min?: Mod_VersionMinAggregateInputType
+    _max?: Mod_VersionMaxAggregateInputType
   }
 
 
-  export type ModVersionGroupByOutputType = {
+  export type Mod_VersionGroupByOutputType = {
     id: number
     mod_id: number
     version: string
     game_version: string
     releaseDate: Date
-    _count: ModVersionCountAggregateOutputType | null
-    _avg: ModVersionAvgAggregateOutputType | null
-    _sum: ModVersionSumAggregateOutputType | null
-    _min: ModVersionMinAggregateOutputType | null
-    _max: ModVersionMaxAggregateOutputType | null
+    _count: Mod_VersionCountAggregateOutputType | null
+    _avg: Mod_VersionAvgAggregateOutputType | null
+    _sum: Mod_VersionSumAggregateOutputType | null
+    _min: Mod_VersionMinAggregateOutputType | null
+    _max: Mod_VersionMaxAggregateOutputType | null
   }
 
-  type GetModVersionGroupByPayload<T extends ModVersionGroupByArgs> = PrismaPromise<
+  type GetMod_VersionGroupByPayload<T extends Mod_VersionGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<ModVersionGroupByOutputType, T['by']> &
+      PickArray<Mod_VersionGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ModVersionGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Mod_VersionGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ModVersionGroupByOutputType[P]>
-            : GetScalarType<T[P], ModVersionGroupByOutputType[P]>
+              : GetScalarType<T[P], Mod_VersionGroupByOutputType[P]>
+            : GetScalarType<T[P], Mod_VersionGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ModVersionSelect = {
+  export type Mod_VersionSelect = {
     id?: boolean
     mod_id?: boolean
     version?: boolean
     game_version?: boolean
     releaseDate?: boolean
     Mod?: boolean | ModArgs
-    Downloads?: boolean | ModDownloadFindManyArgs
-    _count?: boolean | ModVersionCountOutputTypeArgs
+    Downloads?: boolean | Mod_DownloadFindManyArgs
+    _count?: boolean | Mod_VersionCountOutputTypeArgs
   }
 
-  export type ModVersionInclude = {
+  export type Mod_VersionInclude = {
     Mod?: boolean | ModArgs
-    Downloads?: boolean | ModDownloadFindManyArgs
-    _count?: boolean | ModVersionCountOutputTypeArgs
+    Downloads?: boolean | Mod_DownloadFindManyArgs
+    _count?: boolean | Mod_VersionCountOutputTypeArgs
   }
 
-  export type ModVersionGetPayload<
-    S extends boolean | null | undefined | ModVersionArgs,
+  export type Mod_VersionGetPayload<
+    S extends boolean | null | undefined | Mod_VersionArgs,
     U = keyof S
       > = S extends true
-        ? ModVersion
+        ? Mod_Version
     : S extends undefined
     ? never
-    : S extends ModVersionArgs | ModVersionFindManyArgs
+    : S extends Mod_VersionArgs | Mod_VersionFindManyArgs
     ?'include' extends U
-    ? ModVersion  & {
+    ? Mod_Version  & {
     [P in TrueKeys<S['include']>]:
         P extends 'Mod' ? ModGetPayload<S['include'][P]> :
-        P extends 'Downloads' ? Array < ModDownloadGetPayload<S['include'][P]>>  :
-        P extends '_count' ? ModVersionCountOutputTypeGetPayload<S['include'][P]> :  never
+        P extends 'Downloads' ? Array < Mod_DownloadGetPayload<S['include'][P]>>  :
+        P extends '_count' ? Mod_VersionCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
         P extends 'Mod' ? ModGetPayload<S['select'][P]> :
-        P extends 'Downloads' ? Array < ModDownloadGetPayload<S['select'][P]>>  :
-        P extends '_count' ? ModVersionCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof ModVersion ? ModVersion[P] : never
+        P extends 'Downloads' ? Array < Mod_DownloadGetPayload<S['select'][P]>>  :
+        P extends '_count' ? Mod_VersionCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Mod_Version ? Mod_Version[P] : never
   } 
-    : ModVersion
-  : ModVersion
+    : Mod_Version
+  : Mod_Version
 
 
-  type ModVersionCountArgs = Merge<
-    Omit<ModVersionFindManyArgs, 'select' | 'include'> & {
-      select?: ModVersionCountAggregateInputType | true
+  type Mod_VersionCountArgs = Merge<
+    Omit<Mod_VersionFindManyArgs, 'select' | 'include'> & {
+      select?: Mod_VersionCountAggregateInputType | true
     }
   >
 
-  export interface ModVersionDelegate<GlobalRejectSettings> {
+  export interface Mod_VersionDelegate<GlobalRejectSettings> {
     /**
-     * Find zero or one ModVersion that matches the filter.
-     * @param {ModVersionFindUniqueArgs} args - Arguments to find a ModVersion
+     * Find zero or one Mod_Version that matches the filter.
+     * @param {Mod_VersionFindUniqueArgs} args - Arguments to find a Mod_Version
      * @example
-     * // Get one ModVersion
-     * const modVersion = await prisma.modVersion.findUnique({
+     * // Get one Mod_Version
+     * const mod_Version = await prisma.mod_Version.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ModVersionFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ModVersionFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ModVersion'> extends True ? CheckSelect<T, Prisma__ModVersionClient<ModVersion>, Prisma__ModVersionClient<ModVersionGetPayload<T>>> : CheckSelect<T, Prisma__ModVersionClient<ModVersion | null >, Prisma__ModVersionClient<ModVersionGetPayload<T> | null >>
+    findUnique<T extends Mod_VersionFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, Mod_VersionFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Mod_Version'> extends True ? CheckSelect<T, Prisma__Mod_VersionClient<Mod_Version>, Prisma__Mod_VersionClient<Mod_VersionGetPayload<T>>> : CheckSelect<T, Prisma__Mod_VersionClient<Mod_Version | null >, Prisma__Mod_VersionClient<Mod_VersionGetPayload<T> | null >>
 
     /**
-     * Find the first ModVersion that matches the filter.
+     * Find the first Mod_Version that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModVersionFindFirstArgs} args - Arguments to find a ModVersion
+     * @param {Mod_VersionFindFirstArgs} args - Arguments to find a Mod_Version
      * @example
-     * // Get one ModVersion
-     * const modVersion = await prisma.modVersion.findFirst({
+     * // Get one Mod_Version
+     * const mod_Version = await prisma.mod_Version.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ModVersionFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ModVersionFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ModVersion'> extends True ? CheckSelect<T, Prisma__ModVersionClient<ModVersion>, Prisma__ModVersionClient<ModVersionGetPayload<T>>> : CheckSelect<T, Prisma__ModVersionClient<ModVersion | null >, Prisma__ModVersionClient<ModVersionGetPayload<T> | null >>
+    findFirst<T extends Mod_VersionFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, Mod_VersionFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Mod_Version'> extends True ? CheckSelect<T, Prisma__Mod_VersionClient<Mod_Version>, Prisma__Mod_VersionClient<Mod_VersionGetPayload<T>>> : CheckSelect<T, Prisma__Mod_VersionClient<Mod_Version | null >, Prisma__Mod_VersionClient<Mod_VersionGetPayload<T> | null >>
 
     /**
-     * Find zero or more ModVersions that matches the filter.
+     * Find zero or more Mod_Versions that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModVersionFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {Mod_VersionFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ModVersions
-     * const modVersions = await prisma.modVersion.findMany()
+     * // Get all Mod_Versions
+     * const mod_Versions = await prisma.mod_Version.findMany()
      * 
-     * // Get first 10 ModVersions
-     * const modVersions = await prisma.modVersion.findMany({ take: 10 })
+     * // Get first 10 Mod_Versions
+     * const mod_Versions = await prisma.mod_Version.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const modVersionWithIdOnly = await prisma.modVersion.findMany({ select: { id: true } })
+     * const mod_VersionWithIdOnly = await prisma.mod_Version.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends ModVersionFindManyArgs>(
-      args?: SelectSubset<T, ModVersionFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<ModVersion>>, PrismaPromise<Array<ModVersionGetPayload<T>>>>
+    findMany<T extends Mod_VersionFindManyArgs>(
+      args?: SelectSubset<T, Mod_VersionFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Mod_Version>>, PrismaPromise<Array<Mod_VersionGetPayload<T>>>>
 
     /**
-     * Create a ModVersion.
-     * @param {ModVersionCreateArgs} args - Arguments to create a ModVersion.
+     * Create a Mod_Version.
+     * @param {Mod_VersionCreateArgs} args - Arguments to create a Mod_Version.
      * @example
-     * // Create one ModVersion
-     * const ModVersion = await prisma.modVersion.create({
+     * // Create one Mod_Version
+     * const Mod_Version = await prisma.mod_Version.create({
      *   data: {
-     *     // ... data to create a ModVersion
+     *     // ... data to create a Mod_Version
      *   }
      * })
      * 
     **/
-    create<T extends ModVersionCreateArgs>(
-      args: SelectSubset<T, ModVersionCreateArgs>
-    ): CheckSelect<T, Prisma__ModVersionClient<ModVersion>, Prisma__ModVersionClient<ModVersionGetPayload<T>>>
+    create<T extends Mod_VersionCreateArgs>(
+      args: SelectSubset<T, Mod_VersionCreateArgs>
+    ): CheckSelect<T, Prisma__Mod_VersionClient<Mod_Version>, Prisma__Mod_VersionClient<Mod_VersionGetPayload<T>>>
 
     /**
-     * Create many ModVersions.
-     *     @param {ModVersionCreateManyArgs} args - Arguments to create many ModVersions.
+     * Create many Mod_Versions.
+     *     @param {Mod_VersionCreateManyArgs} args - Arguments to create many Mod_Versions.
      *     @example
-     *     // Create many ModVersions
-     *     const modVersion = await prisma.modVersion.createMany({
+     *     // Create many Mod_Versions
+     *     const mod_Version = await prisma.mod_Version.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ModVersionCreateManyArgs>(
-      args?: SelectSubset<T, ModVersionCreateManyArgs>
+    createMany<T extends Mod_VersionCreateManyArgs>(
+      args?: SelectSubset<T, Mod_VersionCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a ModVersion.
-     * @param {ModVersionDeleteArgs} args - Arguments to delete one ModVersion.
+     * Delete a Mod_Version.
+     * @param {Mod_VersionDeleteArgs} args - Arguments to delete one Mod_Version.
      * @example
-     * // Delete one ModVersion
-     * const ModVersion = await prisma.modVersion.delete({
+     * // Delete one Mod_Version
+     * const Mod_Version = await prisma.mod_Version.delete({
      *   where: {
-     *     // ... filter to delete one ModVersion
+     *     // ... filter to delete one Mod_Version
      *   }
      * })
      * 
     **/
-    delete<T extends ModVersionDeleteArgs>(
-      args: SelectSubset<T, ModVersionDeleteArgs>
-    ): CheckSelect<T, Prisma__ModVersionClient<ModVersion>, Prisma__ModVersionClient<ModVersionGetPayload<T>>>
+    delete<T extends Mod_VersionDeleteArgs>(
+      args: SelectSubset<T, Mod_VersionDeleteArgs>
+    ): CheckSelect<T, Prisma__Mod_VersionClient<Mod_Version>, Prisma__Mod_VersionClient<Mod_VersionGetPayload<T>>>
 
     /**
-     * Update one ModVersion.
-     * @param {ModVersionUpdateArgs} args - Arguments to update one ModVersion.
+     * Update one Mod_Version.
+     * @param {Mod_VersionUpdateArgs} args - Arguments to update one Mod_Version.
      * @example
-     * // Update one ModVersion
-     * const modVersion = await prisma.modVersion.update({
+     * // Update one Mod_Version
+     * const mod_Version = await prisma.mod_Version.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8275,34 +8419,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ModVersionUpdateArgs>(
-      args: SelectSubset<T, ModVersionUpdateArgs>
-    ): CheckSelect<T, Prisma__ModVersionClient<ModVersion>, Prisma__ModVersionClient<ModVersionGetPayload<T>>>
+    update<T extends Mod_VersionUpdateArgs>(
+      args: SelectSubset<T, Mod_VersionUpdateArgs>
+    ): CheckSelect<T, Prisma__Mod_VersionClient<Mod_Version>, Prisma__Mod_VersionClient<Mod_VersionGetPayload<T>>>
 
     /**
-     * Delete zero or more ModVersions.
-     * @param {ModVersionDeleteManyArgs} args - Arguments to filter ModVersions to delete.
+     * Delete zero or more Mod_Versions.
+     * @param {Mod_VersionDeleteManyArgs} args - Arguments to filter Mod_Versions to delete.
      * @example
-     * // Delete a few ModVersions
-     * const { count } = await prisma.modVersion.deleteMany({
+     * // Delete a few Mod_Versions
+     * const { count } = await prisma.mod_Version.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ModVersionDeleteManyArgs>(
-      args?: SelectSubset<T, ModVersionDeleteManyArgs>
+    deleteMany<T extends Mod_VersionDeleteManyArgs>(
+      args?: SelectSubset<T, Mod_VersionDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ModVersions.
+     * Update zero or more Mod_Versions.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModVersionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {Mod_VersionUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ModVersions
-     * const modVersion = await prisma.modVersion.updateMany({
+     * // Update many Mod_Versions
+     * const mod_Version = await prisma.mod_Version.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8312,59 +8456,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ModVersionUpdateManyArgs>(
-      args: SelectSubset<T, ModVersionUpdateManyArgs>
+    updateMany<T extends Mod_VersionUpdateManyArgs>(
+      args: SelectSubset<T, Mod_VersionUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one ModVersion.
-     * @param {ModVersionUpsertArgs} args - Arguments to update or create a ModVersion.
+     * Create or update one Mod_Version.
+     * @param {Mod_VersionUpsertArgs} args - Arguments to update or create a Mod_Version.
      * @example
-     * // Update or create a ModVersion
-     * const modVersion = await prisma.modVersion.upsert({
+     * // Update or create a Mod_Version
+     * const mod_Version = await prisma.mod_Version.upsert({
      *   create: {
-     *     // ... data to create a ModVersion
+     *     // ... data to create a Mod_Version
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ModVersion we want to update
+     *     // ... the filter for the Mod_Version we want to update
      *   }
      * })
     **/
-    upsert<T extends ModVersionUpsertArgs>(
-      args: SelectSubset<T, ModVersionUpsertArgs>
-    ): CheckSelect<T, Prisma__ModVersionClient<ModVersion>, Prisma__ModVersionClient<ModVersionGetPayload<T>>>
+    upsert<T extends Mod_VersionUpsertArgs>(
+      args: SelectSubset<T, Mod_VersionUpsertArgs>
+    ): CheckSelect<T, Prisma__Mod_VersionClient<Mod_Version>, Prisma__Mod_VersionClient<Mod_VersionGetPayload<T>>>
 
     /**
-     * Count the number of ModVersions.
+     * Count the number of Mod_Versions.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModVersionCountArgs} args - Arguments to filter ModVersions to count.
+     * @param {Mod_VersionCountArgs} args - Arguments to filter Mod_Versions to count.
      * @example
-     * // Count the number of ModVersions
-     * const count = await prisma.modVersion.count({
+     * // Count the number of Mod_Versions
+     * const count = await prisma.mod_Version.count({
      *   where: {
-     *     // ... the filter for the ModVersions we want to count
+     *     // ... the filter for the Mod_Versions we want to count
      *   }
      * })
     **/
-    count<T extends ModVersionCountArgs>(
-      args?: Subset<T, ModVersionCountArgs>,
+    count<T extends Mod_VersionCountArgs>(
+      args?: Subset<T, Mod_VersionCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ModVersionCountAggregateOutputType>
+          : GetScalarType<T['select'], Mod_VersionCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ModVersion.
+     * Allows you to perform aggregations operations on a Mod_Version.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModVersionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Mod_VersionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -8384,13 +8528,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ModVersionAggregateArgs>(args: Subset<T, ModVersionAggregateArgs>): PrismaPromise<GetModVersionAggregateType<T>>
+    aggregate<T extends Mod_VersionAggregateArgs>(args: Subset<T, Mod_VersionAggregateArgs>): PrismaPromise<GetMod_VersionAggregateType<T>>
 
     /**
-     * Group by ModVersion.
+     * Group by Mod_Version.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModVersionGroupByArgs} args - Group by arguments.
+     * @param {Mod_VersionGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -8405,14 +8549,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ModVersionGroupByArgs,
+      T extends Mod_VersionGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ModVersionGroupByArgs['orderBy'] }
-        : { orderBy?: ModVersionGroupByArgs['orderBy'] },
+        ? { orderBy: Mod_VersionGroupByArgs['orderBy'] }
+        : { orderBy?: Mod_VersionGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -8461,16 +8605,16 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ModVersionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModVersionGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, Mod_VersionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMod_VersionGroupByPayload<T> : PrismaPromise<InputErrors>
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ModVersion.
+   * The delegate class that acts as a "Promise-like" for Mod_Version.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ModVersionClient<T> implements PrismaPromise<T> {
+  export class Prisma__Mod_VersionClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -8489,7 +8633,7 @@ export namespace Prisma {
 
     Mod<T extends ModArgs = {}>(args?: Subset<T, ModArgs>): CheckSelect<T, Prisma__ModClient<Mod | null >, Prisma__ModClient<ModGetPayload<T> | null >>;
 
-    Downloads<T extends ModDownloadFindManyArgs = {}>(args?: Subset<T, ModDownloadFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModDownload>>, PrismaPromise<Array<ModDownloadGetPayload<T>>>>;
+    Downloads<T extends Mod_DownloadFindManyArgs = {}>(args?: Subset<T, Mod_DownloadFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Download>>, PrismaPromise<Array<Mod_DownloadGetPayload<T>>>>;
 
     private get _document();
     /**
@@ -8517,352 +8661,352 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModVersion findUnique
+   * Mod_Version findUnique
    */
-  export type ModVersionFindUniqueArgs = {
+  export type Mod_VersionFindUniqueArgs = {
     /**
-     * Select specific fields to fetch from the ModVersion
+     * Select specific fields to fetch from the Mod_Version
      * 
     **/
-    select?: ModVersionSelect | null
+    select?: Mod_VersionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModVersionInclude | null
+    include?: Mod_VersionInclude | null
     /**
-     * Throw an Error if a ModVersion can't be found
+     * Throw an Error if a Mod_Version can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModVersion to fetch.
+     * Filter, which Mod_Version to fetch.
      * 
     **/
-    where: ModVersionWhereUniqueInput
+    where: Mod_VersionWhereUniqueInput
   }
 
 
   /**
-   * ModVersion findFirst
+   * Mod_Version findFirst
    */
-  export type ModVersionFindFirstArgs = {
+  export type Mod_VersionFindFirstArgs = {
     /**
-     * Select specific fields to fetch from the ModVersion
+     * Select specific fields to fetch from the Mod_Version
      * 
     **/
-    select?: ModVersionSelect | null
+    select?: Mod_VersionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModVersionInclude | null
+    include?: Mod_VersionInclude | null
     /**
-     * Throw an Error if a ModVersion can't be found
+     * Throw an Error if a Mod_Version can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModVersion to fetch.
+     * Filter, which Mod_Version to fetch.
      * 
     **/
-    where?: ModVersionWhereInput
+    where?: Mod_VersionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModVersions to fetch.
+     * Determine the order of Mod_Versions to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModVersionOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_VersionOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ModVersions.
+     * Sets the position for searching for Mod_Versions.
      * 
     **/
-    cursor?: ModVersionWhereUniqueInput
+    cursor?: Mod_VersionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModVersions from the position of the cursor.
+     * Take `±n` Mod_Versions from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModVersions.
+     * Skip the first `n` Mod_Versions.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ModVersions.
+     * Filter by unique combinations of Mod_Versions.
      * 
     **/
-    distinct?: Enumerable<ModVersionScalarFieldEnum>
+    distinct?: Enumerable<Mod_VersionScalarFieldEnum>
   }
 
 
   /**
-   * ModVersion findMany
+   * Mod_Version findMany
    */
-  export type ModVersionFindManyArgs = {
+  export type Mod_VersionFindManyArgs = {
     /**
-     * Select specific fields to fetch from the ModVersion
+     * Select specific fields to fetch from the Mod_Version
      * 
     **/
-    select?: ModVersionSelect | null
+    select?: Mod_VersionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModVersionInclude | null
+    include?: Mod_VersionInclude | null
     /**
-     * Filter, which ModVersions to fetch.
+     * Filter, which Mod_Versions to fetch.
      * 
     **/
-    where?: ModVersionWhereInput
+    where?: Mod_VersionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModVersions to fetch.
+     * Determine the order of Mod_Versions to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModVersionOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_VersionOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ModVersions.
+     * Sets the position for listing Mod_Versions.
      * 
     **/
-    cursor?: ModVersionWhereUniqueInput
+    cursor?: Mod_VersionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModVersions from the position of the cursor.
+     * Take `±n` Mod_Versions from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModVersions.
+     * Skip the first `n` Mod_Versions.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<ModVersionScalarFieldEnum>
+    distinct?: Enumerable<Mod_VersionScalarFieldEnum>
   }
 
 
   /**
-   * ModVersion create
+   * Mod_Version create
    */
-  export type ModVersionCreateArgs = {
+  export type Mod_VersionCreateArgs = {
     /**
-     * Select specific fields to fetch from the ModVersion
+     * Select specific fields to fetch from the Mod_Version
      * 
     **/
-    select?: ModVersionSelect | null
+    select?: Mod_VersionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModVersionInclude | null
+    include?: Mod_VersionInclude | null
     /**
-     * The data needed to create a ModVersion.
+     * The data needed to create a Mod_Version.
      * 
     **/
-    data: XOR<ModVersionCreateInput, ModVersionUncheckedCreateInput>
+    data: XOR<Mod_VersionCreateInput, Mod_VersionUncheckedCreateInput>
   }
 
 
   /**
-   * ModVersion createMany
+   * Mod_Version createMany
    */
-  export type ModVersionCreateManyArgs = {
+  export type Mod_VersionCreateManyArgs = {
     /**
-     * The data used to create many ModVersions.
+     * The data used to create many Mod_Versions.
      * 
     **/
-    data: Enumerable<ModVersionCreateManyInput>
+    data: Enumerable<Mod_VersionCreateManyInput>
     skipDuplicates?: boolean
   }
 
 
   /**
-   * ModVersion update
+   * Mod_Version update
    */
-  export type ModVersionUpdateArgs = {
+  export type Mod_VersionUpdateArgs = {
     /**
-     * Select specific fields to fetch from the ModVersion
+     * Select specific fields to fetch from the Mod_Version
      * 
     **/
-    select?: ModVersionSelect | null
+    select?: Mod_VersionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModVersionInclude | null
+    include?: Mod_VersionInclude | null
     /**
-     * The data needed to update a ModVersion.
+     * The data needed to update a Mod_Version.
      * 
     **/
-    data: XOR<ModVersionUpdateInput, ModVersionUncheckedUpdateInput>
+    data: XOR<Mod_VersionUpdateInput, Mod_VersionUncheckedUpdateInput>
     /**
-     * Choose, which ModVersion to update.
+     * Choose, which Mod_Version to update.
      * 
     **/
-    where: ModVersionWhereUniqueInput
+    where: Mod_VersionWhereUniqueInput
   }
 
 
   /**
-   * ModVersion updateMany
+   * Mod_Version updateMany
    */
-  export type ModVersionUpdateManyArgs = {
+  export type Mod_VersionUpdateManyArgs = {
     /**
-     * The data used to update ModVersions.
+     * The data used to update Mod_Versions.
      * 
     **/
-    data: XOR<ModVersionUpdateManyMutationInput, ModVersionUncheckedUpdateManyInput>
+    data: XOR<Mod_VersionUpdateManyMutationInput, Mod_VersionUncheckedUpdateManyInput>
     /**
-     * Filter which ModVersions to update
+     * Filter which Mod_Versions to update
      * 
     **/
-    where?: ModVersionWhereInput
+    where?: Mod_VersionWhereInput
   }
 
 
   /**
-   * ModVersion upsert
+   * Mod_Version upsert
    */
-  export type ModVersionUpsertArgs = {
+  export type Mod_VersionUpsertArgs = {
     /**
-     * Select specific fields to fetch from the ModVersion
+     * Select specific fields to fetch from the Mod_Version
      * 
     **/
-    select?: ModVersionSelect | null
+    select?: Mod_VersionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModVersionInclude | null
+    include?: Mod_VersionInclude | null
     /**
-     * The filter to search for the ModVersion to update in case it exists.
+     * The filter to search for the Mod_Version to update in case it exists.
      * 
     **/
-    where: ModVersionWhereUniqueInput
+    where: Mod_VersionWhereUniqueInput
     /**
-     * In case the ModVersion found by the `where` argument doesn't exist, create a new ModVersion with this data.
+     * In case the Mod_Version found by the `where` argument doesn't exist, create a new Mod_Version with this data.
      * 
     **/
-    create: XOR<ModVersionCreateInput, ModVersionUncheckedCreateInput>
+    create: XOR<Mod_VersionCreateInput, Mod_VersionUncheckedCreateInput>
     /**
-     * In case the ModVersion was found with the provided `where` argument, update it with this data.
+     * In case the Mod_Version was found with the provided `where` argument, update it with this data.
      * 
     **/
-    update: XOR<ModVersionUpdateInput, ModVersionUncheckedUpdateInput>
+    update: XOR<Mod_VersionUpdateInput, Mod_VersionUncheckedUpdateInput>
   }
 
 
   /**
-   * ModVersion delete
+   * Mod_Version delete
    */
-  export type ModVersionDeleteArgs = {
+  export type Mod_VersionDeleteArgs = {
     /**
-     * Select specific fields to fetch from the ModVersion
+     * Select specific fields to fetch from the Mod_Version
      * 
     **/
-    select?: ModVersionSelect | null
+    select?: Mod_VersionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModVersionInclude | null
+    include?: Mod_VersionInclude | null
     /**
-     * Filter which ModVersion to delete.
+     * Filter which Mod_Version to delete.
      * 
     **/
-    where: ModVersionWhereUniqueInput
+    where: Mod_VersionWhereUniqueInput
   }
 
 
   /**
-   * ModVersion deleteMany
+   * Mod_Version deleteMany
    */
-  export type ModVersionDeleteManyArgs = {
+  export type Mod_VersionDeleteManyArgs = {
     /**
-     * Filter which ModVersions to delete
+     * Filter which Mod_Versions to delete
      * 
     **/
-    where?: ModVersionWhereInput
+    where?: Mod_VersionWhereInput
   }
 
 
   /**
-   * ModVersion without action
+   * Mod_Version without action
    */
-  export type ModVersionArgs = {
+  export type Mod_VersionArgs = {
     /**
-     * Select specific fields to fetch from the ModVersion
+     * Select specific fields to fetch from the Mod_Version
      * 
     **/
-    select?: ModVersionSelect | null
+    select?: Mod_VersionSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModVersionInclude | null
+    include?: Mod_VersionInclude | null
   }
 
 
 
   /**
-   * Model ModIssue
+   * Model Mod_Issue
    */
 
 
-  export type AggregateModIssue = {
-    _count: ModIssueCountAggregateOutputType | null
-    _avg: ModIssueAvgAggregateOutputType | null
-    _sum: ModIssueSumAggregateOutputType | null
-    _min: ModIssueMinAggregateOutputType | null
-    _max: ModIssueMaxAggregateOutputType | null
+  export type AggregateMod_Issue = {
+    _count: Mod_IssueCountAggregateOutputType | null
+    _avg: Mod_IssueAvgAggregateOutputType | null
+    _sum: Mod_IssueSumAggregateOutputType | null
+    _min: Mod_IssueMinAggregateOutputType | null
+    _max: Mod_IssueMaxAggregateOutputType | null
   }
 
-  export type ModIssueAvgAggregateOutputType = {
+  export type Mod_IssueAvgAggregateOutputType = {
     id: number | null
     mod_id: number | null
     author_id: number | null
   }
 
-  export type ModIssueSumAggregateOutputType = {
+  export type Mod_IssueSumAggregateOutputType = {
     id: number | null
     mod_id: number | null
     author_id: number | null
   }
 
-  export type ModIssueMinAggregateOutputType = {
+  export type Mod_IssueMinAggregateOutputType = {
     id: number | null
     mod_id: number | null
     name: string | null
-    type: ModIssueType | null
+    type: Mod_Issue_Type | null
     author_id: number | null
     createDate: Date | null
   }
 
-  export type ModIssueMaxAggregateOutputType = {
+  export type Mod_IssueMaxAggregateOutputType = {
     id: number | null
     mod_id: number | null
     name: string | null
-    type: ModIssueType | null
+    type: Mod_Issue_Type | null
     author_id: number | null
     createDate: Date | null
   }
 
-  export type ModIssueCountAggregateOutputType = {
+  export type Mod_IssueCountAggregateOutputType = {
     id: number
     mod_id: number
     name: number
@@ -8873,28 +9017,19 @@ export namespace Prisma {
   }
 
 
-  export type ModIssueAvgAggregateInputType = {
+  export type Mod_IssueAvgAggregateInputType = {
     id?: true
     mod_id?: true
     author_id?: true
   }
 
-  export type ModIssueSumAggregateInputType = {
+  export type Mod_IssueSumAggregateInputType = {
     id?: true
     mod_id?: true
     author_id?: true
   }
 
-  export type ModIssueMinAggregateInputType = {
-    id?: true
-    mod_id?: true
-    name?: true
-    type?: true
-    author_id?: true
-    createDate?: true
-  }
-
-  export type ModIssueMaxAggregateInputType = {
+  export type Mod_IssueMinAggregateInputType = {
     id?: true
     mod_id?: true
     name?: true
@@ -8903,7 +9038,16 @@ export namespace Prisma {
     createDate?: true
   }
 
-  export type ModIssueCountAggregateInputType = {
+  export type Mod_IssueMaxAggregateInputType = {
+    id?: true
+    mod_id?: true
+    name?: true
+    type?: true
+    author_id?: true
+    createDate?: true
+  }
+
+  export type Mod_IssueCountAggregateInputType = {
     id?: true
     mod_id?: true
     name?: true
@@ -8913,127 +9057,127 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type ModIssueAggregateArgs = {
+  export type Mod_IssueAggregateArgs = {
     /**
-     * Filter which ModIssue to aggregate.
+     * Filter which Mod_Issue to aggregate.
      * 
     **/
-    where?: ModIssueWhereInput
+    where?: Mod_IssueWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModIssues to fetch.
+     * Determine the order of Mod_Issues to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModIssueOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_IssueOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: ModIssueWhereUniqueInput
+    cursor?: Mod_IssueWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModIssues from the position of the cursor.
+     * Take `±n` Mod_Issues from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModIssues.
+     * Skip the first `n` Mod_Issues.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ModIssues
+     * Count returned Mod_Issues
     **/
-    _count?: true | ModIssueCountAggregateInputType
+    _count?: true | Mod_IssueCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ModIssueAvgAggregateInputType
+    _avg?: Mod_IssueAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ModIssueSumAggregateInputType
+    _sum?: Mod_IssueSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ModIssueMinAggregateInputType
+    _min?: Mod_IssueMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ModIssueMaxAggregateInputType
+    _max?: Mod_IssueMaxAggregateInputType
   }
 
-  export type GetModIssueAggregateType<T extends ModIssueAggregateArgs> = {
-        [P in keyof T & keyof AggregateModIssue]: P extends '_count' | 'count'
+  export type GetMod_IssueAggregateType<T extends Mod_IssueAggregateArgs> = {
+        [P in keyof T & keyof AggregateMod_Issue]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateModIssue[P]>
-      : GetScalarType<T[P], AggregateModIssue[P]>
+        : GetScalarType<T[P], AggregateMod_Issue[P]>
+      : GetScalarType<T[P], AggregateMod_Issue[P]>
   }
 
 
 
 
-  export type ModIssueGroupByArgs = {
-    where?: ModIssueWhereInput
-    orderBy?: Enumerable<ModIssueOrderByWithAggregationInput>
-    by: Array<ModIssueScalarFieldEnum>
-    having?: ModIssueScalarWhereWithAggregatesInput
+  export type Mod_IssueGroupByArgs = {
+    where?: Mod_IssueWhereInput
+    orderBy?: Enumerable<Mod_IssueOrderByWithAggregationInput>
+    by: Array<Mod_IssueScalarFieldEnum>
+    having?: Mod_IssueScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ModIssueCountAggregateInputType | true
-    _avg?: ModIssueAvgAggregateInputType
-    _sum?: ModIssueSumAggregateInputType
-    _min?: ModIssueMinAggregateInputType
-    _max?: ModIssueMaxAggregateInputType
+    _count?: Mod_IssueCountAggregateInputType | true
+    _avg?: Mod_IssueAvgAggregateInputType
+    _sum?: Mod_IssueSumAggregateInputType
+    _min?: Mod_IssueMinAggregateInputType
+    _max?: Mod_IssueMaxAggregateInputType
   }
 
 
-  export type ModIssueGroupByOutputType = {
+  export type Mod_IssueGroupByOutputType = {
     id: number
     mod_id: number
     name: string
-    type: ModIssueType
+    type: Mod_Issue_Type
     author_id: number
     createDate: Date
-    _count: ModIssueCountAggregateOutputType | null
-    _avg: ModIssueAvgAggregateOutputType | null
-    _sum: ModIssueSumAggregateOutputType | null
-    _min: ModIssueMinAggregateOutputType | null
-    _max: ModIssueMaxAggregateOutputType | null
+    _count: Mod_IssueCountAggregateOutputType | null
+    _avg: Mod_IssueAvgAggregateOutputType | null
+    _sum: Mod_IssueSumAggregateOutputType | null
+    _min: Mod_IssueMinAggregateOutputType | null
+    _max: Mod_IssueMaxAggregateOutputType | null
   }
 
-  type GetModIssueGroupByPayload<T extends ModIssueGroupByArgs> = PrismaPromise<
+  type GetMod_IssueGroupByPayload<T extends Mod_IssueGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<ModIssueGroupByOutputType, T['by']> &
+      PickArray<Mod_IssueGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ModIssueGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Mod_IssueGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ModIssueGroupByOutputType[P]>
-            : GetScalarType<T[P], ModIssueGroupByOutputType[P]>
+              : GetScalarType<T[P], Mod_IssueGroupByOutputType[P]>
+            : GetScalarType<T[P], Mod_IssueGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ModIssueSelect = {
+  export type Mod_IssueSelect = {
     id?: boolean
     mod_id?: boolean
     name?: boolean
@@ -9042,158 +9186,158 @@ export namespace Prisma {
     createDate?: boolean
     Mod?: boolean | ModArgs
     Author?: boolean | UserArgs
-    ModIssuePost?: boolean | ModIssuePostFindManyArgs
-    _count?: boolean | ModIssueCountOutputTypeArgs
+    ModIssuePost?: boolean | Mod_Issue_PostFindManyArgs
+    _count?: boolean | Mod_IssueCountOutputTypeArgs
   }
 
-  export type ModIssueInclude = {
+  export type Mod_IssueInclude = {
     Mod?: boolean | ModArgs
     Author?: boolean | UserArgs
-    ModIssuePost?: boolean | ModIssuePostFindManyArgs
-    _count?: boolean | ModIssueCountOutputTypeArgs
+    ModIssuePost?: boolean | Mod_Issue_PostFindManyArgs
+    _count?: boolean | Mod_IssueCountOutputTypeArgs
   }
 
-  export type ModIssueGetPayload<
-    S extends boolean | null | undefined | ModIssueArgs,
+  export type Mod_IssueGetPayload<
+    S extends boolean | null | undefined | Mod_IssueArgs,
     U = keyof S
       > = S extends true
-        ? ModIssue
+        ? Mod_Issue
     : S extends undefined
     ? never
-    : S extends ModIssueArgs | ModIssueFindManyArgs
+    : S extends Mod_IssueArgs | Mod_IssueFindManyArgs
     ?'include' extends U
-    ? ModIssue  & {
+    ? Mod_Issue  & {
     [P in TrueKeys<S['include']>]:
         P extends 'Mod' ? ModGetPayload<S['include'][P]> :
         P extends 'Author' ? UserGetPayload<S['include'][P]> :
-        P extends 'ModIssuePost' ? Array < ModIssuePostGetPayload<S['include'][P]>>  :
-        P extends '_count' ? ModIssueCountOutputTypeGetPayload<S['include'][P]> :  never
+        P extends 'ModIssuePost' ? Array < Mod_Issue_PostGetPayload<S['include'][P]>>  :
+        P extends '_count' ? Mod_IssueCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
         P extends 'Mod' ? ModGetPayload<S['select'][P]> :
         P extends 'Author' ? UserGetPayload<S['select'][P]> :
-        P extends 'ModIssuePost' ? Array < ModIssuePostGetPayload<S['select'][P]>>  :
-        P extends '_count' ? ModIssueCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof ModIssue ? ModIssue[P] : never
+        P extends 'ModIssuePost' ? Array < Mod_Issue_PostGetPayload<S['select'][P]>>  :
+        P extends '_count' ? Mod_IssueCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Mod_Issue ? Mod_Issue[P] : never
   } 
-    : ModIssue
-  : ModIssue
+    : Mod_Issue
+  : Mod_Issue
 
 
-  type ModIssueCountArgs = Merge<
-    Omit<ModIssueFindManyArgs, 'select' | 'include'> & {
-      select?: ModIssueCountAggregateInputType | true
+  type Mod_IssueCountArgs = Merge<
+    Omit<Mod_IssueFindManyArgs, 'select' | 'include'> & {
+      select?: Mod_IssueCountAggregateInputType | true
     }
   >
 
-  export interface ModIssueDelegate<GlobalRejectSettings> {
+  export interface Mod_IssueDelegate<GlobalRejectSettings> {
     /**
-     * Find zero or one ModIssue that matches the filter.
-     * @param {ModIssueFindUniqueArgs} args - Arguments to find a ModIssue
+     * Find zero or one Mod_Issue that matches the filter.
+     * @param {Mod_IssueFindUniqueArgs} args - Arguments to find a Mod_Issue
      * @example
-     * // Get one ModIssue
-     * const modIssue = await prisma.modIssue.findUnique({
+     * // Get one Mod_Issue
+     * const mod_Issue = await prisma.mod_Issue.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ModIssueFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ModIssueFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ModIssue'> extends True ? CheckSelect<T, Prisma__ModIssueClient<ModIssue>, Prisma__ModIssueClient<ModIssueGetPayload<T>>> : CheckSelect<T, Prisma__ModIssueClient<ModIssue | null >, Prisma__ModIssueClient<ModIssueGetPayload<T> | null >>
+    findUnique<T extends Mod_IssueFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, Mod_IssueFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Mod_Issue'> extends True ? CheckSelect<T, Prisma__Mod_IssueClient<Mod_Issue>, Prisma__Mod_IssueClient<Mod_IssueGetPayload<T>>> : CheckSelect<T, Prisma__Mod_IssueClient<Mod_Issue | null >, Prisma__Mod_IssueClient<Mod_IssueGetPayload<T> | null >>
 
     /**
-     * Find the first ModIssue that matches the filter.
+     * Find the first Mod_Issue that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModIssueFindFirstArgs} args - Arguments to find a ModIssue
+     * @param {Mod_IssueFindFirstArgs} args - Arguments to find a Mod_Issue
      * @example
-     * // Get one ModIssue
-     * const modIssue = await prisma.modIssue.findFirst({
+     * // Get one Mod_Issue
+     * const mod_Issue = await prisma.mod_Issue.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ModIssueFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ModIssueFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ModIssue'> extends True ? CheckSelect<T, Prisma__ModIssueClient<ModIssue>, Prisma__ModIssueClient<ModIssueGetPayload<T>>> : CheckSelect<T, Prisma__ModIssueClient<ModIssue | null >, Prisma__ModIssueClient<ModIssueGetPayload<T> | null >>
+    findFirst<T extends Mod_IssueFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, Mod_IssueFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Mod_Issue'> extends True ? CheckSelect<T, Prisma__Mod_IssueClient<Mod_Issue>, Prisma__Mod_IssueClient<Mod_IssueGetPayload<T>>> : CheckSelect<T, Prisma__Mod_IssueClient<Mod_Issue | null >, Prisma__Mod_IssueClient<Mod_IssueGetPayload<T> | null >>
 
     /**
-     * Find zero or more ModIssues that matches the filter.
+     * Find zero or more Mod_Issues that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModIssueFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {Mod_IssueFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ModIssues
-     * const modIssues = await prisma.modIssue.findMany()
+     * // Get all Mod_Issues
+     * const mod_Issues = await prisma.mod_Issue.findMany()
      * 
-     * // Get first 10 ModIssues
-     * const modIssues = await prisma.modIssue.findMany({ take: 10 })
+     * // Get first 10 Mod_Issues
+     * const mod_Issues = await prisma.mod_Issue.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const modIssueWithIdOnly = await prisma.modIssue.findMany({ select: { id: true } })
+     * const mod_IssueWithIdOnly = await prisma.mod_Issue.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends ModIssueFindManyArgs>(
-      args?: SelectSubset<T, ModIssueFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<ModIssue>>, PrismaPromise<Array<ModIssueGetPayload<T>>>>
+    findMany<T extends Mod_IssueFindManyArgs>(
+      args?: SelectSubset<T, Mod_IssueFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Mod_Issue>>, PrismaPromise<Array<Mod_IssueGetPayload<T>>>>
 
     /**
-     * Create a ModIssue.
-     * @param {ModIssueCreateArgs} args - Arguments to create a ModIssue.
+     * Create a Mod_Issue.
+     * @param {Mod_IssueCreateArgs} args - Arguments to create a Mod_Issue.
      * @example
-     * // Create one ModIssue
-     * const ModIssue = await prisma.modIssue.create({
+     * // Create one Mod_Issue
+     * const Mod_Issue = await prisma.mod_Issue.create({
      *   data: {
-     *     // ... data to create a ModIssue
+     *     // ... data to create a Mod_Issue
      *   }
      * })
      * 
     **/
-    create<T extends ModIssueCreateArgs>(
-      args: SelectSubset<T, ModIssueCreateArgs>
-    ): CheckSelect<T, Prisma__ModIssueClient<ModIssue>, Prisma__ModIssueClient<ModIssueGetPayload<T>>>
+    create<T extends Mod_IssueCreateArgs>(
+      args: SelectSubset<T, Mod_IssueCreateArgs>
+    ): CheckSelect<T, Prisma__Mod_IssueClient<Mod_Issue>, Prisma__Mod_IssueClient<Mod_IssueGetPayload<T>>>
 
     /**
-     * Create many ModIssues.
-     *     @param {ModIssueCreateManyArgs} args - Arguments to create many ModIssues.
+     * Create many Mod_Issues.
+     *     @param {Mod_IssueCreateManyArgs} args - Arguments to create many Mod_Issues.
      *     @example
-     *     // Create many ModIssues
-     *     const modIssue = await prisma.modIssue.createMany({
+     *     // Create many Mod_Issues
+     *     const mod_Issue = await prisma.mod_Issue.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ModIssueCreateManyArgs>(
-      args?: SelectSubset<T, ModIssueCreateManyArgs>
+    createMany<T extends Mod_IssueCreateManyArgs>(
+      args?: SelectSubset<T, Mod_IssueCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a ModIssue.
-     * @param {ModIssueDeleteArgs} args - Arguments to delete one ModIssue.
+     * Delete a Mod_Issue.
+     * @param {Mod_IssueDeleteArgs} args - Arguments to delete one Mod_Issue.
      * @example
-     * // Delete one ModIssue
-     * const ModIssue = await prisma.modIssue.delete({
+     * // Delete one Mod_Issue
+     * const Mod_Issue = await prisma.mod_Issue.delete({
      *   where: {
-     *     // ... filter to delete one ModIssue
+     *     // ... filter to delete one Mod_Issue
      *   }
      * })
      * 
     **/
-    delete<T extends ModIssueDeleteArgs>(
-      args: SelectSubset<T, ModIssueDeleteArgs>
-    ): CheckSelect<T, Prisma__ModIssueClient<ModIssue>, Prisma__ModIssueClient<ModIssueGetPayload<T>>>
+    delete<T extends Mod_IssueDeleteArgs>(
+      args: SelectSubset<T, Mod_IssueDeleteArgs>
+    ): CheckSelect<T, Prisma__Mod_IssueClient<Mod_Issue>, Prisma__Mod_IssueClient<Mod_IssueGetPayload<T>>>
 
     /**
-     * Update one ModIssue.
-     * @param {ModIssueUpdateArgs} args - Arguments to update one ModIssue.
+     * Update one Mod_Issue.
+     * @param {Mod_IssueUpdateArgs} args - Arguments to update one Mod_Issue.
      * @example
-     * // Update one ModIssue
-     * const modIssue = await prisma.modIssue.update({
+     * // Update one Mod_Issue
+     * const mod_Issue = await prisma.mod_Issue.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -9203,34 +9347,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ModIssueUpdateArgs>(
-      args: SelectSubset<T, ModIssueUpdateArgs>
-    ): CheckSelect<T, Prisma__ModIssueClient<ModIssue>, Prisma__ModIssueClient<ModIssueGetPayload<T>>>
+    update<T extends Mod_IssueUpdateArgs>(
+      args: SelectSubset<T, Mod_IssueUpdateArgs>
+    ): CheckSelect<T, Prisma__Mod_IssueClient<Mod_Issue>, Prisma__Mod_IssueClient<Mod_IssueGetPayload<T>>>
 
     /**
-     * Delete zero or more ModIssues.
-     * @param {ModIssueDeleteManyArgs} args - Arguments to filter ModIssues to delete.
+     * Delete zero or more Mod_Issues.
+     * @param {Mod_IssueDeleteManyArgs} args - Arguments to filter Mod_Issues to delete.
      * @example
-     * // Delete a few ModIssues
-     * const { count } = await prisma.modIssue.deleteMany({
+     * // Delete a few Mod_Issues
+     * const { count } = await prisma.mod_Issue.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ModIssueDeleteManyArgs>(
-      args?: SelectSubset<T, ModIssueDeleteManyArgs>
+    deleteMany<T extends Mod_IssueDeleteManyArgs>(
+      args?: SelectSubset<T, Mod_IssueDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ModIssues.
+     * Update zero or more Mod_Issues.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModIssueUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {Mod_IssueUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ModIssues
-     * const modIssue = await prisma.modIssue.updateMany({
+     * // Update many Mod_Issues
+     * const mod_Issue = await prisma.mod_Issue.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -9240,59 +9384,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ModIssueUpdateManyArgs>(
-      args: SelectSubset<T, ModIssueUpdateManyArgs>
+    updateMany<T extends Mod_IssueUpdateManyArgs>(
+      args: SelectSubset<T, Mod_IssueUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one ModIssue.
-     * @param {ModIssueUpsertArgs} args - Arguments to update or create a ModIssue.
+     * Create or update one Mod_Issue.
+     * @param {Mod_IssueUpsertArgs} args - Arguments to update or create a Mod_Issue.
      * @example
-     * // Update or create a ModIssue
-     * const modIssue = await prisma.modIssue.upsert({
+     * // Update or create a Mod_Issue
+     * const mod_Issue = await prisma.mod_Issue.upsert({
      *   create: {
-     *     // ... data to create a ModIssue
+     *     // ... data to create a Mod_Issue
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ModIssue we want to update
+     *     // ... the filter for the Mod_Issue we want to update
      *   }
      * })
     **/
-    upsert<T extends ModIssueUpsertArgs>(
-      args: SelectSubset<T, ModIssueUpsertArgs>
-    ): CheckSelect<T, Prisma__ModIssueClient<ModIssue>, Prisma__ModIssueClient<ModIssueGetPayload<T>>>
+    upsert<T extends Mod_IssueUpsertArgs>(
+      args: SelectSubset<T, Mod_IssueUpsertArgs>
+    ): CheckSelect<T, Prisma__Mod_IssueClient<Mod_Issue>, Prisma__Mod_IssueClient<Mod_IssueGetPayload<T>>>
 
     /**
-     * Count the number of ModIssues.
+     * Count the number of Mod_Issues.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModIssueCountArgs} args - Arguments to filter ModIssues to count.
+     * @param {Mod_IssueCountArgs} args - Arguments to filter Mod_Issues to count.
      * @example
-     * // Count the number of ModIssues
-     * const count = await prisma.modIssue.count({
+     * // Count the number of Mod_Issues
+     * const count = await prisma.mod_Issue.count({
      *   where: {
-     *     // ... the filter for the ModIssues we want to count
+     *     // ... the filter for the Mod_Issues we want to count
      *   }
      * })
     **/
-    count<T extends ModIssueCountArgs>(
-      args?: Subset<T, ModIssueCountArgs>,
+    count<T extends Mod_IssueCountArgs>(
+      args?: Subset<T, Mod_IssueCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ModIssueCountAggregateOutputType>
+          : GetScalarType<T['select'], Mod_IssueCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ModIssue.
+     * Allows you to perform aggregations operations on a Mod_Issue.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModIssueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Mod_IssueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -9312,13 +9456,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ModIssueAggregateArgs>(args: Subset<T, ModIssueAggregateArgs>): PrismaPromise<GetModIssueAggregateType<T>>
+    aggregate<T extends Mod_IssueAggregateArgs>(args: Subset<T, Mod_IssueAggregateArgs>): PrismaPromise<GetMod_IssueAggregateType<T>>
 
     /**
-     * Group by ModIssue.
+     * Group by Mod_Issue.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModIssueGroupByArgs} args - Group by arguments.
+     * @param {Mod_IssueGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -9333,14 +9477,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ModIssueGroupByArgs,
+      T extends Mod_IssueGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ModIssueGroupByArgs['orderBy'] }
-        : { orderBy?: ModIssueGroupByArgs['orderBy'] },
+        ? { orderBy: Mod_IssueGroupByArgs['orderBy'] }
+        : { orderBy?: Mod_IssueGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -9389,16 +9533,16 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ModIssueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModIssueGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, Mod_IssueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMod_IssueGroupByPayload<T> : PrismaPromise<InputErrors>
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ModIssue.
+   * The delegate class that acts as a "Promise-like" for Mod_Issue.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ModIssueClient<T> implements PrismaPromise<T> {
+  export class Prisma__Mod_IssueClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -9419,7 +9563,7 @@ export namespace Prisma {
 
     Author<T extends UserArgs = {}>(args?: Subset<T, UserArgs>): CheckSelect<T, Prisma__UserClient<User | null >, Prisma__UserClient<UserGetPayload<T> | null >>;
 
-    ModIssuePost<T extends ModIssuePostFindManyArgs = {}>(args?: Subset<T, ModIssuePostFindManyArgs>): CheckSelect<T, PrismaPromise<Array<ModIssuePost>>, PrismaPromise<Array<ModIssuePostGetPayload<T>>>>;
+    ModIssuePost<T extends Mod_Issue_PostFindManyArgs = {}>(args?: Subset<T, Mod_Issue_PostFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Mod_Issue_Post>>, PrismaPromise<Array<Mod_Issue_PostGetPayload<T>>>>;
 
     private get _document();
     /**
@@ -9447,342 +9591,334 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModIssue findUnique
+   * Mod_Issue findUnique
    */
-  export type ModIssueFindUniqueArgs = {
+  export type Mod_IssueFindUniqueArgs = {
     /**
-     * Select specific fields to fetch from the ModIssue
+     * Select specific fields to fetch from the Mod_Issue
      * 
     **/
-    select?: ModIssueSelect | null
+    select?: Mod_IssueSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssueInclude | null
+    include?: Mod_IssueInclude | null
     /**
-     * Throw an Error if a ModIssue can't be found
+     * Throw an Error if a Mod_Issue can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModIssue to fetch.
+     * Filter, which Mod_Issue to fetch.
      * 
     **/
-    where: ModIssueWhereUniqueInput
+    where: Mod_IssueWhereUniqueInput
   }
 
 
   /**
-   * ModIssue findFirst
+   * Mod_Issue findFirst
    */
-  export type ModIssueFindFirstArgs = {
+  export type Mod_IssueFindFirstArgs = {
     /**
-     * Select specific fields to fetch from the ModIssue
+     * Select specific fields to fetch from the Mod_Issue
      * 
     **/
-    select?: ModIssueSelect | null
+    select?: Mod_IssueSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssueInclude | null
+    include?: Mod_IssueInclude | null
     /**
-     * Throw an Error if a ModIssue can't be found
+     * Throw an Error if a Mod_Issue can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModIssue to fetch.
+     * Filter, which Mod_Issue to fetch.
      * 
     **/
-    where?: ModIssueWhereInput
+    where?: Mod_IssueWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModIssues to fetch.
+     * Determine the order of Mod_Issues to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModIssueOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_IssueOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ModIssues.
+     * Sets the position for searching for Mod_Issues.
      * 
     **/
-    cursor?: ModIssueWhereUniqueInput
+    cursor?: Mod_IssueWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModIssues from the position of the cursor.
+     * Take `±n` Mod_Issues from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModIssues.
+     * Skip the first `n` Mod_Issues.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ModIssues.
+     * Filter by unique combinations of Mod_Issues.
      * 
     **/
-    distinct?: Enumerable<ModIssueScalarFieldEnum>
+    distinct?: Enumerable<Mod_IssueScalarFieldEnum>
   }
 
 
   /**
-   * ModIssue findMany
+   * Mod_Issue findMany
    */
-  export type ModIssueFindManyArgs = {
+  export type Mod_IssueFindManyArgs = {
     /**
-     * Select specific fields to fetch from the ModIssue
+     * Select specific fields to fetch from the Mod_Issue
      * 
     **/
-    select?: ModIssueSelect | null
+    select?: Mod_IssueSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssueInclude | null
+    include?: Mod_IssueInclude | null
     /**
-     * Filter, which ModIssues to fetch.
+     * Filter, which Mod_Issues to fetch.
      * 
     **/
-    where?: ModIssueWhereInput
+    where?: Mod_IssueWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModIssues to fetch.
+     * Determine the order of Mod_Issues to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModIssueOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_IssueOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ModIssues.
+     * Sets the position for listing Mod_Issues.
      * 
     **/
-    cursor?: ModIssueWhereUniqueInput
+    cursor?: Mod_IssueWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModIssues from the position of the cursor.
+     * Take `±n` Mod_Issues from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModIssues.
+     * Skip the first `n` Mod_Issues.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<ModIssueScalarFieldEnum>
+    distinct?: Enumerable<Mod_IssueScalarFieldEnum>
   }
 
 
   /**
-   * ModIssue create
+   * Mod_Issue create
    */
-  export type ModIssueCreateArgs = {
+  export type Mod_IssueCreateArgs = {
     /**
-     * Select specific fields to fetch from the ModIssue
+     * Select specific fields to fetch from the Mod_Issue
      * 
     **/
-    select?: ModIssueSelect | null
+    select?: Mod_IssueSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssueInclude | null
+    include?: Mod_IssueInclude | null
     /**
-     * The data needed to create a ModIssue.
+     * The data needed to create a Mod_Issue.
      * 
     **/
-    data: XOR<ModIssueCreateInput, ModIssueUncheckedCreateInput>
+    data: XOR<Mod_IssueCreateInput, Mod_IssueUncheckedCreateInput>
   }
 
 
   /**
-   * ModIssue createMany
+   * Mod_Issue createMany
    */
-  export type ModIssueCreateManyArgs = {
+  export type Mod_IssueCreateManyArgs = {
     /**
-     * The data used to create many ModIssues.
+     * The data used to create many Mod_Issues.
      * 
     **/
-    data: Enumerable<ModIssueCreateManyInput>
+    data: Enumerable<Mod_IssueCreateManyInput>
     skipDuplicates?: boolean
   }
 
 
   /**
-   * ModIssue update
+   * Mod_Issue update
    */
-  export type ModIssueUpdateArgs = {
+  export type Mod_IssueUpdateArgs = {
     /**
-     * Select specific fields to fetch from the ModIssue
+     * Select specific fields to fetch from the Mod_Issue
      * 
     **/
-    select?: ModIssueSelect | null
+    select?: Mod_IssueSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssueInclude | null
+    include?: Mod_IssueInclude | null
     /**
-     * The data needed to update a ModIssue.
+     * The data needed to update a Mod_Issue.
      * 
     **/
-    data: XOR<ModIssueUpdateInput, ModIssueUncheckedUpdateInput>
+    data: XOR<Mod_IssueUpdateInput, Mod_IssueUncheckedUpdateInput>
     /**
-     * Choose, which ModIssue to update.
+     * Choose, which Mod_Issue to update.
      * 
     **/
-    where: ModIssueWhereUniqueInput
+    where: Mod_IssueWhereUniqueInput
   }
 
 
   /**
-   * ModIssue updateMany
+   * Mod_Issue updateMany
    */
-  export type ModIssueUpdateManyArgs = {
+  export type Mod_IssueUpdateManyArgs = {
     /**
-     * The data used to update ModIssues.
+     * The data used to update Mod_Issues.
      * 
     **/
-    data: XOR<ModIssueUpdateManyMutationInput, ModIssueUncheckedUpdateManyInput>
+    data: XOR<Mod_IssueUpdateManyMutationInput, Mod_IssueUncheckedUpdateManyInput>
     /**
-     * Filter which ModIssues to update
+     * Filter which Mod_Issues to update
      * 
     **/
-    where?: ModIssueWhereInput
+    where?: Mod_IssueWhereInput
   }
 
 
   /**
-   * ModIssue upsert
+   * Mod_Issue upsert
    */
-  export type ModIssueUpsertArgs = {
+  export type Mod_IssueUpsertArgs = {
     /**
-     * Select specific fields to fetch from the ModIssue
+     * Select specific fields to fetch from the Mod_Issue
      * 
     **/
-    select?: ModIssueSelect | null
+    select?: Mod_IssueSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssueInclude | null
+    include?: Mod_IssueInclude | null
     /**
-     * The filter to search for the ModIssue to update in case it exists.
+     * The filter to search for the Mod_Issue to update in case it exists.
      * 
     **/
-    where: ModIssueWhereUniqueInput
+    where: Mod_IssueWhereUniqueInput
     /**
-     * In case the ModIssue found by the `where` argument doesn't exist, create a new ModIssue with this data.
+     * In case the Mod_Issue found by the `where` argument doesn't exist, create a new Mod_Issue with this data.
      * 
     **/
-    create: XOR<ModIssueCreateInput, ModIssueUncheckedCreateInput>
+    create: XOR<Mod_IssueCreateInput, Mod_IssueUncheckedCreateInput>
     /**
-     * In case the ModIssue was found with the provided `where` argument, update it with this data.
+     * In case the Mod_Issue was found with the provided `where` argument, update it with this data.
      * 
     **/
-    update: XOR<ModIssueUpdateInput, ModIssueUncheckedUpdateInput>
+    update: XOR<Mod_IssueUpdateInput, Mod_IssueUncheckedUpdateInput>
   }
 
 
   /**
-   * ModIssue delete
+   * Mod_Issue delete
    */
-  export type ModIssueDeleteArgs = {
+  export type Mod_IssueDeleteArgs = {
     /**
-     * Select specific fields to fetch from the ModIssue
+     * Select specific fields to fetch from the Mod_Issue
      * 
     **/
-    select?: ModIssueSelect | null
+    select?: Mod_IssueSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssueInclude | null
+    include?: Mod_IssueInclude | null
     /**
-     * Filter which ModIssue to delete.
+     * Filter which Mod_Issue to delete.
      * 
     **/
-    where: ModIssueWhereUniqueInput
+    where: Mod_IssueWhereUniqueInput
   }
 
 
   /**
-   * ModIssue deleteMany
+   * Mod_Issue deleteMany
    */
-  export type ModIssueDeleteManyArgs = {
+  export type Mod_IssueDeleteManyArgs = {
     /**
-     * Filter which ModIssues to delete
+     * Filter which Mod_Issues to delete
      * 
     **/
-    where?: ModIssueWhereInput
+    where?: Mod_IssueWhereInput
   }
 
 
   /**
-   * ModIssue without action
+   * Mod_Issue without action
    */
-  export type ModIssueArgs = {
+  export type Mod_IssueArgs = {
     /**
-     * Select specific fields to fetch from the ModIssue
+     * Select specific fields to fetch from the Mod_Issue
      * 
     **/
-    select?: ModIssueSelect | null
+    select?: Mod_IssueSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssueInclude | null
+    include?: Mod_IssueInclude | null
   }
 
 
 
   /**
-   * Model ModIssuePost
+   * Model Mod_Issue_Post
    */
 
 
-  export type AggregateModIssuePost = {
-    _count: ModIssuePostCountAggregateOutputType | null
-    _avg: ModIssuePostAvgAggregateOutputType | null
-    _sum: ModIssuePostSumAggregateOutputType | null
-    _min: ModIssuePostMinAggregateOutputType | null
-    _max: ModIssuePostMaxAggregateOutputType | null
+  export type AggregateMod_Issue_Post = {
+    _count: Mod_Issue_PostCountAggregateOutputType | null
+    _avg: Mod_Issue_PostAvgAggregateOutputType | null
+    _sum: Mod_Issue_PostSumAggregateOutputType | null
+    _min: Mod_Issue_PostMinAggregateOutputType | null
+    _max: Mod_Issue_PostMaxAggregateOutputType | null
   }
 
-  export type ModIssuePostAvgAggregateOutputType = {
+  export type Mod_Issue_PostAvgAggregateOutputType = {
     id: number | null
     issue_id: number | null
     author_id: number | null
   }
 
-  export type ModIssuePostSumAggregateOutputType = {
+  export type Mod_Issue_PostSumAggregateOutputType = {
     id: number | null
     issue_id: number | null
     author_id: number | null
   }
 
-  export type ModIssuePostMinAggregateOutputType = {
-    id: number | null
-    issue_id: number | null
-    author_id: number | null
-    createDate: Date | null
-    text: string | null
-  }
-
-  export type ModIssuePostMaxAggregateOutputType = {
+  export type Mod_Issue_PostMinAggregateOutputType = {
     id: number | null
     issue_id: number | null
     author_id: number | null
@@ -9790,7 +9926,15 @@ export namespace Prisma {
     text: string | null
   }
 
-  export type ModIssuePostCountAggregateOutputType = {
+  export type Mod_Issue_PostMaxAggregateOutputType = {
+    id: number | null
+    issue_id: number | null
+    author_id: number | null
+    createDate: Date | null
+    text: string | null
+  }
+
+  export type Mod_Issue_PostCountAggregateOutputType = {
     id: number
     issue_id: number
     author_id: number
@@ -9800,27 +9944,19 @@ export namespace Prisma {
   }
 
 
-  export type ModIssuePostAvgAggregateInputType = {
+  export type Mod_Issue_PostAvgAggregateInputType = {
     id?: true
     issue_id?: true
     author_id?: true
   }
 
-  export type ModIssuePostSumAggregateInputType = {
+  export type Mod_Issue_PostSumAggregateInputType = {
     id?: true
     issue_id?: true
     author_id?: true
   }
 
-  export type ModIssuePostMinAggregateInputType = {
-    id?: true
-    issue_id?: true
-    author_id?: true
-    createDate?: true
-    text?: true
-  }
-
-  export type ModIssuePostMaxAggregateInputType = {
+  export type Mod_Issue_PostMinAggregateInputType = {
     id?: true
     issue_id?: true
     author_id?: true
@@ -9828,7 +9964,15 @@ export namespace Prisma {
     text?: true
   }
 
-  export type ModIssuePostCountAggregateInputType = {
+  export type Mod_Issue_PostMaxAggregateInputType = {
+    id?: true
+    issue_id?: true
+    author_id?: true
+    createDate?: true
+    text?: true
+  }
+
+  export type Mod_Issue_PostCountAggregateInputType = {
     id?: true
     issue_id?: true
     author_id?: true
@@ -9837,277 +9981,277 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type ModIssuePostAggregateArgs = {
+  export type Mod_Issue_PostAggregateArgs = {
     /**
-     * Filter which ModIssuePost to aggregate.
+     * Filter which Mod_Issue_Post to aggregate.
      * 
     **/
-    where?: ModIssuePostWhereInput
+    where?: Mod_Issue_PostWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModIssuePosts to fetch.
+     * Determine the order of Mod_Issue_Posts to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModIssuePostOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_Issue_PostOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: ModIssuePostWhereUniqueInput
+    cursor?: Mod_Issue_PostWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModIssuePosts from the position of the cursor.
+     * Take `±n` Mod_Issue_Posts from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModIssuePosts.
+     * Skip the first `n` Mod_Issue_Posts.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ModIssuePosts
+     * Count returned Mod_Issue_Posts
     **/
-    _count?: true | ModIssuePostCountAggregateInputType
+    _count?: true | Mod_Issue_PostCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ModIssuePostAvgAggregateInputType
+    _avg?: Mod_Issue_PostAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ModIssuePostSumAggregateInputType
+    _sum?: Mod_Issue_PostSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ModIssuePostMinAggregateInputType
+    _min?: Mod_Issue_PostMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ModIssuePostMaxAggregateInputType
+    _max?: Mod_Issue_PostMaxAggregateInputType
   }
 
-  export type GetModIssuePostAggregateType<T extends ModIssuePostAggregateArgs> = {
-        [P in keyof T & keyof AggregateModIssuePost]: P extends '_count' | 'count'
+  export type GetMod_Issue_PostAggregateType<T extends Mod_Issue_PostAggregateArgs> = {
+        [P in keyof T & keyof AggregateMod_Issue_Post]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateModIssuePost[P]>
-      : GetScalarType<T[P], AggregateModIssuePost[P]>
+        : GetScalarType<T[P], AggregateMod_Issue_Post[P]>
+      : GetScalarType<T[P], AggregateMod_Issue_Post[P]>
   }
 
 
 
 
-  export type ModIssuePostGroupByArgs = {
-    where?: ModIssuePostWhereInput
-    orderBy?: Enumerable<ModIssuePostOrderByWithAggregationInput>
-    by: Array<ModIssuePostScalarFieldEnum>
-    having?: ModIssuePostScalarWhereWithAggregatesInput
+  export type Mod_Issue_PostGroupByArgs = {
+    where?: Mod_Issue_PostWhereInput
+    orderBy?: Enumerable<Mod_Issue_PostOrderByWithAggregationInput>
+    by: Array<Mod_Issue_PostScalarFieldEnum>
+    having?: Mod_Issue_PostScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ModIssuePostCountAggregateInputType | true
-    _avg?: ModIssuePostAvgAggregateInputType
-    _sum?: ModIssuePostSumAggregateInputType
-    _min?: ModIssuePostMinAggregateInputType
-    _max?: ModIssuePostMaxAggregateInputType
+    _count?: Mod_Issue_PostCountAggregateInputType | true
+    _avg?: Mod_Issue_PostAvgAggregateInputType
+    _sum?: Mod_Issue_PostSumAggregateInputType
+    _min?: Mod_Issue_PostMinAggregateInputType
+    _max?: Mod_Issue_PostMaxAggregateInputType
   }
 
 
-  export type ModIssuePostGroupByOutputType = {
+  export type Mod_Issue_PostGroupByOutputType = {
     id: number
     issue_id: number
     author_id: number
     createDate: Date
     text: string
-    _count: ModIssuePostCountAggregateOutputType | null
-    _avg: ModIssuePostAvgAggregateOutputType | null
-    _sum: ModIssuePostSumAggregateOutputType | null
-    _min: ModIssuePostMinAggregateOutputType | null
-    _max: ModIssuePostMaxAggregateOutputType | null
+    _count: Mod_Issue_PostCountAggregateOutputType | null
+    _avg: Mod_Issue_PostAvgAggregateOutputType | null
+    _sum: Mod_Issue_PostSumAggregateOutputType | null
+    _min: Mod_Issue_PostMinAggregateOutputType | null
+    _max: Mod_Issue_PostMaxAggregateOutputType | null
   }
 
-  type GetModIssuePostGroupByPayload<T extends ModIssuePostGroupByArgs> = PrismaPromise<
+  type GetMod_Issue_PostGroupByPayload<T extends Mod_Issue_PostGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<ModIssuePostGroupByOutputType, T['by']> &
+      PickArray<Mod_Issue_PostGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ModIssuePostGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Mod_Issue_PostGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ModIssuePostGroupByOutputType[P]>
-            : GetScalarType<T[P], ModIssuePostGroupByOutputType[P]>
+              : GetScalarType<T[P], Mod_Issue_PostGroupByOutputType[P]>
+            : GetScalarType<T[P], Mod_Issue_PostGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ModIssuePostSelect = {
+  export type Mod_Issue_PostSelect = {
     id?: boolean
     issue_id?: boolean
     author_id?: boolean
     createDate?: boolean
     text?: boolean
-    Issue?: boolean | ModIssueArgs
+    Issue?: boolean | Mod_IssueArgs
     Author?: boolean | UserArgs
   }
 
-  export type ModIssuePostInclude = {
-    Issue?: boolean | ModIssueArgs
+  export type Mod_Issue_PostInclude = {
+    Issue?: boolean | Mod_IssueArgs
     Author?: boolean | UserArgs
   }
 
-  export type ModIssuePostGetPayload<
-    S extends boolean | null | undefined | ModIssuePostArgs,
+  export type Mod_Issue_PostGetPayload<
+    S extends boolean | null | undefined | Mod_Issue_PostArgs,
     U = keyof S
       > = S extends true
-        ? ModIssuePost
+        ? Mod_Issue_Post
     : S extends undefined
     ? never
-    : S extends ModIssuePostArgs | ModIssuePostFindManyArgs
+    : S extends Mod_Issue_PostArgs | Mod_Issue_PostFindManyArgs
     ?'include' extends U
-    ? ModIssuePost  & {
+    ? Mod_Issue_Post  & {
     [P in TrueKeys<S['include']>]:
-        P extends 'Issue' ? ModIssueGetPayload<S['include'][P]> :
+        P extends 'Issue' ? Mod_IssueGetPayload<S['include'][P]> :
         P extends 'Author' ? UserGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-        P extends 'Issue' ? ModIssueGetPayload<S['select'][P]> :
-        P extends 'Author' ? UserGetPayload<S['select'][P]> :  P extends keyof ModIssuePost ? ModIssuePost[P] : never
+        P extends 'Issue' ? Mod_IssueGetPayload<S['select'][P]> :
+        P extends 'Author' ? UserGetPayload<S['select'][P]> :  P extends keyof Mod_Issue_Post ? Mod_Issue_Post[P] : never
   } 
-    : ModIssuePost
-  : ModIssuePost
+    : Mod_Issue_Post
+  : Mod_Issue_Post
 
 
-  type ModIssuePostCountArgs = Merge<
-    Omit<ModIssuePostFindManyArgs, 'select' | 'include'> & {
-      select?: ModIssuePostCountAggregateInputType | true
+  type Mod_Issue_PostCountArgs = Merge<
+    Omit<Mod_Issue_PostFindManyArgs, 'select' | 'include'> & {
+      select?: Mod_Issue_PostCountAggregateInputType | true
     }
   >
 
-  export interface ModIssuePostDelegate<GlobalRejectSettings> {
+  export interface Mod_Issue_PostDelegate<GlobalRejectSettings> {
     /**
-     * Find zero or one ModIssuePost that matches the filter.
-     * @param {ModIssuePostFindUniqueArgs} args - Arguments to find a ModIssuePost
+     * Find zero or one Mod_Issue_Post that matches the filter.
+     * @param {Mod_Issue_PostFindUniqueArgs} args - Arguments to find a Mod_Issue_Post
      * @example
-     * // Get one ModIssuePost
-     * const modIssuePost = await prisma.modIssuePost.findUnique({
+     * // Get one Mod_Issue_Post
+     * const mod_Issue_Post = await prisma.mod_Issue_Post.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ModIssuePostFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ModIssuePostFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ModIssuePost'> extends True ? CheckSelect<T, Prisma__ModIssuePostClient<ModIssuePost>, Prisma__ModIssuePostClient<ModIssuePostGetPayload<T>>> : CheckSelect<T, Prisma__ModIssuePostClient<ModIssuePost | null >, Prisma__ModIssuePostClient<ModIssuePostGetPayload<T> | null >>
+    findUnique<T extends Mod_Issue_PostFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, Mod_Issue_PostFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Mod_Issue_Post'> extends True ? CheckSelect<T, Prisma__Mod_Issue_PostClient<Mod_Issue_Post>, Prisma__Mod_Issue_PostClient<Mod_Issue_PostGetPayload<T>>> : CheckSelect<T, Prisma__Mod_Issue_PostClient<Mod_Issue_Post | null >, Prisma__Mod_Issue_PostClient<Mod_Issue_PostGetPayload<T> | null >>
 
     /**
-     * Find the first ModIssuePost that matches the filter.
+     * Find the first Mod_Issue_Post that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModIssuePostFindFirstArgs} args - Arguments to find a ModIssuePost
+     * @param {Mod_Issue_PostFindFirstArgs} args - Arguments to find a Mod_Issue_Post
      * @example
-     * // Get one ModIssuePost
-     * const modIssuePost = await prisma.modIssuePost.findFirst({
+     * // Get one Mod_Issue_Post
+     * const mod_Issue_Post = await prisma.mod_Issue_Post.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ModIssuePostFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ModIssuePostFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ModIssuePost'> extends True ? CheckSelect<T, Prisma__ModIssuePostClient<ModIssuePost>, Prisma__ModIssuePostClient<ModIssuePostGetPayload<T>>> : CheckSelect<T, Prisma__ModIssuePostClient<ModIssuePost | null >, Prisma__ModIssuePostClient<ModIssuePostGetPayload<T> | null >>
+    findFirst<T extends Mod_Issue_PostFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, Mod_Issue_PostFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Mod_Issue_Post'> extends True ? CheckSelect<T, Prisma__Mod_Issue_PostClient<Mod_Issue_Post>, Prisma__Mod_Issue_PostClient<Mod_Issue_PostGetPayload<T>>> : CheckSelect<T, Prisma__Mod_Issue_PostClient<Mod_Issue_Post | null >, Prisma__Mod_Issue_PostClient<Mod_Issue_PostGetPayload<T> | null >>
 
     /**
-     * Find zero or more ModIssuePosts that matches the filter.
+     * Find zero or more Mod_Issue_Posts that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModIssuePostFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {Mod_Issue_PostFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ModIssuePosts
-     * const modIssuePosts = await prisma.modIssuePost.findMany()
+     * // Get all Mod_Issue_Posts
+     * const mod_Issue_Posts = await prisma.mod_Issue_Post.findMany()
      * 
-     * // Get first 10 ModIssuePosts
-     * const modIssuePosts = await prisma.modIssuePost.findMany({ take: 10 })
+     * // Get first 10 Mod_Issue_Posts
+     * const mod_Issue_Posts = await prisma.mod_Issue_Post.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const modIssuePostWithIdOnly = await prisma.modIssuePost.findMany({ select: { id: true } })
+     * const mod_Issue_PostWithIdOnly = await prisma.mod_Issue_Post.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends ModIssuePostFindManyArgs>(
-      args?: SelectSubset<T, ModIssuePostFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<ModIssuePost>>, PrismaPromise<Array<ModIssuePostGetPayload<T>>>>
+    findMany<T extends Mod_Issue_PostFindManyArgs>(
+      args?: SelectSubset<T, Mod_Issue_PostFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Mod_Issue_Post>>, PrismaPromise<Array<Mod_Issue_PostGetPayload<T>>>>
 
     /**
-     * Create a ModIssuePost.
-     * @param {ModIssuePostCreateArgs} args - Arguments to create a ModIssuePost.
+     * Create a Mod_Issue_Post.
+     * @param {Mod_Issue_PostCreateArgs} args - Arguments to create a Mod_Issue_Post.
      * @example
-     * // Create one ModIssuePost
-     * const ModIssuePost = await prisma.modIssuePost.create({
+     * // Create one Mod_Issue_Post
+     * const Mod_Issue_Post = await prisma.mod_Issue_Post.create({
      *   data: {
-     *     // ... data to create a ModIssuePost
+     *     // ... data to create a Mod_Issue_Post
      *   }
      * })
      * 
     **/
-    create<T extends ModIssuePostCreateArgs>(
-      args: SelectSubset<T, ModIssuePostCreateArgs>
-    ): CheckSelect<T, Prisma__ModIssuePostClient<ModIssuePost>, Prisma__ModIssuePostClient<ModIssuePostGetPayload<T>>>
+    create<T extends Mod_Issue_PostCreateArgs>(
+      args: SelectSubset<T, Mod_Issue_PostCreateArgs>
+    ): CheckSelect<T, Prisma__Mod_Issue_PostClient<Mod_Issue_Post>, Prisma__Mod_Issue_PostClient<Mod_Issue_PostGetPayload<T>>>
 
     /**
-     * Create many ModIssuePosts.
-     *     @param {ModIssuePostCreateManyArgs} args - Arguments to create many ModIssuePosts.
+     * Create many Mod_Issue_Posts.
+     *     @param {Mod_Issue_PostCreateManyArgs} args - Arguments to create many Mod_Issue_Posts.
      *     @example
-     *     // Create many ModIssuePosts
-     *     const modIssuePost = await prisma.modIssuePost.createMany({
+     *     // Create many Mod_Issue_Posts
+     *     const mod_Issue_Post = await prisma.mod_Issue_Post.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ModIssuePostCreateManyArgs>(
-      args?: SelectSubset<T, ModIssuePostCreateManyArgs>
+    createMany<T extends Mod_Issue_PostCreateManyArgs>(
+      args?: SelectSubset<T, Mod_Issue_PostCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a ModIssuePost.
-     * @param {ModIssuePostDeleteArgs} args - Arguments to delete one ModIssuePost.
+     * Delete a Mod_Issue_Post.
+     * @param {Mod_Issue_PostDeleteArgs} args - Arguments to delete one Mod_Issue_Post.
      * @example
-     * // Delete one ModIssuePost
-     * const ModIssuePost = await prisma.modIssuePost.delete({
+     * // Delete one Mod_Issue_Post
+     * const Mod_Issue_Post = await prisma.mod_Issue_Post.delete({
      *   where: {
-     *     // ... filter to delete one ModIssuePost
+     *     // ... filter to delete one Mod_Issue_Post
      *   }
      * })
      * 
     **/
-    delete<T extends ModIssuePostDeleteArgs>(
-      args: SelectSubset<T, ModIssuePostDeleteArgs>
-    ): CheckSelect<T, Prisma__ModIssuePostClient<ModIssuePost>, Prisma__ModIssuePostClient<ModIssuePostGetPayload<T>>>
+    delete<T extends Mod_Issue_PostDeleteArgs>(
+      args: SelectSubset<T, Mod_Issue_PostDeleteArgs>
+    ): CheckSelect<T, Prisma__Mod_Issue_PostClient<Mod_Issue_Post>, Prisma__Mod_Issue_PostClient<Mod_Issue_PostGetPayload<T>>>
 
     /**
-     * Update one ModIssuePost.
-     * @param {ModIssuePostUpdateArgs} args - Arguments to update one ModIssuePost.
+     * Update one Mod_Issue_Post.
+     * @param {Mod_Issue_PostUpdateArgs} args - Arguments to update one Mod_Issue_Post.
      * @example
-     * // Update one ModIssuePost
-     * const modIssuePost = await prisma.modIssuePost.update({
+     * // Update one Mod_Issue_Post
+     * const mod_Issue_Post = await prisma.mod_Issue_Post.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -10117,34 +10261,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ModIssuePostUpdateArgs>(
-      args: SelectSubset<T, ModIssuePostUpdateArgs>
-    ): CheckSelect<T, Prisma__ModIssuePostClient<ModIssuePost>, Prisma__ModIssuePostClient<ModIssuePostGetPayload<T>>>
+    update<T extends Mod_Issue_PostUpdateArgs>(
+      args: SelectSubset<T, Mod_Issue_PostUpdateArgs>
+    ): CheckSelect<T, Prisma__Mod_Issue_PostClient<Mod_Issue_Post>, Prisma__Mod_Issue_PostClient<Mod_Issue_PostGetPayload<T>>>
 
     /**
-     * Delete zero or more ModIssuePosts.
-     * @param {ModIssuePostDeleteManyArgs} args - Arguments to filter ModIssuePosts to delete.
+     * Delete zero or more Mod_Issue_Posts.
+     * @param {Mod_Issue_PostDeleteManyArgs} args - Arguments to filter Mod_Issue_Posts to delete.
      * @example
-     * // Delete a few ModIssuePosts
-     * const { count } = await prisma.modIssuePost.deleteMany({
+     * // Delete a few Mod_Issue_Posts
+     * const { count } = await prisma.mod_Issue_Post.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ModIssuePostDeleteManyArgs>(
-      args?: SelectSubset<T, ModIssuePostDeleteManyArgs>
+    deleteMany<T extends Mod_Issue_PostDeleteManyArgs>(
+      args?: SelectSubset<T, Mod_Issue_PostDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ModIssuePosts.
+     * Update zero or more Mod_Issue_Posts.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModIssuePostUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {Mod_Issue_PostUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ModIssuePosts
-     * const modIssuePost = await prisma.modIssuePost.updateMany({
+     * // Update many Mod_Issue_Posts
+     * const mod_Issue_Post = await prisma.mod_Issue_Post.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -10154,59 +10298,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ModIssuePostUpdateManyArgs>(
-      args: SelectSubset<T, ModIssuePostUpdateManyArgs>
+    updateMany<T extends Mod_Issue_PostUpdateManyArgs>(
+      args: SelectSubset<T, Mod_Issue_PostUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one ModIssuePost.
-     * @param {ModIssuePostUpsertArgs} args - Arguments to update or create a ModIssuePost.
+     * Create or update one Mod_Issue_Post.
+     * @param {Mod_Issue_PostUpsertArgs} args - Arguments to update or create a Mod_Issue_Post.
      * @example
-     * // Update or create a ModIssuePost
-     * const modIssuePost = await prisma.modIssuePost.upsert({
+     * // Update or create a Mod_Issue_Post
+     * const mod_Issue_Post = await prisma.mod_Issue_Post.upsert({
      *   create: {
-     *     // ... data to create a ModIssuePost
+     *     // ... data to create a Mod_Issue_Post
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ModIssuePost we want to update
+     *     // ... the filter for the Mod_Issue_Post we want to update
      *   }
      * })
     **/
-    upsert<T extends ModIssuePostUpsertArgs>(
-      args: SelectSubset<T, ModIssuePostUpsertArgs>
-    ): CheckSelect<T, Prisma__ModIssuePostClient<ModIssuePost>, Prisma__ModIssuePostClient<ModIssuePostGetPayload<T>>>
+    upsert<T extends Mod_Issue_PostUpsertArgs>(
+      args: SelectSubset<T, Mod_Issue_PostUpsertArgs>
+    ): CheckSelect<T, Prisma__Mod_Issue_PostClient<Mod_Issue_Post>, Prisma__Mod_Issue_PostClient<Mod_Issue_PostGetPayload<T>>>
 
     /**
-     * Count the number of ModIssuePosts.
+     * Count the number of Mod_Issue_Posts.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModIssuePostCountArgs} args - Arguments to filter ModIssuePosts to count.
+     * @param {Mod_Issue_PostCountArgs} args - Arguments to filter Mod_Issue_Posts to count.
      * @example
-     * // Count the number of ModIssuePosts
-     * const count = await prisma.modIssuePost.count({
+     * // Count the number of Mod_Issue_Posts
+     * const count = await prisma.mod_Issue_Post.count({
      *   where: {
-     *     // ... the filter for the ModIssuePosts we want to count
+     *     // ... the filter for the Mod_Issue_Posts we want to count
      *   }
      * })
     **/
-    count<T extends ModIssuePostCountArgs>(
-      args?: Subset<T, ModIssuePostCountArgs>,
+    count<T extends Mod_Issue_PostCountArgs>(
+      args?: Subset<T, Mod_Issue_PostCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ModIssuePostCountAggregateOutputType>
+          : GetScalarType<T['select'], Mod_Issue_PostCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ModIssuePost.
+     * Allows you to perform aggregations operations on a Mod_Issue_Post.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModIssuePostAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Mod_Issue_PostAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -10226,13 +10370,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ModIssuePostAggregateArgs>(args: Subset<T, ModIssuePostAggregateArgs>): PrismaPromise<GetModIssuePostAggregateType<T>>
+    aggregate<T extends Mod_Issue_PostAggregateArgs>(args: Subset<T, Mod_Issue_PostAggregateArgs>): PrismaPromise<GetMod_Issue_PostAggregateType<T>>
 
     /**
-     * Group by ModIssuePost.
+     * Group by Mod_Issue_Post.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModIssuePostGroupByArgs} args - Group by arguments.
+     * @param {Mod_Issue_PostGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -10247,14 +10391,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ModIssuePostGroupByArgs,
+      T extends Mod_Issue_PostGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ModIssuePostGroupByArgs['orderBy'] }
-        : { orderBy?: ModIssuePostGroupByArgs['orderBy'] },
+        ? { orderBy: Mod_Issue_PostGroupByArgs['orderBy'] }
+        : { orderBy?: Mod_Issue_PostGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -10303,16 +10447,16 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ModIssuePostGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModIssuePostGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, Mod_Issue_PostGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMod_Issue_PostGroupByPayload<T> : PrismaPromise<InputErrors>
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ModIssuePost.
+   * The delegate class that acts as a "Promise-like" for Mod_Issue_Post.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ModIssuePostClient<T> implements PrismaPromise<T> {
+  export class Prisma__Mod_Issue_PostClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -10329,7 +10473,7 @@ export namespace Prisma {
     constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
     readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
-    Issue<T extends ModIssueArgs = {}>(args?: Subset<T, ModIssueArgs>): CheckSelect<T, Prisma__ModIssueClient<ModIssue | null >, Prisma__ModIssueClient<ModIssueGetPayload<T> | null >>;
+    Issue<T extends Mod_IssueArgs = {}>(args?: Subset<T, Mod_IssueArgs>): CheckSelect<T, Prisma__Mod_IssueClient<Mod_Issue | null >, Prisma__Mod_IssueClient<Mod_IssueGetPayload<T> | null >>;
 
     Author<T extends UserArgs = {}>(args?: Subset<T, UserArgs>): CheckSelect<T, Prisma__UserClient<User | null >, Prisma__UserClient<UserGetPayload<T> | null >>;
 
@@ -10359,346 +10503,346 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModIssuePost findUnique
+   * Mod_Issue_Post findUnique
    */
-  export type ModIssuePostFindUniqueArgs = {
+  export type Mod_Issue_PostFindUniqueArgs = {
     /**
-     * Select specific fields to fetch from the ModIssuePost
+     * Select specific fields to fetch from the Mod_Issue_Post
      * 
     **/
-    select?: ModIssuePostSelect | null
+    select?: Mod_Issue_PostSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssuePostInclude | null
+    include?: Mod_Issue_PostInclude | null
     /**
-     * Throw an Error if a ModIssuePost can't be found
+     * Throw an Error if a Mod_Issue_Post can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModIssuePost to fetch.
+     * Filter, which Mod_Issue_Post to fetch.
      * 
     **/
-    where: ModIssuePostWhereUniqueInput
+    where: Mod_Issue_PostWhereUniqueInput
   }
 
 
   /**
-   * ModIssuePost findFirst
+   * Mod_Issue_Post findFirst
    */
-  export type ModIssuePostFindFirstArgs = {
+  export type Mod_Issue_PostFindFirstArgs = {
     /**
-     * Select specific fields to fetch from the ModIssuePost
+     * Select specific fields to fetch from the Mod_Issue_Post
      * 
     **/
-    select?: ModIssuePostSelect | null
+    select?: Mod_Issue_PostSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssuePostInclude | null
+    include?: Mod_Issue_PostInclude | null
     /**
-     * Throw an Error if a ModIssuePost can't be found
+     * Throw an Error if a Mod_Issue_Post can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModIssuePost to fetch.
+     * Filter, which Mod_Issue_Post to fetch.
      * 
     **/
-    where?: ModIssuePostWhereInput
+    where?: Mod_Issue_PostWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModIssuePosts to fetch.
+     * Determine the order of Mod_Issue_Posts to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModIssuePostOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_Issue_PostOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ModIssuePosts.
+     * Sets the position for searching for Mod_Issue_Posts.
      * 
     **/
-    cursor?: ModIssuePostWhereUniqueInput
+    cursor?: Mod_Issue_PostWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModIssuePosts from the position of the cursor.
+     * Take `±n` Mod_Issue_Posts from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModIssuePosts.
+     * Skip the first `n` Mod_Issue_Posts.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ModIssuePosts.
+     * Filter by unique combinations of Mod_Issue_Posts.
      * 
     **/
-    distinct?: Enumerable<ModIssuePostScalarFieldEnum>
+    distinct?: Enumerable<Mod_Issue_PostScalarFieldEnum>
   }
 
 
   /**
-   * ModIssuePost findMany
+   * Mod_Issue_Post findMany
    */
-  export type ModIssuePostFindManyArgs = {
+  export type Mod_Issue_PostFindManyArgs = {
     /**
-     * Select specific fields to fetch from the ModIssuePost
+     * Select specific fields to fetch from the Mod_Issue_Post
      * 
     **/
-    select?: ModIssuePostSelect | null
+    select?: Mod_Issue_PostSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssuePostInclude | null
+    include?: Mod_Issue_PostInclude | null
     /**
-     * Filter, which ModIssuePosts to fetch.
+     * Filter, which Mod_Issue_Posts to fetch.
      * 
     **/
-    where?: ModIssuePostWhereInput
+    where?: Mod_Issue_PostWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModIssuePosts to fetch.
+     * Determine the order of Mod_Issue_Posts to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModIssuePostOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_Issue_PostOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ModIssuePosts.
+     * Sets the position for listing Mod_Issue_Posts.
      * 
     **/
-    cursor?: ModIssuePostWhereUniqueInput
+    cursor?: Mod_Issue_PostWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModIssuePosts from the position of the cursor.
+     * Take `±n` Mod_Issue_Posts from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModIssuePosts.
+     * Skip the first `n` Mod_Issue_Posts.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<ModIssuePostScalarFieldEnum>
+    distinct?: Enumerable<Mod_Issue_PostScalarFieldEnum>
   }
 
 
   /**
-   * ModIssuePost create
+   * Mod_Issue_Post create
    */
-  export type ModIssuePostCreateArgs = {
+  export type Mod_Issue_PostCreateArgs = {
     /**
-     * Select specific fields to fetch from the ModIssuePost
+     * Select specific fields to fetch from the Mod_Issue_Post
      * 
     **/
-    select?: ModIssuePostSelect | null
+    select?: Mod_Issue_PostSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssuePostInclude | null
+    include?: Mod_Issue_PostInclude | null
     /**
-     * The data needed to create a ModIssuePost.
+     * The data needed to create a Mod_Issue_Post.
      * 
     **/
-    data: XOR<ModIssuePostCreateInput, ModIssuePostUncheckedCreateInput>
+    data: XOR<Mod_Issue_PostCreateInput, Mod_Issue_PostUncheckedCreateInput>
   }
 
 
   /**
-   * ModIssuePost createMany
+   * Mod_Issue_Post createMany
    */
-  export type ModIssuePostCreateManyArgs = {
+  export type Mod_Issue_PostCreateManyArgs = {
     /**
-     * The data used to create many ModIssuePosts.
+     * The data used to create many Mod_Issue_Posts.
      * 
     **/
-    data: Enumerable<ModIssuePostCreateManyInput>
+    data: Enumerable<Mod_Issue_PostCreateManyInput>
     skipDuplicates?: boolean
   }
 
 
   /**
-   * ModIssuePost update
+   * Mod_Issue_Post update
    */
-  export type ModIssuePostUpdateArgs = {
+  export type Mod_Issue_PostUpdateArgs = {
     /**
-     * Select specific fields to fetch from the ModIssuePost
+     * Select specific fields to fetch from the Mod_Issue_Post
      * 
     **/
-    select?: ModIssuePostSelect | null
+    select?: Mod_Issue_PostSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssuePostInclude | null
+    include?: Mod_Issue_PostInclude | null
     /**
-     * The data needed to update a ModIssuePost.
+     * The data needed to update a Mod_Issue_Post.
      * 
     **/
-    data: XOR<ModIssuePostUpdateInput, ModIssuePostUncheckedUpdateInput>
+    data: XOR<Mod_Issue_PostUpdateInput, Mod_Issue_PostUncheckedUpdateInput>
     /**
-     * Choose, which ModIssuePost to update.
+     * Choose, which Mod_Issue_Post to update.
      * 
     **/
-    where: ModIssuePostWhereUniqueInput
+    where: Mod_Issue_PostWhereUniqueInput
   }
 
 
   /**
-   * ModIssuePost updateMany
+   * Mod_Issue_Post updateMany
    */
-  export type ModIssuePostUpdateManyArgs = {
+  export type Mod_Issue_PostUpdateManyArgs = {
     /**
-     * The data used to update ModIssuePosts.
+     * The data used to update Mod_Issue_Posts.
      * 
     **/
-    data: XOR<ModIssuePostUpdateManyMutationInput, ModIssuePostUncheckedUpdateManyInput>
+    data: XOR<Mod_Issue_PostUpdateManyMutationInput, Mod_Issue_PostUncheckedUpdateManyInput>
     /**
-     * Filter which ModIssuePosts to update
+     * Filter which Mod_Issue_Posts to update
      * 
     **/
-    where?: ModIssuePostWhereInput
+    where?: Mod_Issue_PostWhereInput
   }
 
 
   /**
-   * ModIssuePost upsert
+   * Mod_Issue_Post upsert
    */
-  export type ModIssuePostUpsertArgs = {
+  export type Mod_Issue_PostUpsertArgs = {
     /**
-     * Select specific fields to fetch from the ModIssuePost
+     * Select specific fields to fetch from the Mod_Issue_Post
      * 
     **/
-    select?: ModIssuePostSelect | null
+    select?: Mod_Issue_PostSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssuePostInclude | null
+    include?: Mod_Issue_PostInclude | null
     /**
-     * The filter to search for the ModIssuePost to update in case it exists.
+     * The filter to search for the Mod_Issue_Post to update in case it exists.
      * 
     **/
-    where: ModIssuePostWhereUniqueInput
+    where: Mod_Issue_PostWhereUniqueInput
     /**
-     * In case the ModIssuePost found by the `where` argument doesn't exist, create a new ModIssuePost with this data.
+     * In case the Mod_Issue_Post found by the `where` argument doesn't exist, create a new Mod_Issue_Post with this data.
      * 
     **/
-    create: XOR<ModIssuePostCreateInput, ModIssuePostUncheckedCreateInput>
+    create: XOR<Mod_Issue_PostCreateInput, Mod_Issue_PostUncheckedCreateInput>
     /**
-     * In case the ModIssuePost was found with the provided `where` argument, update it with this data.
+     * In case the Mod_Issue_Post was found with the provided `where` argument, update it with this data.
      * 
     **/
-    update: XOR<ModIssuePostUpdateInput, ModIssuePostUncheckedUpdateInput>
+    update: XOR<Mod_Issue_PostUpdateInput, Mod_Issue_PostUncheckedUpdateInput>
   }
 
 
   /**
-   * ModIssuePost delete
+   * Mod_Issue_Post delete
    */
-  export type ModIssuePostDeleteArgs = {
+  export type Mod_Issue_PostDeleteArgs = {
     /**
-     * Select specific fields to fetch from the ModIssuePost
+     * Select specific fields to fetch from the Mod_Issue_Post
      * 
     **/
-    select?: ModIssuePostSelect | null
+    select?: Mod_Issue_PostSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssuePostInclude | null
+    include?: Mod_Issue_PostInclude | null
     /**
-     * Filter which ModIssuePost to delete.
+     * Filter which Mod_Issue_Post to delete.
      * 
     **/
-    where: ModIssuePostWhereUniqueInput
+    where: Mod_Issue_PostWhereUniqueInput
   }
 
 
   /**
-   * ModIssuePost deleteMany
+   * Mod_Issue_Post deleteMany
    */
-  export type ModIssuePostDeleteManyArgs = {
+  export type Mod_Issue_PostDeleteManyArgs = {
     /**
-     * Filter which ModIssuePosts to delete
+     * Filter which Mod_Issue_Posts to delete
      * 
     **/
-    where?: ModIssuePostWhereInput
+    where?: Mod_Issue_PostWhereInput
   }
 
 
   /**
-   * ModIssuePost without action
+   * Mod_Issue_Post without action
    */
-  export type ModIssuePostArgs = {
+  export type Mod_Issue_PostArgs = {
     /**
-     * Select specific fields to fetch from the ModIssuePost
+     * Select specific fields to fetch from the Mod_Issue_Post
      * 
     **/
-    select?: ModIssuePostSelect | null
+    select?: Mod_Issue_PostSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModIssuePostInclude | null
+    include?: Mod_Issue_PostInclude | null
   }
 
 
 
   /**
-   * Model ModsList
+   * Model Mods_List
    */
 
 
-  export type AggregateModsList = {
-    _count: ModsListCountAggregateOutputType | null
-    _avg: ModsListAvgAggregateOutputType | null
-    _sum: ModsListSumAggregateOutputType | null
-    _min: ModsListMinAggregateOutputType | null
-    _max: ModsListMaxAggregateOutputType | null
+  export type AggregateMods_List = {
+    _count: Mods_ListCountAggregateOutputType | null
+    _avg: Mods_ListAvgAggregateOutputType | null
+    _sum: Mods_ListSumAggregateOutputType | null
+    _min: Mods_ListMinAggregateOutputType | null
+    _max: Mods_ListMaxAggregateOutputType | null
   }
 
-  export type ModsListAvgAggregateOutputType = {
+  export type Mods_ListAvgAggregateOutputType = {
     id: number | null
     author_id: number | null
   }
 
-  export type ModsListSumAggregateOutputType = {
+  export type Mods_ListSumAggregateOutputType = {
     id: number | null
     author_id: number | null
   }
 
-  export type ModsListMinAggregateOutputType = {
-    id: number | null
-    author_id: number | null
-    is_public: boolean | null
-    name: string | null
-  }
-
-  export type ModsListMaxAggregateOutputType = {
+  export type Mods_ListMinAggregateOutputType = {
     id: number | null
     author_id: number | null
     is_public: boolean | null
     name: string | null
   }
 
-  export type ModsListCountAggregateOutputType = {
+  export type Mods_ListMaxAggregateOutputType = {
+    id: number | null
+    author_id: number | null
+    is_public: boolean | null
+    name: string | null
+  }
+
+  export type Mods_ListCountAggregateOutputType = {
     id: number
     author_id: number
     is_public: number
@@ -10707,31 +10851,31 @@ export namespace Prisma {
   }
 
 
-  export type ModsListAvgAggregateInputType = {
+  export type Mods_ListAvgAggregateInputType = {
     id?: true
     author_id?: true
   }
 
-  export type ModsListSumAggregateInputType = {
+  export type Mods_ListSumAggregateInputType = {
     id?: true
     author_id?: true
   }
 
-  export type ModsListMinAggregateInputType = {
-    id?: true
-    author_id?: true
-    is_public?: true
-    name?: true
-  }
-
-  export type ModsListMaxAggregateInputType = {
+  export type Mods_ListMinAggregateInputType = {
     id?: true
     author_id?: true
     is_public?: true
     name?: true
   }
 
-  export type ModsListCountAggregateInputType = {
+  export type Mods_ListMaxAggregateInputType = {
+    id?: true
+    author_id?: true
+    is_public?: true
+    name?: true
+  }
+
+  export type Mods_ListCountAggregateInputType = {
     id?: true
     author_id?: true
     is_public?: true
@@ -10739,279 +10883,279 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type ModsListAggregateArgs = {
+  export type Mods_ListAggregateArgs = {
     /**
-     * Filter which ModsList to aggregate.
+     * Filter which Mods_List to aggregate.
      * 
     **/
-    where?: ModsListWhereInput
+    where?: Mods_ListWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModsLists to fetch.
+     * Determine the order of Mods_Lists to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModsListOrderByWithRelationInput>
+    orderBy?: Enumerable<Mods_ListOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: ModsListWhereUniqueInput
+    cursor?: Mods_ListWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModsLists from the position of the cursor.
+     * Take `±n` Mods_Lists from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModsLists.
+     * Skip the first `n` Mods_Lists.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ModsLists
+     * Count returned Mods_Lists
     **/
-    _count?: true | ModsListCountAggregateInputType
+    _count?: true | Mods_ListCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ModsListAvgAggregateInputType
+    _avg?: Mods_ListAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ModsListSumAggregateInputType
+    _sum?: Mods_ListSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ModsListMinAggregateInputType
+    _min?: Mods_ListMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ModsListMaxAggregateInputType
+    _max?: Mods_ListMaxAggregateInputType
   }
 
-  export type GetModsListAggregateType<T extends ModsListAggregateArgs> = {
-        [P in keyof T & keyof AggregateModsList]: P extends '_count' | 'count'
+  export type GetMods_ListAggregateType<T extends Mods_ListAggregateArgs> = {
+        [P in keyof T & keyof AggregateMods_List]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateModsList[P]>
-      : GetScalarType<T[P], AggregateModsList[P]>
+        : GetScalarType<T[P], AggregateMods_List[P]>
+      : GetScalarType<T[P], AggregateMods_List[P]>
   }
 
 
 
 
-  export type ModsListGroupByArgs = {
-    where?: ModsListWhereInput
-    orderBy?: Enumerable<ModsListOrderByWithAggregationInput>
-    by: Array<ModsListScalarFieldEnum>
-    having?: ModsListScalarWhereWithAggregatesInput
+  export type Mods_ListGroupByArgs = {
+    where?: Mods_ListWhereInput
+    orderBy?: Enumerable<Mods_ListOrderByWithAggregationInput>
+    by: Array<Mods_ListScalarFieldEnum>
+    having?: Mods_ListScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ModsListCountAggregateInputType | true
-    _avg?: ModsListAvgAggregateInputType
-    _sum?: ModsListSumAggregateInputType
-    _min?: ModsListMinAggregateInputType
-    _max?: ModsListMaxAggregateInputType
+    _count?: Mods_ListCountAggregateInputType | true
+    _avg?: Mods_ListAvgAggregateInputType
+    _sum?: Mods_ListSumAggregateInputType
+    _min?: Mods_ListMinAggregateInputType
+    _max?: Mods_ListMaxAggregateInputType
   }
 
 
-  export type ModsListGroupByOutputType = {
+  export type Mods_ListGroupByOutputType = {
     id: number
     author_id: number
     is_public: boolean
     name: string
-    _count: ModsListCountAggregateOutputType | null
-    _avg: ModsListAvgAggregateOutputType | null
-    _sum: ModsListSumAggregateOutputType | null
-    _min: ModsListMinAggregateOutputType | null
-    _max: ModsListMaxAggregateOutputType | null
+    _count: Mods_ListCountAggregateOutputType | null
+    _avg: Mods_ListAvgAggregateOutputType | null
+    _sum: Mods_ListSumAggregateOutputType | null
+    _min: Mods_ListMinAggregateOutputType | null
+    _max: Mods_ListMaxAggregateOutputType | null
   }
 
-  type GetModsListGroupByPayload<T extends ModsListGroupByArgs> = PrismaPromise<
+  type GetMods_ListGroupByPayload<T extends Mods_ListGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<ModsListGroupByOutputType, T['by']> &
+      PickArray<Mods_ListGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ModsListGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Mods_ListGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ModsListGroupByOutputType[P]>
-            : GetScalarType<T[P], ModsListGroupByOutputType[P]>
+              : GetScalarType<T[P], Mods_ListGroupByOutputType[P]>
+            : GetScalarType<T[P], Mods_ListGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ModsListSelect = {
+  export type Mods_ListSelect = {
     id?: boolean
     author_id?: boolean
     is_public?: boolean
     name?: boolean
     Author?: boolean | UserArgs
     Mods?: boolean | ModFindManyArgs
-    _count?: boolean | ModsListCountOutputTypeArgs
+    _count?: boolean | Mods_ListCountOutputTypeArgs
   }
 
-  export type ModsListInclude = {
+  export type Mods_ListInclude = {
     Author?: boolean | UserArgs
     Mods?: boolean | ModFindManyArgs
-    _count?: boolean | ModsListCountOutputTypeArgs
+    _count?: boolean | Mods_ListCountOutputTypeArgs
   }
 
-  export type ModsListGetPayload<
-    S extends boolean | null | undefined | ModsListArgs,
+  export type Mods_ListGetPayload<
+    S extends boolean | null | undefined | Mods_ListArgs,
     U = keyof S
       > = S extends true
-        ? ModsList
+        ? Mods_List
     : S extends undefined
     ? never
-    : S extends ModsListArgs | ModsListFindManyArgs
+    : S extends Mods_ListArgs | Mods_ListFindManyArgs
     ?'include' extends U
-    ? ModsList  & {
+    ? Mods_List  & {
     [P in TrueKeys<S['include']>]:
         P extends 'Author' ? UserGetPayload<S['include'][P]> :
         P extends 'Mods' ? Array < ModGetPayload<S['include'][P]>>  :
-        P extends '_count' ? ModsListCountOutputTypeGetPayload<S['include'][P]> :  never
+        P extends '_count' ? Mods_ListCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
         P extends 'Author' ? UserGetPayload<S['select'][P]> :
         P extends 'Mods' ? Array < ModGetPayload<S['select'][P]>>  :
-        P extends '_count' ? ModsListCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof ModsList ? ModsList[P] : never
+        P extends '_count' ? Mods_ListCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Mods_List ? Mods_List[P] : never
   } 
-    : ModsList
-  : ModsList
+    : Mods_List
+  : Mods_List
 
 
-  type ModsListCountArgs = Merge<
-    Omit<ModsListFindManyArgs, 'select' | 'include'> & {
-      select?: ModsListCountAggregateInputType | true
+  type Mods_ListCountArgs = Merge<
+    Omit<Mods_ListFindManyArgs, 'select' | 'include'> & {
+      select?: Mods_ListCountAggregateInputType | true
     }
   >
 
-  export interface ModsListDelegate<GlobalRejectSettings> {
+  export interface Mods_ListDelegate<GlobalRejectSettings> {
     /**
-     * Find zero or one ModsList that matches the filter.
-     * @param {ModsListFindUniqueArgs} args - Arguments to find a ModsList
+     * Find zero or one Mods_List that matches the filter.
+     * @param {Mods_ListFindUniqueArgs} args - Arguments to find a Mods_List
      * @example
-     * // Get one ModsList
-     * const modsList = await prisma.modsList.findUnique({
+     * // Get one Mods_List
+     * const mods_List = await prisma.mods_List.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ModsListFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ModsListFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ModsList'> extends True ? CheckSelect<T, Prisma__ModsListClient<ModsList>, Prisma__ModsListClient<ModsListGetPayload<T>>> : CheckSelect<T, Prisma__ModsListClient<ModsList | null >, Prisma__ModsListClient<ModsListGetPayload<T> | null >>
+    findUnique<T extends Mods_ListFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, Mods_ListFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Mods_List'> extends True ? CheckSelect<T, Prisma__Mods_ListClient<Mods_List>, Prisma__Mods_ListClient<Mods_ListGetPayload<T>>> : CheckSelect<T, Prisma__Mods_ListClient<Mods_List | null >, Prisma__Mods_ListClient<Mods_ListGetPayload<T> | null >>
 
     /**
-     * Find the first ModsList that matches the filter.
+     * Find the first Mods_List that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsListFindFirstArgs} args - Arguments to find a ModsList
+     * @param {Mods_ListFindFirstArgs} args - Arguments to find a Mods_List
      * @example
-     * // Get one ModsList
-     * const modsList = await prisma.modsList.findFirst({
+     * // Get one Mods_List
+     * const mods_List = await prisma.mods_List.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ModsListFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ModsListFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ModsList'> extends True ? CheckSelect<T, Prisma__ModsListClient<ModsList>, Prisma__ModsListClient<ModsListGetPayload<T>>> : CheckSelect<T, Prisma__ModsListClient<ModsList | null >, Prisma__ModsListClient<ModsListGetPayload<T> | null >>
+    findFirst<T extends Mods_ListFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, Mods_ListFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Mods_List'> extends True ? CheckSelect<T, Prisma__Mods_ListClient<Mods_List>, Prisma__Mods_ListClient<Mods_ListGetPayload<T>>> : CheckSelect<T, Prisma__Mods_ListClient<Mods_List | null >, Prisma__Mods_ListClient<Mods_ListGetPayload<T> | null >>
 
     /**
-     * Find zero or more ModsLists that matches the filter.
+     * Find zero or more Mods_Lists that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsListFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {Mods_ListFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ModsLists
-     * const modsLists = await prisma.modsList.findMany()
+     * // Get all Mods_Lists
+     * const mods_Lists = await prisma.mods_List.findMany()
      * 
-     * // Get first 10 ModsLists
-     * const modsLists = await prisma.modsList.findMany({ take: 10 })
+     * // Get first 10 Mods_Lists
+     * const mods_Lists = await prisma.mods_List.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const modsListWithIdOnly = await prisma.modsList.findMany({ select: { id: true } })
+     * const mods_ListWithIdOnly = await prisma.mods_List.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends ModsListFindManyArgs>(
-      args?: SelectSubset<T, ModsListFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<ModsList>>, PrismaPromise<Array<ModsListGetPayload<T>>>>
+    findMany<T extends Mods_ListFindManyArgs>(
+      args?: SelectSubset<T, Mods_ListFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Mods_List>>, PrismaPromise<Array<Mods_ListGetPayload<T>>>>
 
     /**
-     * Create a ModsList.
-     * @param {ModsListCreateArgs} args - Arguments to create a ModsList.
+     * Create a Mods_List.
+     * @param {Mods_ListCreateArgs} args - Arguments to create a Mods_List.
      * @example
-     * // Create one ModsList
-     * const ModsList = await prisma.modsList.create({
+     * // Create one Mods_List
+     * const Mods_List = await prisma.mods_List.create({
      *   data: {
-     *     // ... data to create a ModsList
+     *     // ... data to create a Mods_List
      *   }
      * })
      * 
     **/
-    create<T extends ModsListCreateArgs>(
-      args: SelectSubset<T, ModsListCreateArgs>
-    ): CheckSelect<T, Prisma__ModsListClient<ModsList>, Prisma__ModsListClient<ModsListGetPayload<T>>>
+    create<T extends Mods_ListCreateArgs>(
+      args: SelectSubset<T, Mods_ListCreateArgs>
+    ): CheckSelect<T, Prisma__Mods_ListClient<Mods_List>, Prisma__Mods_ListClient<Mods_ListGetPayload<T>>>
 
     /**
-     * Create many ModsLists.
-     *     @param {ModsListCreateManyArgs} args - Arguments to create many ModsLists.
+     * Create many Mods_Lists.
+     *     @param {Mods_ListCreateManyArgs} args - Arguments to create many Mods_Lists.
      *     @example
-     *     // Create many ModsLists
-     *     const modsList = await prisma.modsList.createMany({
+     *     // Create many Mods_Lists
+     *     const mods_List = await prisma.mods_List.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ModsListCreateManyArgs>(
-      args?: SelectSubset<T, ModsListCreateManyArgs>
+    createMany<T extends Mods_ListCreateManyArgs>(
+      args?: SelectSubset<T, Mods_ListCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a ModsList.
-     * @param {ModsListDeleteArgs} args - Arguments to delete one ModsList.
+     * Delete a Mods_List.
+     * @param {Mods_ListDeleteArgs} args - Arguments to delete one Mods_List.
      * @example
-     * // Delete one ModsList
-     * const ModsList = await prisma.modsList.delete({
+     * // Delete one Mods_List
+     * const Mods_List = await prisma.mods_List.delete({
      *   where: {
-     *     // ... filter to delete one ModsList
+     *     // ... filter to delete one Mods_List
      *   }
      * })
      * 
     **/
-    delete<T extends ModsListDeleteArgs>(
-      args: SelectSubset<T, ModsListDeleteArgs>
-    ): CheckSelect<T, Prisma__ModsListClient<ModsList>, Prisma__ModsListClient<ModsListGetPayload<T>>>
+    delete<T extends Mods_ListDeleteArgs>(
+      args: SelectSubset<T, Mods_ListDeleteArgs>
+    ): CheckSelect<T, Prisma__Mods_ListClient<Mods_List>, Prisma__Mods_ListClient<Mods_ListGetPayload<T>>>
 
     /**
-     * Update one ModsList.
-     * @param {ModsListUpdateArgs} args - Arguments to update one ModsList.
+     * Update one Mods_List.
+     * @param {Mods_ListUpdateArgs} args - Arguments to update one Mods_List.
      * @example
-     * // Update one ModsList
-     * const modsList = await prisma.modsList.update({
+     * // Update one Mods_List
+     * const mods_List = await prisma.mods_List.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -11021,34 +11165,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ModsListUpdateArgs>(
-      args: SelectSubset<T, ModsListUpdateArgs>
-    ): CheckSelect<T, Prisma__ModsListClient<ModsList>, Prisma__ModsListClient<ModsListGetPayload<T>>>
+    update<T extends Mods_ListUpdateArgs>(
+      args: SelectSubset<T, Mods_ListUpdateArgs>
+    ): CheckSelect<T, Prisma__Mods_ListClient<Mods_List>, Prisma__Mods_ListClient<Mods_ListGetPayload<T>>>
 
     /**
-     * Delete zero or more ModsLists.
-     * @param {ModsListDeleteManyArgs} args - Arguments to filter ModsLists to delete.
+     * Delete zero or more Mods_Lists.
+     * @param {Mods_ListDeleteManyArgs} args - Arguments to filter Mods_Lists to delete.
      * @example
-     * // Delete a few ModsLists
-     * const { count } = await prisma.modsList.deleteMany({
+     * // Delete a few Mods_Lists
+     * const { count } = await prisma.mods_List.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ModsListDeleteManyArgs>(
-      args?: SelectSubset<T, ModsListDeleteManyArgs>
+    deleteMany<T extends Mods_ListDeleteManyArgs>(
+      args?: SelectSubset<T, Mods_ListDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ModsLists.
+     * Update zero or more Mods_Lists.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsListUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {Mods_ListUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ModsLists
-     * const modsList = await prisma.modsList.updateMany({
+     * // Update many Mods_Lists
+     * const mods_List = await prisma.mods_List.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -11058,59 +11202,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ModsListUpdateManyArgs>(
-      args: SelectSubset<T, ModsListUpdateManyArgs>
+    updateMany<T extends Mods_ListUpdateManyArgs>(
+      args: SelectSubset<T, Mods_ListUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one ModsList.
-     * @param {ModsListUpsertArgs} args - Arguments to update or create a ModsList.
+     * Create or update one Mods_List.
+     * @param {Mods_ListUpsertArgs} args - Arguments to update or create a Mods_List.
      * @example
-     * // Update or create a ModsList
-     * const modsList = await prisma.modsList.upsert({
+     * // Update or create a Mods_List
+     * const mods_List = await prisma.mods_List.upsert({
      *   create: {
-     *     // ... data to create a ModsList
+     *     // ... data to create a Mods_List
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ModsList we want to update
+     *     // ... the filter for the Mods_List we want to update
      *   }
      * })
     **/
-    upsert<T extends ModsListUpsertArgs>(
-      args: SelectSubset<T, ModsListUpsertArgs>
-    ): CheckSelect<T, Prisma__ModsListClient<ModsList>, Prisma__ModsListClient<ModsListGetPayload<T>>>
+    upsert<T extends Mods_ListUpsertArgs>(
+      args: SelectSubset<T, Mods_ListUpsertArgs>
+    ): CheckSelect<T, Prisma__Mods_ListClient<Mods_List>, Prisma__Mods_ListClient<Mods_ListGetPayload<T>>>
 
     /**
-     * Count the number of ModsLists.
+     * Count the number of Mods_Lists.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsListCountArgs} args - Arguments to filter ModsLists to count.
+     * @param {Mods_ListCountArgs} args - Arguments to filter Mods_Lists to count.
      * @example
-     * // Count the number of ModsLists
-     * const count = await prisma.modsList.count({
+     * // Count the number of Mods_Lists
+     * const count = await prisma.mods_List.count({
      *   where: {
-     *     // ... the filter for the ModsLists we want to count
+     *     // ... the filter for the Mods_Lists we want to count
      *   }
      * })
     **/
-    count<T extends ModsListCountArgs>(
-      args?: Subset<T, ModsListCountArgs>,
+    count<T extends Mods_ListCountArgs>(
+      args?: Subset<T, Mods_ListCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ModsListCountAggregateOutputType>
+          : GetScalarType<T['select'], Mods_ListCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ModsList.
+     * Allows you to perform aggregations operations on a Mods_List.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsListAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Mods_ListAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -11130,13 +11274,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ModsListAggregateArgs>(args: Subset<T, ModsListAggregateArgs>): PrismaPromise<GetModsListAggregateType<T>>
+    aggregate<T extends Mods_ListAggregateArgs>(args: Subset<T, Mods_ListAggregateArgs>): PrismaPromise<GetMods_ListAggregateType<T>>
 
     /**
-     * Group by ModsList.
+     * Group by Mods_List.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsListGroupByArgs} args - Group by arguments.
+     * @param {Mods_ListGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -11151,14 +11295,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ModsListGroupByArgs,
+      T extends Mods_ListGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ModsListGroupByArgs['orderBy'] }
-        : { orderBy?: ModsListGroupByArgs['orderBy'] },
+        ? { orderBy: Mods_ListGroupByArgs['orderBy'] }
+        : { orderBy?: Mods_ListGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -11207,16 +11351,16 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ModsListGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModsListGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, Mods_ListGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMods_ListGroupByPayload<T> : PrismaPromise<InputErrors>
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ModsList.
+   * The delegate class that acts as a "Promise-like" for Mods_List.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ModsListClient<T> implements PrismaPromise<T> {
+  export class Prisma__Mods_ListClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -11263,512 +11407,512 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModsList findUnique
+   * Mods_List findUnique
    */
-  export type ModsListFindUniqueArgs = {
+  export type Mods_ListFindUniqueArgs = {
     /**
-     * Select specific fields to fetch from the ModsList
+     * Select specific fields to fetch from the Mods_List
      * 
     **/
-    select?: ModsListSelect | null
+    select?: Mods_ListSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsListInclude | null
+    include?: Mods_ListInclude | null
     /**
-     * Throw an Error if a ModsList can't be found
+     * Throw an Error if a Mods_List can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModsList to fetch.
+     * Filter, which Mods_List to fetch.
      * 
     **/
-    where: ModsListWhereUniqueInput
+    where: Mods_ListWhereUniqueInput
   }
 
 
   /**
-   * ModsList findFirst
+   * Mods_List findFirst
    */
-  export type ModsListFindFirstArgs = {
+  export type Mods_ListFindFirstArgs = {
     /**
-     * Select specific fields to fetch from the ModsList
+     * Select specific fields to fetch from the Mods_List
      * 
     **/
-    select?: ModsListSelect | null
+    select?: Mods_ListSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsListInclude | null
+    include?: Mods_ListInclude | null
     /**
-     * Throw an Error if a ModsList can't be found
+     * Throw an Error if a Mods_List can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModsList to fetch.
+     * Filter, which Mods_List to fetch.
      * 
     **/
-    where?: ModsListWhereInput
+    where?: Mods_ListWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModsLists to fetch.
+     * Determine the order of Mods_Lists to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModsListOrderByWithRelationInput>
+    orderBy?: Enumerable<Mods_ListOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ModsLists.
+     * Sets the position for searching for Mods_Lists.
      * 
     **/
-    cursor?: ModsListWhereUniqueInput
+    cursor?: Mods_ListWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModsLists from the position of the cursor.
+     * Take `±n` Mods_Lists from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModsLists.
+     * Skip the first `n` Mods_Lists.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ModsLists.
+     * Filter by unique combinations of Mods_Lists.
      * 
     **/
-    distinct?: Enumerable<ModsListScalarFieldEnum>
+    distinct?: Enumerable<Mods_ListScalarFieldEnum>
   }
 
 
   /**
-   * ModsList findMany
+   * Mods_List findMany
    */
-  export type ModsListFindManyArgs = {
+  export type Mods_ListFindManyArgs = {
     /**
-     * Select specific fields to fetch from the ModsList
+     * Select specific fields to fetch from the Mods_List
      * 
     **/
-    select?: ModsListSelect | null
+    select?: Mods_ListSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsListInclude | null
+    include?: Mods_ListInclude | null
     /**
-     * Filter, which ModsLists to fetch.
+     * Filter, which Mods_Lists to fetch.
      * 
     **/
-    where?: ModsListWhereInput
+    where?: Mods_ListWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModsLists to fetch.
+     * Determine the order of Mods_Lists to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModsListOrderByWithRelationInput>
+    orderBy?: Enumerable<Mods_ListOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ModsLists.
+     * Sets the position for listing Mods_Lists.
      * 
     **/
-    cursor?: ModsListWhereUniqueInput
+    cursor?: Mods_ListWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModsLists from the position of the cursor.
+     * Take `±n` Mods_Lists from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModsLists.
+     * Skip the first `n` Mods_Lists.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<ModsListScalarFieldEnum>
+    distinct?: Enumerable<Mods_ListScalarFieldEnum>
   }
 
 
   /**
-   * ModsList create
+   * Mods_List create
    */
-  export type ModsListCreateArgs = {
+  export type Mods_ListCreateArgs = {
     /**
-     * Select specific fields to fetch from the ModsList
+     * Select specific fields to fetch from the Mods_List
      * 
     **/
-    select?: ModsListSelect | null
+    select?: Mods_ListSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsListInclude | null
+    include?: Mods_ListInclude | null
     /**
-     * The data needed to create a ModsList.
+     * The data needed to create a Mods_List.
      * 
     **/
-    data: XOR<ModsListCreateInput, ModsListUncheckedCreateInput>
+    data: XOR<Mods_ListCreateInput, Mods_ListUncheckedCreateInput>
   }
 
 
   /**
-   * ModsList createMany
+   * Mods_List createMany
    */
-  export type ModsListCreateManyArgs = {
+  export type Mods_ListCreateManyArgs = {
     /**
-     * The data used to create many ModsLists.
+     * The data used to create many Mods_Lists.
      * 
     **/
-    data: Enumerable<ModsListCreateManyInput>
+    data: Enumerable<Mods_ListCreateManyInput>
     skipDuplicates?: boolean
   }
 
 
   /**
-   * ModsList update
+   * Mods_List update
    */
-  export type ModsListUpdateArgs = {
+  export type Mods_ListUpdateArgs = {
     /**
-     * Select specific fields to fetch from the ModsList
+     * Select specific fields to fetch from the Mods_List
      * 
     **/
-    select?: ModsListSelect | null
+    select?: Mods_ListSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsListInclude | null
+    include?: Mods_ListInclude | null
     /**
-     * The data needed to update a ModsList.
+     * The data needed to update a Mods_List.
      * 
     **/
-    data: XOR<ModsListUpdateInput, ModsListUncheckedUpdateInput>
+    data: XOR<Mods_ListUpdateInput, Mods_ListUncheckedUpdateInput>
     /**
-     * Choose, which ModsList to update.
+     * Choose, which Mods_List to update.
      * 
     **/
-    where: ModsListWhereUniqueInput
+    where: Mods_ListWhereUniqueInput
   }
 
 
   /**
-   * ModsList updateMany
+   * Mods_List updateMany
    */
-  export type ModsListUpdateManyArgs = {
+  export type Mods_ListUpdateManyArgs = {
     /**
-     * The data used to update ModsLists.
+     * The data used to update Mods_Lists.
      * 
     **/
-    data: XOR<ModsListUpdateManyMutationInput, ModsListUncheckedUpdateManyInput>
+    data: XOR<Mods_ListUpdateManyMutationInput, Mods_ListUncheckedUpdateManyInput>
     /**
-     * Filter which ModsLists to update
+     * Filter which Mods_Lists to update
      * 
     **/
-    where?: ModsListWhereInput
+    where?: Mods_ListWhereInput
   }
 
 
   /**
-   * ModsList upsert
+   * Mods_List upsert
    */
-  export type ModsListUpsertArgs = {
+  export type Mods_ListUpsertArgs = {
     /**
-     * Select specific fields to fetch from the ModsList
+     * Select specific fields to fetch from the Mods_List
      * 
     **/
-    select?: ModsListSelect | null
+    select?: Mods_ListSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsListInclude | null
+    include?: Mods_ListInclude | null
     /**
-     * The filter to search for the ModsList to update in case it exists.
+     * The filter to search for the Mods_List to update in case it exists.
      * 
     **/
-    where: ModsListWhereUniqueInput
+    where: Mods_ListWhereUniqueInput
     /**
-     * In case the ModsList found by the `where` argument doesn't exist, create a new ModsList with this data.
+     * In case the Mods_List found by the `where` argument doesn't exist, create a new Mods_List with this data.
      * 
     **/
-    create: XOR<ModsListCreateInput, ModsListUncheckedCreateInput>
+    create: XOR<Mods_ListCreateInput, Mods_ListUncheckedCreateInput>
     /**
-     * In case the ModsList was found with the provided `where` argument, update it with this data.
+     * In case the Mods_List was found with the provided `where` argument, update it with this data.
      * 
     **/
-    update: XOR<ModsListUpdateInput, ModsListUncheckedUpdateInput>
+    update: XOR<Mods_ListUpdateInput, Mods_ListUncheckedUpdateInput>
   }
 
 
   /**
-   * ModsList delete
+   * Mods_List delete
    */
-  export type ModsListDeleteArgs = {
+  export type Mods_ListDeleteArgs = {
     /**
-     * Select specific fields to fetch from the ModsList
+     * Select specific fields to fetch from the Mods_List
      * 
     **/
-    select?: ModsListSelect | null
+    select?: Mods_ListSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsListInclude | null
+    include?: Mods_ListInclude | null
     /**
-     * Filter which ModsList to delete.
+     * Filter which Mods_List to delete.
      * 
     **/
-    where: ModsListWhereUniqueInput
+    where: Mods_ListWhereUniqueInput
   }
 
 
   /**
-   * ModsList deleteMany
+   * Mods_List deleteMany
    */
-  export type ModsListDeleteManyArgs = {
+  export type Mods_ListDeleteManyArgs = {
     /**
-     * Filter which ModsLists to delete
+     * Filter which Mods_Lists to delete
      * 
     **/
-    where?: ModsListWhereInput
+    where?: Mods_ListWhereInput
   }
 
 
   /**
-   * ModsList without action
+   * Mods_List without action
    */
-  export type ModsListArgs = {
+  export type Mods_ListArgs = {
     /**
-     * Select specific fields to fetch from the ModsList
+     * Select specific fields to fetch from the Mods_List
      * 
     **/
-    select?: ModsListSelect | null
+    select?: Mods_ListSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsListInclude | null
+    include?: Mods_ListInclude | null
   }
 
 
 
   /**
-   * Model ModsFavorits
+   * Model Mods_Favorits
    */
 
 
-  export type AggregateModsFavorits = {
-    _count: ModsFavoritsCountAggregateOutputType | null
-    _avg: ModsFavoritsAvgAggregateOutputType | null
-    _sum: ModsFavoritsSumAggregateOutputType | null
-    _min: ModsFavoritsMinAggregateOutputType | null
-    _max: ModsFavoritsMaxAggregateOutputType | null
+  export type AggregateMods_Favorits = {
+    _count: Mods_FavoritsCountAggregateOutputType | null
+    _avg: Mods_FavoritsAvgAggregateOutputType | null
+    _sum: Mods_FavoritsSumAggregateOutputType | null
+    _min: Mods_FavoritsMinAggregateOutputType | null
+    _max: Mods_FavoritsMaxAggregateOutputType | null
   }
 
-  export type ModsFavoritsAvgAggregateOutputType = {
+  export type Mods_FavoritsAvgAggregateOutputType = {
     user_id: number | null
     mod_id: number | null
   }
 
-  export type ModsFavoritsSumAggregateOutputType = {
+  export type Mods_FavoritsSumAggregateOutputType = {
     user_id: number | null
     mod_id: number | null
   }
 
-  export type ModsFavoritsMinAggregateOutputType = {
+  export type Mods_FavoritsMinAggregateOutputType = {
     user_id: number | null
     mod_id: number | null
   }
 
-  export type ModsFavoritsMaxAggregateOutputType = {
+  export type Mods_FavoritsMaxAggregateOutputType = {
     user_id: number | null
     mod_id: number | null
   }
 
-  export type ModsFavoritsCountAggregateOutputType = {
+  export type Mods_FavoritsCountAggregateOutputType = {
     user_id: number
     mod_id: number
     _all: number
   }
 
 
-  export type ModsFavoritsAvgAggregateInputType = {
+  export type Mods_FavoritsAvgAggregateInputType = {
     user_id?: true
     mod_id?: true
   }
 
-  export type ModsFavoritsSumAggregateInputType = {
+  export type Mods_FavoritsSumAggregateInputType = {
     user_id?: true
     mod_id?: true
   }
 
-  export type ModsFavoritsMinAggregateInputType = {
+  export type Mods_FavoritsMinAggregateInputType = {
     user_id?: true
     mod_id?: true
   }
 
-  export type ModsFavoritsMaxAggregateInputType = {
+  export type Mods_FavoritsMaxAggregateInputType = {
     user_id?: true
     mod_id?: true
   }
 
-  export type ModsFavoritsCountAggregateInputType = {
+  export type Mods_FavoritsCountAggregateInputType = {
     user_id?: true
     mod_id?: true
     _all?: true
   }
 
-  export type ModsFavoritsAggregateArgs = {
+  export type Mods_FavoritsAggregateArgs = {
     /**
-     * Filter which ModsFavorits to aggregate.
+     * Filter which Mods_Favorits to aggregate.
      * 
     **/
-    where?: ModsFavoritsWhereInput
+    where?: Mods_FavoritsWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModsFavorits to fetch.
+     * Determine the order of Mods_Favorits to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModsFavoritsOrderByWithRelationInput>
+    orderBy?: Enumerable<Mods_FavoritsOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: ModsFavoritsWhereUniqueInput
+    cursor?: Mods_FavoritsWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModsFavorits from the position of the cursor.
+     * Take `±n` Mods_Favorits from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModsFavorits.
+     * Skip the first `n` Mods_Favorits.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ModsFavorits
+     * Count returned Mods_Favorits
     **/
-    _count?: true | ModsFavoritsCountAggregateInputType
+    _count?: true | Mods_FavoritsCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ModsFavoritsAvgAggregateInputType
+    _avg?: Mods_FavoritsAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ModsFavoritsSumAggregateInputType
+    _sum?: Mods_FavoritsSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ModsFavoritsMinAggregateInputType
+    _min?: Mods_FavoritsMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ModsFavoritsMaxAggregateInputType
+    _max?: Mods_FavoritsMaxAggregateInputType
   }
 
-  export type GetModsFavoritsAggregateType<T extends ModsFavoritsAggregateArgs> = {
-        [P in keyof T & keyof AggregateModsFavorits]: P extends '_count' | 'count'
+  export type GetMods_FavoritsAggregateType<T extends Mods_FavoritsAggregateArgs> = {
+        [P in keyof T & keyof AggregateMods_Favorits]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateModsFavorits[P]>
-      : GetScalarType<T[P], AggregateModsFavorits[P]>
+        : GetScalarType<T[P], AggregateMods_Favorits[P]>
+      : GetScalarType<T[P], AggregateMods_Favorits[P]>
   }
 
 
 
 
-  export type ModsFavoritsGroupByArgs = {
-    where?: ModsFavoritsWhereInput
-    orderBy?: Enumerable<ModsFavoritsOrderByWithAggregationInput>
-    by: Array<ModsFavoritsScalarFieldEnum>
-    having?: ModsFavoritsScalarWhereWithAggregatesInput
+  export type Mods_FavoritsGroupByArgs = {
+    where?: Mods_FavoritsWhereInput
+    orderBy?: Enumerable<Mods_FavoritsOrderByWithAggregationInput>
+    by: Array<Mods_FavoritsScalarFieldEnum>
+    having?: Mods_FavoritsScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ModsFavoritsCountAggregateInputType | true
-    _avg?: ModsFavoritsAvgAggregateInputType
-    _sum?: ModsFavoritsSumAggregateInputType
-    _min?: ModsFavoritsMinAggregateInputType
-    _max?: ModsFavoritsMaxAggregateInputType
+    _count?: Mods_FavoritsCountAggregateInputType | true
+    _avg?: Mods_FavoritsAvgAggregateInputType
+    _sum?: Mods_FavoritsSumAggregateInputType
+    _min?: Mods_FavoritsMinAggregateInputType
+    _max?: Mods_FavoritsMaxAggregateInputType
   }
 
 
-  export type ModsFavoritsGroupByOutputType = {
+  export type Mods_FavoritsGroupByOutputType = {
     user_id: number
     mod_id: number
-    _count: ModsFavoritsCountAggregateOutputType | null
-    _avg: ModsFavoritsAvgAggregateOutputType | null
-    _sum: ModsFavoritsSumAggregateOutputType | null
-    _min: ModsFavoritsMinAggregateOutputType | null
-    _max: ModsFavoritsMaxAggregateOutputType | null
+    _count: Mods_FavoritsCountAggregateOutputType | null
+    _avg: Mods_FavoritsAvgAggregateOutputType | null
+    _sum: Mods_FavoritsSumAggregateOutputType | null
+    _min: Mods_FavoritsMinAggregateOutputType | null
+    _max: Mods_FavoritsMaxAggregateOutputType | null
   }
 
-  type GetModsFavoritsGroupByPayload<T extends ModsFavoritsGroupByArgs> = PrismaPromise<
+  type GetMods_FavoritsGroupByPayload<T extends Mods_FavoritsGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<ModsFavoritsGroupByOutputType, T['by']> &
+      PickArray<Mods_FavoritsGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ModsFavoritsGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Mods_FavoritsGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ModsFavoritsGroupByOutputType[P]>
-            : GetScalarType<T[P], ModsFavoritsGroupByOutputType[P]>
+              : GetScalarType<T[P], Mods_FavoritsGroupByOutputType[P]>
+            : GetScalarType<T[P], Mods_FavoritsGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ModsFavoritsSelect = {
+  export type Mods_FavoritsSelect = {
     user_id?: boolean
     mod_id?: boolean
     User?: boolean | UserArgs
     Mod?: boolean | ModArgs
   }
 
-  export type ModsFavoritsInclude = {
+  export type Mods_FavoritsInclude = {
     User?: boolean | UserArgs
     Mod?: boolean | ModArgs
   }
 
-  export type ModsFavoritsGetPayload<
-    S extends boolean | null | undefined | ModsFavoritsArgs,
+  export type Mods_FavoritsGetPayload<
+    S extends boolean | null | undefined | Mods_FavoritsArgs,
     U = keyof S
       > = S extends true
-        ? ModsFavorits
+        ? Mods_Favorits
     : S extends undefined
     ? never
-    : S extends ModsFavoritsArgs | ModsFavoritsFindManyArgs
+    : S extends Mods_FavoritsArgs | Mods_FavoritsFindManyArgs
     ?'include' extends U
-    ? ModsFavorits  & {
+    ? Mods_Favorits  & {
     [P in TrueKeys<S['include']>]:
         P extends 'User' ? UserGetPayload<S['include'][P]> :
         P extends 'Mod' ? ModGetPayload<S['include'][P]> :  never
@@ -11777,125 +11921,125 @@ export namespace Prisma {
     ? {
     [P in TrueKeys<S['select']>]:
         P extends 'User' ? UserGetPayload<S['select'][P]> :
-        P extends 'Mod' ? ModGetPayload<S['select'][P]> :  P extends keyof ModsFavorits ? ModsFavorits[P] : never
+        P extends 'Mod' ? ModGetPayload<S['select'][P]> :  P extends keyof Mods_Favorits ? Mods_Favorits[P] : never
   } 
-    : ModsFavorits
-  : ModsFavorits
+    : Mods_Favorits
+  : Mods_Favorits
 
 
-  type ModsFavoritsCountArgs = Merge<
-    Omit<ModsFavoritsFindManyArgs, 'select' | 'include'> & {
-      select?: ModsFavoritsCountAggregateInputType | true
+  type Mods_FavoritsCountArgs = Merge<
+    Omit<Mods_FavoritsFindManyArgs, 'select' | 'include'> & {
+      select?: Mods_FavoritsCountAggregateInputType | true
     }
   >
 
-  export interface ModsFavoritsDelegate<GlobalRejectSettings> {
+  export interface Mods_FavoritsDelegate<GlobalRejectSettings> {
     /**
-     * Find zero or one ModsFavorits that matches the filter.
-     * @param {ModsFavoritsFindUniqueArgs} args - Arguments to find a ModsFavorits
+     * Find zero or one Mods_Favorits that matches the filter.
+     * @param {Mods_FavoritsFindUniqueArgs} args - Arguments to find a Mods_Favorits
      * @example
-     * // Get one ModsFavorits
-     * const modsFavorits = await prisma.modsFavorits.findUnique({
+     * // Get one Mods_Favorits
+     * const mods_Favorits = await prisma.mods_Favorits.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ModsFavoritsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ModsFavoritsFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ModsFavorits'> extends True ? CheckSelect<T, Prisma__ModsFavoritsClient<ModsFavorits>, Prisma__ModsFavoritsClient<ModsFavoritsGetPayload<T>>> : CheckSelect<T, Prisma__ModsFavoritsClient<ModsFavorits | null >, Prisma__ModsFavoritsClient<ModsFavoritsGetPayload<T> | null >>
+    findUnique<T extends Mods_FavoritsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, Mods_FavoritsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Mods_Favorits'> extends True ? CheckSelect<T, Prisma__Mods_FavoritsClient<Mods_Favorits>, Prisma__Mods_FavoritsClient<Mods_FavoritsGetPayload<T>>> : CheckSelect<T, Prisma__Mods_FavoritsClient<Mods_Favorits | null >, Prisma__Mods_FavoritsClient<Mods_FavoritsGetPayload<T> | null >>
 
     /**
-     * Find the first ModsFavorits that matches the filter.
+     * Find the first Mods_Favorits that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsFavoritsFindFirstArgs} args - Arguments to find a ModsFavorits
+     * @param {Mods_FavoritsFindFirstArgs} args - Arguments to find a Mods_Favorits
      * @example
-     * // Get one ModsFavorits
-     * const modsFavorits = await prisma.modsFavorits.findFirst({
+     * // Get one Mods_Favorits
+     * const mods_Favorits = await prisma.mods_Favorits.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ModsFavoritsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ModsFavoritsFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ModsFavorits'> extends True ? CheckSelect<T, Prisma__ModsFavoritsClient<ModsFavorits>, Prisma__ModsFavoritsClient<ModsFavoritsGetPayload<T>>> : CheckSelect<T, Prisma__ModsFavoritsClient<ModsFavorits | null >, Prisma__ModsFavoritsClient<ModsFavoritsGetPayload<T> | null >>
+    findFirst<T extends Mods_FavoritsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, Mods_FavoritsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Mods_Favorits'> extends True ? CheckSelect<T, Prisma__Mods_FavoritsClient<Mods_Favorits>, Prisma__Mods_FavoritsClient<Mods_FavoritsGetPayload<T>>> : CheckSelect<T, Prisma__Mods_FavoritsClient<Mods_Favorits | null >, Prisma__Mods_FavoritsClient<Mods_FavoritsGetPayload<T> | null >>
 
     /**
-     * Find zero or more ModsFavorits that matches the filter.
+     * Find zero or more Mods_Favorits that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsFavoritsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {Mods_FavoritsFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ModsFavorits
-     * const modsFavorits = await prisma.modsFavorits.findMany()
+     * // Get all Mods_Favorits
+     * const mods_Favorits = await prisma.mods_Favorits.findMany()
      * 
-     * // Get first 10 ModsFavorits
-     * const modsFavorits = await prisma.modsFavorits.findMany({ take: 10 })
+     * // Get first 10 Mods_Favorits
+     * const mods_Favorits = await prisma.mods_Favorits.findMany({ take: 10 })
      * 
      * // Only select the `user_id`
-     * const modsFavoritsWithUser_idOnly = await prisma.modsFavorits.findMany({ select: { user_id: true } })
+     * const mods_FavoritsWithUser_idOnly = await prisma.mods_Favorits.findMany({ select: { user_id: true } })
      * 
     **/
-    findMany<T extends ModsFavoritsFindManyArgs>(
-      args?: SelectSubset<T, ModsFavoritsFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<ModsFavorits>>, PrismaPromise<Array<ModsFavoritsGetPayload<T>>>>
+    findMany<T extends Mods_FavoritsFindManyArgs>(
+      args?: SelectSubset<T, Mods_FavoritsFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Mods_Favorits>>, PrismaPromise<Array<Mods_FavoritsGetPayload<T>>>>
 
     /**
-     * Create a ModsFavorits.
-     * @param {ModsFavoritsCreateArgs} args - Arguments to create a ModsFavorits.
+     * Create a Mods_Favorits.
+     * @param {Mods_FavoritsCreateArgs} args - Arguments to create a Mods_Favorits.
      * @example
-     * // Create one ModsFavorits
-     * const ModsFavorits = await prisma.modsFavorits.create({
+     * // Create one Mods_Favorits
+     * const Mods_Favorits = await prisma.mods_Favorits.create({
      *   data: {
-     *     // ... data to create a ModsFavorits
+     *     // ... data to create a Mods_Favorits
      *   }
      * })
      * 
     **/
-    create<T extends ModsFavoritsCreateArgs>(
-      args: SelectSubset<T, ModsFavoritsCreateArgs>
-    ): CheckSelect<T, Prisma__ModsFavoritsClient<ModsFavorits>, Prisma__ModsFavoritsClient<ModsFavoritsGetPayload<T>>>
+    create<T extends Mods_FavoritsCreateArgs>(
+      args: SelectSubset<T, Mods_FavoritsCreateArgs>
+    ): CheckSelect<T, Prisma__Mods_FavoritsClient<Mods_Favorits>, Prisma__Mods_FavoritsClient<Mods_FavoritsGetPayload<T>>>
 
     /**
-     * Create many ModsFavorits.
-     *     @param {ModsFavoritsCreateManyArgs} args - Arguments to create many ModsFavorits.
+     * Create many Mods_Favorits.
+     *     @param {Mods_FavoritsCreateManyArgs} args - Arguments to create many Mods_Favorits.
      *     @example
-     *     // Create many ModsFavorits
-     *     const modsFavorits = await prisma.modsFavorits.createMany({
+     *     // Create many Mods_Favorits
+     *     const mods_Favorits = await prisma.mods_Favorits.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ModsFavoritsCreateManyArgs>(
-      args?: SelectSubset<T, ModsFavoritsCreateManyArgs>
+    createMany<T extends Mods_FavoritsCreateManyArgs>(
+      args?: SelectSubset<T, Mods_FavoritsCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a ModsFavorits.
-     * @param {ModsFavoritsDeleteArgs} args - Arguments to delete one ModsFavorits.
+     * Delete a Mods_Favorits.
+     * @param {Mods_FavoritsDeleteArgs} args - Arguments to delete one Mods_Favorits.
      * @example
-     * // Delete one ModsFavorits
-     * const ModsFavorits = await prisma.modsFavorits.delete({
+     * // Delete one Mods_Favorits
+     * const Mods_Favorits = await prisma.mods_Favorits.delete({
      *   where: {
-     *     // ... filter to delete one ModsFavorits
+     *     // ... filter to delete one Mods_Favorits
      *   }
      * })
      * 
     **/
-    delete<T extends ModsFavoritsDeleteArgs>(
-      args: SelectSubset<T, ModsFavoritsDeleteArgs>
-    ): CheckSelect<T, Prisma__ModsFavoritsClient<ModsFavorits>, Prisma__ModsFavoritsClient<ModsFavoritsGetPayload<T>>>
+    delete<T extends Mods_FavoritsDeleteArgs>(
+      args: SelectSubset<T, Mods_FavoritsDeleteArgs>
+    ): CheckSelect<T, Prisma__Mods_FavoritsClient<Mods_Favorits>, Prisma__Mods_FavoritsClient<Mods_FavoritsGetPayload<T>>>
 
     /**
-     * Update one ModsFavorits.
-     * @param {ModsFavoritsUpdateArgs} args - Arguments to update one ModsFavorits.
+     * Update one Mods_Favorits.
+     * @param {Mods_FavoritsUpdateArgs} args - Arguments to update one Mods_Favorits.
      * @example
-     * // Update one ModsFavorits
-     * const modsFavorits = await prisma.modsFavorits.update({
+     * // Update one Mods_Favorits
+     * const mods_Favorits = await prisma.mods_Favorits.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -11905,34 +12049,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ModsFavoritsUpdateArgs>(
-      args: SelectSubset<T, ModsFavoritsUpdateArgs>
-    ): CheckSelect<T, Prisma__ModsFavoritsClient<ModsFavorits>, Prisma__ModsFavoritsClient<ModsFavoritsGetPayload<T>>>
+    update<T extends Mods_FavoritsUpdateArgs>(
+      args: SelectSubset<T, Mods_FavoritsUpdateArgs>
+    ): CheckSelect<T, Prisma__Mods_FavoritsClient<Mods_Favorits>, Prisma__Mods_FavoritsClient<Mods_FavoritsGetPayload<T>>>
 
     /**
-     * Delete zero or more ModsFavorits.
-     * @param {ModsFavoritsDeleteManyArgs} args - Arguments to filter ModsFavorits to delete.
+     * Delete zero or more Mods_Favorits.
+     * @param {Mods_FavoritsDeleteManyArgs} args - Arguments to filter Mods_Favorits to delete.
      * @example
-     * // Delete a few ModsFavorits
-     * const { count } = await prisma.modsFavorits.deleteMany({
+     * // Delete a few Mods_Favorits
+     * const { count } = await prisma.mods_Favorits.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ModsFavoritsDeleteManyArgs>(
-      args?: SelectSubset<T, ModsFavoritsDeleteManyArgs>
+    deleteMany<T extends Mods_FavoritsDeleteManyArgs>(
+      args?: SelectSubset<T, Mods_FavoritsDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ModsFavorits.
+     * Update zero or more Mods_Favorits.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsFavoritsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {Mods_FavoritsUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ModsFavorits
-     * const modsFavorits = await prisma.modsFavorits.updateMany({
+     * // Update many Mods_Favorits
+     * const mods_Favorits = await prisma.mods_Favorits.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -11942,59 +12086,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ModsFavoritsUpdateManyArgs>(
-      args: SelectSubset<T, ModsFavoritsUpdateManyArgs>
+    updateMany<T extends Mods_FavoritsUpdateManyArgs>(
+      args: SelectSubset<T, Mods_FavoritsUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one ModsFavorits.
-     * @param {ModsFavoritsUpsertArgs} args - Arguments to update or create a ModsFavorits.
+     * Create or update one Mods_Favorits.
+     * @param {Mods_FavoritsUpsertArgs} args - Arguments to update or create a Mods_Favorits.
      * @example
-     * // Update or create a ModsFavorits
-     * const modsFavorits = await prisma.modsFavorits.upsert({
+     * // Update or create a Mods_Favorits
+     * const mods_Favorits = await prisma.mods_Favorits.upsert({
      *   create: {
-     *     // ... data to create a ModsFavorits
+     *     // ... data to create a Mods_Favorits
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ModsFavorits we want to update
+     *     // ... the filter for the Mods_Favorits we want to update
      *   }
      * })
     **/
-    upsert<T extends ModsFavoritsUpsertArgs>(
-      args: SelectSubset<T, ModsFavoritsUpsertArgs>
-    ): CheckSelect<T, Prisma__ModsFavoritsClient<ModsFavorits>, Prisma__ModsFavoritsClient<ModsFavoritsGetPayload<T>>>
+    upsert<T extends Mods_FavoritsUpsertArgs>(
+      args: SelectSubset<T, Mods_FavoritsUpsertArgs>
+    ): CheckSelect<T, Prisma__Mods_FavoritsClient<Mods_Favorits>, Prisma__Mods_FavoritsClient<Mods_FavoritsGetPayload<T>>>
 
     /**
-     * Count the number of ModsFavorits.
+     * Count the number of Mods_Favorits.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsFavoritsCountArgs} args - Arguments to filter ModsFavorits to count.
+     * @param {Mods_FavoritsCountArgs} args - Arguments to filter Mods_Favorits to count.
      * @example
-     * // Count the number of ModsFavorits
-     * const count = await prisma.modsFavorits.count({
+     * // Count the number of Mods_Favorits
+     * const count = await prisma.mods_Favorits.count({
      *   where: {
-     *     // ... the filter for the ModsFavorits we want to count
+     *     // ... the filter for the Mods_Favorits we want to count
      *   }
      * })
     **/
-    count<T extends ModsFavoritsCountArgs>(
-      args?: Subset<T, ModsFavoritsCountArgs>,
+    count<T extends Mods_FavoritsCountArgs>(
+      args?: Subset<T, Mods_FavoritsCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ModsFavoritsCountAggregateOutputType>
+          : GetScalarType<T['select'], Mods_FavoritsCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ModsFavorits.
+     * Allows you to perform aggregations operations on a Mods_Favorits.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsFavoritsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Mods_FavoritsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -12014,13 +12158,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ModsFavoritsAggregateArgs>(args: Subset<T, ModsFavoritsAggregateArgs>): PrismaPromise<GetModsFavoritsAggregateType<T>>
+    aggregate<T extends Mods_FavoritsAggregateArgs>(args: Subset<T, Mods_FavoritsAggregateArgs>): PrismaPromise<GetMods_FavoritsAggregateType<T>>
 
     /**
-     * Group by ModsFavorits.
+     * Group by Mods_Favorits.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModsFavoritsGroupByArgs} args - Group by arguments.
+     * @param {Mods_FavoritsGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -12035,14 +12179,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ModsFavoritsGroupByArgs,
+      T extends Mods_FavoritsGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ModsFavoritsGroupByArgs['orderBy'] }
-        : { orderBy?: ModsFavoritsGroupByArgs['orderBy'] },
+        ? { orderBy: Mods_FavoritsGroupByArgs['orderBy'] }
+        : { orderBy?: Mods_FavoritsGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -12091,16 +12235,16 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ModsFavoritsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModsFavoritsGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, Mods_FavoritsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMods_FavoritsGroupByPayload<T> : PrismaPromise<InputErrors>
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ModsFavorits.
+   * The delegate class that acts as a "Promise-like" for Mods_Favorits.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ModsFavoritsClient<T> implements PrismaPromise<T> {
+  export class Prisma__Mods_FavoritsClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -12147,512 +12291,512 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModsFavorits findUnique
+   * Mods_Favorits findUnique
    */
-  export type ModsFavoritsFindUniqueArgs = {
+  export type Mods_FavoritsFindUniqueArgs = {
     /**
-     * Select specific fields to fetch from the ModsFavorits
+     * Select specific fields to fetch from the Mods_Favorits
      * 
     **/
-    select?: ModsFavoritsSelect | null
+    select?: Mods_FavoritsSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsFavoritsInclude | null
+    include?: Mods_FavoritsInclude | null
     /**
-     * Throw an Error if a ModsFavorits can't be found
+     * Throw an Error if a Mods_Favorits can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModsFavorits to fetch.
+     * Filter, which Mods_Favorits to fetch.
      * 
     **/
-    where: ModsFavoritsWhereUniqueInput
+    where: Mods_FavoritsWhereUniqueInput
   }
 
 
   /**
-   * ModsFavorits findFirst
+   * Mods_Favorits findFirst
    */
-  export type ModsFavoritsFindFirstArgs = {
+  export type Mods_FavoritsFindFirstArgs = {
     /**
-     * Select specific fields to fetch from the ModsFavorits
+     * Select specific fields to fetch from the Mods_Favorits
      * 
     **/
-    select?: ModsFavoritsSelect | null
+    select?: Mods_FavoritsSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsFavoritsInclude | null
+    include?: Mods_FavoritsInclude | null
     /**
-     * Throw an Error if a ModsFavorits can't be found
+     * Throw an Error if a Mods_Favorits can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModsFavorits to fetch.
+     * Filter, which Mods_Favorits to fetch.
      * 
     **/
-    where?: ModsFavoritsWhereInput
+    where?: Mods_FavoritsWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModsFavorits to fetch.
+     * Determine the order of Mods_Favorits to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModsFavoritsOrderByWithRelationInput>
+    orderBy?: Enumerable<Mods_FavoritsOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ModsFavorits.
+     * Sets the position for searching for Mods_Favorits.
      * 
     **/
-    cursor?: ModsFavoritsWhereUniqueInput
+    cursor?: Mods_FavoritsWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModsFavorits from the position of the cursor.
+     * Take `±n` Mods_Favorits from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModsFavorits.
+     * Skip the first `n` Mods_Favorits.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ModsFavorits.
+     * Filter by unique combinations of Mods_Favorits.
      * 
     **/
-    distinct?: Enumerable<ModsFavoritsScalarFieldEnum>
+    distinct?: Enumerable<Mods_FavoritsScalarFieldEnum>
   }
 
 
   /**
-   * ModsFavorits findMany
+   * Mods_Favorits findMany
    */
-  export type ModsFavoritsFindManyArgs = {
+  export type Mods_FavoritsFindManyArgs = {
     /**
-     * Select specific fields to fetch from the ModsFavorits
+     * Select specific fields to fetch from the Mods_Favorits
      * 
     **/
-    select?: ModsFavoritsSelect | null
+    select?: Mods_FavoritsSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsFavoritsInclude | null
+    include?: Mods_FavoritsInclude | null
     /**
-     * Filter, which ModsFavorits to fetch.
+     * Filter, which Mods_Favorits to fetch.
      * 
     **/
-    where?: ModsFavoritsWhereInput
+    where?: Mods_FavoritsWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModsFavorits to fetch.
+     * Determine the order of Mods_Favorits to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModsFavoritsOrderByWithRelationInput>
+    orderBy?: Enumerable<Mods_FavoritsOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ModsFavorits.
+     * Sets the position for listing Mods_Favorits.
      * 
     **/
-    cursor?: ModsFavoritsWhereUniqueInput
+    cursor?: Mods_FavoritsWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModsFavorits from the position of the cursor.
+     * Take `±n` Mods_Favorits from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModsFavorits.
+     * Skip the first `n` Mods_Favorits.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<ModsFavoritsScalarFieldEnum>
+    distinct?: Enumerable<Mods_FavoritsScalarFieldEnum>
   }
 
 
   /**
-   * ModsFavorits create
+   * Mods_Favorits create
    */
-  export type ModsFavoritsCreateArgs = {
+  export type Mods_FavoritsCreateArgs = {
     /**
-     * Select specific fields to fetch from the ModsFavorits
+     * Select specific fields to fetch from the Mods_Favorits
      * 
     **/
-    select?: ModsFavoritsSelect | null
+    select?: Mods_FavoritsSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsFavoritsInclude | null
+    include?: Mods_FavoritsInclude | null
     /**
-     * The data needed to create a ModsFavorits.
+     * The data needed to create a Mods_Favorits.
      * 
     **/
-    data: XOR<ModsFavoritsCreateInput, ModsFavoritsUncheckedCreateInput>
+    data: XOR<Mods_FavoritsCreateInput, Mods_FavoritsUncheckedCreateInput>
   }
 
 
   /**
-   * ModsFavorits createMany
+   * Mods_Favorits createMany
    */
-  export type ModsFavoritsCreateManyArgs = {
+  export type Mods_FavoritsCreateManyArgs = {
     /**
-     * The data used to create many ModsFavorits.
+     * The data used to create many Mods_Favorits.
      * 
     **/
-    data: Enumerable<ModsFavoritsCreateManyInput>
+    data: Enumerable<Mods_FavoritsCreateManyInput>
     skipDuplicates?: boolean
   }
 
 
   /**
-   * ModsFavorits update
+   * Mods_Favorits update
    */
-  export type ModsFavoritsUpdateArgs = {
+  export type Mods_FavoritsUpdateArgs = {
     /**
-     * Select specific fields to fetch from the ModsFavorits
+     * Select specific fields to fetch from the Mods_Favorits
      * 
     **/
-    select?: ModsFavoritsSelect | null
+    select?: Mods_FavoritsSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsFavoritsInclude | null
+    include?: Mods_FavoritsInclude | null
     /**
-     * The data needed to update a ModsFavorits.
+     * The data needed to update a Mods_Favorits.
      * 
     **/
-    data: XOR<ModsFavoritsUpdateInput, ModsFavoritsUncheckedUpdateInput>
+    data: XOR<Mods_FavoritsUpdateInput, Mods_FavoritsUncheckedUpdateInput>
     /**
-     * Choose, which ModsFavorits to update.
+     * Choose, which Mods_Favorits to update.
      * 
     **/
-    where: ModsFavoritsWhereUniqueInput
+    where: Mods_FavoritsWhereUniqueInput
   }
 
 
   /**
-   * ModsFavorits updateMany
+   * Mods_Favorits updateMany
    */
-  export type ModsFavoritsUpdateManyArgs = {
+  export type Mods_FavoritsUpdateManyArgs = {
     /**
-     * The data used to update ModsFavorits.
+     * The data used to update Mods_Favorits.
      * 
     **/
-    data: XOR<ModsFavoritsUpdateManyMutationInput, ModsFavoritsUncheckedUpdateManyInput>
+    data: XOR<Mods_FavoritsUpdateManyMutationInput, Mods_FavoritsUncheckedUpdateManyInput>
     /**
-     * Filter which ModsFavorits to update
+     * Filter which Mods_Favorits to update
      * 
     **/
-    where?: ModsFavoritsWhereInput
+    where?: Mods_FavoritsWhereInput
   }
 
 
   /**
-   * ModsFavorits upsert
+   * Mods_Favorits upsert
    */
-  export type ModsFavoritsUpsertArgs = {
+  export type Mods_FavoritsUpsertArgs = {
     /**
-     * Select specific fields to fetch from the ModsFavorits
+     * Select specific fields to fetch from the Mods_Favorits
      * 
     **/
-    select?: ModsFavoritsSelect | null
+    select?: Mods_FavoritsSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsFavoritsInclude | null
+    include?: Mods_FavoritsInclude | null
     /**
-     * The filter to search for the ModsFavorits to update in case it exists.
+     * The filter to search for the Mods_Favorits to update in case it exists.
      * 
     **/
-    where: ModsFavoritsWhereUniqueInput
+    where: Mods_FavoritsWhereUniqueInput
     /**
-     * In case the ModsFavorits found by the `where` argument doesn't exist, create a new ModsFavorits with this data.
+     * In case the Mods_Favorits found by the `where` argument doesn't exist, create a new Mods_Favorits with this data.
      * 
     **/
-    create: XOR<ModsFavoritsCreateInput, ModsFavoritsUncheckedCreateInput>
+    create: XOR<Mods_FavoritsCreateInput, Mods_FavoritsUncheckedCreateInput>
     /**
-     * In case the ModsFavorits was found with the provided `where` argument, update it with this data.
+     * In case the Mods_Favorits was found with the provided `where` argument, update it with this data.
      * 
     **/
-    update: XOR<ModsFavoritsUpdateInput, ModsFavoritsUncheckedUpdateInput>
+    update: XOR<Mods_FavoritsUpdateInput, Mods_FavoritsUncheckedUpdateInput>
   }
 
 
   /**
-   * ModsFavorits delete
+   * Mods_Favorits delete
    */
-  export type ModsFavoritsDeleteArgs = {
+  export type Mods_FavoritsDeleteArgs = {
     /**
-     * Select specific fields to fetch from the ModsFavorits
+     * Select specific fields to fetch from the Mods_Favorits
      * 
     **/
-    select?: ModsFavoritsSelect | null
+    select?: Mods_FavoritsSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsFavoritsInclude | null
+    include?: Mods_FavoritsInclude | null
     /**
-     * Filter which ModsFavorits to delete.
+     * Filter which Mods_Favorits to delete.
      * 
     **/
-    where: ModsFavoritsWhereUniqueInput
+    where: Mods_FavoritsWhereUniqueInput
   }
 
 
   /**
-   * ModsFavorits deleteMany
+   * Mods_Favorits deleteMany
    */
-  export type ModsFavoritsDeleteManyArgs = {
+  export type Mods_FavoritsDeleteManyArgs = {
     /**
-     * Filter which ModsFavorits to delete
+     * Filter which Mods_Favorits to delete
      * 
     **/
-    where?: ModsFavoritsWhereInput
+    where?: Mods_FavoritsWhereInput
   }
 
 
   /**
-   * ModsFavorits without action
+   * Mods_Favorits without action
    */
-  export type ModsFavoritsArgs = {
+  export type Mods_FavoritsArgs = {
     /**
-     * Select specific fields to fetch from the ModsFavorits
+     * Select specific fields to fetch from the Mods_Favorits
      * 
     **/
-    select?: ModsFavoritsSelect | null
+    select?: Mods_FavoritsSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModsFavoritsInclude | null
+    include?: Mods_FavoritsInclude | null
   }
 
 
 
   /**
-   * Model ModSubscribers
+   * Model Mod_Subscribers
    */
 
 
-  export type AggregateModSubscribers = {
-    _count: ModSubscribersCountAggregateOutputType | null
-    _avg: ModSubscribersAvgAggregateOutputType | null
-    _sum: ModSubscribersSumAggregateOutputType | null
-    _min: ModSubscribersMinAggregateOutputType | null
-    _max: ModSubscribersMaxAggregateOutputType | null
+  export type AggregateMod_Subscribers = {
+    _count: Mod_SubscribersCountAggregateOutputType | null
+    _avg: Mod_SubscribersAvgAggregateOutputType | null
+    _sum: Mod_SubscribersSumAggregateOutputType | null
+    _min: Mod_SubscribersMinAggregateOutputType | null
+    _max: Mod_SubscribersMaxAggregateOutputType | null
   }
 
-  export type ModSubscribersAvgAggregateOutputType = {
+  export type Mod_SubscribersAvgAggregateOutputType = {
     user_id: number | null
     mod_id: number | null
   }
 
-  export type ModSubscribersSumAggregateOutputType = {
+  export type Mod_SubscribersSumAggregateOutputType = {
     user_id: number | null
     mod_id: number | null
   }
 
-  export type ModSubscribersMinAggregateOutputType = {
+  export type Mod_SubscribersMinAggregateOutputType = {
     user_id: number | null
     mod_id: number | null
   }
 
-  export type ModSubscribersMaxAggregateOutputType = {
+  export type Mod_SubscribersMaxAggregateOutputType = {
     user_id: number | null
     mod_id: number | null
   }
 
-  export type ModSubscribersCountAggregateOutputType = {
+  export type Mod_SubscribersCountAggregateOutputType = {
     user_id: number
     mod_id: number
     _all: number
   }
 
 
-  export type ModSubscribersAvgAggregateInputType = {
+  export type Mod_SubscribersAvgAggregateInputType = {
     user_id?: true
     mod_id?: true
   }
 
-  export type ModSubscribersSumAggregateInputType = {
+  export type Mod_SubscribersSumAggregateInputType = {
     user_id?: true
     mod_id?: true
   }
 
-  export type ModSubscribersMinAggregateInputType = {
+  export type Mod_SubscribersMinAggregateInputType = {
     user_id?: true
     mod_id?: true
   }
 
-  export type ModSubscribersMaxAggregateInputType = {
+  export type Mod_SubscribersMaxAggregateInputType = {
     user_id?: true
     mod_id?: true
   }
 
-  export type ModSubscribersCountAggregateInputType = {
+  export type Mod_SubscribersCountAggregateInputType = {
     user_id?: true
     mod_id?: true
     _all?: true
   }
 
-  export type ModSubscribersAggregateArgs = {
+  export type Mod_SubscribersAggregateArgs = {
     /**
-     * Filter which ModSubscribers to aggregate.
+     * Filter which Mod_Subscribers to aggregate.
      * 
     **/
-    where?: ModSubscribersWhereInput
+    where?: Mod_SubscribersWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModSubscribers to fetch.
+     * Determine the order of Mod_Subscribers to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModSubscribersOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_SubscribersOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: ModSubscribersWhereUniqueInput
+    cursor?: Mod_SubscribersWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModSubscribers from the position of the cursor.
+     * Take `±n` Mod_Subscribers from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModSubscribers.
+     * Skip the first `n` Mod_Subscribers.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ModSubscribers
+     * Count returned Mod_Subscribers
     **/
-    _count?: true | ModSubscribersCountAggregateInputType
+    _count?: true | Mod_SubscribersCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ModSubscribersAvgAggregateInputType
+    _avg?: Mod_SubscribersAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ModSubscribersSumAggregateInputType
+    _sum?: Mod_SubscribersSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ModSubscribersMinAggregateInputType
+    _min?: Mod_SubscribersMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ModSubscribersMaxAggregateInputType
+    _max?: Mod_SubscribersMaxAggregateInputType
   }
 
-  export type GetModSubscribersAggregateType<T extends ModSubscribersAggregateArgs> = {
-        [P in keyof T & keyof AggregateModSubscribers]: P extends '_count' | 'count'
+  export type GetMod_SubscribersAggregateType<T extends Mod_SubscribersAggregateArgs> = {
+        [P in keyof T & keyof AggregateMod_Subscribers]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateModSubscribers[P]>
-      : GetScalarType<T[P], AggregateModSubscribers[P]>
+        : GetScalarType<T[P], AggregateMod_Subscribers[P]>
+      : GetScalarType<T[P], AggregateMod_Subscribers[P]>
   }
 
 
 
 
-  export type ModSubscribersGroupByArgs = {
-    where?: ModSubscribersWhereInput
-    orderBy?: Enumerable<ModSubscribersOrderByWithAggregationInput>
-    by: Array<ModSubscribersScalarFieldEnum>
-    having?: ModSubscribersScalarWhereWithAggregatesInput
+  export type Mod_SubscribersGroupByArgs = {
+    where?: Mod_SubscribersWhereInput
+    orderBy?: Enumerable<Mod_SubscribersOrderByWithAggregationInput>
+    by: Array<Mod_SubscribersScalarFieldEnum>
+    having?: Mod_SubscribersScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ModSubscribersCountAggregateInputType | true
-    _avg?: ModSubscribersAvgAggregateInputType
-    _sum?: ModSubscribersSumAggregateInputType
-    _min?: ModSubscribersMinAggregateInputType
-    _max?: ModSubscribersMaxAggregateInputType
+    _count?: Mod_SubscribersCountAggregateInputType | true
+    _avg?: Mod_SubscribersAvgAggregateInputType
+    _sum?: Mod_SubscribersSumAggregateInputType
+    _min?: Mod_SubscribersMinAggregateInputType
+    _max?: Mod_SubscribersMaxAggregateInputType
   }
 
 
-  export type ModSubscribersGroupByOutputType = {
+  export type Mod_SubscribersGroupByOutputType = {
     user_id: number
     mod_id: number
-    _count: ModSubscribersCountAggregateOutputType | null
-    _avg: ModSubscribersAvgAggregateOutputType | null
-    _sum: ModSubscribersSumAggregateOutputType | null
-    _min: ModSubscribersMinAggregateOutputType | null
-    _max: ModSubscribersMaxAggregateOutputType | null
+    _count: Mod_SubscribersCountAggregateOutputType | null
+    _avg: Mod_SubscribersAvgAggregateOutputType | null
+    _sum: Mod_SubscribersSumAggregateOutputType | null
+    _min: Mod_SubscribersMinAggregateOutputType | null
+    _max: Mod_SubscribersMaxAggregateOutputType | null
   }
 
-  type GetModSubscribersGroupByPayload<T extends ModSubscribersGroupByArgs> = PrismaPromise<
+  type GetMod_SubscribersGroupByPayload<T extends Mod_SubscribersGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<ModSubscribersGroupByOutputType, T['by']> &
+      PickArray<Mod_SubscribersGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ModSubscribersGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Mod_SubscribersGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ModSubscribersGroupByOutputType[P]>
-            : GetScalarType<T[P], ModSubscribersGroupByOutputType[P]>
+              : GetScalarType<T[P], Mod_SubscribersGroupByOutputType[P]>
+            : GetScalarType<T[P], Mod_SubscribersGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ModSubscribersSelect = {
+  export type Mod_SubscribersSelect = {
     user_id?: boolean
     mod_id?: boolean
     User?: boolean | UserArgs
     Mod?: boolean | ModArgs
   }
 
-  export type ModSubscribersInclude = {
+  export type Mod_SubscribersInclude = {
     User?: boolean | UserArgs
     Mod?: boolean | ModArgs
   }
 
-  export type ModSubscribersGetPayload<
-    S extends boolean | null | undefined | ModSubscribersArgs,
+  export type Mod_SubscribersGetPayload<
+    S extends boolean | null | undefined | Mod_SubscribersArgs,
     U = keyof S
       > = S extends true
-        ? ModSubscribers
+        ? Mod_Subscribers
     : S extends undefined
     ? never
-    : S extends ModSubscribersArgs | ModSubscribersFindManyArgs
+    : S extends Mod_SubscribersArgs | Mod_SubscribersFindManyArgs
     ?'include' extends U
-    ? ModSubscribers  & {
+    ? Mod_Subscribers  & {
     [P in TrueKeys<S['include']>]:
         P extends 'User' ? UserGetPayload<S['include'][P]> :
         P extends 'Mod' ? ModGetPayload<S['include'][P]> :  never
@@ -12661,125 +12805,125 @@ export namespace Prisma {
     ? {
     [P in TrueKeys<S['select']>]:
         P extends 'User' ? UserGetPayload<S['select'][P]> :
-        P extends 'Mod' ? ModGetPayload<S['select'][P]> :  P extends keyof ModSubscribers ? ModSubscribers[P] : never
+        P extends 'Mod' ? ModGetPayload<S['select'][P]> :  P extends keyof Mod_Subscribers ? Mod_Subscribers[P] : never
   } 
-    : ModSubscribers
-  : ModSubscribers
+    : Mod_Subscribers
+  : Mod_Subscribers
 
 
-  type ModSubscribersCountArgs = Merge<
-    Omit<ModSubscribersFindManyArgs, 'select' | 'include'> & {
-      select?: ModSubscribersCountAggregateInputType | true
+  type Mod_SubscribersCountArgs = Merge<
+    Omit<Mod_SubscribersFindManyArgs, 'select' | 'include'> & {
+      select?: Mod_SubscribersCountAggregateInputType | true
     }
   >
 
-  export interface ModSubscribersDelegate<GlobalRejectSettings> {
+  export interface Mod_SubscribersDelegate<GlobalRejectSettings> {
     /**
-     * Find zero or one ModSubscribers that matches the filter.
-     * @param {ModSubscribersFindUniqueArgs} args - Arguments to find a ModSubscribers
+     * Find zero or one Mod_Subscribers that matches the filter.
+     * @param {Mod_SubscribersFindUniqueArgs} args - Arguments to find a Mod_Subscribers
      * @example
-     * // Get one ModSubscribers
-     * const modSubscribers = await prisma.modSubscribers.findUnique({
+     * // Get one Mod_Subscribers
+     * const mod_Subscribers = await prisma.mod_Subscribers.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ModSubscribersFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ModSubscribersFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ModSubscribers'> extends True ? CheckSelect<T, Prisma__ModSubscribersClient<ModSubscribers>, Prisma__ModSubscribersClient<ModSubscribersGetPayload<T>>> : CheckSelect<T, Prisma__ModSubscribersClient<ModSubscribers | null >, Prisma__ModSubscribersClient<ModSubscribersGetPayload<T> | null >>
+    findUnique<T extends Mod_SubscribersFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, Mod_SubscribersFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Mod_Subscribers'> extends True ? CheckSelect<T, Prisma__Mod_SubscribersClient<Mod_Subscribers>, Prisma__Mod_SubscribersClient<Mod_SubscribersGetPayload<T>>> : CheckSelect<T, Prisma__Mod_SubscribersClient<Mod_Subscribers | null >, Prisma__Mod_SubscribersClient<Mod_SubscribersGetPayload<T> | null >>
 
     /**
-     * Find the first ModSubscribers that matches the filter.
+     * Find the first Mod_Subscribers that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModSubscribersFindFirstArgs} args - Arguments to find a ModSubscribers
+     * @param {Mod_SubscribersFindFirstArgs} args - Arguments to find a Mod_Subscribers
      * @example
-     * // Get one ModSubscribers
-     * const modSubscribers = await prisma.modSubscribers.findFirst({
+     * // Get one Mod_Subscribers
+     * const mod_Subscribers = await prisma.mod_Subscribers.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ModSubscribersFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ModSubscribersFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ModSubscribers'> extends True ? CheckSelect<T, Prisma__ModSubscribersClient<ModSubscribers>, Prisma__ModSubscribersClient<ModSubscribersGetPayload<T>>> : CheckSelect<T, Prisma__ModSubscribersClient<ModSubscribers | null >, Prisma__ModSubscribersClient<ModSubscribersGetPayload<T> | null >>
+    findFirst<T extends Mod_SubscribersFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, Mod_SubscribersFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Mod_Subscribers'> extends True ? CheckSelect<T, Prisma__Mod_SubscribersClient<Mod_Subscribers>, Prisma__Mod_SubscribersClient<Mod_SubscribersGetPayload<T>>> : CheckSelect<T, Prisma__Mod_SubscribersClient<Mod_Subscribers | null >, Prisma__Mod_SubscribersClient<Mod_SubscribersGetPayload<T> | null >>
 
     /**
-     * Find zero or more ModSubscribers that matches the filter.
+     * Find zero or more Mod_Subscribers that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModSubscribersFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {Mod_SubscribersFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ModSubscribers
-     * const modSubscribers = await prisma.modSubscribers.findMany()
+     * // Get all Mod_Subscribers
+     * const mod_Subscribers = await prisma.mod_Subscribers.findMany()
      * 
-     * // Get first 10 ModSubscribers
-     * const modSubscribers = await prisma.modSubscribers.findMany({ take: 10 })
+     * // Get first 10 Mod_Subscribers
+     * const mod_Subscribers = await prisma.mod_Subscribers.findMany({ take: 10 })
      * 
      * // Only select the `user_id`
-     * const modSubscribersWithUser_idOnly = await prisma.modSubscribers.findMany({ select: { user_id: true } })
+     * const mod_SubscribersWithUser_idOnly = await prisma.mod_Subscribers.findMany({ select: { user_id: true } })
      * 
     **/
-    findMany<T extends ModSubscribersFindManyArgs>(
-      args?: SelectSubset<T, ModSubscribersFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<ModSubscribers>>, PrismaPromise<Array<ModSubscribersGetPayload<T>>>>
+    findMany<T extends Mod_SubscribersFindManyArgs>(
+      args?: SelectSubset<T, Mod_SubscribersFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Mod_Subscribers>>, PrismaPromise<Array<Mod_SubscribersGetPayload<T>>>>
 
     /**
-     * Create a ModSubscribers.
-     * @param {ModSubscribersCreateArgs} args - Arguments to create a ModSubscribers.
+     * Create a Mod_Subscribers.
+     * @param {Mod_SubscribersCreateArgs} args - Arguments to create a Mod_Subscribers.
      * @example
-     * // Create one ModSubscribers
-     * const ModSubscribers = await prisma.modSubscribers.create({
+     * // Create one Mod_Subscribers
+     * const Mod_Subscribers = await prisma.mod_Subscribers.create({
      *   data: {
-     *     // ... data to create a ModSubscribers
+     *     // ... data to create a Mod_Subscribers
      *   }
      * })
      * 
     **/
-    create<T extends ModSubscribersCreateArgs>(
-      args: SelectSubset<T, ModSubscribersCreateArgs>
-    ): CheckSelect<T, Prisma__ModSubscribersClient<ModSubscribers>, Prisma__ModSubscribersClient<ModSubscribersGetPayload<T>>>
+    create<T extends Mod_SubscribersCreateArgs>(
+      args: SelectSubset<T, Mod_SubscribersCreateArgs>
+    ): CheckSelect<T, Prisma__Mod_SubscribersClient<Mod_Subscribers>, Prisma__Mod_SubscribersClient<Mod_SubscribersGetPayload<T>>>
 
     /**
-     * Create many ModSubscribers.
-     *     @param {ModSubscribersCreateManyArgs} args - Arguments to create many ModSubscribers.
+     * Create many Mod_Subscribers.
+     *     @param {Mod_SubscribersCreateManyArgs} args - Arguments to create many Mod_Subscribers.
      *     @example
-     *     // Create many ModSubscribers
-     *     const modSubscribers = await prisma.modSubscribers.createMany({
+     *     // Create many Mod_Subscribers
+     *     const mod_Subscribers = await prisma.mod_Subscribers.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ModSubscribersCreateManyArgs>(
-      args?: SelectSubset<T, ModSubscribersCreateManyArgs>
+    createMany<T extends Mod_SubscribersCreateManyArgs>(
+      args?: SelectSubset<T, Mod_SubscribersCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a ModSubscribers.
-     * @param {ModSubscribersDeleteArgs} args - Arguments to delete one ModSubscribers.
+     * Delete a Mod_Subscribers.
+     * @param {Mod_SubscribersDeleteArgs} args - Arguments to delete one Mod_Subscribers.
      * @example
-     * // Delete one ModSubscribers
-     * const ModSubscribers = await prisma.modSubscribers.delete({
+     * // Delete one Mod_Subscribers
+     * const Mod_Subscribers = await prisma.mod_Subscribers.delete({
      *   where: {
-     *     // ... filter to delete one ModSubscribers
+     *     // ... filter to delete one Mod_Subscribers
      *   }
      * })
      * 
     **/
-    delete<T extends ModSubscribersDeleteArgs>(
-      args: SelectSubset<T, ModSubscribersDeleteArgs>
-    ): CheckSelect<T, Prisma__ModSubscribersClient<ModSubscribers>, Prisma__ModSubscribersClient<ModSubscribersGetPayload<T>>>
+    delete<T extends Mod_SubscribersDeleteArgs>(
+      args: SelectSubset<T, Mod_SubscribersDeleteArgs>
+    ): CheckSelect<T, Prisma__Mod_SubscribersClient<Mod_Subscribers>, Prisma__Mod_SubscribersClient<Mod_SubscribersGetPayload<T>>>
 
     /**
-     * Update one ModSubscribers.
-     * @param {ModSubscribersUpdateArgs} args - Arguments to update one ModSubscribers.
+     * Update one Mod_Subscribers.
+     * @param {Mod_SubscribersUpdateArgs} args - Arguments to update one Mod_Subscribers.
      * @example
-     * // Update one ModSubscribers
-     * const modSubscribers = await prisma.modSubscribers.update({
+     * // Update one Mod_Subscribers
+     * const mod_Subscribers = await prisma.mod_Subscribers.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -12789,34 +12933,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ModSubscribersUpdateArgs>(
-      args: SelectSubset<T, ModSubscribersUpdateArgs>
-    ): CheckSelect<T, Prisma__ModSubscribersClient<ModSubscribers>, Prisma__ModSubscribersClient<ModSubscribersGetPayload<T>>>
+    update<T extends Mod_SubscribersUpdateArgs>(
+      args: SelectSubset<T, Mod_SubscribersUpdateArgs>
+    ): CheckSelect<T, Prisma__Mod_SubscribersClient<Mod_Subscribers>, Prisma__Mod_SubscribersClient<Mod_SubscribersGetPayload<T>>>
 
     /**
-     * Delete zero or more ModSubscribers.
-     * @param {ModSubscribersDeleteManyArgs} args - Arguments to filter ModSubscribers to delete.
+     * Delete zero or more Mod_Subscribers.
+     * @param {Mod_SubscribersDeleteManyArgs} args - Arguments to filter Mod_Subscribers to delete.
      * @example
-     * // Delete a few ModSubscribers
-     * const { count } = await prisma.modSubscribers.deleteMany({
+     * // Delete a few Mod_Subscribers
+     * const { count } = await prisma.mod_Subscribers.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ModSubscribersDeleteManyArgs>(
-      args?: SelectSubset<T, ModSubscribersDeleteManyArgs>
+    deleteMany<T extends Mod_SubscribersDeleteManyArgs>(
+      args?: SelectSubset<T, Mod_SubscribersDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ModSubscribers.
+     * Update zero or more Mod_Subscribers.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModSubscribersUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {Mod_SubscribersUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ModSubscribers
-     * const modSubscribers = await prisma.modSubscribers.updateMany({
+     * // Update many Mod_Subscribers
+     * const mod_Subscribers = await prisma.mod_Subscribers.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -12826,59 +12970,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ModSubscribersUpdateManyArgs>(
-      args: SelectSubset<T, ModSubscribersUpdateManyArgs>
+    updateMany<T extends Mod_SubscribersUpdateManyArgs>(
+      args: SelectSubset<T, Mod_SubscribersUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one ModSubscribers.
-     * @param {ModSubscribersUpsertArgs} args - Arguments to update or create a ModSubscribers.
+     * Create or update one Mod_Subscribers.
+     * @param {Mod_SubscribersUpsertArgs} args - Arguments to update or create a Mod_Subscribers.
      * @example
-     * // Update or create a ModSubscribers
-     * const modSubscribers = await prisma.modSubscribers.upsert({
+     * // Update or create a Mod_Subscribers
+     * const mod_Subscribers = await prisma.mod_Subscribers.upsert({
      *   create: {
-     *     // ... data to create a ModSubscribers
+     *     // ... data to create a Mod_Subscribers
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ModSubscribers we want to update
+     *     // ... the filter for the Mod_Subscribers we want to update
      *   }
      * })
     **/
-    upsert<T extends ModSubscribersUpsertArgs>(
-      args: SelectSubset<T, ModSubscribersUpsertArgs>
-    ): CheckSelect<T, Prisma__ModSubscribersClient<ModSubscribers>, Prisma__ModSubscribersClient<ModSubscribersGetPayload<T>>>
+    upsert<T extends Mod_SubscribersUpsertArgs>(
+      args: SelectSubset<T, Mod_SubscribersUpsertArgs>
+    ): CheckSelect<T, Prisma__Mod_SubscribersClient<Mod_Subscribers>, Prisma__Mod_SubscribersClient<Mod_SubscribersGetPayload<T>>>
 
     /**
-     * Count the number of ModSubscribers.
+     * Count the number of Mod_Subscribers.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModSubscribersCountArgs} args - Arguments to filter ModSubscribers to count.
+     * @param {Mod_SubscribersCountArgs} args - Arguments to filter Mod_Subscribers to count.
      * @example
-     * // Count the number of ModSubscribers
-     * const count = await prisma.modSubscribers.count({
+     * // Count the number of Mod_Subscribers
+     * const count = await prisma.mod_Subscribers.count({
      *   where: {
-     *     // ... the filter for the ModSubscribers we want to count
+     *     // ... the filter for the Mod_Subscribers we want to count
      *   }
      * })
     **/
-    count<T extends ModSubscribersCountArgs>(
-      args?: Subset<T, ModSubscribersCountArgs>,
+    count<T extends Mod_SubscribersCountArgs>(
+      args?: Subset<T, Mod_SubscribersCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ModSubscribersCountAggregateOutputType>
+          : GetScalarType<T['select'], Mod_SubscribersCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ModSubscribers.
+     * Allows you to perform aggregations operations on a Mod_Subscribers.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModSubscribersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Mod_SubscribersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -12898,13 +13042,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ModSubscribersAggregateArgs>(args: Subset<T, ModSubscribersAggregateArgs>): PrismaPromise<GetModSubscribersAggregateType<T>>
+    aggregate<T extends Mod_SubscribersAggregateArgs>(args: Subset<T, Mod_SubscribersAggregateArgs>): PrismaPromise<GetMod_SubscribersAggregateType<T>>
 
     /**
-     * Group by ModSubscribers.
+     * Group by Mod_Subscribers.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModSubscribersGroupByArgs} args - Group by arguments.
+     * @param {Mod_SubscribersGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -12919,14 +13063,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ModSubscribersGroupByArgs,
+      T extends Mod_SubscribersGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ModSubscribersGroupByArgs['orderBy'] }
-        : { orderBy?: ModSubscribersGroupByArgs['orderBy'] },
+        ? { orderBy: Mod_SubscribersGroupByArgs['orderBy'] }
+        : { orderBy?: Mod_SubscribersGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -12975,16 +13119,16 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ModSubscribersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModSubscribersGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, Mod_SubscribersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMod_SubscribersGroupByPayload<T> : PrismaPromise<InputErrors>
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ModSubscribers.
+   * The delegate class that acts as a "Promise-like" for Mod_Subscribers.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ModSubscribersClient<T> implements PrismaPromise<T> {
+  export class Prisma__Mod_SubscribersClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -13031,346 +13175,346 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModSubscribers findUnique
+   * Mod_Subscribers findUnique
    */
-  export type ModSubscribersFindUniqueArgs = {
+  export type Mod_SubscribersFindUniqueArgs = {
     /**
-     * Select specific fields to fetch from the ModSubscribers
+     * Select specific fields to fetch from the Mod_Subscribers
      * 
     **/
-    select?: ModSubscribersSelect | null
+    select?: Mod_SubscribersSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModSubscribersInclude | null
+    include?: Mod_SubscribersInclude | null
     /**
-     * Throw an Error if a ModSubscribers can't be found
+     * Throw an Error if a Mod_Subscribers can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModSubscribers to fetch.
+     * Filter, which Mod_Subscribers to fetch.
      * 
     **/
-    where: ModSubscribersWhereUniqueInput
+    where: Mod_SubscribersWhereUniqueInput
   }
 
 
   /**
-   * ModSubscribers findFirst
+   * Mod_Subscribers findFirst
    */
-  export type ModSubscribersFindFirstArgs = {
+  export type Mod_SubscribersFindFirstArgs = {
     /**
-     * Select specific fields to fetch from the ModSubscribers
+     * Select specific fields to fetch from the Mod_Subscribers
      * 
     **/
-    select?: ModSubscribersSelect | null
+    select?: Mod_SubscribersSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModSubscribersInclude | null
+    include?: Mod_SubscribersInclude | null
     /**
-     * Throw an Error if a ModSubscribers can't be found
+     * Throw an Error if a Mod_Subscribers can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModSubscribers to fetch.
+     * Filter, which Mod_Subscribers to fetch.
      * 
     **/
-    where?: ModSubscribersWhereInput
+    where?: Mod_SubscribersWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModSubscribers to fetch.
+     * Determine the order of Mod_Subscribers to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModSubscribersOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_SubscribersOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ModSubscribers.
+     * Sets the position for searching for Mod_Subscribers.
      * 
     **/
-    cursor?: ModSubscribersWhereUniqueInput
+    cursor?: Mod_SubscribersWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModSubscribers from the position of the cursor.
+     * Take `±n` Mod_Subscribers from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModSubscribers.
+     * Skip the first `n` Mod_Subscribers.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ModSubscribers.
+     * Filter by unique combinations of Mod_Subscribers.
      * 
     **/
-    distinct?: Enumerable<ModSubscribersScalarFieldEnum>
+    distinct?: Enumerable<Mod_SubscribersScalarFieldEnum>
   }
 
 
   /**
-   * ModSubscribers findMany
+   * Mod_Subscribers findMany
    */
-  export type ModSubscribersFindManyArgs = {
+  export type Mod_SubscribersFindManyArgs = {
     /**
-     * Select specific fields to fetch from the ModSubscribers
+     * Select specific fields to fetch from the Mod_Subscribers
      * 
     **/
-    select?: ModSubscribersSelect | null
+    select?: Mod_SubscribersSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModSubscribersInclude | null
+    include?: Mod_SubscribersInclude | null
     /**
-     * Filter, which ModSubscribers to fetch.
+     * Filter, which Mod_Subscribers to fetch.
      * 
     **/
-    where?: ModSubscribersWhereInput
+    where?: Mod_SubscribersWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModSubscribers to fetch.
+     * Determine the order of Mod_Subscribers to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModSubscribersOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_SubscribersOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ModSubscribers.
+     * Sets the position for listing Mod_Subscribers.
      * 
     **/
-    cursor?: ModSubscribersWhereUniqueInput
+    cursor?: Mod_SubscribersWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModSubscribers from the position of the cursor.
+     * Take `±n` Mod_Subscribers from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModSubscribers.
+     * Skip the first `n` Mod_Subscribers.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<ModSubscribersScalarFieldEnum>
+    distinct?: Enumerable<Mod_SubscribersScalarFieldEnum>
   }
 
 
   /**
-   * ModSubscribers create
+   * Mod_Subscribers create
    */
-  export type ModSubscribersCreateArgs = {
+  export type Mod_SubscribersCreateArgs = {
     /**
-     * Select specific fields to fetch from the ModSubscribers
+     * Select specific fields to fetch from the Mod_Subscribers
      * 
     **/
-    select?: ModSubscribersSelect | null
+    select?: Mod_SubscribersSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModSubscribersInclude | null
+    include?: Mod_SubscribersInclude | null
     /**
-     * The data needed to create a ModSubscribers.
+     * The data needed to create a Mod_Subscribers.
      * 
     **/
-    data: XOR<ModSubscribersCreateInput, ModSubscribersUncheckedCreateInput>
+    data: XOR<Mod_SubscribersCreateInput, Mod_SubscribersUncheckedCreateInput>
   }
 
 
   /**
-   * ModSubscribers createMany
+   * Mod_Subscribers createMany
    */
-  export type ModSubscribersCreateManyArgs = {
+  export type Mod_SubscribersCreateManyArgs = {
     /**
-     * The data used to create many ModSubscribers.
+     * The data used to create many Mod_Subscribers.
      * 
     **/
-    data: Enumerable<ModSubscribersCreateManyInput>
+    data: Enumerable<Mod_SubscribersCreateManyInput>
     skipDuplicates?: boolean
   }
 
 
   /**
-   * ModSubscribers update
+   * Mod_Subscribers update
    */
-  export type ModSubscribersUpdateArgs = {
+  export type Mod_SubscribersUpdateArgs = {
     /**
-     * Select specific fields to fetch from the ModSubscribers
+     * Select specific fields to fetch from the Mod_Subscribers
      * 
     **/
-    select?: ModSubscribersSelect | null
+    select?: Mod_SubscribersSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModSubscribersInclude | null
+    include?: Mod_SubscribersInclude | null
     /**
-     * The data needed to update a ModSubscribers.
+     * The data needed to update a Mod_Subscribers.
      * 
     **/
-    data: XOR<ModSubscribersUpdateInput, ModSubscribersUncheckedUpdateInput>
+    data: XOR<Mod_SubscribersUpdateInput, Mod_SubscribersUncheckedUpdateInput>
     /**
-     * Choose, which ModSubscribers to update.
+     * Choose, which Mod_Subscribers to update.
      * 
     **/
-    where: ModSubscribersWhereUniqueInput
+    where: Mod_SubscribersWhereUniqueInput
   }
 
 
   /**
-   * ModSubscribers updateMany
+   * Mod_Subscribers updateMany
    */
-  export type ModSubscribersUpdateManyArgs = {
+  export type Mod_SubscribersUpdateManyArgs = {
     /**
-     * The data used to update ModSubscribers.
+     * The data used to update Mod_Subscribers.
      * 
     **/
-    data: XOR<ModSubscribersUpdateManyMutationInput, ModSubscribersUncheckedUpdateManyInput>
+    data: XOR<Mod_SubscribersUpdateManyMutationInput, Mod_SubscribersUncheckedUpdateManyInput>
     /**
-     * Filter which ModSubscribers to update
+     * Filter which Mod_Subscribers to update
      * 
     **/
-    where?: ModSubscribersWhereInput
+    where?: Mod_SubscribersWhereInput
   }
 
 
   /**
-   * ModSubscribers upsert
+   * Mod_Subscribers upsert
    */
-  export type ModSubscribersUpsertArgs = {
+  export type Mod_SubscribersUpsertArgs = {
     /**
-     * Select specific fields to fetch from the ModSubscribers
+     * Select specific fields to fetch from the Mod_Subscribers
      * 
     **/
-    select?: ModSubscribersSelect | null
+    select?: Mod_SubscribersSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModSubscribersInclude | null
+    include?: Mod_SubscribersInclude | null
     /**
-     * The filter to search for the ModSubscribers to update in case it exists.
+     * The filter to search for the Mod_Subscribers to update in case it exists.
      * 
     **/
-    where: ModSubscribersWhereUniqueInput
+    where: Mod_SubscribersWhereUniqueInput
     /**
-     * In case the ModSubscribers found by the `where` argument doesn't exist, create a new ModSubscribers with this data.
+     * In case the Mod_Subscribers found by the `where` argument doesn't exist, create a new Mod_Subscribers with this data.
      * 
     **/
-    create: XOR<ModSubscribersCreateInput, ModSubscribersUncheckedCreateInput>
+    create: XOR<Mod_SubscribersCreateInput, Mod_SubscribersUncheckedCreateInput>
     /**
-     * In case the ModSubscribers was found with the provided `where` argument, update it with this data.
+     * In case the Mod_Subscribers was found with the provided `where` argument, update it with this data.
      * 
     **/
-    update: XOR<ModSubscribersUpdateInput, ModSubscribersUncheckedUpdateInput>
+    update: XOR<Mod_SubscribersUpdateInput, Mod_SubscribersUncheckedUpdateInput>
   }
 
 
   /**
-   * ModSubscribers delete
+   * Mod_Subscribers delete
    */
-  export type ModSubscribersDeleteArgs = {
+  export type Mod_SubscribersDeleteArgs = {
     /**
-     * Select specific fields to fetch from the ModSubscribers
+     * Select specific fields to fetch from the Mod_Subscribers
      * 
     **/
-    select?: ModSubscribersSelect | null
+    select?: Mod_SubscribersSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModSubscribersInclude | null
+    include?: Mod_SubscribersInclude | null
     /**
-     * Filter which ModSubscribers to delete.
+     * Filter which Mod_Subscribers to delete.
      * 
     **/
-    where: ModSubscribersWhereUniqueInput
+    where: Mod_SubscribersWhereUniqueInput
   }
 
 
   /**
-   * ModSubscribers deleteMany
+   * Mod_Subscribers deleteMany
    */
-  export type ModSubscribersDeleteManyArgs = {
+  export type Mod_SubscribersDeleteManyArgs = {
     /**
-     * Filter which ModSubscribers to delete
+     * Filter which Mod_Subscribers to delete
      * 
     **/
-    where?: ModSubscribersWhereInput
+    where?: Mod_SubscribersWhereInput
   }
 
 
   /**
-   * ModSubscribers without action
+   * Mod_Subscribers without action
    */
-  export type ModSubscribersArgs = {
+  export type Mod_SubscribersArgs = {
     /**
-     * Select specific fields to fetch from the ModSubscribers
+     * Select specific fields to fetch from the Mod_Subscribers
      * 
     **/
-    select?: ModSubscribersSelect | null
+    select?: Mod_SubscribersSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModSubscribersInclude | null
+    include?: Mod_SubscribersInclude | null
   }
 
 
 
   /**
-   * Model ModDownload
+   * Model Mod_Download
    */
 
 
-  export type AggregateModDownload = {
-    _count: ModDownloadCountAggregateOutputType | null
-    _avg: ModDownloadAvgAggregateOutputType | null
-    _sum: ModDownloadSumAggregateOutputType | null
-    _min: ModDownloadMinAggregateOutputType | null
-    _max: ModDownloadMaxAggregateOutputType | null
+  export type AggregateMod_Download = {
+    _count: Mod_DownloadCountAggregateOutputType | null
+    _avg: Mod_DownloadAvgAggregateOutputType | null
+    _sum: Mod_DownloadSumAggregateOutputType | null
+    _min: Mod_DownloadMinAggregateOutputType | null
+    _max: Mod_DownloadMaxAggregateOutputType | null
   }
 
-  export type ModDownloadAvgAggregateOutputType = {
+  export type Mod_DownloadAvgAggregateOutputType = {
     user_id: number | null
     mod_id: number | null
     version_id: number | null
   }
 
-  export type ModDownloadSumAggregateOutputType = {
+  export type Mod_DownloadSumAggregateOutputType = {
     user_id: number | null
     mod_id: number | null
     version_id: number | null
   }
 
-  export type ModDownloadMinAggregateOutputType = {
+  export type Mod_DownloadMinAggregateOutputType = {
     user_id: number | null
     mod_id: number | null
     version_id: number | null
   }
 
-  export type ModDownloadMaxAggregateOutputType = {
+  export type Mod_DownloadMaxAggregateOutputType = {
     user_id: number | null
     mod_id: number | null
     version_id: number | null
   }
 
-  export type ModDownloadCountAggregateOutputType = {
+  export type Mod_DownloadCountAggregateOutputType = {
     user_id: number
     mod_id: number
     version_id: number
@@ -13378,308 +13522,308 @@ export namespace Prisma {
   }
 
 
-  export type ModDownloadAvgAggregateInputType = {
+  export type Mod_DownloadAvgAggregateInputType = {
     user_id?: true
     mod_id?: true
     version_id?: true
   }
 
-  export type ModDownloadSumAggregateInputType = {
+  export type Mod_DownloadSumAggregateInputType = {
     user_id?: true
     mod_id?: true
     version_id?: true
   }
 
-  export type ModDownloadMinAggregateInputType = {
+  export type Mod_DownloadMinAggregateInputType = {
     user_id?: true
     mod_id?: true
     version_id?: true
   }
 
-  export type ModDownloadMaxAggregateInputType = {
+  export type Mod_DownloadMaxAggregateInputType = {
     user_id?: true
     mod_id?: true
     version_id?: true
   }
 
-  export type ModDownloadCountAggregateInputType = {
+  export type Mod_DownloadCountAggregateInputType = {
     user_id?: true
     mod_id?: true
     version_id?: true
     _all?: true
   }
 
-  export type ModDownloadAggregateArgs = {
+  export type Mod_DownloadAggregateArgs = {
     /**
-     * Filter which ModDownload to aggregate.
+     * Filter which Mod_Download to aggregate.
      * 
     **/
-    where?: ModDownloadWhereInput
+    where?: Mod_DownloadWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModDownloads to fetch.
+     * Determine the order of Mod_Downloads to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModDownloadOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_DownloadOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: ModDownloadWhereUniqueInput
+    cursor?: Mod_DownloadWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModDownloads from the position of the cursor.
+     * Take `±n` Mod_Downloads from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModDownloads.
+     * Skip the first `n` Mod_Downloads.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ModDownloads
+     * Count returned Mod_Downloads
     **/
-    _count?: true | ModDownloadCountAggregateInputType
+    _count?: true | Mod_DownloadCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ModDownloadAvgAggregateInputType
+    _avg?: Mod_DownloadAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ModDownloadSumAggregateInputType
+    _sum?: Mod_DownloadSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ModDownloadMinAggregateInputType
+    _min?: Mod_DownloadMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ModDownloadMaxAggregateInputType
+    _max?: Mod_DownloadMaxAggregateInputType
   }
 
-  export type GetModDownloadAggregateType<T extends ModDownloadAggregateArgs> = {
-        [P in keyof T & keyof AggregateModDownload]: P extends '_count' | 'count'
+  export type GetMod_DownloadAggregateType<T extends Mod_DownloadAggregateArgs> = {
+        [P in keyof T & keyof AggregateMod_Download]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateModDownload[P]>
-      : GetScalarType<T[P], AggregateModDownload[P]>
+        : GetScalarType<T[P], AggregateMod_Download[P]>
+      : GetScalarType<T[P], AggregateMod_Download[P]>
   }
 
 
 
 
-  export type ModDownloadGroupByArgs = {
-    where?: ModDownloadWhereInput
-    orderBy?: Enumerable<ModDownloadOrderByWithAggregationInput>
-    by: Array<ModDownloadScalarFieldEnum>
-    having?: ModDownloadScalarWhereWithAggregatesInput
+  export type Mod_DownloadGroupByArgs = {
+    where?: Mod_DownloadWhereInput
+    orderBy?: Enumerable<Mod_DownloadOrderByWithAggregationInput>
+    by: Array<Mod_DownloadScalarFieldEnum>
+    having?: Mod_DownloadScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ModDownloadCountAggregateInputType | true
-    _avg?: ModDownloadAvgAggregateInputType
-    _sum?: ModDownloadSumAggregateInputType
-    _min?: ModDownloadMinAggregateInputType
-    _max?: ModDownloadMaxAggregateInputType
+    _count?: Mod_DownloadCountAggregateInputType | true
+    _avg?: Mod_DownloadAvgAggregateInputType
+    _sum?: Mod_DownloadSumAggregateInputType
+    _min?: Mod_DownloadMinAggregateInputType
+    _max?: Mod_DownloadMaxAggregateInputType
   }
 
 
-  export type ModDownloadGroupByOutputType = {
+  export type Mod_DownloadGroupByOutputType = {
     user_id: number
     mod_id: number
     version_id: number
-    _count: ModDownloadCountAggregateOutputType | null
-    _avg: ModDownloadAvgAggregateOutputType | null
-    _sum: ModDownloadSumAggregateOutputType | null
-    _min: ModDownloadMinAggregateOutputType | null
-    _max: ModDownloadMaxAggregateOutputType | null
+    _count: Mod_DownloadCountAggregateOutputType | null
+    _avg: Mod_DownloadAvgAggregateOutputType | null
+    _sum: Mod_DownloadSumAggregateOutputType | null
+    _min: Mod_DownloadMinAggregateOutputType | null
+    _max: Mod_DownloadMaxAggregateOutputType | null
   }
 
-  type GetModDownloadGroupByPayload<T extends ModDownloadGroupByArgs> = PrismaPromise<
+  type GetMod_DownloadGroupByPayload<T extends Mod_DownloadGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<ModDownloadGroupByOutputType, T['by']> &
+      PickArray<Mod_DownloadGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ModDownloadGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Mod_DownloadGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ModDownloadGroupByOutputType[P]>
-            : GetScalarType<T[P], ModDownloadGroupByOutputType[P]>
+              : GetScalarType<T[P], Mod_DownloadGroupByOutputType[P]>
+            : GetScalarType<T[P], Mod_DownloadGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ModDownloadSelect = {
+  export type Mod_DownloadSelect = {
     user_id?: boolean
     mod_id?: boolean
     version_id?: boolean
     User?: boolean | UserArgs
     Mod?: boolean | ModArgs
-    Version?: boolean | ModVersionArgs
+    Version?: boolean | Mod_VersionArgs
   }
 
-  export type ModDownloadInclude = {
+  export type Mod_DownloadInclude = {
     User?: boolean | UserArgs
     Mod?: boolean | ModArgs
-    Version?: boolean | ModVersionArgs
+    Version?: boolean | Mod_VersionArgs
   }
 
-  export type ModDownloadGetPayload<
-    S extends boolean | null | undefined | ModDownloadArgs,
+  export type Mod_DownloadGetPayload<
+    S extends boolean | null | undefined | Mod_DownloadArgs,
     U = keyof S
       > = S extends true
-        ? ModDownload
+        ? Mod_Download
     : S extends undefined
     ? never
-    : S extends ModDownloadArgs | ModDownloadFindManyArgs
+    : S extends Mod_DownloadArgs | Mod_DownloadFindManyArgs
     ?'include' extends U
-    ? ModDownload  & {
+    ? Mod_Download  & {
     [P in TrueKeys<S['include']>]:
         P extends 'User' ? UserGetPayload<S['include'][P]> :
         P extends 'Mod' ? ModGetPayload<S['include'][P]> :
-        P extends 'Version' ? ModVersionGetPayload<S['include'][P]> :  never
+        P extends 'Version' ? Mod_VersionGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
         P extends 'User' ? UserGetPayload<S['select'][P]> :
         P extends 'Mod' ? ModGetPayload<S['select'][P]> :
-        P extends 'Version' ? ModVersionGetPayload<S['select'][P]> :  P extends keyof ModDownload ? ModDownload[P] : never
+        P extends 'Version' ? Mod_VersionGetPayload<S['select'][P]> :  P extends keyof Mod_Download ? Mod_Download[P] : never
   } 
-    : ModDownload
-  : ModDownload
+    : Mod_Download
+  : Mod_Download
 
 
-  type ModDownloadCountArgs = Merge<
-    Omit<ModDownloadFindManyArgs, 'select' | 'include'> & {
-      select?: ModDownloadCountAggregateInputType | true
+  type Mod_DownloadCountArgs = Merge<
+    Omit<Mod_DownloadFindManyArgs, 'select' | 'include'> & {
+      select?: Mod_DownloadCountAggregateInputType | true
     }
   >
 
-  export interface ModDownloadDelegate<GlobalRejectSettings> {
+  export interface Mod_DownloadDelegate<GlobalRejectSettings> {
     /**
-     * Find zero or one ModDownload that matches the filter.
-     * @param {ModDownloadFindUniqueArgs} args - Arguments to find a ModDownload
+     * Find zero or one Mod_Download that matches the filter.
+     * @param {Mod_DownloadFindUniqueArgs} args - Arguments to find a Mod_Download
      * @example
-     * // Get one ModDownload
-     * const modDownload = await prisma.modDownload.findUnique({
+     * // Get one Mod_Download
+     * const mod_Download = await prisma.mod_Download.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends ModDownloadFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ModDownloadFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ModDownload'> extends True ? CheckSelect<T, Prisma__ModDownloadClient<ModDownload>, Prisma__ModDownloadClient<ModDownloadGetPayload<T>>> : CheckSelect<T, Prisma__ModDownloadClient<ModDownload | null >, Prisma__ModDownloadClient<ModDownloadGetPayload<T> | null >>
+    findUnique<T extends Mod_DownloadFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, Mod_DownloadFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Mod_Download'> extends True ? CheckSelect<T, Prisma__Mod_DownloadClient<Mod_Download>, Prisma__Mod_DownloadClient<Mod_DownloadGetPayload<T>>> : CheckSelect<T, Prisma__Mod_DownloadClient<Mod_Download | null >, Prisma__Mod_DownloadClient<Mod_DownloadGetPayload<T> | null >>
 
     /**
-     * Find the first ModDownload that matches the filter.
+     * Find the first Mod_Download that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModDownloadFindFirstArgs} args - Arguments to find a ModDownload
+     * @param {Mod_DownloadFindFirstArgs} args - Arguments to find a Mod_Download
      * @example
-     * // Get one ModDownload
-     * const modDownload = await prisma.modDownload.findFirst({
+     * // Get one Mod_Download
+     * const mod_Download = await prisma.mod_Download.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends ModDownloadFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ModDownloadFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ModDownload'> extends True ? CheckSelect<T, Prisma__ModDownloadClient<ModDownload>, Prisma__ModDownloadClient<ModDownloadGetPayload<T>>> : CheckSelect<T, Prisma__ModDownloadClient<ModDownload | null >, Prisma__ModDownloadClient<ModDownloadGetPayload<T> | null >>
+    findFirst<T extends Mod_DownloadFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, Mod_DownloadFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Mod_Download'> extends True ? CheckSelect<T, Prisma__Mod_DownloadClient<Mod_Download>, Prisma__Mod_DownloadClient<Mod_DownloadGetPayload<T>>> : CheckSelect<T, Prisma__Mod_DownloadClient<Mod_Download | null >, Prisma__Mod_DownloadClient<Mod_DownloadGetPayload<T> | null >>
 
     /**
-     * Find zero or more ModDownloads that matches the filter.
+     * Find zero or more Mod_Downloads that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModDownloadFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {Mod_DownloadFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ModDownloads
-     * const modDownloads = await prisma.modDownload.findMany()
+     * // Get all Mod_Downloads
+     * const mod_Downloads = await prisma.mod_Download.findMany()
      * 
-     * // Get first 10 ModDownloads
-     * const modDownloads = await prisma.modDownload.findMany({ take: 10 })
+     * // Get first 10 Mod_Downloads
+     * const mod_Downloads = await prisma.mod_Download.findMany({ take: 10 })
      * 
      * // Only select the `user_id`
-     * const modDownloadWithUser_idOnly = await prisma.modDownload.findMany({ select: { user_id: true } })
+     * const mod_DownloadWithUser_idOnly = await prisma.mod_Download.findMany({ select: { user_id: true } })
      * 
     **/
-    findMany<T extends ModDownloadFindManyArgs>(
-      args?: SelectSubset<T, ModDownloadFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<ModDownload>>, PrismaPromise<Array<ModDownloadGetPayload<T>>>>
+    findMany<T extends Mod_DownloadFindManyArgs>(
+      args?: SelectSubset<T, Mod_DownloadFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Mod_Download>>, PrismaPromise<Array<Mod_DownloadGetPayload<T>>>>
 
     /**
-     * Create a ModDownload.
-     * @param {ModDownloadCreateArgs} args - Arguments to create a ModDownload.
+     * Create a Mod_Download.
+     * @param {Mod_DownloadCreateArgs} args - Arguments to create a Mod_Download.
      * @example
-     * // Create one ModDownload
-     * const ModDownload = await prisma.modDownload.create({
+     * // Create one Mod_Download
+     * const Mod_Download = await prisma.mod_Download.create({
      *   data: {
-     *     // ... data to create a ModDownload
+     *     // ... data to create a Mod_Download
      *   }
      * })
      * 
     **/
-    create<T extends ModDownloadCreateArgs>(
-      args: SelectSubset<T, ModDownloadCreateArgs>
-    ): CheckSelect<T, Prisma__ModDownloadClient<ModDownload>, Prisma__ModDownloadClient<ModDownloadGetPayload<T>>>
+    create<T extends Mod_DownloadCreateArgs>(
+      args: SelectSubset<T, Mod_DownloadCreateArgs>
+    ): CheckSelect<T, Prisma__Mod_DownloadClient<Mod_Download>, Prisma__Mod_DownloadClient<Mod_DownloadGetPayload<T>>>
 
     /**
-     * Create many ModDownloads.
-     *     @param {ModDownloadCreateManyArgs} args - Arguments to create many ModDownloads.
+     * Create many Mod_Downloads.
+     *     @param {Mod_DownloadCreateManyArgs} args - Arguments to create many Mod_Downloads.
      *     @example
-     *     // Create many ModDownloads
-     *     const modDownload = await prisma.modDownload.createMany({
+     *     // Create many Mod_Downloads
+     *     const mod_Download = await prisma.mod_Download.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends ModDownloadCreateManyArgs>(
-      args?: SelectSubset<T, ModDownloadCreateManyArgs>
+    createMany<T extends Mod_DownloadCreateManyArgs>(
+      args?: SelectSubset<T, Mod_DownloadCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a ModDownload.
-     * @param {ModDownloadDeleteArgs} args - Arguments to delete one ModDownload.
+     * Delete a Mod_Download.
+     * @param {Mod_DownloadDeleteArgs} args - Arguments to delete one Mod_Download.
      * @example
-     * // Delete one ModDownload
-     * const ModDownload = await prisma.modDownload.delete({
+     * // Delete one Mod_Download
+     * const Mod_Download = await prisma.mod_Download.delete({
      *   where: {
-     *     // ... filter to delete one ModDownload
+     *     // ... filter to delete one Mod_Download
      *   }
      * })
      * 
     **/
-    delete<T extends ModDownloadDeleteArgs>(
-      args: SelectSubset<T, ModDownloadDeleteArgs>
-    ): CheckSelect<T, Prisma__ModDownloadClient<ModDownload>, Prisma__ModDownloadClient<ModDownloadGetPayload<T>>>
+    delete<T extends Mod_DownloadDeleteArgs>(
+      args: SelectSubset<T, Mod_DownloadDeleteArgs>
+    ): CheckSelect<T, Prisma__Mod_DownloadClient<Mod_Download>, Prisma__Mod_DownloadClient<Mod_DownloadGetPayload<T>>>
 
     /**
-     * Update one ModDownload.
-     * @param {ModDownloadUpdateArgs} args - Arguments to update one ModDownload.
+     * Update one Mod_Download.
+     * @param {Mod_DownloadUpdateArgs} args - Arguments to update one Mod_Download.
      * @example
-     * // Update one ModDownload
-     * const modDownload = await prisma.modDownload.update({
+     * // Update one Mod_Download
+     * const mod_Download = await prisma.mod_Download.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -13689,34 +13833,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ModDownloadUpdateArgs>(
-      args: SelectSubset<T, ModDownloadUpdateArgs>
-    ): CheckSelect<T, Prisma__ModDownloadClient<ModDownload>, Prisma__ModDownloadClient<ModDownloadGetPayload<T>>>
+    update<T extends Mod_DownloadUpdateArgs>(
+      args: SelectSubset<T, Mod_DownloadUpdateArgs>
+    ): CheckSelect<T, Prisma__Mod_DownloadClient<Mod_Download>, Prisma__Mod_DownloadClient<Mod_DownloadGetPayload<T>>>
 
     /**
-     * Delete zero or more ModDownloads.
-     * @param {ModDownloadDeleteManyArgs} args - Arguments to filter ModDownloads to delete.
+     * Delete zero or more Mod_Downloads.
+     * @param {Mod_DownloadDeleteManyArgs} args - Arguments to filter Mod_Downloads to delete.
      * @example
-     * // Delete a few ModDownloads
-     * const { count } = await prisma.modDownload.deleteMany({
+     * // Delete a few Mod_Downloads
+     * const { count } = await prisma.mod_Download.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends ModDownloadDeleteManyArgs>(
-      args?: SelectSubset<T, ModDownloadDeleteManyArgs>
+    deleteMany<T extends Mod_DownloadDeleteManyArgs>(
+      args?: SelectSubset<T, Mod_DownloadDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ModDownloads.
+     * Update zero or more Mod_Downloads.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModDownloadUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {Mod_DownloadUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ModDownloads
-     * const modDownload = await prisma.modDownload.updateMany({
+     * // Update many Mod_Downloads
+     * const mod_Download = await prisma.mod_Download.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -13726,59 +13870,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ModDownloadUpdateManyArgs>(
-      args: SelectSubset<T, ModDownloadUpdateManyArgs>
+    updateMany<T extends Mod_DownloadUpdateManyArgs>(
+      args: SelectSubset<T, Mod_DownloadUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one ModDownload.
-     * @param {ModDownloadUpsertArgs} args - Arguments to update or create a ModDownload.
+     * Create or update one Mod_Download.
+     * @param {Mod_DownloadUpsertArgs} args - Arguments to update or create a Mod_Download.
      * @example
-     * // Update or create a ModDownload
-     * const modDownload = await prisma.modDownload.upsert({
+     * // Update or create a Mod_Download
+     * const mod_Download = await prisma.mod_Download.upsert({
      *   create: {
-     *     // ... data to create a ModDownload
+     *     // ... data to create a Mod_Download
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ModDownload we want to update
+     *     // ... the filter for the Mod_Download we want to update
      *   }
      * })
     **/
-    upsert<T extends ModDownloadUpsertArgs>(
-      args: SelectSubset<T, ModDownloadUpsertArgs>
-    ): CheckSelect<T, Prisma__ModDownloadClient<ModDownload>, Prisma__ModDownloadClient<ModDownloadGetPayload<T>>>
+    upsert<T extends Mod_DownloadUpsertArgs>(
+      args: SelectSubset<T, Mod_DownloadUpsertArgs>
+    ): CheckSelect<T, Prisma__Mod_DownloadClient<Mod_Download>, Prisma__Mod_DownloadClient<Mod_DownloadGetPayload<T>>>
 
     /**
-     * Count the number of ModDownloads.
+     * Count the number of Mod_Downloads.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModDownloadCountArgs} args - Arguments to filter ModDownloads to count.
+     * @param {Mod_DownloadCountArgs} args - Arguments to filter Mod_Downloads to count.
      * @example
-     * // Count the number of ModDownloads
-     * const count = await prisma.modDownload.count({
+     * // Count the number of Mod_Downloads
+     * const count = await prisma.mod_Download.count({
      *   where: {
-     *     // ... the filter for the ModDownloads we want to count
+     *     // ... the filter for the Mod_Downloads we want to count
      *   }
      * })
     **/
-    count<T extends ModDownloadCountArgs>(
-      args?: Subset<T, ModDownloadCountArgs>,
+    count<T extends Mod_DownloadCountArgs>(
+      args?: Subset<T, Mod_DownloadCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ModDownloadCountAggregateOutputType>
+          : GetScalarType<T['select'], Mod_DownloadCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ModDownload.
+     * Allows you to perform aggregations operations on a Mod_Download.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModDownloadAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Mod_DownloadAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -13798,13 +13942,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ModDownloadAggregateArgs>(args: Subset<T, ModDownloadAggregateArgs>): PrismaPromise<GetModDownloadAggregateType<T>>
+    aggregate<T extends Mod_DownloadAggregateArgs>(args: Subset<T, Mod_DownloadAggregateArgs>): PrismaPromise<GetMod_DownloadAggregateType<T>>
 
     /**
-     * Group by ModDownload.
+     * Group by Mod_Download.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ModDownloadGroupByArgs} args - Group by arguments.
+     * @param {Mod_DownloadGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -13819,14 +13963,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ModDownloadGroupByArgs,
+      T extends Mod_DownloadGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ModDownloadGroupByArgs['orderBy'] }
-        : { orderBy?: ModDownloadGroupByArgs['orderBy'] },
+        ? { orderBy: Mod_DownloadGroupByArgs['orderBy'] }
+        : { orderBy?: Mod_DownloadGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -13875,16 +14019,16 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ModDownloadGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModDownloadGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, Mod_DownloadGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMod_DownloadGroupByPayload<T> : PrismaPromise<InputErrors>
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ModDownload.
+   * The delegate class that acts as a "Promise-like" for Mod_Download.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ModDownloadClient<T> implements PrismaPromise<T> {
+  export class Prisma__Mod_DownloadClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -13905,7 +14049,7 @@ export namespace Prisma {
 
     Mod<T extends ModArgs = {}>(args?: Subset<T, ModArgs>): CheckSelect<T, Prisma__ModClient<Mod | null >, Prisma__ModClient<ModGetPayload<T> | null >>;
 
-    Version<T extends ModVersionArgs = {}>(args?: Subset<T, ModVersionArgs>): CheckSelect<T, Prisma__ModVersionClient<ModVersion | null >, Prisma__ModVersionClient<ModVersionGetPayload<T> | null >>;
+    Version<T extends Mod_VersionArgs = {}>(args?: Subset<T, Mod_VersionArgs>): CheckSelect<T, Prisma__Mod_VersionClient<Mod_Version | null >, Prisma__Mod_VersionClient<Mod_VersionGetPayload<T> | null >>;
 
     private get _document();
     /**
@@ -13933,304 +14077,2158 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * ModDownload findUnique
+   * Mod_Download findUnique
    */
-  export type ModDownloadFindUniqueArgs = {
+  export type Mod_DownloadFindUniqueArgs = {
     /**
-     * Select specific fields to fetch from the ModDownload
+     * Select specific fields to fetch from the Mod_Download
      * 
     **/
-    select?: ModDownloadSelect | null
+    select?: Mod_DownloadSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModDownloadInclude | null
+    include?: Mod_DownloadInclude | null
     /**
-     * Throw an Error if a ModDownload can't be found
+     * Throw an Error if a Mod_Download can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModDownload to fetch.
+     * Filter, which Mod_Download to fetch.
      * 
     **/
-    where: ModDownloadWhereUniqueInput
+    where: Mod_DownloadWhereUniqueInput
   }
 
 
   /**
-   * ModDownload findFirst
+   * Mod_Download findFirst
    */
-  export type ModDownloadFindFirstArgs = {
+  export type Mod_DownloadFindFirstArgs = {
     /**
-     * Select specific fields to fetch from the ModDownload
+     * Select specific fields to fetch from the Mod_Download
      * 
     **/
-    select?: ModDownloadSelect | null
+    select?: Mod_DownloadSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModDownloadInclude | null
+    include?: Mod_DownloadInclude | null
     /**
-     * Throw an Error if a ModDownload can't be found
+     * Throw an Error if a Mod_Download can't be found
      * 
     **/
     rejectOnNotFound?: RejectOnNotFound
     /**
-     * Filter, which ModDownload to fetch.
+     * Filter, which Mod_Download to fetch.
      * 
     **/
-    where?: ModDownloadWhereInput
+    where?: Mod_DownloadWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModDownloads to fetch.
+     * Determine the order of Mod_Downloads to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModDownloadOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_DownloadOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ModDownloads.
+     * Sets the position for searching for Mod_Downloads.
      * 
     **/
-    cursor?: ModDownloadWhereUniqueInput
+    cursor?: Mod_DownloadWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModDownloads from the position of the cursor.
+     * Take `±n` Mod_Downloads from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModDownloads.
+     * Skip the first `n` Mod_Downloads.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ModDownloads.
+     * Filter by unique combinations of Mod_Downloads.
      * 
     **/
-    distinct?: Enumerable<ModDownloadScalarFieldEnum>
+    distinct?: Enumerable<Mod_DownloadScalarFieldEnum>
   }
 
 
   /**
-   * ModDownload findMany
+   * Mod_Download findMany
    */
-  export type ModDownloadFindManyArgs = {
+  export type Mod_DownloadFindManyArgs = {
     /**
-     * Select specific fields to fetch from the ModDownload
+     * Select specific fields to fetch from the Mod_Download
      * 
     **/
-    select?: ModDownloadSelect | null
+    select?: Mod_DownloadSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModDownloadInclude | null
+    include?: Mod_DownloadInclude | null
     /**
-     * Filter, which ModDownloads to fetch.
+     * Filter, which Mod_Downloads to fetch.
      * 
     **/
-    where?: ModDownloadWhereInput
+    where?: Mod_DownloadWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ModDownloads to fetch.
+     * Determine the order of Mod_Downloads to fetch.
      * 
     **/
-    orderBy?: Enumerable<ModDownloadOrderByWithRelationInput>
+    orderBy?: Enumerable<Mod_DownloadOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ModDownloads.
+     * Sets the position for listing Mod_Downloads.
      * 
     **/
-    cursor?: ModDownloadWhereUniqueInput
+    cursor?: Mod_DownloadWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ModDownloads from the position of the cursor.
+     * Take `±n` Mod_Downloads from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ModDownloads.
+     * Skip the first `n` Mod_Downloads.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<ModDownloadScalarFieldEnum>
+    distinct?: Enumerable<Mod_DownloadScalarFieldEnum>
   }
 
 
   /**
-   * ModDownload create
+   * Mod_Download create
    */
-  export type ModDownloadCreateArgs = {
+  export type Mod_DownloadCreateArgs = {
     /**
-     * Select specific fields to fetch from the ModDownload
+     * Select specific fields to fetch from the Mod_Download
      * 
     **/
-    select?: ModDownloadSelect | null
+    select?: Mod_DownloadSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModDownloadInclude | null
+    include?: Mod_DownloadInclude | null
     /**
-     * The data needed to create a ModDownload.
+     * The data needed to create a Mod_Download.
      * 
     **/
-    data: XOR<ModDownloadCreateInput, ModDownloadUncheckedCreateInput>
+    data: XOR<Mod_DownloadCreateInput, Mod_DownloadUncheckedCreateInput>
   }
 
 
   /**
-   * ModDownload createMany
+   * Mod_Download createMany
    */
-  export type ModDownloadCreateManyArgs = {
+  export type Mod_DownloadCreateManyArgs = {
     /**
-     * The data used to create many ModDownloads.
+     * The data used to create many Mod_Downloads.
      * 
     **/
-    data: Enumerable<ModDownloadCreateManyInput>
+    data: Enumerable<Mod_DownloadCreateManyInput>
     skipDuplicates?: boolean
   }
 
 
   /**
-   * ModDownload update
+   * Mod_Download update
    */
-  export type ModDownloadUpdateArgs = {
+  export type Mod_DownloadUpdateArgs = {
     /**
-     * Select specific fields to fetch from the ModDownload
+     * Select specific fields to fetch from the Mod_Download
      * 
     **/
-    select?: ModDownloadSelect | null
+    select?: Mod_DownloadSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModDownloadInclude | null
+    include?: Mod_DownloadInclude | null
     /**
-     * The data needed to update a ModDownload.
+     * The data needed to update a Mod_Download.
      * 
     **/
-    data: XOR<ModDownloadUpdateInput, ModDownloadUncheckedUpdateInput>
+    data: XOR<Mod_DownloadUpdateInput, Mod_DownloadUncheckedUpdateInput>
     /**
-     * Choose, which ModDownload to update.
+     * Choose, which Mod_Download to update.
      * 
     **/
-    where: ModDownloadWhereUniqueInput
+    where: Mod_DownloadWhereUniqueInput
   }
 
 
   /**
-   * ModDownload updateMany
+   * Mod_Download updateMany
    */
-  export type ModDownloadUpdateManyArgs = {
+  export type Mod_DownloadUpdateManyArgs = {
     /**
-     * The data used to update ModDownloads.
+     * The data used to update Mod_Downloads.
      * 
     **/
-    data: XOR<ModDownloadUpdateManyMutationInput, ModDownloadUncheckedUpdateManyInput>
+    data: XOR<Mod_DownloadUpdateManyMutationInput, Mod_DownloadUncheckedUpdateManyInput>
     /**
-     * Filter which ModDownloads to update
+     * Filter which Mod_Downloads to update
      * 
     **/
-    where?: ModDownloadWhereInput
+    where?: Mod_DownloadWhereInput
   }
 
 
   /**
-   * ModDownload upsert
+   * Mod_Download upsert
    */
-  export type ModDownloadUpsertArgs = {
+  export type Mod_DownloadUpsertArgs = {
     /**
-     * Select specific fields to fetch from the ModDownload
+     * Select specific fields to fetch from the Mod_Download
      * 
     **/
-    select?: ModDownloadSelect | null
+    select?: Mod_DownloadSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModDownloadInclude | null
+    include?: Mod_DownloadInclude | null
     /**
-     * The filter to search for the ModDownload to update in case it exists.
+     * The filter to search for the Mod_Download to update in case it exists.
      * 
     **/
-    where: ModDownloadWhereUniqueInput
+    where: Mod_DownloadWhereUniqueInput
     /**
-     * In case the ModDownload found by the `where` argument doesn't exist, create a new ModDownload with this data.
+     * In case the Mod_Download found by the `where` argument doesn't exist, create a new Mod_Download with this data.
      * 
     **/
-    create: XOR<ModDownloadCreateInput, ModDownloadUncheckedCreateInput>
+    create: XOR<Mod_DownloadCreateInput, Mod_DownloadUncheckedCreateInput>
     /**
-     * In case the ModDownload was found with the provided `where` argument, update it with this data.
+     * In case the Mod_Download was found with the provided `where` argument, update it with this data.
      * 
     **/
-    update: XOR<ModDownloadUpdateInput, ModDownloadUncheckedUpdateInput>
+    update: XOR<Mod_DownloadUpdateInput, Mod_DownloadUncheckedUpdateInput>
   }
 
 
   /**
-   * ModDownload delete
+   * Mod_Download delete
    */
-  export type ModDownloadDeleteArgs = {
+  export type Mod_DownloadDeleteArgs = {
     /**
-     * Select specific fields to fetch from the ModDownload
+     * Select specific fields to fetch from the Mod_Download
      * 
     **/
-    select?: ModDownloadSelect | null
+    select?: Mod_DownloadSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModDownloadInclude | null
+    include?: Mod_DownloadInclude | null
     /**
-     * Filter which ModDownload to delete.
+     * Filter which Mod_Download to delete.
      * 
     **/
-    where: ModDownloadWhereUniqueInput
+    where: Mod_DownloadWhereUniqueInput
   }
 
 
   /**
-   * ModDownload deleteMany
+   * Mod_Download deleteMany
    */
-  export type ModDownloadDeleteManyArgs = {
+  export type Mod_DownloadDeleteManyArgs = {
     /**
-     * Filter which ModDownloads to delete
+     * Filter which Mod_Downloads to delete
      * 
     **/
-    where?: ModDownloadWhereInput
+    where?: Mod_DownloadWhereInput
   }
 
 
   /**
-   * ModDownload without action
+   * Mod_Download without action
    */
-  export type ModDownloadArgs = {
+  export type Mod_DownloadArgs = {
     /**
-     * Select specific fields to fetch from the ModDownload
+     * Select specific fields to fetch from the Mod_Download
      * 
     **/
-    select?: ModDownloadSelect | null
+    select?: Mod_DownloadSelect | null
     /**
      * Choose, which related nodes to fetch as well.
      * 
     **/
-    include?: ModDownloadInclude | null
+    include?: Mod_DownloadInclude | null
+  }
+
+
+
+  /**
+   * Model User_Session
+   */
+
+
+  export type AggregateUser_Session = {
+    _count: User_SessionCountAggregateOutputType | null
+    _avg: User_SessionAvgAggregateOutputType | null
+    _sum: User_SessionSumAggregateOutputType | null
+    _min: User_SessionMinAggregateOutputType | null
+    _max: User_SessionMaxAggregateOutputType | null
+  }
+
+  export type User_SessionAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type User_SessionSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type User_SessionMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    userAgent: string | null
+    userAgentType: User_Agent_Type | null
+    userAgentOS: User_Agent_OS | null
+    userAgentDevice: string | null
+    uuid: string | null
+    ipv4: string | null
+    is_active: boolean | null
+  }
+
+  export type User_SessionMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    userAgent: string | null
+    userAgentType: User_Agent_Type | null
+    userAgentOS: User_Agent_OS | null
+    userAgentDevice: string | null
+    uuid: string | null
+    ipv4: string | null
+    is_active: boolean | null
+  }
+
+  export type User_SessionCountAggregateOutputType = {
+    id: number
+    userId: number
+    userAgent: number
+    userAgentType: number
+    userAgentOS: number
+    userAgentDevice: number
+    uuid: number
+    ipv4: number
+    is_active: number
+    _all: number
+  }
+
+
+  export type User_SessionAvgAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type User_SessionSumAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type User_SessionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    userAgent?: true
+    userAgentType?: true
+    userAgentOS?: true
+    userAgentDevice?: true
+    uuid?: true
+    ipv4?: true
+    is_active?: true
+  }
+
+  export type User_SessionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    userAgent?: true
+    userAgentType?: true
+    userAgentOS?: true
+    userAgentDevice?: true
+    uuid?: true
+    ipv4?: true
+    is_active?: true
+  }
+
+  export type User_SessionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    userAgent?: true
+    userAgentType?: true
+    userAgentOS?: true
+    userAgentDevice?: true
+    uuid?: true
+    ipv4?: true
+    is_active?: true
+    _all?: true
+  }
+
+  export type User_SessionAggregateArgs = {
+    /**
+     * Filter which User_Session to aggregate.
+     * 
+    **/
+    where?: User_SessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of User_Sessions to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<User_SessionOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     * 
+    **/
+    cursor?: User_SessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` User_Sessions from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` User_Sessions.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned User_Sessions
+    **/
+    _count?: true | User_SessionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: User_SessionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: User_SessionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: User_SessionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: User_SessionMaxAggregateInputType
+  }
+
+  export type GetUser_SessionAggregateType<T extends User_SessionAggregateArgs> = {
+        [P in keyof T & keyof AggregateUser_Session]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUser_Session[P]>
+      : GetScalarType<T[P], AggregateUser_Session[P]>
+  }
+
+
+
+
+  export type User_SessionGroupByArgs = {
+    where?: User_SessionWhereInput
+    orderBy?: Enumerable<User_SessionOrderByWithAggregationInput>
+    by: Array<User_SessionScalarFieldEnum>
+    having?: User_SessionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: User_SessionCountAggregateInputType | true
+    _avg?: User_SessionAvgAggregateInputType
+    _sum?: User_SessionSumAggregateInputType
+    _min?: User_SessionMinAggregateInputType
+    _max?: User_SessionMaxAggregateInputType
+  }
+
+
+  export type User_SessionGroupByOutputType = {
+    id: number
+    userId: number
+    userAgent: string
+    userAgentType: User_Agent_Type
+    userAgentOS: User_Agent_OS
+    userAgentDevice: string
+    uuid: string
+    ipv4: string
+    is_active: boolean
+    _count: User_SessionCountAggregateOutputType | null
+    _avg: User_SessionAvgAggregateOutputType | null
+    _sum: User_SessionSumAggregateOutputType | null
+    _min: User_SessionMinAggregateOutputType | null
+    _max: User_SessionMaxAggregateOutputType | null
+  }
+
+  type GetUser_SessionGroupByPayload<T extends User_SessionGroupByArgs> = PrismaPromise<
+    Array<
+      PickArray<User_SessionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof User_SessionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], User_SessionGroupByOutputType[P]>
+            : GetScalarType<T[P], User_SessionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type User_SessionSelect = {
+    id?: boolean
+    userId?: boolean
+    userAgent?: boolean
+    userAgentType?: boolean
+    userAgentOS?: boolean
+    userAgentDevice?: boolean
+    uuid?: boolean
+    ipv4?: boolean
+    is_active?: boolean
+    User?: boolean | UserArgs
+    Tokens?: boolean | User_TokenFindManyArgs
+    _count?: boolean | User_SessionCountOutputTypeArgs
+  }
+
+  export type User_SessionInclude = {
+    User?: boolean | UserArgs
+    Tokens?: boolean | User_TokenFindManyArgs
+    _count?: boolean | User_SessionCountOutputTypeArgs
+  }
+
+  export type User_SessionGetPayload<
+    S extends boolean | null | undefined | User_SessionArgs,
+    U = keyof S
+      > = S extends true
+        ? User_Session
+    : S extends undefined
+    ? never
+    : S extends User_SessionArgs | User_SessionFindManyArgs
+    ?'include' extends U
+    ? User_Session  & {
+    [P in TrueKeys<S['include']>]:
+        P extends 'User' ? UserGetPayload<S['include'][P]> :
+        P extends 'Tokens' ? Array < User_TokenGetPayload<S['include'][P]>>  :
+        P extends '_count' ? User_SessionCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]:
+        P extends 'User' ? UserGetPayload<S['select'][P]> :
+        P extends 'Tokens' ? Array < User_TokenGetPayload<S['select'][P]>>  :
+        P extends '_count' ? User_SessionCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof User_Session ? User_Session[P] : never
+  } 
+    : User_Session
+  : User_Session
+
+
+  type User_SessionCountArgs = Merge<
+    Omit<User_SessionFindManyArgs, 'select' | 'include'> & {
+      select?: User_SessionCountAggregateInputType | true
+    }
+  >
+
+  export interface User_SessionDelegate<GlobalRejectSettings> {
+    /**
+     * Find zero or one User_Session that matches the filter.
+     * @param {User_SessionFindUniqueArgs} args - Arguments to find a User_Session
+     * @example
+     * // Get one User_Session
+     * const user_Session = await prisma.user_Session.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends User_SessionFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, User_SessionFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'User_Session'> extends True ? CheckSelect<T, Prisma__User_SessionClient<User_Session>, Prisma__User_SessionClient<User_SessionGetPayload<T>>> : CheckSelect<T, Prisma__User_SessionClient<User_Session | null >, Prisma__User_SessionClient<User_SessionGetPayload<T> | null >>
+
+    /**
+     * Find the first User_Session that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {User_SessionFindFirstArgs} args - Arguments to find a User_Session
+     * @example
+     * // Get one User_Session
+     * const user_Session = await prisma.user_Session.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends User_SessionFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, User_SessionFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'User_Session'> extends True ? CheckSelect<T, Prisma__User_SessionClient<User_Session>, Prisma__User_SessionClient<User_SessionGetPayload<T>>> : CheckSelect<T, Prisma__User_SessionClient<User_Session | null >, Prisma__User_SessionClient<User_SessionGetPayload<T> | null >>
+
+    /**
+     * Find zero or more User_Sessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {User_SessionFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all User_Sessions
+     * const user_Sessions = await prisma.user_Session.findMany()
+     * 
+     * // Get first 10 User_Sessions
+     * const user_Sessions = await prisma.user_Session.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const user_SessionWithIdOnly = await prisma.user_Session.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends User_SessionFindManyArgs>(
+      args?: SelectSubset<T, User_SessionFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<User_Session>>, PrismaPromise<Array<User_SessionGetPayload<T>>>>
+
+    /**
+     * Create a User_Session.
+     * @param {User_SessionCreateArgs} args - Arguments to create a User_Session.
+     * @example
+     * // Create one User_Session
+     * const User_Session = await prisma.user_Session.create({
+     *   data: {
+     *     // ... data to create a User_Session
+     *   }
+     * })
+     * 
+    **/
+    create<T extends User_SessionCreateArgs>(
+      args: SelectSubset<T, User_SessionCreateArgs>
+    ): CheckSelect<T, Prisma__User_SessionClient<User_Session>, Prisma__User_SessionClient<User_SessionGetPayload<T>>>
+
+    /**
+     * Create many User_Sessions.
+     *     @param {User_SessionCreateManyArgs} args - Arguments to create many User_Sessions.
+     *     @example
+     *     // Create many User_Sessions
+     *     const user_Session = await prisma.user_Session.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends User_SessionCreateManyArgs>(
+      args?: SelectSubset<T, User_SessionCreateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a User_Session.
+     * @param {User_SessionDeleteArgs} args - Arguments to delete one User_Session.
+     * @example
+     * // Delete one User_Session
+     * const User_Session = await prisma.user_Session.delete({
+     *   where: {
+     *     // ... filter to delete one User_Session
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends User_SessionDeleteArgs>(
+      args: SelectSubset<T, User_SessionDeleteArgs>
+    ): CheckSelect<T, Prisma__User_SessionClient<User_Session>, Prisma__User_SessionClient<User_SessionGetPayload<T>>>
+
+    /**
+     * Update one User_Session.
+     * @param {User_SessionUpdateArgs} args - Arguments to update one User_Session.
+     * @example
+     * // Update one User_Session
+     * const user_Session = await prisma.user_Session.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends User_SessionUpdateArgs>(
+      args: SelectSubset<T, User_SessionUpdateArgs>
+    ): CheckSelect<T, Prisma__User_SessionClient<User_Session>, Prisma__User_SessionClient<User_SessionGetPayload<T>>>
+
+    /**
+     * Delete zero or more User_Sessions.
+     * @param {User_SessionDeleteManyArgs} args - Arguments to filter User_Sessions to delete.
+     * @example
+     * // Delete a few User_Sessions
+     * const { count } = await prisma.user_Session.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends User_SessionDeleteManyArgs>(
+      args?: SelectSubset<T, User_SessionDeleteManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more User_Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {User_SessionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many User_Sessions
+     * const user_Session = await prisma.user_Session.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends User_SessionUpdateManyArgs>(
+      args: SelectSubset<T, User_SessionUpdateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one User_Session.
+     * @param {User_SessionUpsertArgs} args - Arguments to update or create a User_Session.
+     * @example
+     * // Update or create a User_Session
+     * const user_Session = await prisma.user_Session.upsert({
+     *   create: {
+     *     // ... data to create a User_Session
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the User_Session we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends User_SessionUpsertArgs>(
+      args: SelectSubset<T, User_SessionUpsertArgs>
+    ): CheckSelect<T, Prisma__User_SessionClient<User_Session>, Prisma__User_SessionClient<User_SessionGetPayload<T>>>
+
+    /**
+     * Count the number of User_Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {User_SessionCountArgs} args - Arguments to filter User_Sessions to count.
+     * @example
+     * // Count the number of User_Sessions
+     * const count = await prisma.user_Session.count({
+     *   where: {
+     *     // ... the filter for the User_Sessions we want to count
+     *   }
+     * })
+    **/
+    count<T extends User_SessionCountArgs>(
+      args?: Subset<T, User_SessionCountArgs>,
+    ): PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], User_SessionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a User_Session.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {User_SessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends User_SessionAggregateArgs>(args: Subset<T, User_SessionAggregateArgs>): PrismaPromise<GetUser_SessionAggregateType<T>>
+
+    /**
+     * Group by User_Session.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {User_SessionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends User_SessionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: User_SessionGroupByArgs['orderBy'] }
+        : { orderBy?: User_SessionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, User_SessionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUser_SessionGroupByPayload<T> : PrismaPromise<InputErrors>
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for User_Session.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__User_SessionClient<T> implements PrismaPromise<T> {
+    [prisma]: true;
+    private readonly _dmmf;
+    private readonly _fetcher;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+    User<T extends UserArgs = {}>(args?: Subset<T, UserArgs>): CheckSelect<T, Prisma__UserClient<User | null >, Prisma__UserClient<UserGetPayload<T> | null >>;
+
+    Tokens<T extends User_TokenFindManyArgs = {}>(args?: Subset<T, User_TokenFindManyArgs>): CheckSelect<T, PrismaPromise<Array<User_Token>>, PrismaPromise<Array<User_TokenGetPayload<T>>>>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+  // Custom InputTypes
+
+  /**
+   * User_Session findUnique
+   */
+  export type User_SessionFindUniqueArgs = {
+    /**
+     * Select specific fields to fetch from the User_Session
+     * 
+    **/
+    select?: User_SessionSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_SessionInclude | null
+    /**
+     * Throw an Error if a User_Session can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which User_Session to fetch.
+     * 
+    **/
+    where: User_SessionWhereUniqueInput
+  }
+
+
+  /**
+   * User_Session findFirst
+   */
+  export type User_SessionFindFirstArgs = {
+    /**
+     * Select specific fields to fetch from the User_Session
+     * 
+    **/
+    select?: User_SessionSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_SessionInclude | null
+    /**
+     * Throw an Error if a User_Session can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which User_Session to fetch.
+     * 
+    **/
+    where?: User_SessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of User_Sessions to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<User_SessionOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for User_Sessions.
+     * 
+    **/
+    cursor?: User_SessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` User_Sessions from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` User_Sessions.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of User_Sessions.
+     * 
+    **/
+    distinct?: Enumerable<User_SessionScalarFieldEnum>
+  }
+
+
+  /**
+   * User_Session findMany
+   */
+  export type User_SessionFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the User_Session
+     * 
+    **/
+    select?: User_SessionSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_SessionInclude | null
+    /**
+     * Filter, which User_Sessions to fetch.
+     * 
+    **/
+    where?: User_SessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of User_Sessions to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<User_SessionOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing User_Sessions.
+     * 
+    **/
+    cursor?: User_SessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` User_Sessions from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` User_Sessions.
+     * 
+    **/
+    skip?: number
+    distinct?: Enumerable<User_SessionScalarFieldEnum>
+  }
+
+
+  /**
+   * User_Session create
+   */
+  export type User_SessionCreateArgs = {
+    /**
+     * Select specific fields to fetch from the User_Session
+     * 
+    **/
+    select?: User_SessionSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_SessionInclude | null
+    /**
+     * The data needed to create a User_Session.
+     * 
+    **/
+    data: XOR<User_SessionCreateInput, User_SessionUncheckedCreateInput>
+  }
+
+
+  /**
+   * User_Session createMany
+   */
+  export type User_SessionCreateManyArgs = {
+    /**
+     * The data used to create many User_Sessions.
+     * 
+    **/
+    data: Enumerable<User_SessionCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * User_Session update
+   */
+  export type User_SessionUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the User_Session
+     * 
+    **/
+    select?: User_SessionSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_SessionInclude | null
+    /**
+     * The data needed to update a User_Session.
+     * 
+    **/
+    data: XOR<User_SessionUpdateInput, User_SessionUncheckedUpdateInput>
+    /**
+     * Choose, which User_Session to update.
+     * 
+    **/
+    where: User_SessionWhereUniqueInput
+  }
+
+
+  /**
+   * User_Session updateMany
+   */
+  export type User_SessionUpdateManyArgs = {
+    /**
+     * The data used to update User_Sessions.
+     * 
+    **/
+    data: XOR<User_SessionUpdateManyMutationInput, User_SessionUncheckedUpdateManyInput>
+    /**
+     * Filter which User_Sessions to update
+     * 
+    **/
+    where?: User_SessionWhereInput
+  }
+
+
+  /**
+   * User_Session upsert
+   */
+  export type User_SessionUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the User_Session
+     * 
+    **/
+    select?: User_SessionSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_SessionInclude | null
+    /**
+     * The filter to search for the User_Session to update in case it exists.
+     * 
+    **/
+    where: User_SessionWhereUniqueInput
+    /**
+     * In case the User_Session found by the `where` argument doesn't exist, create a new User_Session with this data.
+     * 
+    **/
+    create: XOR<User_SessionCreateInput, User_SessionUncheckedCreateInput>
+    /**
+     * In case the User_Session was found with the provided `where` argument, update it with this data.
+     * 
+    **/
+    update: XOR<User_SessionUpdateInput, User_SessionUncheckedUpdateInput>
+  }
+
+
+  /**
+   * User_Session delete
+   */
+  export type User_SessionDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the User_Session
+     * 
+    **/
+    select?: User_SessionSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_SessionInclude | null
+    /**
+     * Filter which User_Session to delete.
+     * 
+    **/
+    where: User_SessionWhereUniqueInput
+  }
+
+
+  /**
+   * User_Session deleteMany
+   */
+  export type User_SessionDeleteManyArgs = {
+    /**
+     * Filter which User_Sessions to delete
+     * 
+    **/
+    where?: User_SessionWhereInput
+  }
+
+
+  /**
+   * User_Session without action
+   */
+  export type User_SessionArgs = {
+    /**
+     * Select specific fields to fetch from the User_Session
+     * 
+    **/
+    select?: User_SessionSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_SessionInclude | null
+  }
+
+
+
+  /**
+   * Model User_Token
+   */
+
+
+  export type AggregateUser_Token = {
+    _count: User_TokenCountAggregateOutputType | null
+    _avg: User_TokenAvgAggregateOutputType | null
+    _sum: User_TokenSumAggregateOutputType | null
+    _min: User_TokenMinAggregateOutputType | null
+    _max: User_TokenMaxAggregateOutputType | null
+  }
+
+  export type User_TokenAvgAggregateOutputType = {
+    id: number | null
+    sessionId: number | null
+  }
+
+  export type User_TokenSumAggregateOutputType = {
+    id: number | null
+    sessionId: number | null
+  }
+
+  export type User_TokenMinAggregateOutputType = {
+    id: number | null
+    sessionId: number | null
+    type: User_Token_Type | null
+    token: string | null
+    createDate: Date | null
+    is_enable: boolean | null
+  }
+
+  export type User_TokenMaxAggregateOutputType = {
+    id: number | null
+    sessionId: number | null
+    type: User_Token_Type | null
+    token: string | null
+    createDate: Date | null
+    is_enable: boolean | null
+  }
+
+  export type User_TokenCountAggregateOutputType = {
+    id: number
+    sessionId: number
+    type: number
+    token: number
+    createDate: number
+    is_enable: number
+    _all: number
+  }
+
+
+  export type User_TokenAvgAggregateInputType = {
+    id?: true
+    sessionId?: true
+  }
+
+  export type User_TokenSumAggregateInputType = {
+    id?: true
+    sessionId?: true
+  }
+
+  export type User_TokenMinAggregateInputType = {
+    id?: true
+    sessionId?: true
+    type?: true
+    token?: true
+    createDate?: true
+    is_enable?: true
+  }
+
+  export type User_TokenMaxAggregateInputType = {
+    id?: true
+    sessionId?: true
+    type?: true
+    token?: true
+    createDate?: true
+    is_enable?: true
+  }
+
+  export type User_TokenCountAggregateInputType = {
+    id?: true
+    sessionId?: true
+    type?: true
+    token?: true
+    createDate?: true
+    is_enable?: true
+    _all?: true
+  }
+
+  export type User_TokenAggregateArgs = {
+    /**
+     * Filter which User_Token to aggregate.
+     * 
+    **/
+    where?: User_TokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of User_Tokens to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<User_TokenOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     * 
+    **/
+    cursor?: User_TokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` User_Tokens from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` User_Tokens.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned User_Tokens
+    **/
+    _count?: true | User_TokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: User_TokenAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: User_TokenSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: User_TokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: User_TokenMaxAggregateInputType
+  }
+
+  export type GetUser_TokenAggregateType<T extends User_TokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateUser_Token]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUser_Token[P]>
+      : GetScalarType<T[P], AggregateUser_Token[P]>
+  }
+
+
+
+
+  export type User_TokenGroupByArgs = {
+    where?: User_TokenWhereInput
+    orderBy?: Enumerable<User_TokenOrderByWithAggregationInput>
+    by: Array<User_TokenScalarFieldEnum>
+    having?: User_TokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: User_TokenCountAggregateInputType | true
+    _avg?: User_TokenAvgAggregateInputType
+    _sum?: User_TokenSumAggregateInputType
+    _min?: User_TokenMinAggregateInputType
+    _max?: User_TokenMaxAggregateInputType
+  }
+
+
+  export type User_TokenGroupByOutputType = {
+    id: number
+    sessionId: number
+    type: User_Token_Type
+    token: string
+    createDate: Date
+    is_enable: boolean
+    _count: User_TokenCountAggregateOutputType | null
+    _avg: User_TokenAvgAggregateOutputType | null
+    _sum: User_TokenSumAggregateOutputType | null
+    _min: User_TokenMinAggregateOutputType | null
+    _max: User_TokenMaxAggregateOutputType | null
+  }
+
+  type GetUser_TokenGroupByPayload<T extends User_TokenGroupByArgs> = PrismaPromise<
+    Array<
+      PickArray<User_TokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof User_TokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], User_TokenGroupByOutputType[P]>
+            : GetScalarType<T[P], User_TokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type User_TokenSelect = {
+    id?: boolean
+    sessionId?: boolean
+    type?: boolean
+    token?: boolean
+    createDate?: boolean
+    is_enable?: boolean
+    Session?: boolean | User_SessionArgs
+  }
+
+  export type User_TokenInclude = {
+    Session?: boolean | User_SessionArgs
+  }
+
+  export type User_TokenGetPayload<
+    S extends boolean | null | undefined | User_TokenArgs,
+    U = keyof S
+      > = S extends true
+        ? User_Token
+    : S extends undefined
+    ? never
+    : S extends User_TokenArgs | User_TokenFindManyArgs
+    ?'include' extends U
+    ? User_Token  & {
+    [P in TrueKeys<S['include']>]:
+        P extends 'Session' ? User_SessionGetPayload<S['include'][P]> :  never
+  } 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]:
+        P extends 'Session' ? User_SessionGetPayload<S['select'][P]> :  P extends keyof User_Token ? User_Token[P] : never
+  } 
+    : User_Token
+  : User_Token
+
+
+  type User_TokenCountArgs = Merge<
+    Omit<User_TokenFindManyArgs, 'select' | 'include'> & {
+      select?: User_TokenCountAggregateInputType | true
+    }
+  >
+
+  export interface User_TokenDelegate<GlobalRejectSettings> {
+    /**
+     * Find zero or one User_Token that matches the filter.
+     * @param {User_TokenFindUniqueArgs} args - Arguments to find a User_Token
+     * @example
+     * // Get one User_Token
+     * const user_Token = await prisma.user_Token.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends User_TokenFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, User_TokenFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'User_Token'> extends True ? CheckSelect<T, Prisma__User_TokenClient<User_Token>, Prisma__User_TokenClient<User_TokenGetPayload<T>>> : CheckSelect<T, Prisma__User_TokenClient<User_Token | null >, Prisma__User_TokenClient<User_TokenGetPayload<T> | null >>
+
+    /**
+     * Find the first User_Token that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {User_TokenFindFirstArgs} args - Arguments to find a User_Token
+     * @example
+     * // Get one User_Token
+     * const user_Token = await prisma.user_Token.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends User_TokenFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, User_TokenFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'User_Token'> extends True ? CheckSelect<T, Prisma__User_TokenClient<User_Token>, Prisma__User_TokenClient<User_TokenGetPayload<T>>> : CheckSelect<T, Prisma__User_TokenClient<User_Token | null >, Prisma__User_TokenClient<User_TokenGetPayload<T> | null >>
+
+    /**
+     * Find zero or more User_Tokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {User_TokenFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all User_Tokens
+     * const user_Tokens = await prisma.user_Token.findMany()
+     * 
+     * // Get first 10 User_Tokens
+     * const user_Tokens = await prisma.user_Token.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const user_TokenWithIdOnly = await prisma.user_Token.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends User_TokenFindManyArgs>(
+      args?: SelectSubset<T, User_TokenFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<User_Token>>, PrismaPromise<Array<User_TokenGetPayload<T>>>>
+
+    /**
+     * Create a User_Token.
+     * @param {User_TokenCreateArgs} args - Arguments to create a User_Token.
+     * @example
+     * // Create one User_Token
+     * const User_Token = await prisma.user_Token.create({
+     *   data: {
+     *     // ... data to create a User_Token
+     *   }
+     * })
+     * 
+    **/
+    create<T extends User_TokenCreateArgs>(
+      args: SelectSubset<T, User_TokenCreateArgs>
+    ): CheckSelect<T, Prisma__User_TokenClient<User_Token>, Prisma__User_TokenClient<User_TokenGetPayload<T>>>
+
+    /**
+     * Create many User_Tokens.
+     *     @param {User_TokenCreateManyArgs} args - Arguments to create many User_Tokens.
+     *     @example
+     *     // Create many User_Tokens
+     *     const user_Token = await prisma.user_Token.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends User_TokenCreateManyArgs>(
+      args?: SelectSubset<T, User_TokenCreateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a User_Token.
+     * @param {User_TokenDeleteArgs} args - Arguments to delete one User_Token.
+     * @example
+     * // Delete one User_Token
+     * const User_Token = await prisma.user_Token.delete({
+     *   where: {
+     *     // ... filter to delete one User_Token
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends User_TokenDeleteArgs>(
+      args: SelectSubset<T, User_TokenDeleteArgs>
+    ): CheckSelect<T, Prisma__User_TokenClient<User_Token>, Prisma__User_TokenClient<User_TokenGetPayload<T>>>
+
+    /**
+     * Update one User_Token.
+     * @param {User_TokenUpdateArgs} args - Arguments to update one User_Token.
+     * @example
+     * // Update one User_Token
+     * const user_Token = await prisma.user_Token.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends User_TokenUpdateArgs>(
+      args: SelectSubset<T, User_TokenUpdateArgs>
+    ): CheckSelect<T, Prisma__User_TokenClient<User_Token>, Prisma__User_TokenClient<User_TokenGetPayload<T>>>
+
+    /**
+     * Delete zero or more User_Tokens.
+     * @param {User_TokenDeleteManyArgs} args - Arguments to filter User_Tokens to delete.
+     * @example
+     * // Delete a few User_Tokens
+     * const { count } = await prisma.user_Token.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends User_TokenDeleteManyArgs>(
+      args?: SelectSubset<T, User_TokenDeleteManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more User_Tokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {User_TokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many User_Tokens
+     * const user_Token = await prisma.user_Token.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends User_TokenUpdateManyArgs>(
+      args: SelectSubset<T, User_TokenUpdateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one User_Token.
+     * @param {User_TokenUpsertArgs} args - Arguments to update or create a User_Token.
+     * @example
+     * // Update or create a User_Token
+     * const user_Token = await prisma.user_Token.upsert({
+     *   create: {
+     *     // ... data to create a User_Token
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the User_Token we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends User_TokenUpsertArgs>(
+      args: SelectSubset<T, User_TokenUpsertArgs>
+    ): CheckSelect<T, Prisma__User_TokenClient<User_Token>, Prisma__User_TokenClient<User_TokenGetPayload<T>>>
+
+    /**
+     * Count the number of User_Tokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {User_TokenCountArgs} args - Arguments to filter User_Tokens to count.
+     * @example
+     * // Count the number of User_Tokens
+     * const count = await prisma.user_Token.count({
+     *   where: {
+     *     // ... the filter for the User_Tokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends User_TokenCountArgs>(
+      args?: Subset<T, User_TokenCountArgs>,
+    ): PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], User_TokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a User_Token.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {User_TokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends User_TokenAggregateArgs>(args: Subset<T, User_TokenAggregateArgs>): PrismaPromise<GetUser_TokenAggregateType<T>>
+
+    /**
+     * Group by User_Token.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {User_TokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends User_TokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: User_TokenGroupByArgs['orderBy'] }
+        : { orderBy?: User_TokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, User_TokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUser_TokenGroupByPayload<T> : PrismaPromise<InputErrors>
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for User_Token.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__User_TokenClient<T> implements PrismaPromise<T> {
+    [prisma]: true;
+    private readonly _dmmf;
+    private readonly _fetcher;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+    Session<T extends User_SessionArgs = {}>(args?: Subset<T, User_SessionArgs>): CheckSelect<T, Prisma__User_SessionClient<User_Session | null >, Prisma__User_SessionClient<User_SessionGetPayload<T> | null >>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+  // Custom InputTypes
+
+  /**
+   * User_Token findUnique
+   */
+  export type User_TokenFindUniqueArgs = {
+    /**
+     * Select specific fields to fetch from the User_Token
+     * 
+    **/
+    select?: User_TokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_TokenInclude | null
+    /**
+     * Throw an Error if a User_Token can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which User_Token to fetch.
+     * 
+    **/
+    where: User_TokenWhereUniqueInput
+  }
+
+
+  /**
+   * User_Token findFirst
+   */
+  export type User_TokenFindFirstArgs = {
+    /**
+     * Select specific fields to fetch from the User_Token
+     * 
+    **/
+    select?: User_TokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_TokenInclude | null
+    /**
+     * Throw an Error if a User_Token can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which User_Token to fetch.
+     * 
+    **/
+    where?: User_TokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of User_Tokens to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<User_TokenOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for User_Tokens.
+     * 
+    **/
+    cursor?: User_TokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` User_Tokens from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` User_Tokens.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of User_Tokens.
+     * 
+    **/
+    distinct?: Enumerable<User_TokenScalarFieldEnum>
+  }
+
+
+  /**
+   * User_Token findMany
+   */
+  export type User_TokenFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the User_Token
+     * 
+    **/
+    select?: User_TokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_TokenInclude | null
+    /**
+     * Filter, which User_Tokens to fetch.
+     * 
+    **/
+    where?: User_TokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of User_Tokens to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<User_TokenOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing User_Tokens.
+     * 
+    **/
+    cursor?: User_TokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` User_Tokens from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` User_Tokens.
+     * 
+    **/
+    skip?: number
+    distinct?: Enumerable<User_TokenScalarFieldEnum>
+  }
+
+
+  /**
+   * User_Token create
+   */
+  export type User_TokenCreateArgs = {
+    /**
+     * Select specific fields to fetch from the User_Token
+     * 
+    **/
+    select?: User_TokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_TokenInclude | null
+    /**
+     * The data needed to create a User_Token.
+     * 
+    **/
+    data: XOR<User_TokenCreateInput, User_TokenUncheckedCreateInput>
+  }
+
+
+  /**
+   * User_Token createMany
+   */
+  export type User_TokenCreateManyArgs = {
+    /**
+     * The data used to create many User_Tokens.
+     * 
+    **/
+    data: Enumerable<User_TokenCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * User_Token update
+   */
+  export type User_TokenUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the User_Token
+     * 
+    **/
+    select?: User_TokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_TokenInclude | null
+    /**
+     * The data needed to update a User_Token.
+     * 
+    **/
+    data: XOR<User_TokenUpdateInput, User_TokenUncheckedUpdateInput>
+    /**
+     * Choose, which User_Token to update.
+     * 
+    **/
+    where: User_TokenWhereUniqueInput
+  }
+
+
+  /**
+   * User_Token updateMany
+   */
+  export type User_TokenUpdateManyArgs = {
+    /**
+     * The data used to update User_Tokens.
+     * 
+    **/
+    data: XOR<User_TokenUpdateManyMutationInput, User_TokenUncheckedUpdateManyInput>
+    /**
+     * Filter which User_Tokens to update
+     * 
+    **/
+    where?: User_TokenWhereInput
+  }
+
+
+  /**
+   * User_Token upsert
+   */
+  export type User_TokenUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the User_Token
+     * 
+    **/
+    select?: User_TokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_TokenInclude | null
+    /**
+     * The filter to search for the User_Token to update in case it exists.
+     * 
+    **/
+    where: User_TokenWhereUniqueInput
+    /**
+     * In case the User_Token found by the `where` argument doesn't exist, create a new User_Token with this data.
+     * 
+    **/
+    create: XOR<User_TokenCreateInput, User_TokenUncheckedCreateInput>
+    /**
+     * In case the User_Token was found with the provided `where` argument, update it with this data.
+     * 
+    **/
+    update: XOR<User_TokenUpdateInput, User_TokenUncheckedUpdateInput>
+  }
+
+
+  /**
+   * User_Token delete
+   */
+  export type User_TokenDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the User_Token
+     * 
+    **/
+    select?: User_TokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_TokenInclude | null
+    /**
+     * Filter which User_Token to delete.
+     * 
+    **/
+    where: User_TokenWhereUniqueInput
+  }
+
+
+  /**
+   * User_Token deleteMany
+   */
+  export type User_TokenDeleteManyArgs = {
+    /**
+     * Filter which User_Tokens to delete
+     * 
+    **/
+    where?: User_TokenWhereInput
+  }
+
+
+  /**
+   * User_Token without action
+   */
+  export type User_TokenArgs = {
+    /**
+     * Select specific fields to fetch from the User_Token
+     * 
+    **/
+    select?: User_TokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: User_TokenInclude | null
   }
 
 
@@ -14253,16 +16251,16 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-  export const UserAuthScalarFieldEnum: {
+  export const User_AuthScalarFieldEnum: {
     userId: 'userId',
     email: 'email',
     password: 'password'
   };
 
-  export type UserAuthScalarFieldEnum = (typeof UserAuthScalarFieldEnum)[keyof typeof UserAuthScalarFieldEnum]
+  export type User_AuthScalarFieldEnum = (typeof User_AuthScalarFieldEnum)[keyof typeof User_AuthScalarFieldEnum]
 
 
-  export const ModsCollectionScalarFieldEnum: {
+  export const Mods_CollectionScalarFieldEnum: {
     id: 'id',
     avatar: 'avatar',
     name: 'name',
@@ -14272,7 +16270,7 @@ export namespace Prisma {
     author_id: 'author_id'
   };
 
-  export type ModsCollectionScalarFieldEnum = (typeof ModsCollectionScalarFieldEnum)[keyof typeof ModsCollectionScalarFieldEnum]
+  export type Mods_CollectionScalarFieldEnum = (typeof Mods_CollectionScalarFieldEnum)[keyof typeof Mods_CollectionScalarFieldEnum]
 
 
   export const ModScalarFieldEnum: {
@@ -14295,33 +16293,33 @@ export namespace Prisma {
   export type ModScalarFieldEnum = (typeof ModScalarFieldEnum)[keyof typeof ModScalarFieldEnum]
 
 
-  export const ModAuthorScalarFieldEnum: {
+  export const Mod_AuthorScalarFieldEnum: {
     mod_id: 'mod_id',
     user_id: 'user_id',
     type: 'type'
   };
 
-  export type ModAuthorScalarFieldEnum = (typeof ModAuthorScalarFieldEnum)[keyof typeof ModAuthorScalarFieldEnum]
+  export type Mod_AuthorScalarFieldEnum = (typeof Mod_AuthorScalarFieldEnum)[keyof typeof Mod_AuthorScalarFieldEnum]
 
 
-  export const ModImageScalarFieldEnum: {
+  export const Mod_ImageScalarFieldEnum: {
     id: 'id',
     mod_id: 'mod_id',
     url: 'url'
   };
 
-  export type ModImageScalarFieldEnum = (typeof ModImageScalarFieldEnum)[keyof typeof ModImageScalarFieldEnum]
+  export type Mod_ImageScalarFieldEnum = (typeof Mod_ImageScalarFieldEnum)[keyof typeof Mod_ImageScalarFieldEnum]
 
 
-  export const ModTagScalarFieldEnum: {
+  export const Mod_TagScalarFieldEnum: {
     id: 'id',
     name: 'name'
   };
 
-  export type ModTagScalarFieldEnum = (typeof ModTagScalarFieldEnum)[keyof typeof ModTagScalarFieldEnum]
+  export type Mod_TagScalarFieldEnum = (typeof Mod_TagScalarFieldEnum)[keyof typeof Mod_TagScalarFieldEnum]
 
 
-  export const ModVersionScalarFieldEnum: {
+  export const Mod_VersionScalarFieldEnum: {
     id: 'id',
     mod_id: 'mod_id',
     version: 'version',
@@ -14329,10 +16327,10 @@ export namespace Prisma {
     releaseDate: 'releaseDate'
   };
 
-  export type ModVersionScalarFieldEnum = (typeof ModVersionScalarFieldEnum)[keyof typeof ModVersionScalarFieldEnum]
+  export type Mod_VersionScalarFieldEnum = (typeof Mod_VersionScalarFieldEnum)[keyof typeof Mod_VersionScalarFieldEnum]
 
 
-  export const ModIssueScalarFieldEnum: {
+  export const Mod_IssueScalarFieldEnum: {
     id: 'id',
     mod_id: 'mod_id',
     name: 'name',
@@ -14341,10 +16339,10 @@ export namespace Prisma {
     createDate: 'createDate'
   };
 
-  export type ModIssueScalarFieldEnum = (typeof ModIssueScalarFieldEnum)[keyof typeof ModIssueScalarFieldEnum]
+  export type Mod_IssueScalarFieldEnum = (typeof Mod_IssueScalarFieldEnum)[keyof typeof Mod_IssueScalarFieldEnum]
 
 
-  export const ModIssuePostScalarFieldEnum: {
+  export const Mod_Issue_PostScalarFieldEnum: {
     id: 'id',
     issue_id: 'issue_id',
     author_id: 'author_id',
@@ -14352,42 +16350,69 @@ export namespace Prisma {
     text: 'text'
   };
 
-  export type ModIssuePostScalarFieldEnum = (typeof ModIssuePostScalarFieldEnum)[keyof typeof ModIssuePostScalarFieldEnum]
+  export type Mod_Issue_PostScalarFieldEnum = (typeof Mod_Issue_PostScalarFieldEnum)[keyof typeof Mod_Issue_PostScalarFieldEnum]
 
 
-  export const ModsListScalarFieldEnum: {
+  export const Mods_ListScalarFieldEnum: {
     id: 'id',
     author_id: 'author_id',
     is_public: 'is_public',
     name: 'name'
   };
 
-  export type ModsListScalarFieldEnum = (typeof ModsListScalarFieldEnum)[keyof typeof ModsListScalarFieldEnum]
+  export type Mods_ListScalarFieldEnum = (typeof Mods_ListScalarFieldEnum)[keyof typeof Mods_ListScalarFieldEnum]
 
 
-  export const ModsFavoritsScalarFieldEnum: {
+  export const Mods_FavoritsScalarFieldEnum: {
     user_id: 'user_id',
     mod_id: 'mod_id'
   };
 
-  export type ModsFavoritsScalarFieldEnum = (typeof ModsFavoritsScalarFieldEnum)[keyof typeof ModsFavoritsScalarFieldEnum]
+  export type Mods_FavoritsScalarFieldEnum = (typeof Mods_FavoritsScalarFieldEnum)[keyof typeof Mods_FavoritsScalarFieldEnum]
 
 
-  export const ModSubscribersScalarFieldEnum: {
+  export const Mod_SubscribersScalarFieldEnum: {
     user_id: 'user_id',
     mod_id: 'mod_id'
   };
 
-  export type ModSubscribersScalarFieldEnum = (typeof ModSubscribersScalarFieldEnum)[keyof typeof ModSubscribersScalarFieldEnum]
+  export type Mod_SubscribersScalarFieldEnum = (typeof Mod_SubscribersScalarFieldEnum)[keyof typeof Mod_SubscribersScalarFieldEnum]
 
 
-  export const ModDownloadScalarFieldEnum: {
+  export const Mod_DownloadScalarFieldEnum: {
     user_id: 'user_id',
     mod_id: 'mod_id',
     version_id: 'version_id'
   };
 
-  export type ModDownloadScalarFieldEnum = (typeof ModDownloadScalarFieldEnum)[keyof typeof ModDownloadScalarFieldEnum]
+  export type Mod_DownloadScalarFieldEnum = (typeof Mod_DownloadScalarFieldEnum)[keyof typeof Mod_DownloadScalarFieldEnum]
+
+
+  export const User_SessionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    userAgent: 'userAgent',
+    userAgentType: 'userAgentType',
+    userAgentOS: 'userAgentOS',
+    userAgentDevice: 'userAgentDevice',
+    uuid: 'uuid',
+    ipv4: 'ipv4',
+    is_active: 'is_active'
+  };
+
+  export type User_SessionScalarFieldEnum = (typeof User_SessionScalarFieldEnum)[keyof typeof User_SessionScalarFieldEnum]
+
+
+  export const User_TokenScalarFieldEnum: {
+    id: 'id',
+    sessionId: 'sessionId',
+    type: 'type',
+    token: 'token',
+    createDate: 'createDate',
+    is_enable: 'is_enable'
+  };
+
+  export type User_TokenScalarFieldEnum = (typeof User_TokenScalarFieldEnum)[keyof typeof User_TokenScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -14412,15 +16437,16 @@ export namespace Prisma {
     createDate?: DateTimeFilter | Date | string
     is_active?: BoolFilter | boolean
     avatar?: StringFilter | string
-    UserAuth?: XOR<UserAuthRelationFilter, UserAuthWhereInput> | null
-    ModsCollections?: ModsCollectionListRelationFilter
-    ModAuthors?: ModAuthorListRelationFilter
-    ModIssues?: ModIssueListRelationFilter
-    ModIssuePosts?: ModIssuePostListRelationFilter
-    ModsLists?: ModsListListRelationFilter
-    ModsFavorits?: ModsFavoritsListRelationFilter
-    ModSubscribers?: ModSubscribersListRelationFilter
-    ModDownloads?: ModDownloadListRelationFilter
+    UserAuth?: XOR<User_AuthRelationFilter, User_AuthWhereInput> | null
+    ModsCollections?: Mods_CollectionListRelationFilter
+    ModAuthors?: Mod_AuthorListRelationFilter
+    ModIssues?: Mod_IssueListRelationFilter
+    ModIssuePosts?: Mod_Issue_PostListRelationFilter
+    ModsLists?: Mods_ListListRelationFilter
+    ModsFavorits?: Mods_FavoritsListRelationFilter
+    ModSubscribers?: Mod_SubscribersListRelationFilter
+    ModDownloads?: Mod_DownloadListRelationFilter
+    UserSession?: User_SessionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -14429,15 +16455,16 @@ export namespace Prisma {
     createDate?: SortOrder
     is_active?: SortOrder
     avatar?: SortOrder
-    UserAuth?: UserAuthOrderByWithRelationInput
-    ModsCollections?: ModsCollectionOrderByRelationAggregateInput
-    ModAuthors?: ModAuthorOrderByRelationAggregateInput
-    ModIssues?: ModIssueOrderByRelationAggregateInput
-    ModIssuePosts?: ModIssuePostOrderByRelationAggregateInput
-    ModsLists?: ModsListOrderByRelationAggregateInput
-    ModsFavorits?: ModsFavoritsOrderByRelationAggregateInput
-    ModSubscribers?: ModSubscribersOrderByRelationAggregateInput
-    ModDownloads?: ModDownloadOrderByRelationAggregateInput
+    UserAuth?: User_AuthOrderByWithRelationInput
+    ModsCollections?: Mods_CollectionOrderByRelationAggregateInput
+    ModAuthors?: Mod_AuthorOrderByRelationAggregateInput
+    ModIssues?: Mod_IssueOrderByRelationAggregateInput
+    ModIssuePosts?: Mod_Issue_PostOrderByRelationAggregateInput
+    ModsLists?: Mods_ListOrderByRelationAggregateInput
+    ModsFavorits?: Mods_FavoritsOrderByRelationAggregateInput
+    ModSubscribers?: Mod_SubscribersOrderByRelationAggregateInput
+    ModDownloads?: Mod_DownloadOrderByRelationAggregateInput
+    UserSession?: User_SessionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = {
@@ -14468,51 +16495,51 @@ export namespace Prisma {
     avatar?: StringWithAggregatesFilter | string
   }
 
-  export type UserAuthWhereInput = {
-    AND?: Enumerable<UserAuthWhereInput>
-    OR?: Enumerable<UserAuthWhereInput>
-    NOT?: Enumerable<UserAuthWhereInput>
+  export type User_AuthWhereInput = {
+    AND?: Enumerable<User_AuthWhereInput>
+    OR?: Enumerable<User_AuthWhereInput>
+    NOT?: Enumerable<User_AuthWhereInput>
     userId?: IntFilter | number
     email?: StringFilter | string
     password?: StringFilter | string
     User?: XOR<UserRelationFilter, UserWhereInput>
   }
 
-  export type UserAuthOrderByWithRelationInput = {
+  export type User_AuthOrderByWithRelationInput = {
     userId?: SortOrder
     email?: SortOrder
     password?: SortOrder
     User?: UserOrderByWithRelationInput
   }
 
-  export type UserAuthWhereUniqueInput = {
+  export type User_AuthWhereUniqueInput = {
     userId?: number
   }
 
-  export type UserAuthOrderByWithAggregationInput = {
+  export type User_AuthOrderByWithAggregationInput = {
     userId?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    _count?: UserAuthCountOrderByAggregateInput
-    _avg?: UserAuthAvgOrderByAggregateInput
-    _max?: UserAuthMaxOrderByAggregateInput
-    _min?: UserAuthMinOrderByAggregateInput
-    _sum?: UserAuthSumOrderByAggregateInput
+    _count?: User_AuthCountOrderByAggregateInput
+    _avg?: User_AuthAvgOrderByAggregateInput
+    _max?: User_AuthMaxOrderByAggregateInput
+    _min?: User_AuthMinOrderByAggregateInput
+    _sum?: User_AuthSumOrderByAggregateInput
   }
 
-  export type UserAuthScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<UserAuthScalarWhereWithAggregatesInput>
-    OR?: Enumerable<UserAuthScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<UserAuthScalarWhereWithAggregatesInput>
+  export type User_AuthScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<User_AuthScalarWhereWithAggregatesInput>
+    OR?: Enumerable<User_AuthScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<User_AuthScalarWhereWithAggregatesInput>
     userId?: IntWithAggregatesFilter | number
     email?: StringWithAggregatesFilter | string
     password?: StringWithAggregatesFilter | string
   }
 
-  export type ModsCollectionWhereInput = {
-    AND?: Enumerable<ModsCollectionWhereInput>
-    OR?: Enumerable<ModsCollectionWhereInput>
-    NOT?: Enumerable<ModsCollectionWhereInput>
+  export type Mods_CollectionWhereInput = {
+    AND?: Enumerable<Mods_CollectionWhereInput>
+    OR?: Enumerable<Mods_CollectionWhereInput>
+    NOT?: Enumerable<Mods_CollectionWhereInput>
     id?: IntFilter | number
     avatar?: StringFilter | string
     name?: StringFilter | string
@@ -14524,7 +16551,7 @@ export namespace Prisma {
     Mods?: ModListRelationFilter
   }
 
-  export type ModsCollectionOrderByWithRelationInput = {
+  export type Mods_CollectionOrderByWithRelationInput = {
     id?: SortOrder
     avatar?: SortOrder
     name?: SortOrder
@@ -14536,11 +16563,11 @@ export namespace Prisma {
     Mods?: ModOrderByRelationAggregateInput
   }
 
-  export type ModsCollectionWhereUniqueInput = {
+  export type Mods_CollectionWhereUniqueInput = {
     id?: number
   }
 
-  export type ModsCollectionOrderByWithAggregationInput = {
+  export type Mods_CollectionOrderByWithAggregationInput = {
     id?: SortOrder
     avatar?: SortOrder
     name?: SortOrder
@@ -14548,17 +16575,17 @@ export namespace Prisma {
     createDate?: SortOrder
     is_active?: SortOrder
     author_id?: SortOrder
-    _count?: ModsCollectionCountOrderByAggregateInput
-    _avg?: ModsCollectionAvgOrderByAggregateInput
-    _max?: ModsCollectionMaxOrderByAggregateInput
-    _min?: ModsCollectionMinOrderByAggregateInput
-    _sum?: ModsCollectionSumOrderByAggregateInput
+    _count?: Mods_CollectionCountOrderByAggregateInput
+    _avg?: Mods_CollectionAvgOrderByAggregateInput
+    _max?: Mods_CollectionMaxOrderByAggregateInput
+    _min?: Mods_CollectionMinOrderByAggregateInput
+    _sum?: Mods_CollectionSumOrderByAggregateInput
   }
 
-  export type ModsCollectionScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ModsCollectionScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ModsCollectionScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ModsCollectionScalarWhereWithAggregatesInput>
+  export type Mods_CollectionScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<Mods_CollectionScalarWhereWithAggregatesInput>
+    OR?: Enumerable<Mods_CollectionScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<Mods_CollectionScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
     avatar?: StringWithAggregatesFilter | string
     name?: StringWithAggregatesFilter | string
@@ -14586,16 +16613,16 @@ export namespace Prisma {
     change_list?: StringFilter | string
     repository?: StringFilter | string
     docs_url?: StringFilter | string
-    Collection?: XOR<ModsCollectionRelationFilter, ModsCollectionWhereInput>
-    Images?: ModImageListRelationFilter
-    Authors?: ModAuthorListRelationFilter
-    Tags?: ModTagListRelationFilter
-    Versions?: ModVersionListRelationFilter
-    Lists?: ModsListListRelationFilter
-    Issues?: ModIssueListRelationFilter
-    Favorits?: ModsFavoritsListRelationFilter
-    Subscribers?: ModSubscribersListRelationFilter
-    Downloads?: ModDownloadListRelationFilter
+    Collection?: XOR<Mods_CollectionRelationFilter, Mods_CollectionWhereInput>
+    Images?: Mod_ImageListRelationFilter
+    Authors?: Mod_AuthorListRelationFilter
+    Tags?: Mod_TagListRelationFilter
+    Versions?: Mod_VersionListRelationFilter
+    Lists?: Mods_ListListRelationFilter
+    Issues?: Mod_IssueListRelationFilter
+    Favorits?: Mods_FavoritsListRelationFilter
+    Subscribers?: Mod_SubscribersListRelationFilter
+    Downloads?: Mod_DownloadListRelationFilter
   }
 
   export type ModOrderByWithRelationInput = {
@@ -14613,16 +16640,16 @@ export namespace Prisma {
     change_list?: SortOrder
     repository?: SortOrder
     docs_url?: SortOrder
-    Collection?: ModsCollectionOrderByWithRelationInput
-    Images?: ModImageOrderByRelationAggregateInput
-    Authors?: ModAuthorOrderByRelationAggregateInput
-    Tags?: ModTagOrderByRelationAggregateInput
-    Versions?: ModVersionOrderByRelationAggregateInput
-    Lists?: ModsListOrderByRelationAggregateInput
-    Issues?: ModIssueOrderByRelationAggregateInput
-    Favorits?: ModsFavoritsOrderByRelationAggregateInput
-    Subscribers?: ModSubscribersOrderByRelationAggregateInput
-    Downloads?: ModDownloadOrderByRelationAggregateInput
+    Collection?: Mods_CollectionOrderByWithRelationInput
+    Images?: Mod_ImageOrderByRelationAggregateInput
+    Authors?: Mod_AuthorOrderByRelationAggregateInput
+    Tags?: Mod_TagOrderByRelationAggregateInput
+    Versions?: Mod_VersionOrderByRelationAggregateInput
+    Lists?: Mods_ListOrderByRelationAggregateInput
+    Issues?: Mod_IssueOrderByRelationAggregateInput
+    Favorits?: Mods_FavoritsOrderByRelationAggregateInput
+    Subscribers?: Mod_SubscribersOrderByRelationAggregateInput
+    Downloads?: Mod_DownloadOrderByRelationAggregateInput
   }
 
   export type ModWhereUniqueInput = {
@@ -14671,10 +16698,10 @@ export namespace Prisma {
     docs_url?: StringWithAggregatesFilter | string
   }
 
-  export type ModAuthorWhereInput = {
-    AND?: Enumerable<ModAuthorWhereInput>
-    OR?: Enumerable<ModAuthorWhereInput>
-    NOT?: Enumerable<ModAuthorWhereInput>
+  export type Mod_AuthorWhereInput = {
+    AND?: Enumerable<Mod_AuthorWhereInput>
+    OR?: Enumerable<Mod_AuthorWhereInput>
+    NOT?: Enumerable<Mod_AuthorWhereInput>
     mod_id?: IntFilter | number
     user_id?: IntFilter | number
     type?: IntFilter | number
@@ -14682,7 +16709,7 @@ export namespace Prisma {
     Mod?: XOR<ModRelationFilter, ModWhereInput>
   }
 
-  export type ModAuthorOrderByWithRelationInput = {
+  export type Mod_AuthorOrderByWithRelationInput = {
     mod_id?: SortOrder
     user_id?: SortOrder
     type?: SortOrder
@@ -14690,152 +16717,152 @@ export namespace Prisma {
     Mod?: ModOrderByWithRelationInput
   }
 
-  export type ModAuthorWhereUniqueInput = {
-    mod_id_user_id?: ModAuthorMod_idUser_idCompoundUniqueInput
+  export type Mod_AuthorWhereUniqueInput = {
+    mod_id_user_id?: Mod_AuthorMod_idUser_idCompoundUniqueInput
   }
 
-  export type ModAuthorOrderByWithAggregationInput = {
+  export type Mod_AuthorOrderByWithAggregationInput = {
     mod_id?: SortOrder
     user_id?: SortOrder
     type?: SortOrder
-    _count?: ModAuthorCountOrderByAggregateInput
-    _avg?: ModAuthorAvgOrderByAggregateInput
-    _max?: ModAuthorMaxOrderByAggregateInput
-    _min?: ModAuthorMinOrderByAggregateInput
-    _sum?: ModAuthorSumOrderByAggregateInput
+    _count?: Mod_AuthorCountOrderByAggregateInput
+    _avg?: Mod_AuthorAvgOrderByAggregateInput
+    _max?: Mod_AuthorMaxOrderByAggregateInput
+    _min?: Mod_AuthorMinOrderByAggregateInput
+    _sum?: Mod_AuthorSumOrderByAggregateInput
   }
 
-  export type ModAuthorScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ModAuthorScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ModAuthorScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ModAuthorScalarWhereWithAggregatesInput>
+  export type Mod_AuthorScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<Mod_AuthorScalarWhereWithAggregatesInput>
+    OR?: Enumerable<Mod_AuthorScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<Mod_AuthorScalarWhereWithAggregatesInput>
     mod_id?: IntWithAggregatesFilter | number
     user_id?: IntWithAggregatesFilter | number
     type?: IntWithAggregatesFilter | number
   }
 
-  export type ModImageWhereInput = {
-    AND?: Enumerable<ModImageWhereInput>
-    OR?: Enumerable<ModImageWhereInput>
-    NOT?: Enumerable<ModImageWhereInput>
+  export type Mod_ImageWhereInput = {
+    AND?: Enumerable<Mod_ImageWhereInput>
+    OR?: Enumerable<Mod_ImageWhereInput>
+    NOT?: Enumerable<Mod_ImageWhereInput>
     id?: IntFilter | number
     mod_id?: IntFilter | number
     url?: StringFilter | string
     Mod?: XOR<ModRelationFilter, ModWhereInput>
   }
 
-  export type ModImageOrderByWithRelationInput = {
+  export type Mod_ImageOrderByWithRelationInput = {
     id?: SortOrder
     mod_id?: SortOrder
     url?: SortOrder
     Mod?: ModOrderByWithRelationInput
   }
 
-  export type ModImageWhereUniqueInput = {
+  export type Mod_ImageWhereUniqueInput = {
     id?: number
   }
 
-  export type ModImageOrderByWithAggregationInput = {
+  export type Mod_ImageOrderByWithAggregationInput = {
     id?: SortOrder
     mod_id?: SortOrder
     url?: SortOrder
-    _count?: ModImageCountOrderByAggregateInput
-    _avg?: ModImageAvgOrderByAggregateInput
-    _max?: ModImageMaxOrderByAggregateInput
-    _min?: ModImageMinOrderByAggregateInput
-    _sum?: ModImageSumOrderByAggregateInput
+    _count?: Mod_ImageCountOrderByAggregateInput
+    _avg?: Mod_ImageAvgOrderByAggregateInput
+    _max?: Mod_ImageMaxOrderByAggregateInput
+    _min?: Mod_ImageMinOrderByAggregateInput
+    _sum?: Mod_ImageSumOrderByAggregateInput
   }
 
-  export type ModImageScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ModImageScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ModImageScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ModImageScalarWhereWithAggregatesInput>
+  export type Mod_ImageScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<Mod_ImageScalarWhereWithAggregatesInput>
+    OR?: Enumerable<Mod_ImageScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<Mod_ImageScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
     mod_id?: IntWithAggregatesFilter | number
     url?: StringWithAggregatesFilter | string
   }
 
-  export type ModTagWhereInput = {
-    AND?: Enumerable<ModTagWhereInput>
-    OR?: Enumerable<ModTagWhereInput>
-    NOT?: Enumerable<ModTagWhereInput>
+  export type Mod_TagWhereInput = {
+    AND?: Enumerable<Mod_TagWhereInput>
+    OR?: Enumerable<Mod_TagWhereInput>
+    NOT?: Enumerable<Mod_TagWhereInput>
     id?: IntFilter | number
     name?: StringFilter | string
     Mod?: ModListRelationFilter
   }
 
-  export type ModTagOrderByWithRelationInput = {
+  export type Mod_TagOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     Mod?: ModOrderByRelationAggregateInput
   }
 
-  export type ModTagWhereUniqueInput = {
+  export type Mod_TagWhereUniqueInput = {
     id?: number
   }
 
-  export type ModTagOrderByWithAggregationInput = {
+  export type Mod_TagOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    _count?: ModTagCountOrderByAggregateInput
-    _avg?: ModTagAvgOrderByAggregateInput
-    _max?: ModTagMaxOrderByAggregateInput
-    _min?: ModTagMinOrderByAggregateInput
-    _sum?: ModTagSumOrderByAggregateInput
+    _count?: Mod_TagCountOrderByAggregateInput
+    _avg?: Mod_TagAvgOrderByAggregateInput
+    _max?: Mod_TagMaxOrderByAggregateInput
+    _min?: Mod_TagMinOrderByAggregateInput
+    _sum?: Mod_TagSumOrderByAggregateInput
   }
 
-  export type ModTagScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ModTagScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ModTagScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ModTagScalarWhereWithAggregatesInput>
+  export type Mod_TagScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<Mod_TagScalarWhereWithAggregatesInput>
+    OR?: Enumerable<Mod_TagScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<Mod_TagScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
     name?: StringWithAggregatesFilter | string
   }
 
-  export type ModVersionWhereInput = {
-    AND?: Enumerable<ModVersionWhereInput>
-    OR?: Enumerable<ModVersionWhereInput>
-    NOT?: Enumerable<ModVersionWhereInput>
+  export type Mod_VersionWhereInput = {
+    AND?: Enumerable<Mod_VersionWhereInput>
+    OR?: Enumerable<Mod_VersionWhereInput>
+    NOT?: Enumerable<Mod_VersionWhereInput>
     id?: IntFilter | number
     mod_id?: IntFilter | number
     version?: StringFilter | string
     game_version?: StringFilter | string
     releaseDate?: DateTimeFilter | Date | string
     Mod?: XOR<ModRelationFilter, ModWhereInput>
-    Downloads?: ModDownloadListRelationFilter
+    Downloads?: Mod_DownloadListRelationFilter
   }
 
-  export type ModVersionOrderByWithRelationInput = {
+  export type Mod_VersionOrderByWithRelationInput = {
     id?: SortOrder
     mod_id?: SortOrder
     version?: SortOrder
     game_version?: SortOrder
     releaseDate?: SortOrder
     Mod?: ModOrderByWithRelationInput
-    Downloads?: ModDownloadOrderByRelationAggregateInput
+    Downloads?: Mod_DownloadOrderByRelationAggregateInput
   }
 
-  export type ModVersionWhereUniqueInput = {
+  export type Mod_VersionWhereUniqueInput = {
     id?: number
   }
 
-  export type ModVersionOrderByWithAggregationInput = {
+  export type Mod_VersionOrderByWithAggregationInput = {
     id?: SortOrder
     mod_id?: SortOrder
     version?: SortOrder
     game_version?: SortOrder
     releaseDate?: SortOrder
-    _count?: ModVersionCountOrderByAggregateInput
-    _avg?: ModVersionAvgOrderByAggregateInput
-    _max?: ModVersionMaxOrderByAggregateInput
-    _min?: ModVersionMinOrderByAggregateInput
-    _sum?: ModVersionSumOrderByAggregateInput
+    _count?: Mod_VersionCountOrderByAggregateInput
+    _avg?: Mod_VersionAvgOrderByAggregateInput
+    _max?: Mod_VersionMaxOrderByAggregateInput
+    _min?: Mod_VersionMinOrderByAggregateInput
+    _sum?: Mod_VersionSumOrderByAggregateInput
   }
 
-  export type ModVersionScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ModVersionScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ModVersionScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ModVersionScalarWhereWithAggregatesInput>
+  export type Mod_VersionScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<Mod_VersionScalarWhereWithAggregatesInput>
+    OR?: Enumerable<Mod_VersionScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<Mod_VersionScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
     mod_id?: IntWithAggregatesFilter | number
     version?: StringWithAggregatesFilter | string
@@ -14843,22 +16870,22 @@ export namespace Prisma {
     releaseDate?: DateTimeWithAggregatesFilter | Date | string
   }
 
-  export type ModIssueWhereInput = {
-    AND?: Enumerable<ModIssueWhereInput>
-    OR?: Enumerable<ModIssueWhereInput>
-    NOT?: Enumerable<ModIssueWhereInput>
+  export type Mod_IssueWhereInput = {
+    AND?: Enumerable<Mod_IssueWhereInput>
+    OR?: Enumerable<Mod_IssueWhereInput>
+    NOT?: Enumerable<Mod_IssueWhereInput>
     id?: IntFilter | number
     mod_id?: IntFilter | number
     name?: StringFilter | string
-    type?: EnumModIssueTypeFilter | ModIssueType
+    type?: EnumMod_Issue_TypeFilter | Mod_Issue_Type
     author_id?: IntFilter | number
     createDate?: DateTimeFilter | Date | string
     Mod?: XOR<ModRelationFilter, ModWhereInput>
     Author?: XOR<UserRelationFilter, UserWhereInput>
-    ModIssuePost?: ModIssuePostListRelationFilter
+    ModIssuePost?: Mod_Issue_PostListRelationFilter
   }
 
-  export type ModIssueOrderByWithRelationInput = {
+  export type Mod_IssueOrderByWithRelationInput = {
     id?: SortOrder
     mod_id?: SortOrder
     name?: SortOrder
@@ -14867,83 +16894,83 @@ export namespace Prisma {
     createDate?: SortOrder
     Mod?: ModOrderByWithRelationInput
     Author?: UserOrderByWithRelationInput
-    ModIssuePost?: ModIssuePostOrderByRelationAggregateInput
+    ModIssuePost?: Mod_Issue_PostOrderByRelationAggregateInput
   }
 
-  export type ModIssueWhereUniqueInput = {
+  export type Mod_IssueWhereUniqueInput = {
     id?: number
   }
 
-  export type ModIssueOrderByWithAggregationInput = {
+  export type Mod_IssueOrderByWithAggregationInput = {
     id?: SortOrder
     mod_id?: SortOrder
     name?: SortOrder
     type?: SortOrder
     author_id?: SortOrder
     createDate?: SortOrder
-    _count?: ModIssueCountOrderByAggregateInput
-    _avg?: ModIssueAvgOrderByAggregateInput
-    _max?: ModIssueMaxOrderByAggregateInput
-    _min?: ModIssueMinOrderByAggregateInput
-    _sum?: ModIssueSumOrderByAggregateInput
+    _count?: Mod_IssueCountOrderByAggregateInput
+    _avg?: Mod_IssueAvgOrderByAggregateInput
+    _max?: Mod_IssueMaxOrderByAggregateInput
+    _min?: Mod_IssueMinOrderByAggregateInput
+    _sum?: Mod_IssueSumOrderByAggregateInput
   }
 
-  export type ModIssueScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ModIssueScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ModIssueScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ModIssueScalarWhereWithAggregatesInput>
+  export type Mod_IssueScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<Mod_IssueScalarWhereWithAggregatesInput>
+    OR?: Enumerable<Mod_IssueScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<Mod_IssueScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
     mod_id?: IntWithAggregatesFilter | number
     name?: StringWithAggregatesFilter | string
-    type?: EnumModIssueTypeWithAggregatesFilter | ModIssueType
+    type?: EnumMod_Issue_TypeWithAggregatesFilter | Mod_Issue_Type
     author_id?: IntWithAggregatesFilter | number
     createDate?: DateTimeWithAggregatesFilter | Date | string
   }
 
-  export type ModIssuePostWhereInput = {
-    AND?: Enumerable<ModIssuePostWhereInput>
-    OR?: Enumerable<ModIssuePostWhereInput>
-    NOT?: Enumerable<ModIssuePostWhereInput>
+  export type Mod_Issue_PostWhereInput = {
+    AND?: Enumerable<Mod_Issue_PostWhereInput>
+    OR?: Enumerable<Mod_Issue_PostWhereInput>
+    NOT?: Enumerable<Mod_Issue_PostWhereInput>
     id?: IntFilter | number
     issue_id?: IntFilter | number
     author_id?: IntFilter | number
     createDate?: DateTimeFilter | Date | string
     text?: StringFilter | string
-    Issue?: XOR<ModIssueRelationFilter, ModIssueWhereInput>
+    Issue?: XOR<Mod_IssueRelationFilter, Mod_IssueWhereInput>
     Author?: XOR<UserRelationFilter, UserWhereInput>
   }
 
-  export type ModIssuePostOrderByWithRelationInput = {
+  export type Mod_Issue_PostOrderByWithRelationInput = {
     id?: SortOrder
     issue_id?: SortOrder
     author_id?: SortOrder
     createDate?: SortOrder
     text?: SortOrder
-    Issue?: ModIssueOrderByWithRelationInput
+    Issue?: Mod_IssueOrderByWithRelationInput
     Author?: UserOrderByWithRelationInput
   }
 
-  export type ModIssuePostWhereUniqueInput = {
+  export type Mod_Issue_PostWhereUniqueInput = {
     id?: number
   }
 
-  export type ModIssuePostOrderByWithAggregationInput = {
+  export type Mod_Issue_PostOrderByWithAggregationInput = {
     id?: SortOrder
     issue_id?: SortOrder
     author_id?: SortOrder
     createDate?: SortOrder
     text?: SortOrder
-    _count?: ModIssuePostCountOrderByAggregateInput
-    _avg?: ModIssuePostAvgOrderByAggregateInput
-    _max?: ModIssuePostMaxOrderByAggregateInput
-    _min?: ModIssuePostMinOrderByAggregateInput
-    _sum?: ModIssuePostSumOrderByAggregateInput
+    _count?: Mod_Issue_PostCountOrderByAggregateInput
+    _avg?: Mod_Issue_PostAvgOrderByAggregateInput
+    _max?: Mod_Issue_PostMaxOrderByAggregateInput
+    _min?: Mod_Issue_PostMinOrderByAggregateInput
+    _sum?: Mod_Issue_PostSumOrderByAggregateInput
   }
 
-  export type ModIssuePostScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ModIssuePostScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ModIssuePostScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ModIssuePostScalarWhereWithAggregatesInput>
+  export type Mod_Issue_PostScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<Mod_Issue_PostScalarWhereWithAggregatesInput>
+    OR?: Enumerable<Mod_Issue_PostScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<Mod_Issue_PostScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
     issue_id?: IntWithAggregatesFilter | number
     author_id?: IntWithAggregatesFilter | number
@@ -14951,10 +16978,10 @@ export namespace Prisma {
     text?: StringWithAggregatesFilter | string
   }
 
-  export type ModsListWhereInput = {
-    AND?: Enumerable<ModsListWhereInput>
-    OR?: Enumerable<ModsListWhereInput>
-    NOT?: Enumerable<ModsListWhereInput>
+  export type Mods_ListWhereInput = {
+    AND?: Enumerable<Mods_ListWhereInput>
+    OR?: Enumerable<Mods_ListWhereInput>
+    NOT?: Enumerable<Mods_ListWhereInput>
     id?: IntFilter | number
     author_id?: IntFilter | number
     is_public?: BoolFilter | boolean
@@ -14963,7 +16990,7 @@ export namespace Prisma {
     Mods?: ModListRelationFilter
   }
 
-  export type ModsListOrderByWithRelationInput = {
+  export type Mods_ListOrderByWithRelationInput = {
     id?: SortOrder
     author_id?: SortOrder
     is_public?: SortOrder
@@ -14972,153 +16999,273 @@ export namespace Prisma {
     Mods?: ModOrderByRelationAggregateInput
   }
 
-  export type ModsListWhereUniqueInput = {
+  export type Mods_ListWhereUniqueInput = {
     id?: number
   }
 
-  export type ModsListOrderByWithAggregationInput = {
+  export type Mods_ListOrderByWithAggregationInput = {
     id?: SortOrder
     author_id?: SortOrder
     is_public?: SortOrder
     name?: SortOrder
-    _count?: ModsListCountOrderByAggregateInput
-    _avg?: ModsListAvgOrderByAggregateInput
-    _max?: ModsListMaxOrderByAggregateInput
-    _min?: ModsListMinOrderByAggregateInput
-    _sum?: ModsListSumOrderByAggregateInput
+    _count?: Mods_ListCountOrderByAggregateInput
+    _avg?: Mods_ListAvgOrderByAggregateInput
+    _max?: Mods_ListMaxOrderByAggregateInput
+    _min?: Mods_ListMinOrderByAggregateInput
+    _sum?: Mods_ListSumOrderByAggregateInput
   }
 
-  export type ModsListScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ModsListScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ModsListScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ModsListScalarWhereWithAggregatesInput>
+  export type Mods_ListScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<Mods_ListScalarWhereWithAggregatesInput>
+    OR?: Enumerable<Mods_ListScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<Mods_ListScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
     author_id?: IntWithAggregatesFilter | number
     is_public?: BoolWithAggregatesFilter | boolean
     name?: StringWithAggregatesFilter | string
   }
 
-  export type ModsFavoritsWhereInput = {
-    AND?: Enumerable<ModsFavoritsWhereInput>
-    OR?: Enumerable<ModsFavoritsWhereInput>
-    NOT?: Enumerable<ModsFavoritsWhereInput>
+  export type Mods_FavoritsWhereInput = {
+    AND?: Enumerable<Mods_FavoritsWhereInput>
+    OR?: Enumerable<Mods_FavoritsWhereInput>
+    NOT?: Enumerable<Mods_FavoritsWhereInput>
     user_id?: IntFilter | number
     mod_id?: IntFilter | number
     User?: XOR<UserRelationFilter, UserWhereInput>
     Mod?: XOR<ModRelationFilter, ModWhereInput>
   }
 
-  export type ModsFavoritsOrderByWithRelationInput = {
+  export type Mods_FavoritsOrderByWithRelationInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
     User?: UserOrderByWithRelationInput
     Mod?: ModOrderByWithRelationInput
   }
 
-  export type ModsFavoritsWhereUniqueInput = {
-    mod_id_user_id?: ModsFavoritsMod_idUser_idCompoundUniqueInput
+  export type Mods_FavoritsWhereUniqueInput = {
+    mod_id_user_id?: Mods_FavoritsMod_idUser_idCompoundUniqueInput
   }
 
-  export type ModsFavoritsOrderByWithAggregationInput = {
+  export type Mods_FavoritsOrderByWithAggregationInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
-    _count?: ModsFavoritsCountOrderByAggregateInput
-    _avg?: ModsFavoritsAvgOrderByAggregateInput
-    _max?: ModsFavoritsMaxOrderByAggregateInput
-    _min?: ModsFavoritsMinOrderByAggregateInput
-    _sum?: ModsFavoritsSumOrderByAggregateInput
+    _count?: Mods_FavoritsCountOrderByAggregateInput
+    _avg?: Mods_FavoritsAvgOrderByAggregateInput
+    _max?: Mods_FavoritsMaxOrderByAggregateInput
+    _min?: Mods_FavoritsMinOrderByAggregateInput
+    _sum?: Mods_FavoritsSumOrderByAggregateInput
   }
 
-  export type ModsFavoritsScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ModsFavoritsScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ModsFavoritsScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ModsFavoritsScalarWhereWithAggregatesInput>
+  export type Mods_FavoritsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<Mods_FavoritsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<Mods_FavoritsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<Mods_FavoritsScalarWhereWithAggregatesInput>
     user_id?: IntWithAggregatesFilter | number
     mod_id?: IntWithAggregatesFilter | number
   }
 
-  export type ModSubscribersWhereInput = {
-    AND?: Enumerable<ModSubscribersWhereInput>
-    OR?: Enumerable<ModSubscribersWhereInput>
-    NOT?: Enumerable<ModSubscribersWhereInput>
+  export type Mod_SubscribersWhereInput = {
+    AND?: Enumerable<Mod_SubscribersWhereInput>
+    OR?: Enumerable<Mod_SubscribersWhereInput>
+    NOT?: Enumerable<Mod_SubscribersWhereInput>
     user_id?: IntFilter | number
     mod_id?: IntFilter | number
     User?: XOR<UserRelationFilter, UserWhereInput>
     Mod?: XOR<ModRelationFilter, ModWhereInput>
   }
 
-  export type ModSubscribersOrderByWithRelationInput = {
+  export type Mod_SubscribersOrderByWithRelationInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
     User?: UserOrderByWithRelationInput
     Mod?: ModOrderByWithRelationInput
   }
 
-  export type ModSubscribersWhereUniqueInput = {
-    mod_id_user_id?: ModSubscribersMod_idUser_idCompoundUniqueInput
+  export type Mod_SubscribersWhereUniqueInput = {
+    mod_id_user_id?: Mod_SubscribersMod_idUser_idCompoundUniqueInput
   }
 
-  export type ModSubscribersOrderByWithAggregationInput = {
+  export type Mod_SubscribersOrderByWithAggregationInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
-    _count?: ModSubscribersCountOrderByAggregateInput
-    _avg?: ModSubscribersAvgOrderByAggregateInput
-    _max?: ModSubscribersMaxOrderByAggregateInput
-    _min?: ModSubscribersMinOrderByAggregateInput
-    _sum?: ModSubscribersSumOrderByAggregateInput
+    _count?: Mod_SubscribersCountOrderByAggregateInput
+    _avg?: Mod_SubscribersAvgOrderByAggregateInput
+    _max?: Mod_SubscribersMaxOrderByAggregateInput
+    _min?: Mod_SubscribersMinOrderByAggregateInput
+    _sum?: Mod_SubscribersSumOrderByAggregateInput
   }
 
-  export type ModSubscribersScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ModSubscribersScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ModSubscribersScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ModSubscribersScalarWhereWithAggregatesInput>
+  export type Mod_SubscribersScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<Mod_SubscribersScalarWhereWithAggregatesInput>
+    OR?: Enumerable<Mod_SubscribersScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<Mod_SubscribersScalarWhereWithAggregatesInput>
     user_id?: IntWithAggregatesFilter | number
     mod_id?: IntWithAggregatesFilter | number
   }
 
-  export type ModDownloadWhereInput = {
-    AND?: Enumerable<ModDownloadWhereInput>
-    OR?: Enumerable<ModDownloadWhereInput>
-    NOT?: Enumerable<ModDownloadWhereInput>
+  export type Mod_DownloadWhereInput = {
+    AND?: Enumerable<Mod_DownloadWhereInput>
+    OR?: Enumerable<Mod_DownloadWhereInput>
+    NOT?: Enumerable<Mod_DownloadWhereInput>
     user_id?: IntFilter | number
     mod_id?: IntFilter | number
     version_id?: IntFilter | number
     User?: XOR<UserRelationFilter, UserWhereInput>
     Mod?: XOR<ModRelationFilter, ModWhereInput>
-    Version?: XOR<ModVersionRelationFilter, ModVersionWhereInput>
+    Version?: XOR<Mod_VersionRelationFilter, Mod_VersionWhereInput>
   }
 
-  export type ModDownloadOrderByWithRelationInput = {
+  export type Mod_DownloadOrderByWithRelationInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
     version_id?: SortOrder
     User?: UserOrderByWithRelationInput
     Mod?: ModOrderByWithRelationInput
-    Version?: ModVersionOrderByWithRelationInput
+    Version?: Mod_VersionOrderByWithRelationInput
   }
 
-  export type ModDownloadWhereUniqueInput = {
-    user_id_mod_id?: ModDownloadUser_idMod_idCompoundUniqueInput
+  export type Mod_DownloadWhereUniqueInput = {
+    user_id_mod_id?: Mod_DownloadUser_idMod_idCompoundUniqueInput
   }
 
-  export type ModDownloadOrderByWithAggregationInput = {
+  export type Mod_DownloadOrderByWithAggregationInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
     version_id?: SortOrder
-    _count?: ModDownloadCountOrderByAggregateInput
-    _avg?: ModDownloadAvgOrderByAggregateInput
-    _max?: ModDownloadMaxOrderByAggregateInput
-    _min?: ModDownloadMinOrderByAggregateInput
-    _sum?: ModDownloadSumOrderByAggregateInput
+    _count?: Mod_DownloadCountOrderByAggregateInput
+    _avg?: Mod_DownloadAvgOrderByAggregateInput
+    _max?: Mod_DownloadMaxOrderByAggregateInput
+    _min?: Mod_DownloadMinOrderByAggregateInput
+    _sum?: Mod_DownloadSumOrderByAggregateInput
   }
 
-  export type ModDownloadScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ModDownloadScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ModDownloadScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ModDownloadScalarWhereWithAggregatesInput>
+  export type Mod_DownloadScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<Mod_DownloadScalarWhereWithAggregatesInput>
+    OR?: Enumerable<Mod_DownloadScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<Mod_DownloadScalarWhereWithAggregatesInput>
     user_id?: IntWithAggregatesFilter | number
     mod_id?: IntWithAggregatesFilter | number
     version_id?: IntWithAggregatesFilter | number
+  }
+
+  export type User_SessionWhereInput = {
+    AND?: Enumerable<User_SessionWhereInput>
+    OR?: Enumerable<User_SessionWhereInput>
+    NOT?: Enumerable<User_SessionWhereInput>
+    id?: IntFilter | number
+    userId?: IntFilter | number
+    userAgent?: StringFilter | string
+    userAgentType?: EnumUser_Agent_TypeFilter | User_Agent_Type
+    userAgentOS?: EnumUser_Agent_OSFilter | User_Agent_OS
+    userAgentDevice?: StringFilter | string
+    uuid?: StringFilter | string
+    ipv4?: StringFilter | string
+    is_active?: BoolFilter | boolean
+    User?: XOR<UserRelationFilter, UserWhereInput>
+    Tokens?: User_TokenListRelationFilter
+  }
+
+  export type User_SessionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userAgent?: SortOrder
+    userAgentType?: SortOrder
+    userAgentOS?: SortOrder
+    userAgentDevice?: SortOrder
+    uuid?: SortOrder
+    ipv4?: SortOrder
+    is_active?: SortOrder
+    User?: UserOrderByWithRelationInput
+    Tokens?: User_TokenOrderByRelationAggregateInput
+  }
+
+  export type User_SessionWhereUniqueInput = {
+    id?: number
+  }
+
+  export type User_SessionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userAgent?: SortOrder
+    userAgentType?: SortOrder
+    userAgentOS?: SortOrder
+    userAgentDevice?: SortOrder
+    uuid?: SortOrder
+    ipv4?: SortOrder
+    is_active?: SortOrder
+    _count?: User_SessionCountOrderByAggregateInput
+    _avg?: User_SessionAvgOrderByAggregateInput
+    _max?: User_SessionMaxOrderByAggregateInput
+    _min?: User_SessionMinOrderByAggregateInput
+    _sum?: User_SessionSumOrderByAggregateInput
+  }
+
+  export type User_SessionScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<User_SessionScalarWhereWithAggregatesInput>
+    OR?: Enumerable<User_SessionScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<User_SessionScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    userId?: IntWithAggregatesFilter | number
+    userAgent?: StringWithAggregatesFilter | string
+    userAgentType?: EnumUser_Agent_TypeWithAggregatesFilter | User_Agent_Type
+    userAgentOS?: EnumUser_Agent_OSWithAggregatesFilter | User_Agent_OS
+    userAgentDevice?: StringWithAggregatesFilter | string
+    uuid?: StringWithAggregatesFilter | string
+    ipv4?: StringWithAggregatesFilter | string
+    is_active?: BoolWithAggregatesFilter | boolean
+  }
+
+  export type User_TokenWhereInput = {
+    AND?: Enumerable<User_TokenWhereInput>
+    OR?: Enumerable<User_TokenWhereInput>
+    NOT?: Enumerable<User_TokenWhereInput>
+    id?: IntFilter | number
+    sessionId?: IntFilter | number
+    type?: EnumUser_Token_TypeFilter | User_Token_Type
+    token?: StringFilter | string
+    createDate?: DateTimeFilter | Date | string
+    is_enable?: BoolFilter | boolean
+    Session?: XOR<User_SessionRelationFilter, User_SessionWhereInput>
+  }
+
+  export type User_TokenOrderByWithRelationInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    type?: SortOrder
+    token?: SortOrder
+    createDate?: SortOrder
+    is_enable?: SortOrder
+    Session?: User_SessionOrderByWithRelationInput
+  }
+
+  export type User_TokenWhereUniqueInput = {
+    id?: number
+  }
+
+  export type User_TokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    type?: SortOrder
+    token?: SortOrder
+    createDate?: SortOrder
+    is_enable?: SortOrder
+    _count?: User_TokenCountOrderByAggregateInput
+    _avg?: User_TokenAvgOrderByAggregateInput
+    _max?: User_TokenMaxOrderByAggregateInput
+    _min?: User_TokenMinOrderByAggregateInput
+    _sum?: User_TokenSumOrderByAggregateInput
+  }
+
+  export type User_TokenScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<User_TokenScalarWhereWithAggregatesInput>
+    OR?: Enumerable<User_TokenScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<User_TokenScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    sessionId?: IntWithAggregatesFilter | number
+    type?: EnumUser_Token_TypeWithAggregatesFilter | User_Token_Type
+    token?: StringWithAggregatesFilter | string
+    createDate?: DateTimeWithAggregatesFilter | Date | string
+    is_enable?: BoolWithAggregatesFilter | boolean
   }
 
   export type UserCreateInput = {
@@ -15126,15 +17273,16 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -15143,15 +17291,16 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthUncheckedCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -15159,15 +17308,16 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUpdateManyWithoutUserInput
+    UserSession?: User_SessionUpdateManyWithoutUserInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -15176,15 +17326,16 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUncheckedUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedUpdateManyWithoutUserInput
+    UserSession?: User_SessionUncheckedUpdateManyWithoutUserInput
   }
 
   export type UserCreateManyInput = {
@@ -15210,48 +17361,48 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
   }
 
-  export type UserAuthCreateInput = {
+  export type User_AuthCreateInput = {
     email: string
     password: string
     User: UserCreateNestedOneWithoutUserAuthInput
   }
 
-  export type UserAuthUncheckedCreateInput = {
+  export type User_AuthUncheckedCreateInput = {
     userId: number
     email: string
     password: string
   }
 
-  export type UserAuthUpdateInput = {
+  export type User_AuthUpdateInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     User?: UserUpdateOneRequiredWithoutUserAuthInput
   }
 
-  export type UserAuthUncheckedUpdateInput = {
+  export type User_AuthUncheckedUpdateInput = {
     userId?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
-  export type UserAuthCreateManyInput = {
+  export type User_AuthCreateManyInput = {
     userId: number
     email: string
     password: string
   }
 
-  export type UserAuthUpdateManyMutationInput = {
+  export type User_AuthUpdateManyMutationInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
-  export type UserAuthUncheckedUpdateManyInput = {
+  export type User_AuthUncheckedUpdateManyInput = {
     userId?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModsCollectionCreateInput = {
+  export type Mods_CollectionCreateInput = {
     avatar: string
     name: string
     description: string
@@ -15261,7 +17412,7 @@ export namespace Prisma {
     Mods?: ModCreateNestedManyWithoutCollectionInput
   }
 
-  export type ModsCollectionUncheckedCreateInput = {
+  export type Mods_CollectionUncheckedCreateInput = {
     id?: number
     avatar: string
     name: string
@@ -15272,7 +17423,7 @@ export namespace Prisma {
     Mods?: ModUncheckedCreateNestedManyWithoutCollectionInput
   }
 
-  export type ModsCollectionUpdateInput = {
+  export type Mods_CollectionUpdateInput = {
     avatar?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -15282,7 +17433,7 @@ export namespace Prisma {
     Mods?: ModUpdateManyWithoutCollectionInput
   }
 
-  export type ModsCollectionUncheckedUpdateInput = {
+  export type Mods_CollectionUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     avatar?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -15293,7 +17444,7 @@ export namespace Prisma {
     Mods?: ModUncheckedUpdateManyWithoutCollectionInput
   }
 
-  export type ModsCollectionCreateManyInput = {
+  export type Mods_CollectionCreateManyInput = {
     id?: number
     avatar: string
     name: string
@@ -15303,7 +17454,7 @@ export namespace Prisma {
     author_id: number
   }
 
-  export type ModsCollectionUpdateManyMutationInput = {
+  export type Mods_CollectionUpdateManyMutationInput = {
     avatar?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -15311,7 +17462,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
-  export type ModsCollectionUncheckedUpdateManyInput = {
+  export type Mods_CollectionUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     avatar?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -15334,16 +17485,16 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Collection: ModsCollectionCreateNestedOneWithoutModsInput
-    Images?: ModImageCreateNestedManyWithoutModInput
-    Authors?: ModAuthorCreateNestedManyWithoutModInput
-    Tags?: ModTagCreateNestedManyWithoutModInput
-    Versions?: ModVersionCreateNestedManyWithoutModInput
-    Lists?: ModsListCreateNestedManyWithoutModsInput
-    Issues?: ModIssueCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadCreateNestedManyWithoutModInput
+    Collection: Mods_CollectionCreateNestedOneWithoutModsInput
+    Images?: Mod_ImageCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorCreateNestedManyWithoutModInput
+    Tags?: Mod_TagCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionCreateNestedManyWithoutModInput
+    Lists?: Mods_ListCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadCreateNestedManyWithoutModInput
   }
 
   export type ModUncheckedCreateInput = {
@@ -15361,15 +17512,15 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Images?: ModImageUncheckedCreateNestedManyWithoutModInput
-    Authors?: ModAuthorUncheckedCreateNestedManyWithoutModInput
-    Tags?: ModTagUncheckedCreateNestedManyWithoutModInput
-    Versions?: ModVersionUncheckedCreateNestedManyWithoutModInput
-    Lists?: ModsListUncheckedCreateNestedManyWithoutModsInput
-    Issues?: ModIssueUncheckedCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadUncheckedCreateNestedManyWithoutModInput
+    Images?: Mod_ImageUncheckedCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedCreateNestedManyWithoutModInput
+    Tags?: Mod_TagUncheckedCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionUncheckedCreateNestedManyWithoutModInput
+    Lists?: Mods_ListUncheckedCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedCreateNestedManyWithoutModInput
   }
 
   export type ModUpdateInput = {
@@ -15385,16 +17536,16 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Collection?: ModsCollectionUpdateOneRequiredWithoutModsInput
-    Images?: ModImageUpdateManyWithoutModInput
-    Authors?: ModAuthorUpdateManyWithoutModInput
-    Tags?: ModTagUpdateManyWithoutModInput
-    Versions?: ModVersionUpdateManyWithoutModInput
-    Lists?: ModsListUpdateManyWithoutModsInput
-    Issues?: ModIssueUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUpdateManyWithoutModInput
-    Downloads?: ModDownloadUpdateManyWithoutModInput
+    Collection?: Mods_CollectionUpdateOneRequiredWithoutModsInput
+    Images?: Mod_ImageUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUpdateManyWithoutModInput
+    Tags?: Mod_TagUpdateManyWithoutModInput
+    Versions?: Mod_VersionUpdateManyWithoutModInput
+    Lists?: Mods_ListUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUpdateManyWithoutModInput
   }
 
   export type ModUncheckedUpdateInput = {
@@ -15412,15 +17563,15 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Images?: ModImageUncheckedUpdateManyWithoutModInput
-    Authors?: ModAuthorUncheckedUpdateManyWithoutModInput
-    Tags?: ModTagUncheckedUpdateManyWithoutModInput
-    Versions?: ModVersionUncheckedUpdateManyWithoutModInput
-    Lists?: ModsListUncheckedUpdateManyWithoutModsInput
-    Issues?: ModIssueUncheckedUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedUpdateManyWithoutModInput
-    Downloads?: ModDownloadUncheckedUpdateManyWithoutModInput
+    Images?: Mod_ImageUncheckedUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedUpdateManyWithoutModInput
+    Tags?: Mod_TagUncheckedUpdateManyWithoutModInput
+    Versions?: Mod_VersionUncheckedUpdateManyWithoutModInput
+    Lists?: Mods_ListUncheckedUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedUpdateManyWithoutModInput
   }
 
   export type ModCreateManyInput = {
@@ -15472,155 +17623,155 @@ export namespace Prisma {
     docs_url?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModAuthorCreateInput = {
+  export type Mod_AuthorCreateInput = {
     type: number
     User: UserCreateNestedOneWithoutModAuthorsInput
     Mod: ModCreateNestedOneWithoutAuthorsInput
   }
 
-  export type ModAuthorUncheckedCreateInput = {
+  export type Mod_AuthorUncheckedCreateInput = {
     mod_id: number
     user_id: number
     type: number
   }
 
-  export type ModAuthorUpdateInput = {
+  export type Mod_AuthorUpdateInput = {
     type?: IntFieldUpdateOperationsInput | number
     User?: UserUpdateOneRequiredWithoutModAuthorsInput
     Mod?: ModUpdateOneRequiredWithoutAuthorsInput
   }
 
-  export type ModAuthorUncheckedUpdateInput = {
+  export type Mod_AuthorUncheckedUpdateInput = {
     mod_id?: IntFieldUpdateOperationsInput | number
     user_id?: IntFieldUpdateOperationsInput | number
     type?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModAuthorCreateManyInput = {
+  export type Mod_AuthorCreateManyInput = {
     mod_id: number
     user_id: number
     type: number
   }
 
-  export type ModAuthorUpdateManyMutationInput = {
+  export type Mod_AuthorUpdateManyMutationInput = {
     type?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModAuthorUncheckedUpdateManyInput = {
+  export type Mod_AuthorUncheckedUpdateManyInput = {
     mod_id?: IntFieldUpdateOperationsInput | number
     user_id?: IntFieldUpdateOperationsInput | number
     type?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModImageCreateInput = {
+  export type Mod_ImageCreateInput = {
     url: string
     Mod: ModCreateNestedOneWithoutImagesInput
   }
 
-  export type ModImageUncheckedCreateInput = {
+  export type Mod_ImageUncheckedCreateInput = {
     id?: number
     mod_id: number
     url: string
   }
 
-  export type ModImageUpdateInput = {
+  export type Mod_ImageUpdateInput = {
     url?: StringFieldUpdateOperationsInput | string
     Mod?: ModUpdateOneRequiredWithoutImagesInput
   }
 
-  export type ModImageUncheckedUpdateInput = {
+  export type Mod_ImageUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModImageCreateManyInput = {
+  export type Mod_ImageCreateManyInput = {
     id?: number
     mod_id: number
     url: string
   }
 
-  export type ModImageUpdateManyMutationInput = {
+  export type Mod_ImageUpdateManyMutationInput = {
     url?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModImageUncheckedUpdateManyInput = {
+  export type Mod_ImageUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModTagCreateInput = {
+  export type Mod_TagCreateInput = {
     name: string
     Mod?: ModCreateNestedManyWithoutTagsInput
   }
 
-  export type ModTagUncheckedCreateInput = {
+  export type Mod_TagUncheckedCreateInput = {
     id?: number
     name: string
     Mod?: ModUncheckedCreateNestedManyWithoutTagsInput
   }
 
-  export type ModTagUpdateInput = {
+  export type Mod_TagUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     Mod?: ModUpdateManyWithoutTagsInput
   }
 
-  export type ModTagUncheckedUpdateInput = {
+  export type Mod_TagUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     Mod?: ModUncheckedUpdateManyWithoutTagsInput
   }
 
-  export type ModTagCreateManyInput = {
+  export type Mod_TagCreateManyInput = {
     id?: number
     name: string
   }
 
-  export type ModTagUpdateManyMutationInput = {
+  export type Mod_TagUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModTagUncheckedUpdateManyInput = {
+  export type Mod_TagUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModVersionCreateInput = {
+  export type Mod_VersionCreateInput = {
     version: string
     game_version: string
     releaseDate?: Date | string
     Mod: ModCreateNestedOneWithoutVersionsInput
-    Downloads?: ModDownloadCreateNestedManyWithoutVersionInput
+    Downloads?: Mod_DownloadCreateNestedManyWithoutVersionInput
   }
 
-  export type ModVersionUncheckedCreateInput = {
+  export type Mod_VersionUncheckedCreateInput = {
     id?: number
     mod_id: number
     version: string
     game_version: string
     releaseDate?: Date | string
-    Downloads?: ModDownloadUncheckedCreateNestedManyWithoutVersionInput
+    Downloads?: Mod_DownloadUncheckedCreateNestedManyWithoutVersionInput
   }
 
-  export type ModVersionUpdateInput = {
+  export type Mod_VersionUpdateInput = {
     version?: StringFieldUpdateOperationsInput | string
     game_version?: StringFieldUpdateOperationsInput | string
     releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     Mod?: ModUpdateOneRequiredWithoutVersionsInput
-    Downloads?: ModDownloadUpdateManyWithoutVersionInput
+    Downloads?: Mod_DownloadUpdateManyWithoutVersionInput
   }
 
-  export type ModVersionUncheckedUpdateInput = {
+  export type Mod_VersionUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     version?: StringFieldUpdateOperationsInput | string
     game_version?: StringFieldUpdateOperationsInput | string
     releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    Downloads?: ModDownloadUncheckedUpdateManyWithoutVersionInput
+    Downloads?: Mod_DownloadUncheckedUpdateManyWithoutVersionInput
   }
 
-  export type ModVersionCreateManyInput = {
+  export type Mod_VersionCreateManyInput = {
     id?: number
     mod_id: number
     version: string
@@ -15628,13 +17779,13 @@ export namespace Prisma {
     releaseDate?: Date | string
   }
 
-  export type ModVersionUpdateManyMutationInput = {
+  export type Mod_VersionUpdateManyMutationInput = {
     version?: StringFieldUpdateOperationsInput | string
     game_version?: StringFieldUpdateOperationsInput | string
     releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ModVersionUncheckedUpdateManyInput = {
+  export type Mod_VersionUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     version?: StringFieldUpdateOperationsInput | string
@@ -15642,76 +17793,76 @@ export namespace Prisma {
     releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ModIssueCreateInput = {
+  export type Mod_IssueCreateInput = {
     name: string
-    type: ModIssueType
+    type: Mod_Issue_Type
     createDate?: Date | string
     Mod: ModCreateNestedOneWithoutIssuesInput
     Author: UserCreateNestedOneWithoutModIssuesInput
-    ModIssuePost?: ModIssuePostCreateNestedManyWithoutIssueInput
+    ModIssuePost?: Mod_Issue_PostCreateNestedManyWithoutIssueInput
   }
 
-  export type ModIssueUncheckedCreateInput = {
+  export type Mod_IssueUncheckedCreateInput = {
     id?: number
     mod_id: number
     name: string
-    type: ModIssueType
+    type: Mod_Issue_Type
     author_id: number
     createDate?: Date | string
-    ModIssuePost?: ModIssuePostUncheckedCreateNestedManyWithoutIssueInput
+    ModIssuePost?: Mod_Issue_PostUncheckedCreateNestedManyWithoutIssueInput
   }
 
-  export type ModIssueUpdateInput = {
+  export type Mod_IssueUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
+    type?: EnumMod_Issue_TypeFieldUpdateOperationsInput | Mod_Issue_Type
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     Mod?: ModUpdateOneRequiredWithoutIssuesInput
     Author?: UserUpdateOneRequiredWithoutModIssuesInput
-    ModIssuePost?: ModIssuePostUpdateManyWithoutIssueInput
+    ModIssuePost?: Mod_Issue_PostUpdateManyWithoutIssueInput
   }
 
-  export type ModIssueUncheckedUpdateInput = {
+  export type Mod_IssueUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
+    type?: EnumMod_Issue_TypeFieldUpdateOperationsInput | Mod_Issue_Type
     author_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    ModIssuePost?: ModIssuePostUncheckedUpdateManyWithoutIssueInput
+    ModIssuePost?: Mod_Issue_PostUncheckedUpdateManyWithoutIssueInput
   }
 
-  export type ModIssueCreateManyInput = {
+  export type Mod_IssueCreateManyInput = {
     id?: number
     mod_id: number
     name: string
-    type: ModIssueType
+    type: Mod_Issue_Type
     author_id: number
     createDate?: Date | string
   }
 
-  export type ModIssueUpdateManyMutationInput = {
+  export type Mod_IssueUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
+    type?: EnumMod_Issue_TypeFieldUpdateOperationsInput | Mod_Issue_Type
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ModIssueUncheckedUpdateManyInput = {
+  export type Mod_IssueUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
+    type?: EnumMod_Issue_TypeFieldUpdateOperationsInput | Mod_Issue_Type
     author_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ModIssuePostCreateInput = {
+  export type Mod_Issue_PostCreateInput = {
     createDate?: Date | string
     text: string
-    Issue: ModIssueCreateNestedOneWithoutModIssuePostInput
+    Issue: Mod_IssueCreateNestedOneWithoutModIssuePostInput
     Author: UserCreateNestedOneWithoutModIssuePostsInput
   }
 
-  export type ModIssuePostUncheckedCreateInput = {
+  export type Mod_Issue_PostUncheckedCreateInput = {
     id?: number
     issue_id: number
     author_id: number
@@ -15719,14 +17870,14 @@ export namespace Prisma {
     text: string
   }
 
-  export type ModIssuePostUpdateInput = {
+  export type Mod_Issue_PostUpdateInput = {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     text?: StringFieldUpdateOperationsInput | string
-    Issue?: ModIssueUpdateOneRequiredWithoutModIssuePostInput
+    Issue?: Mod_IssueUpdateOneRequiredWithoutModIssuePostInput
     Author?: UserUpdateOneRequiredWithoutModIssuePostsInput
   }
 
-  export type ModIssuePostUncheckedUpdateInput = {
+  export type Mod_Issue_PostUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     issue_id?: IntFieldUpdateOperationsInput | number
     author_id?: IntFieldUpdateOperationsInput | number
@@ -15734,7 +17885,7 @@ export namespace Prisma {
     text?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModIssuePostCreateManyInput = {
+  export type Mod_Issue_PostCreateManyInput = {
     id?: number
     issue_id: number
     author_id: number
@@ -15742,12 +17893,12 @@ export namespace Prisma {
     text: string
   }
 
-  export type ModIssuePostUpdateManyMutationInput = {
+  export type Mod_Issue_PostUpdateManyMutationInput = {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     text?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModIssuePostUncheckedUpdateManyInput = {
+  export type Mod_Issue_PostUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     issue_id?: IntFieldUpdateOperationsInput | number
     author_id?: IntFieldUpdateOperationsInput | number
@@ -15755,14 +17906,14 @@ export namespace Prisma {
     text?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModsListCreateInput = {
+  export type Mods_ListCreateInput = {
     is_public: boolean
     name: string
     Author: UserCreateNestedOneWithoutModsListsInput
     Mods?: ModCreateNestedManyWithoutListsInput
   }
 
-  export type ModsListUncheckedCreateInput = {
+  export type Mods_ListUncheckedCreateInput = {
     id?: number
     author_id: number
     is_public: boolean
@@ -15770,14 +17921,14 @@ export namespace Prisma {
     Mods?: ModUncheckedCreateNestedManyWithoutListsInput
   }
 
-  export type ModsListUpdateInput = {
+  export type Mods_ListUpdateInput = {
     is_public?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
     Author?: UserUpdateOneRequiredWithoutModsListsInput
     Mods?: ModUpdateManyWithoutListsInput
   }
 
-  export type ModsListUncheckedUpdateInput = {
+  export type Mods_ListUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     author_id?: IntFieldUpdateOperationsInput | number
     is_public?: BoolFieldUpdateOperationsInput | boolean
@@ -15785,131 +17936,274 @@ export namespace Prisma {
     Mods?: ModUncheckedUpdateManyWithoutListsInput
   }
 
-  export type ModsListCreateManyInput = {
+  export type Mods_ListCreateManyInput = {
     id?: number
     author_id: number
     is_public: boolean
     name: string
   }
 
-  export type ModsListUpdateManyMutationInput = {
+  export type Mods_ListUpdateManyMutationInput = {
     is_public?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModsListUncheckedUpdateManyInput = {
+  export type Mods_ListUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     author_id?: IntFieldUpdateOperationsInput | number
     is_public?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModsFavoritsCreateInput = {
+  export type Mods_FavoritsCreateInput = {
     User: UserCreateNestedOneWithoutModsFavoritsInput
     Mod: ModCreateNestedOneWithoutFavoritsInput
   }
 
-  export type ModsFavoritsUncheckedCreateInput = {
+  export type Mods_FavoritsUncheckedCreateInput = {
     user_id: number
     mod_id: number
   }
 
-  export type ModsFavoritsUpdateInput = {
+  export type Mods_FavoritsUpdateInput = {
     User?: UserUpdateOneRequiredWithoutModsFavoritsInput
     Mod?: ModUpdateOneRequiredWithoutFavoritsInput
   }
 
-  export type ModsFavoritsUncheckedUpdateInput = {
+  export type Mods_FavoritsUncheckedUpdateInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModsFavoritsCreateManyInput = {
+  export type Mods_FavoritsCreateManyInput = {
     user_id: number
     mod_id: number
   }
 
-  export type ModsFavoritsUpdateManyMutationInput = {
+  export type Mods_FavoritsUpdateManyMutationInput = {
 
   }
 
-  export type ModsFavoritsUncheckedUpdateManyInput = {
+  export type Mods_FavoritsUncheckedUpdateManyInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModSubscribersCreateInput = {
+  export type Mod_SubscribersCreateInput = {
     User: UserCreateNestedOneWithoutModSubscribersInput
     Mod: ModCreateNestedOneWithoutSubscribersInput
   }
 
-  export type ModSubscribersUncheckedCreateInput = {
+  export type Mod_SubscribersUncheckedCreateInput = {
     user_id: number
     mod_id: number
   }
 
-  export type ModSubscribersUpdateInput = {
+  export type Mod_SubscribersUpdateInput = {
     User?: UserUpdateOneRequiredWithoutModSubscribersInput
     Mod?: ModUpdateOneRequiredWithoutSubscribersInput
   }
 
-  export type ModSubscribersUncheckedUpdateInput = {
+  export type Mod_SubscribersUncheckedUpdateInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModSubscribersCreateManyInput = {
+  export type Mod_SubscribersCreateManyInput = {
     user_id: number
     mod_id: number
   }
 
-  export type ModSubscribersUpdateManyMutationInput = {
+  export type Mod_SubscribersUpdateManyMutationInput = {
 
   }
 
-  export type ModSubscribersUncheckedUpdateManyInput = {
+  export type Mod_SubscribersUncheckedUpdateManyInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModDownloadCreateInput = {
+  export type Mod_DownloadCreateInput = {
     User: UserCreateNestedOneWithoutModDownloadsInput
     Mod: ModCreateNestedOneWithoutDownloadsInput
-    Version: ModVersionCreateNestedOneWithoutDownloadsInput
+    Version: Mod_VersionCreateNestedOneWithoutDownloadsInput
   }
 
-  export type ModDownloadUncheckedCreateInput = {
+  export type Mod_DownloadUncheckedCreateInput = {
     user_id: number
     mod_id: number
     version_id: number
   }
 
-  export type ModDownloadUpdateInput = {
+  export type Mod_DownloadUpdateInput = {
     User?: UserUpdateOneRequiredWithoutModDownloadsInput
     Mod?: ModUpdateOneRequiredWithoutDownloadsInput
-    Version?: ModVersionUpdateOneRequiredWithoutDownloadsInput
+    Version?: Mod_VersionUpdateOneRequiredWithoutDownloadsInput
   }
 
-  export type ModDownloadUncheckedUpdateInput = {
+  export type Mod_DownloadUncheckedUpdateInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     version_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModDownloadCreateManyInput = {
+  export type Mod_DownloadCreateManyInput = {
     user_id: number
     mod_id: number
     version_id: number
   }
 
-  export type ModDownloadUpdateManyMutationInput = {
+  export type Mod_DownloadUpdateManyMutationInput = {
 
   }
 
-  export type ModDownloadUncheckedUpdateManyInput = {
+  export type Mod_DownloadUncheckedUpdateManyInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     version_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type User_SessionCreateInput = {
+    userAgent: string
+    userAgentType: User_Agent_Type
+    userAgentOS: User_Agent_OS
+    userAgentDevice: string
+    uuid: string
+    ipv4: string
+    is_active?: boolean
+    User: UserCreateNestedOneWithoutUserSessionInput
+    Tokens?: User_TokenCreateNestedManyWithoutSessionInput
+  }
+
+  export type User_SessionUncheckedCreateInput = {
+    id?: number
+    userId: number
+    userAgent: string
+    userAgentType: User_Agent_Type
+    userAgentOS: User_Agent_OS
+    userAgentDevice: string
+    uuid: string
+    ipv4: string
+    is_active?: boolean
+    Tokens?: User_TokenUncheckedCreateNestedManyWithoutSessionInput
+  }
+
+  export type User_SessionUpdateInput = {
+    userAgent?: StringFieldUpdateOperationsInput | string
+    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
+    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
+    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    uuid?: StringFieldUpdateOperationsInput | string
+    ipv4?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    User?: UserUpdateOneRequiredWithoutUserSessionInput
+    Tokens?: User_TokenUpdateManyWithoutSessionInput
+  }
+
+  export type User_SessionUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    userAgent?: StringFieldUpdateOperationsInput | string
+    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
+    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
+    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    uuid?: StringFieldUpdateOperationsInput | string
+    ipv4?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    Tokens?: User_TokenUncheckedUpdateManyWithoutSessionInput
+  }
+
+  export type User_SessionCreateManyInput = {
+    id?: number
+    userId: number
+    userAgent: string
+    userAgentType: User_Agent_Type
+    userAgentOS: User_Agent_OS
+    userAgentDevice: string
+    uuid: string
+    ipv4: string
+    is_active?: boolean
+  }
+
+  export type User_SessionUpdateManyMutationInput = {
+    userAgent?: StringFieldUpdateOperationsInput | string
+    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
+    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
+    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    uuid?: StringFieldUpdateOperationsInput | string
+    ipv4?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type User_SessionUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    userAgent?: StringFieldUpdateOperationsInput | string
+    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
+    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
+    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    uuid?: StringFieldUpdateOperationsInput | string
+    ipv4?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type User_TokenCreateInput = {
+    type: User_Token_Type
+    token: string
+    createDate?: Date | string
+    is_enable?: boolean
+    Session: User_SessionCreateNestedOneWithoutTokensInput
+  }
+
+  export type User_TokenUncheckedCreateInput = {
+    id?: number
+    sessionId: number
+    type: User_Token_Type
+    token: string
+    createDate?: Date | string
+    is_enable?: boolean
+  }
+
+  export type User_TokenUpdateInput = {
+    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
+    token?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
+    Session?: User_SessionUpdateOneRequiredWithoutTokensInput
+  }
+
+  export type User_TokenUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    sessionId?: IntFieldUpdateOperationsInput | number
+    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
+    token?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type User_TokenCreateManyInput = {
+    id?: number
+    sessionId: number
+    type: User_Token_Type
+    token: string
+    createDate?: Date | string
+    is_enable?: boolean
+  }
+
+  export type User_TokenUpdateManyMutationInput = {
+    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
+    token?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type User_TokenUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    sessionId?: IntFieldUpdateOperationsInput | number
+    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
+    token?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type IntFilter = {
@@ -15953,88 +18247,98 @@ export namespace Prisma {
     not?: NestedBoolFilter | boolean
   }
 
-  export type UserAuthRelationFilter = {
-    is?: UserAuthWhereInput | null
-    isNot?: UserAuthWhereInput | null
+  export type User_AuthRelationFilter = {
+    is?: User_AuthWhereInput | null
+    isNot?: User_AuthWhereInput | null
   }
 
-  export type ModsCollectionListRelationFilter = {
-    every?: ModsCollectionWhereInput
-    some?: ModsCollectionWhereInput
-    none?: ModsCollectionWhereInput
+  export type Mods_CollectionListRelationFilter = {
+    every?: Mods_CollectionWhereInput
+    some?: Mods_CollectionWhereInput
+    none?: Mods_CollectionWhereInput
   }
 
-  export type ModAuthorListRelationFilter = {
-    every?: ModAuthorWhereInput
-    some?: ModAuthorWhereInput
-    none?: ModAuthorWhereInput
+  export type Mod_AuthorListRelationFilter = {
+    every?: Mod_AuthorWhereInput
+    some?: Mod_AuthorWhereInput
+    none?: Mod_AuthorWhereInput
   }
 
-  export type ModIssueListRelationFilter = {
-    every?: ModIssueWhereInput
-    some?: ModIssueWhereInput
-    none?: ModIssueWhereInput
+  export type Mod_IssueListRelationFilter = {
+    every?: Mod_IssueWhereInput
+    some?: Mod_IssueWhereInput
+    none?: Mod_IssueWhereInput
   }
 
-  export type ModIssuePostListRelationFilter = {
-    every?: ModIssuePostWhereInput
-    some?: ModIssuePostWhereInput
-    none?: ModIssuePostWhereInput
+  export type Mod_Issue_PostListRelationFilter = {
+    every?: Mod_Issue_PostWhereInput
+    some?: Mod_Issue_PostWhereInput
+    none?: Mod_Issue_PostWhereInput
   }
 
-  export type ModsListListRelationFilter = {
-    every?: ModsListWhereInput
-    some?: ModsListWhereInput
-    none?: ModsListWhereInput
+  export type Mods_ListListRelationFilter = {
+    every?: Mods_ListWhereInput
+    some?: Mods_ListWhereInput
+    none?: Mods_ListWhereInput
   }
 
-  export type ModsFavoritsListRelationFilter = {
-    every?: ModsFavoritsWhereInput
-    some?: ModsFavoritsWhereInput
-    none?: ModsFavoritsWhereInput
+  export type Mods_FavoritsListRelationFilter = {
+    every?: Mods_FavoritsWhereInput
+    some?: Mods_FavoritsWhereInput
+    none?: Mods_FavoritsWhereInput
   }
 
-  export type ModSubscribersListRelationFilter = {
-    every?: ModSubscribersWhereInput
-    some?: ModSubscribersWhereInput
-    none?: ModSubscribersWhereInput
+  export type Mod_SubscribersListRelationFilter = {
+    every?: Mod_SubscribersWhereInput
+    some?: Mod_SubscribersWhereInput
+    none?: Mod_SubscribersWhereInput
   }
 
-  export type ModDownloadListRelationFilter = {
-    every?: ModDownloadWhereInput
-    some?: ModDownloadWhereInput
-    none?: ModDownloadWhereInput
+  export type Mod_DownloadListRelationFilter = {
+    every?: Mod_DownloadWhereInput
+    some?: Mod_DownloadWhereInput
+    none?: Mod_DownloadWhereInput
   }
 
-  export type ModsCollectionOrderByRelationAggregateInput = {
+  export type User_SessionListRelationFilter = {
+    every?: User_SessionWhereInput
+    some?: User_SessionWhereInput
+    none?: User_SessionWhereInput
+  }
+
+  export type Mods_CollectionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ModAuthorOrderByRelationAggregateInput = {
+  export type Mod_AuthorOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ModIssueOrderByRelationAggregateInput = {
+  export type Mod_IssueOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ModIssuePostOrderByRelationAggregateInput = {
+  export type Mod_Issue_PostOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ModsListOrderByRelationAggregateInput = {
+  export type Mods_ListOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ModsFavoritsOrderByRelationAggregateInput = {
+  export type Mods_FavoritsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ModSubscribersOrderByRelationAggregateInput = {
+  export type Mod_SubscribersOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ModDownloadOrderByRelationAggregateInput = {
+  export type Mod_DownloadOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type User_SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16130,29 +18434,29 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type UserAuthCountOrderByAggregateInput = {
+  export type User_AuthCountOrderByAggregateInput = {
     userId?: SortOrder
     email?: SortOrder
     password?: SortOrder
   }
 
-  export type UserAuthAvgOrderByAggregateInput = {
+  export type User_AuthAvgOrderByAggregateInput = {
     userId?: SortOrder
   }
 
-  export type UserAuthMaxOrderByAggregateInput = {
-    userId?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-  }
-
-  export type UserAuthMinOrderByAggregateInput = {
+  export type User_AuthMaxOrderByAggregateInput = {
     userId?: SortOrder
     email?: SortOrder
     password?: SortOrder
   }
 
-  export type UserAuthSumOrderByAggregateInput = {
+  export type User_AuthMinOrderByAggregateInput = {
+    userId?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+  }
+
+  export type User_AuthSumOrderByAggregateInput = {
     userId?: SortOrder
   }
 
@@ -16166,7 +18470,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type ModsCollectionCountOrderByAggregateInput = {
+  export type Mods_CollectionCountOrderByAggregateInput = {
     id?: SortOrder
     avatar?: SortOrder
     name?: SortOrder
@@ -16176,22 +18480,12 @@ export namespace Prisma {
     author_id?: SortOrder
   }
 
-  export type ModsCollectionAvgOrderByAggregateInput = {
+  export type Mods_CollectionAvgOrderByAggregateInput = {
     id?: SortOrder
     author_id?: SortOrder
   }
 
-  export type ModsCollectionMaxOrderByAggregateInput = {
-    id?: SortOrder
-    avatar?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    createDate?: SortOrder
-    is_active?: SortOrder
-    author_id?: SortOrder
-  }
-
-  export type ModsCollectionMinOrderByAggregateInput = {
+  export type Mods_CollectionMaxOrderByAggregateInput = {
     id?: SortOrder
     avatar?: SortOrder
     name?: SortOrder
@@ -16201,43 +18495,53 @@ export namespace Prisma {
     author_id?: SortOrder
   }
 
-  export type ModsCollectionSumOrderByAggregateInput = {
+  export type Mods_CollectionMinOrderByAggregateInput = {
+    id?: SortOrder
+    avatar?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createDate?: SortOrder
+    is_active?: SortOrder
+    author_id?: SortOrder
+  }
+
+  export type Mods_CollectionSumOrderByAggregateInput = {
     id?: SortOrder
     author_id?: SortOrder
   }
 
-  export type ModsCollectionRelationFilter = {
-    is?: ModsCollectionWhereInput
-    isNot?: ModsCollectionWhereInput
+  export type Mods_CollectionRelationFilter = {
+    is?: Mods_CollectionWhereInput
+    isNot?: Mods_CollectionWhereInput
   }
 
-  export type ModImageListRelationFilter = {
-    every?: ModImageWhereInput
-    some?: ModImageWhereInput
-    none?: ModImageWhereInput
+  export type Mod_ImageListRelationFilter = {
+    every?: Mod_ImageWhereInput
+    some?: Mod_ImageWhereInput
+    none?: Mod_ImageWhereInput
   }
 
-  export type ModTagListRelationFilter = {
-    every?: ModTagWhereInput
-    some?: ModTagWhereInput
-    none?: ModTagWhereInput
+  export type Mod_TagListRelationFilter = {
+    every?: Mod_TagWhereInput
+    some?: Mod_TagWhereInput
+    none?: Mod_TagWhereInput
   }
 
-  export type ModVersionListRelationFilter = {
-    every?: ModVersionWhereInput
-    some?: ModVersionWhereInput
-    none?: ModVersionWhereInput
+  export type Mod_VersionListRelationFilter = {
+    every?: Mod_VersionWhereInput
+    some?: Mod_VersionWhereInput
+    none?: Mod_VersionWhereInput
   }
 
-  export type ModImageOrderByRelationAggregateInput = {
+  export type Mod_ImageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ModTagOrderByRelationAggregateInput = {
+  export type Mod_TagOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ModVersionOrderByRelationAggregateInput = {
+  export type Mod_VersionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16313,93 +18617,93 @@ export namespace Prisma {
     isNot?: ModWhereInput
   }
 
-  export type ModAuthorMod_idUser_idCompoundUniqueInput = {
+  export type Mod_AuthorMod_idUser_idCompoundUniqueInput = {
     mod_id: number
     user_id: number
   }
 
-  export type ModAuthorCountOrderByAggregateInput = {
+  export type Mod_AuthorCountOrderByAggregateInput = {
     mod_id?: SortOrder
     user_id?: SortOrder
     type?: SortOrder
   }
 
-  export type ModAuthorAvgOrderByAggregateInput = {
+  export type Mod_AuthorAvgOrderByAggregateInput = {
     mod_id?: SortOrder
     user_id?: SortOrder
     type?: SortOrder
   }
 
-  export type ModAuthorMaxOrderByAggregateInput = {
+  export type Mod_AuthorMaxOrderByAggregateInput = {
     mod_id?: SortOrder
     user_id?: SortOrder
     type?: SortOrder
   }
 
-  export type ModAuthorMinOrderByAggregateInput = {
+  export type Mod_AuthorMinOrderByAggregateInput = {
     mod_id?: SortOrder
     user_id?: SortOrder
     type?: SortOrder
   }
 
-  export type ModAuthorSumOrderByAggregateInput = {
+  export type Mod_AuthorSumOrderByAggregateInput = {
     mod_id?: SortOrder
     user_id?: SortOrder
     type?: SortOrder
   }
 
-  export type ModImageCountOrderByAggregateInput = {
+  export type Mod_ImageCountOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
     url?: SortOrder
   }
 
-  export type ModImageAvgOrderByAggregateInput = {
+  export type Mod_ImageAvgOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type ModImageMaxOrderByAggregateInput = {
-    id?: SortOrder
-    mod_id?: SortOrder
-    url?: SortOrder
-  }
-
-  export type ModImageMinOrderByAggregateInput = {
+  export type Mod_ImageMaxOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
     url?: SortOrder
   }
 
-  export type ModImageSumOrderByAggregateInput = {
+  export type Mod_ImageMinOrderByAggregateInput = {
+    id?: SortOrder
+    mod_id?: SortOrder
+    url?: SortOrder
+  }
+
+  export type Mod_ImageSumOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type ModTagCountOrderByAggregateInput = {
+  export type Mod_TagCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
   }
 
-  export type ModTagAvgOrderByAggregateInput = {
+  export type Mod_TagAvgOrderByAggregateInput = {
     id?: SortOrder
   }
 
-  export type ModTagMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-  }
-
-  export type ModTagMinOrderByAggregateInput = {
+  export type Mod_TagMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
   }
 
-  export type ModTagSumOrderByAggregateInput = {
+  export type Mod_TagMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type Mod_TagSumOrderByAggregateInput = {
     id?: SortOrder
   }
 
-  export type ModVersionCountOrderByAggregateInput = {
+  export type Mod_VersionCountOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
     version?: SortOrder
@@ -16407,20 +18711,12 @@ export namespace Prisma {
     releaseDate?: SortOrder
   }
 
-  export type ModVersionAvgOrderByAggregateInput = {
+  export type Mod_VersionAvgOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type ModVersionMaxOrderByAggregateInput = {
-    id?: SortOrder
-    mod_id?: SortOrder
-    version?: SortOrder
-    game_version?: SortOrder
-    releaseDate?: SortOrder
-  }
-
-  export type ModVersionMinOrderByAggregateInput = {
+  export type Mod_VersionMaxOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
     version?: SortOrder
@@ -16428,19 +18724,27 @@ export namespace Prisma {
     releaseDate?: SortOrder
   }
 
-  export type ModVersionSumOrderByAggregateInput = {
+  export type Mod_VersionMinOrderByAggregateInput = {
+    id?: SortOrder
+    mod_id?: SortOrder
+    version?: SortOrder
+    game_version?: SortOrder
+    releaseDate?: SortOrder
+  }
+
+  export type Mod_VersionSumOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type EnumModIssueTypeFilter = {
-    equals?: ModIssueType
-    in?: Enumerable<ModIssueType>
-    notIn?: Enumerable<ModIssueType>
-    not?: NestedEnumModIssueTypeFilter | ModIssueType
+  export type EnumMod_Issue_TypeFilter = {
+    equals?: Mod_Issue_Type
+    in?: Enumerable<Mod_Issue_Type>
+    notIn?: Enumerable<Mod_Issue_Type>
+    not?: NestedEnumMod_Issue_TypeFilter | Mod_Issue_Type
   }
 
-  export type ModIssueCountOrderByAggregateInput = {
+  export type Mod_IssueCountOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
     name?: SortOrder
@@ -16449,22 +18753,13 @@ export namespace Prisma {
     createDate?: SortOrder
   }
 
-  export type ModIssueAvgOrderByAggregateInput = {
+  export type Mod_IssueAvgOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
     author_id?: SortOrder
   }
 
-  export type ModIssueMaxOrderByAggregateInput = {
-    id?: SortOrder
-    mod_id?: SortOrder
-    name?: SortOrder
-    type?: SortOrder
-    author_id?: SortOrder
-    createDate?: SortOrder
-  }
-
-  export type ModIssueMinOrderByAggregateInput = {
+  export type Mod_IssueMaxOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
     name?: SortOrder
@@ -16473,28 +18768,37 @@ export namespace Prisma {
     createDate?: SortOrder
   }
 
-  export type ModIssueSumOrderByAggregateInput = {
+  export type Mod_IssueMinOrderByAggregateInput = {
+    id?: SortOrder
+    mod_id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    author_id?: SortOrder
+    createDate?: SortOrder
+  }
+
+  export type Mod_IssueSumOrderByAggregateInput = {
     id?: SortOrder
     mod_id?: SortOrder
     author_id?: SortOrder
   }
 
-  export type EnumModIssueTypeWithAggregatesFilter = {
-    equals?: ModIssueType
-    in?: Enumerable<ModIssueType>
-    notIn?: Enumerable<ModIssueType>
-    not?: NestedEnumModIssueTypeWithAggregatesFilter | ModIssueType
+  export type EnumMod_Issue_TypeWithAggregatesFilter = {
+    equals?: Mod_Issue_Type
+    in?: Enumerable<Mod_Issue_Type>
+    notIn?: Enumerable<Mod_Issue_Type>
+    not?: NestedEnumMod_Issue_TypeWithAggregatesFilter | Mod_Issue_Type
     _count?: NestedIntFilter
-    _min?: NestedEnumModIssueTypeFilter
-    _max?: NestedEnumModIssueTypeFilter
+    _min?: NestedEnumMod_Issue_TypeFilter
+    _max?: NestedEnumMod_Issue_TypeFilter
   }
 
-  export type ModIssueRelationFilter = {
-    is?: ModIssueWhereInput
-    isNot?: ModIssueWhereInput
+  export type Mod_IssueRelationFilter = {
+    is?: Mod_IssueWhereInput
+    isNot?: Mod_IssueWhereInput
   }
 
-  export type ModIssuePostCountOrderByAggregateInput = {
+  export type Mod_Issue_PostCountOrderByAggregateInput = {
     id?: SortOrder
     issue_id?: SortOrder
     author_id?: SortOrder
@@ -16502,21 +18806,13 @@ export namespace Prisma {
     text?: SortOrder
   }
 
-  export type ModIssuePostAvgOrderByAggregateInput = {
+  export type Mod_Issue_PostAvgOrderByAggregateInput = {
     id?: SortOrder
     issue_id?: SortOrder
     author_id?: SortOrder
   }
 
-  export type ModIssuePostMaxOrderByAggregateInput = {
-    id?: SortOrder
-    issue_id?: SortOrder
-    author_id?: SortOrder
-    createDate?: SortOrder
-    text?: SortOrder
-  }
-
-  export type ModIssuePostMinOrderByAggregateInput = {
+  export type Mod_Issue_PostMaxOrderByAggregateInput = {
     id?: SortOrder
     issue_id?: SortOrder
     author_id?: SortOrder
@@ -16524,265 +18820,436 @@ export namespace Prisma {
     text?: SortOrder
   }
 
-  export type ModIssuePostSumOrderByAggregateInput = {
+  export type Mod_Issue_PostMinOrderByAggregateInput = {
+    id?: SortOrder
+    issue_id?: SortOrder
+    author_id?: SortOrder
+    createDate?: SortOrder
+    text?: SortOrder
+  }
+
+  export type Mod_Issue_PostSumOrderByAggregateInput = {
     id?: SortOrder
     issue_id?: SortOrder
     author_id?: SortOrder
   }
 
-  export type ModsListCountOrderByAggregateInput = {
+  export type Mods_ListCountOrderByAggregateInput = {
     id?: SortOrder
     author_id?: SortOrder
     is_public?: SortOrder
     name?: SortOrder
   }
 
-  export type ModsListAvgOrderByAggregateInput = {
+  export type Mods_ListAvgOrderByAggregateInput = {
     id?: SortOrder
     author_id?: SortOrder
   }
 
-  export type ModsListMaxOrderByAggregateInput = {
-    id?: SortOrder
-    author_id?: SortOrder
-    is_public?: SortOrder
-    name?: SortOrder
-  }
-
-  export type ModsListMinOrderByAggregateInput = {
+  export type Mods_ListMaxOrderByAggregateInput = {
     id?: SortOrder
     author_id?: SortOrder
     is_public?: SortOrder
     name?: SortOrder
   }
 
-  export type ModsListSumOrderByAggregateInput = {
+  export type Mods_ListMinOrderByAggregateInput = {
+    id?: SortOrder
+    author_id?: SortOrder
+    is_public?: SortOrder
+    name?: SortOrder
+  }
+
+  export type Mods_ListSumOrderByAggregateInput = {
     id?: SortOrder
     author_id?: SortOrder
   }
 
-  export type ModsFavoritsMod_idUser_idCompoundUniqueInput = {
+  export type Mods_FavoritsMod_idUser_idCompoundUniqueInput = {
     mod_id: number
     user_id: number
   }
 
-  export type ModsFavoritsCountOrderByAggregateInput = {
+  export type Mods_FavoritsCountOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type ModsFavoritsAvgOrderByAggregateInput = {
+  export type Mods_FavoritsAvgOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type ModsFavoritsMaxOrderByAggregateInput = {
+  export type Mods_FavoritsMaxOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type ModsFavoritsMinOrderByAggregateInput = {
+  export type Mods_FavoritsMinOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type ModsFavoritsSumOrderByAggregateInput = {
+  export type Mods_FavoritsSumOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type ModSubscribersMod_idUser_idCompoundUniqueInput = {
+  export type Mod_SubscribersMod_idUser_idCompoundUniqueInput = {
     mod_id: number
     user_id: number
   }
 
-  export type ModSubscribersCountOrderByAggregateInput = {
+  export type Mod_SubscribersCountOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type ModSubscribersAvgOrderByAggregateInput = {
+  export type Mod_SubscribersAvgOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type ModSubscribersMaxOrderByAggregateInput = {
+  export type Mod_SubscribersMaxOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type ModSubscribersMinOrderByAggregateInput = {
+  export type Mod_SubscribersMinOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type ModSubscribersSumOrderByAggregateInput = {
+  export type Mod_SubscribersSumOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
   }
 
-  export type ModVersionRelationFilter = {
-    is?: ModVersionWhereInput
-    isNot?: ModVersionWhereInput
+  export type Mod_VersionRelationFilter = {
+    is?: Mod_VersionWhereInput
+    isNot?: Mod_VersionWhereInput
   }
 
-  export type ModDownloadUser_idMod_idCompoundUniqueInput = {
+  export type Mod_DownloadUser_idMod_idCompoundUniqueInput = {
     user_id: number
     mod_id: number
   }
 
-  export type ModDownloadCountOrderByAggregateInput = {
+  export type Mod_DownloadCountOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
     version_id?: SortOrder
   }
 
-  export type ModDownloadAvgOrderByAggregateInput = {
+  export type Mod_DownloadAvgOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
     version_id?: SortOrder
   }
 
-  export type ModDownloadMaxOrderByAggregateInput = {
+  export type Mod_DownloadMaxOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
     version_id?: SortOrder
   }
 
-  export type ModDownloadMinOrderByAggregateInput = {
+  export type Mod_DownloadMinOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
     version_id?: SortOrder
   }
 
-  export type ModDownloadSumOrderByAggregateInput = {
+  export type Mod_DownloadSumOrderByAggregateInput = {
     user_id?: SortOrder
     mod_id?: SortOrder
     version_id?: SortOrder
   }
 
-  export type UserAuthCreateNestedOneWithoutUserInput = {
-    create?: XOR<UserAuthCreateWithoutUserInput, UserAuthUncheckedCreateWithoutUserInput>
-    connectOrCreate?: UserAuthCreateOrConnectWithoutUserInput
-    connect?: UserAuthWhereUniqueInput
+  export type EnumUser_Agent_TypeFilter = {
+    equals?: User_Agent_Type
+    in?: Enumerable<User_Agent_Type>
+    notIn?: Enumerable<User_Agent_Type>
+    not?: NestedEnumUser_Agent_TypeFilter | User_Agent_Type
   }
 
-  export type ModsCollectionCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModsCollectionCreateWithoutAuthorInput>, Enumerable<ModsCollectionUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModsCollectionCreateOrConnectWithoutAuthorInput>
-    createMany?: ModsCollectionCreateManyAuthorInputEnvelope
-    connect?: Enumerable<ModsCollectionWhereUniqueInput>
+  export type EnumUser_Agent_OSFilter = {
+    equals?: User_Agent_OS
+    in?: Enumerable<User_Agent_OS>
+    notIn?: Enumerable<User_Agent_OS>
+    not?: NestedEnumUser_Agent_OSFilter | User_Agent_OS
   }
 
-  export type ModAuthorCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModAuthorCreateWithoutUserInput>, Enumerable<ModAuthorUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModAuthorCreateOrConnectWithoutUserInput>
-    createMany?: ModAuthorCreateManyUserInputEnvelope
-    connect?: Enumerable<ModAuthorWhereUniqueInput>
+  export type User_TokenListRelationFilter = {
+    every?: User_TokenWhereInput
+    some?: User_TokenWhereInput
+    none?: User_TokenWhereInput
   }
 
-  export type ModIssueCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModIssueCreateWithoutAuthorInput>, Enumerable<ModIssueUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModIssueCreateOrConnectWithoutAuthorInput>
-    createMany?: ModIssueCreateManyAuthorInputEnvelope
-    connect?: Enumerable<ModIssueWhereUniqueInput>
+  export type User_TokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
-  export type ModIssuePostCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModIssuePostCreateWithoutAuthorInput>, Enumerable<ModIssuePostUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModIssuePostCreateOrConnectWithoutAuthorInput>
-    createMany?: ModIssuePostCreateManyAuthorInputEnvelope
-    connect?: Enumerable<ModIssuePostWhereUniqueInput>
+  export type User_SessionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userAgent?: SortOrder
+    userAgentType?: SortOrder
+    userAgentOS?: SortOrder
+    userAgentDevice?: SortOrder
+    uuid?: SortOrder
+    ipv4?: SortOrder
+    is_active?: SortOrder
   }
 
-  export type ModsListCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModsListCreateWithoutAuthorInput>, Enumerable<ModsListUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModsListCreateOrConnectWithoutAuthorInput>
-    createMany?: ModsListCreateManyAuthorInputEnvelope
-    connect?: Enumerable<ModsListWhereUniqueInput>
+  export type User_SessionAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
   }
 
-  export type ModsFavoritsCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModsFavoritsCreateWithoutUserInput>, Enumerable<ModsFavoritsUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModsFavoritsCreateOrConnectWithoutUserInput>
-    createMany?: ModsFavoritsCreateManyUserInputEnvelope
-    connect?: Enumerable<ModsFavoritsWhereUniqueInput>
+  export type User_SessionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userAgent?: SortOrder
+    userAgentType?: SortOrder
+    userAgentOS?: SortOrder
+    userAgentDevice?: SortOrder
+    uuid?: SortOrder
+    ipv4?: SortOrder
+    is_active?: SortOrder
   }
 
-  export type ModSubscribersCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModSubscribersCreateWithoutUserInput>, Enumerable<ModSubscribersUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModSubscribersCreateOrConnectWithoutUserInput>
-    createMany?: ModSubscribersCreateManyUserInputEnvelope
-    connect?: Enumerable<ModSubscribersWhereUniqueInput>
+  export type User_SessionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userAgent?: SortOrder
+    userAgentType?: SortOrder
+    userAgentOS?: SortOrder
+    userAgentDevice?: SortOrder
+    uuid?: SortOrder
+    ipv4?: SortOrder
+    is_active?: SortOrder
   }
 
-  export type ModDownloadCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModDownloadCreateWithoutUserInput>, Enumerable<ModDownloadUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModDownloadCreateOrConnectWithoutUserInput>
-    createMany?: ModDownloadCreateManyUserInputEnvelope
-    connect?: Enumerable<ModDownloadWhereUniqueInput>
+  export type User_SessionSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
   }
 
-  export type UserAuthUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<UserAuthCreateWithoutUserInput, UserAuthUncheckedCreateWithoutUserInput>
-    connectOrCreate?: UserAuthCreateOrConnectWithoutUserInput
-    connect?: UserAuthWhereUniqueInput
+  export type EnumUser_Agent_TypeWithAggregatesFilter = {
+    equals?: User_Agent_Type
+    in?: Enumerable<User_Agent_Type>
+    notIn?: Enumerable<User_Agent_Type>
+    not?: NestedEnumUser_Agent_TypeWithAggregatesFilter | User_Agent_Type
+    _count?: NestedIntFilter
+    _min?: NestedEnumUser_Agent_TypeFilter
+    _max?: NestedEnumUser_Agent_TypeFilter
   }
 
-  export type ModsCollectionUncheckedCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModsCollectionCreateWithoutAuthorInput>, Enumerable<ModsCollectionUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModsCollectionCreateOrConnectWithoutAuthorInput>
-    createMany?: ModsCollectionCreateManyAuthorInputEnvelope
-    connect?: Enumerable<ModsCollectionWhereUniqueInput>
+  export type EnumUser_Agent_OSWithAggregatesFilter = {
+    equals?: User_Agent_OS
+    in?: Enumerable<User_Agent_OS>
+    notIn?: Enumerable<User_Agent_OS>
+    not?: NestedEnumUser_Agent_OSWithAggregatesFilter | User_Agent_OS
+    _count?: NestedIntFilter
+    _min?: NestedEnumUser_Agent_OSFilter
+    _max?: NestedEnumUser_Agent_OSFilter
   }
 
-  export type ModAuthorUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModAuthorCreateWithoutUserInput>, Enumerable<ModAuthorUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModAuthorCreateOrConnectWithoutUserInput>
-    createMany?: ModAuthorCreateManyUserInputEnvelope
-    connect?: Enumerable<ModAuthorWhereUniqueInput>
+  export type EnumUser_Token_TypeFilter = {
+    equals?: User_Token_Type
+    in?: Enumerable<User_Token_Type>
+    notIn?: Enumerable<User_Token_Type>
+    not?: NestedEnumUser_Token_TypeFilter | User_Token_Type
   }
 
-  export type ModIssueUncheckedCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModIssueCreateWithoutAuthorInput>, Enumerable<ModIssueUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModIssueCreateOrConnectWithoutAuthorInput>
-    createMany?: ModIssueCreateManyAuthorInputEnvelope
-    connect?: Enumerable<ModIssueWhereUniqueInput>
+  export type User_SessionRelationFilter = {
+    is?: User_SessionWhereInput
+    isNot?: User_SessionWhereInput
   }
 
-  export type ModIssuePostUncheckedCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModIssuePostCreateWithoutAuthorInput>, Enumerable<ModIssuePostUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModIssuePostCreateOrConnectWithoutAuthorInput>
-    createMany?: ModIssuePostCreateManyAuthorInputEnvelope
-    connect?: Enumerable<ModIssuePostWhereUniqueInput>
+  export type User_TokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    type?: SortOrder
+    token?: SortOrder
+    createDate?: SortOrder
+    is_enable?: SortOrder
   }
 
-  export type ModsListUncheckedCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModsListCreateWithoutAuthorInput>, Enumerable<ModsListUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModsListCreateOrConnectWithoutAuthorInput>
-    createMany?: ModsListCreateManyAuthorInputEnvelope
-    connect?: Enumerable<ModsListWhereUniqueInput>
+  export type User_TokenAvgOrderByAggregateInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
   }
 
-  export type ModsFavoritsUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModsFavoritsCreateWithoutUserInput>, Enumerable<ModsFavoritsUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModsFavoritsCreateOrConnectWithoutUserInput>
-    createMany?: ModsFavoritsCreateManyUserInputEnvelope
-    connect?: Enumerable<ModsFavoritsWhereUniqueInput>
+  export type User_TokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    type?: SortOrder
+    token?: SortOrder
+    createDate?: SortOrder
+    is_enable?: SortOrder
   }
 
-  export type ModSubscribersUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModSubscribersCreateWithoutUserInput>, Enumerable<ModSubscribersUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModSubscribersCreateOrConnectWithoutUserInput>
-    createMany?: ModSubscribersCreateManyUserInputEnvelope
-    connect?: Enumerable<ModSubscribersWhereUniqueInput>
+  export type User_TokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    type?: SortOrder
+    token?: SortOrder
+    createDate?: SortOrder
+    is_enable?: SortOrder
   }
 
-  export type ModDownloadUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModDownloadCreateWithoutUserInput>, Enumerable<ModDownloadUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModDownloadCreateOrConnectWithoutUserInput>
-    createMany?: ModDownloadCreateManyUserInputEnvelope
-    connect?: Enumerable<ModDownloadWhereUniqueInput>
+  export type User_TokenSumOrderByAggregateInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+  }
+
+  export type EnumUser_Token_TypeWithAggregatesFilter = {
+    equals?: User_Token_Type
+    in?: Enumerable<User_Token_Type>
+    notIn?: Enumerable<User_Token_Type>
+    not?: NestedEnumUser_Token_TypeWithAggregatesFilter | User_Token_Type
+    _count?: NestedIntFilter
+    _min?: NestedEnumUser_Token_TypeFilter
+    _max?: NestedEnumUser_Token_TypeFilter
+  }
+
+  export type User_AuthCreateNestedOneWithoutUserInput = {
+    create?: XOR<User_AuthCreateWithoutUserInput, User_AuthUncheckedCreateWithoutUserInput>
+    connectOrCreate?: User_AuthCreateOrConnectWithoutUserInput
+    connect?: User_AuthWhereUniqueInput
+  }
+
+  export type Mods_CollectionCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mods_CollectionCreateWithoutAuthorInput>, Enumerable<Mods_CollectionUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mods_CollectionCreateOrConnectWithoutAuthorInput>
+    createMany?: Mods_CollectionCreateManyAuthorInputEnvelope
+    connect?: Enumerable<Mods_CollectionWhereUniqueInput>
+  }
+
+  export type Mod_AuthorCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mod_AuthorCreateWithoutUserInput>, Enumerable<Mod_AuthorUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mod_AuthorCreateOrConnectWithoutUserInput>
+    createMany?: Mod_AuthorCreateManyUserInputEnvelope
+    connect?: Enumerable<Mod_AuthorWhereUniqueInput>
+  }
+
+  export type Mod_IssueCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mod_IssueCreateWithoutAuthorInput>, Enumerable<Mod_IssueUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mod_IssueCreateOrConnectWithoutAuthorInput>
+    createMany?: Mod_IssueCreateManyAuthorInputEnvelope
+    connect?: Enumerable<Mod_IssueWhereUniqueInput>
+  }
+
+  export type Mod_Issue_PostCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mod_Issue_PostCreateWithoutAuthorInput>, Enumerable<Mod_Issue_PostUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mod_Issue_PostCreateOrConnectWithoutAuthorInput>
+    createMany?: Mod_Issue_PostCreateManyAuthorInputEnvelope
+    connect?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+  }
+
+  export type Mods_ListCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mods_ListCreateWithoutAuthorInput>, Enumerable<Mods_ListUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mods_ListCreateOrConnectWithoutAuthorInput>
+    createMany?: Mods_ListCreateManyAuthorInputEnvelope
+    connect?: Enumerable<Mods_ListWhereUniqueInput>
+  }
+
+  export type Mods_FavoritsCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mods_FavoritsCreateWithoutUserInput>, Enumerable<Mods_FavoritsUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mods_FavoritsCreateOrConnectWithoutUserInput>
+    createMany?: Mods_FavoritsCreateManyUserInputEnvelope
+    connect?: Enumerable<Mods_FavoritsWhereUniqueInput>
+  }
+
+  export type Mod_SubscribersCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mod_SubscribersCreateWithoutUserInput>, Enumerable<Mod_SubscribersUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mod_SubscribersCreateOrConnectWithoutUserInput>
+    createMany?: Mod_SubscribersCreateManyUserInputEnvelope
+    connect?: Enumerable<Mod_SubscribersWhereUniqueInput>
+  }
+
+  export type Mod_DownloadCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mod_DownloadCreateWithoutUserInput>, Enumerable<Mod_DownloadUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mod_DownloadCreateOrConnectWithoutUserInput>
+    createMany?: Mod_DownloadCreateManyUserInputEnvelope
+    connect?: Enumerable<Mod_DownloadWhereUniqueInput>
+  }
+
+  export type User_SessionCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<User_SessionCreateWithoutUserInput>, Enumerable<User_SessionUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<User_SessionCreateOrConnectWithoutUserInput>
+    createMany?: User_SessionCreateManyUserInputEnvelope
+    connect?: Enumerable<User_SessionWhereUniqueInput>
+  }
+
+  export type User_AuthUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<User_AuthCreateWithoutUserInput, User_AuthUncheckedCreateWithoutUserInput>
+    connectOrCreate?: User_AuthCreateOrConnectWithoutUserInput
+    connect?: User_AuthWhereUniqueInput
+  }
+
+  export type Mods_CollectionUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mods_CollectionCreateWithoutAuthorInput>, Enumerable<Mods_CollectionUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mods_CollectionCreateOrConnectWithoutAuthorInput>
+    createMany?: Mods_CollectionCreateManyAuthorInputEnvelope
+    connect?: Enumerable<Mods_CollectionWhereUniqueInput>
+  }
+
+  export type Mod_AuthorUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mod_AuthorCreateWithoutUserInput>, Enumerable<Mod_AuthorUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mod_AuthorCreateOrConnectWithoutUserInput>
+    createMany?: Mod_AuthorCreateManyUserInputEnvelope
+    connect?: Enumerable<Mod_AuthorWhereUniqueInput>
+  }
+
+  export type Mod_IssueUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mod_IssueCreateWithoutAuthorInput>, Enumerable<Mod_IssueUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mod_IssueCreateOrConnectWithoutAuthorInput>
+    createMany?: Mod_IssueCreateManyAuthorInputEnvelope
+    connect?: Enumerable<Mod_IssueWhereUniqueInput>
+  }
+
+  export type Mod_Issue_PostUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mod_Issue_PostCreateWithoutAuthorInput>, Enumerable<Mod_Issue_PostUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mod_Issue_PostCreateOrConnectWithoutAuthorInput>
+    createMany?: Mod_Issue_PostCreateManyAuthorInputEnvelope
+    connect?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+  }
+
+  export type Mods_ListUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mods_ListCreateWithoutAuthorInput>, Enumerable<Mods_ListUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mods_ListCreateOrConnectWithoutAuthorInput>
+    createMany?: Mods_ListCreateManyAuthorInputEnvelope
+    connect?: Enumerable<Mods_ListWhereUniqueInput>
+  }
+
+  export type Mods_FavoritsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mods_FavoritsCreateWithoutUserInput>, Enumerable<Mods_FavoritsUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mods_FavoritsCreateOrConnectWithoutUserInput>
+    createMany?: Mods_FavoritsCreateManyUserInputEnvelope
+    connect?: Enumerable<Mods_FavoritsWhereUniqueInput>
+  }
+
+  export type Mod_SubscribersUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mod_SubscribersCreateWithoutUserInput>, Enumerable<Mod_SubscribersUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mod_SubscribersCreateOrConnectWithoutUserInput>
+    createMany?: Mod_SubscribersCreateManyUserInputEnvelope
+    connect?: Enumerable<Mod_SubscribersWhereUniqueInput>
+  }
+
+  export type Mod_DownloadUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mod_DownloadCreateWithoutUserInput>, Enumerable<Mod_DownloadUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mod_DownloadCreateOrConnectWithoutUserInput>
+    createMany?: Mod_DownloadCreateManyUserInputEnvelope
+    connect?: Enumerable<Mod_DownloadWhereUniqueInput>
+  }
+
+  export type User_SessionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<User_SessionCreateWithoutUserInput>, Enumerable<User_SessionUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<User_SessionCreateOrConnectWithoutUserInput>
+    createMany?: User_SessionCreateManyUserInputEnvelope
+    connect?: Enumerable<User_SessionWhereUniqueInput>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -16797,126 +19264,140 @@ export namespace Prisma {
     set?: boolean
   }
 
-  export type UserAuthUpdateOneWithoutUserInput = {
-    create?: XOR<UserAuthCreateWithoutUserInput, UserAuthUncheckedCreateWithoutUserInput>
-    connectOrCreate?: UserAuthCreateOrConnectWithoutUserInput
-    upsert?: UserAuthUpsertWithoutUserInput
+  export type User_AuthUpdateOneWithoutUserInput = {
+    create?: XOR<User_AuthCreateWithoutUserInput, User_AuthUncheckedCreateWithoutUserInput>
+    connectOrCreate?: User_AuthCreateOrConnectWithoutUserInput
+    upsert?: User_AuthUpsertWithoutUserInput
     disconnect?: boolean
     delete?: boolean
-    connect?: UserAuthWhereUniqueInput
-    update?: XOR<UserAuthUpdateWithoutUserInput, UserAuthUncheckedUpdateWithoutUserInput>
+    connect?: User_AuthWhereUniqueInput
+    update?: XOR<User_AuthUpdateWithoutUserInput, User_AuthUncheckedUpdateWithoutUserInput>
   }
 
-  export type ModsCollectionUpdateManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModsCollectionCreateWithoutAuthorInput>, Enumerable<ModsCollectionUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModsCollectionCreateOrConnectWithoutAuthorInput>
-    upsert?: Enumerable<ModsCollectionUpsertWithWhereUniqueWithoutAuthorInput>
-    createMany?: ModsCollectionCreateManyAuthorInputEnvelope
-    set?: Enumerable<ModsCollectionWhereUniqueInput>
-    disconnect?: Enumerable<ModsCollectionWhereUniqueInput>
-    delete?: Enumerable<ModsCollectionWhereUniqueInput>
-    connect?: Enumerable<ModsCollectionWhereUniqueInput>
-    update?: Enumerable<ModsCollectionUpdateWithWhereUniqueWithoutAuthorInput>
-    updateMany?: Enumerable<ModsCollectionUpdateManyWithWhereWithoutAuthorInput>
-    deleteMany?: Enumerable<ModsCollectionScalarWhereInput>
+  export type Mods_CollectionUpdateManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mods_CollectionCreateWithoutAuthorInput>, Enumerable<Mods_CollectionUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mods_CollectionCreateOrConnectWithoutAuthorInput>
+    upsert?: Enumerable<Mods_CollectionUpsertWithWhereUniqueWithoutAuthorInput>
+    createMany?: Mods_CollectionCreateManyAuthorInputEnvelope
+    set?: Enumerable<Mods_CollectionWhereUniqueInput>
+    disconnect?: Enumerable<Mods_CollectionWhereUniqueInput>
+    delete?: Enumerable<Mods_CollectionWhereUniqueInput>
+    connect?: Enumerable<Mods_CollectionWhereUniqueInput>
+    update?: Enumerable<Mods_CollectionUpdateWithWhereUniqueWithoutAuthorInput>
+    updateMany?: Enumerable<Mods_CollectionUpdateManyWithWhereWithoutAuthorInput>
+    deleteMany?: Enumerable<Mods_CollectionScalarWhereInput>
   }
 
-  export type ModAuthorUpdateManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModAuthorCreateWithoutUserInput>, Enumerable<ModAuthorUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModAuthorCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<ModAuthorUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: ModAuthorCreateManyUserInputEnvelope
-    set?: Enumerable<ModAuthorWhereUniqueInput>
-    disconnect?: Enumerable<ModAuthorWhereUniqueInput>
-    delete?: Enumerable<ModAuthorWhereUniqueInput>
-    connect?: Enumerable<ModAuthorWhereUniqueInput>
-    update?: Enumerable<ModAuthorUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<ModAuthorUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<ModAuthorScalarWhereInput>
+  export type Mod_AuthorUpdateManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mod_AuthorCreateWithoutUserInput>, Enumerable<Mod_AuthorUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mod_AuthorCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<Mod_AuthorUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: Mod_AuthorCreateManyUserInputEnvelope
+    set?: Enumerable<Mod_AuthorWhereUniqueInput>
+    disconnect?: Enumerable<Mod_AuthorWhereUniqueInput>
+    delete?: Enumerable<Mod_AuthorWhereUniqueInput>
+    connect?: Enumerable<Mod_AuthorWhereUniqueInput>
+    update?: Enumerable<Mod_AuthorUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<Mod_AuthorUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<Mod_AuthorScalarWhereInput>
   }
 
-  export type ModIssueUpdateManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModIssueCreateWithoutAuthorInput>, Enumerable<ModIssueUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModIssueCreateOrConnectWithoutAuthorInput>
-    upsert?: Enumerable<ModIssueUpsertWithWhereUniqueWithoutAuthorInput>
-    createMany?: ModIssueCreateManyAuthorInputEnvelope
-    set?: Enumerable<ModIssueWhereUniqueInput>
-    disconnect?: Enumerable<ModIssueWhereUniqueInput>
-    delete?: Enumerable<ModIssueWhereUniqueInput>
-    connect?: Enumerable<ModIssueWhereUniqueInput>
-    update?: Enumerable<ModIssueUpdateWithWhereUniqueWithoutAuthorInput>
-    updateMany?: Enumerable<ModIssueUpdateManyWithWhereWithoutAuthorInput>
-    deleteMany?: Enumerable<ModIssueScalarWhereInput>
+  export type Mod_IssueUpdateManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mod_IssueCreateWithoutAuthorInput>, Enumerable<Mod_IssueUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mod_IssueCreateOrConnectWithoutAuthorInput>
+    upsert?: Enumerable<Mod_IssueUpsertWithWhereUniqueWithoutAuthorInput>
+    createMany?: Mod_IssueCreateManyAuthorInputEnvelope
+    set?: Enumerable<Mod_IssueWhereUniqueInput>
+    disconnect?: Enumerable<Mod_IssueWhereUniqueInput>
+    delete?: Enumerable<Mod_IssueWhereUniqueInput>
+    connect?: Enumerable<Mod_IssueWhereUniqueInput>
+    update?: Enumerable<Mod_IssueUpdateWithWhereUniqueWithoutAuthorInput>
+    updateMany?: Enumerable<Mod_IssueUpdateManyWithWhereWithoutAuthorInput>
+    deleteMany?: Enumerable<Mod_IssueScalarWhereInput>
   }
 
-  export type ModIssuePostUpdateManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModIssuePostCreateWithoutAuthorInput>, Enumerable<ModIssuePostUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModIssuePostCreateOrConnectWithoutAuthorInput>
-    upsert?: Enumerable<ModIssuePostUpsertWithWhereUniqueWithoutAuthorInput>
-    createMany?: ModIssuePostCreateManyAuthorInputEnvelope
-    set?: Enumerable<ModIssuePostWhereUniqueInput>
-    disconnect?: Enumerable<ModIssuePostWhereUniqueInput>
-    delete?: Enumerable<ModIssuePostWhereUniqueInput>
-    connect?: Enumerable<ModIssuePostWhereUniqueInput>
-    update?: Enumerable<ModIssuePostUpdateWithWhereUniqueWithoutAuthorInput>
-    updateMany?: Enumerable<ModIssuePostUpdateManyWithWhereWithoutAuthorInput>
-    deleteMany?: Enumerable<ModIssuePostScalarWhereInput>
+  export type Mod_Issue_PostUpdateManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mod_Issue_PostCreateWithoutAuthorInput>, Enumerable<Mod_Issue_PostUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mod_Issue_PostCreateOrConnectWithoutAuthorInput>
+    upsert?: Enumerable<Mod_Issue_PostUpsertWithWhereUniqueWithoutAuthorInput>
+    createMany?: Mod_Issue_PostCreateManyAuthorInputEnvelope
+    set?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    disconnect?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    delete?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    connect?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    update?: Enumerable<Mod_Issue_PostUpdateWithWhereUniqueWithoutAuthorInput>
+    updateMany?: Enumerable<Mod_Issue_PostUpdateManyWithWhereWithoutAuthorInput>
+    deleteMany?: Enumerable<Mod_Issue_PostScalarWhereInput>
   }
 
-  export type ModsListUpdateManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModsListCreateWithoutAuthorInput>, Enumerable<ModsListUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModsListCreateOrConnectWithoutAuthorInput>
-    upsert?: Enumerable<ModsListUpsertWithWhereUniqueWithoutAuthorInput>
-    createMany?: ModsListCreateManyAuthorInputEnvelope
-    set?: Enumerable<ModsListWhereUniqueInput>
-    disconnect?: Enumerable<ModsListWhereUniqueInput>
-    delete?: Enumerable<ModsListWhereUniqueInput>
-    connect?: Enumerable<ModsListWhereUniqueInput>
-    update?: Enumerable<ModsListUpdateWithWhereUniqueWithoutAuthorInput>
-    updateMany?: Enumerable<ModsListUpdateManyWithWhereWithoutAuthorInput>
-    deleteMany?: Enumerable<ModsListScalarWhereInput>
+  export type Mods_ListUpdateManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mods_ListCreateWithoutAuthorInput>, Enumerable<Mods_ListUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mods_ListCreateOrConnectWithoutAuthorInput>
+    upsert?: Enumerable<Mods_ListUpsertWithWhereUniqueWithoutAuthorInput>
+    createMany?: Mods_ListCreateManyAuthorInputEnvelope
+    set?: Enumerable<Mods_ListWhereUniqueInput>
+    disconnect?: Enumerable<Mods_ListWhereUniqueInput>
+    delete?: Enumerable<Mods_ListWhereUniqueInput>
+    connect?: Enumerable<Mods_ListWhereUniqueInput>
+    update?: Enumerable<Mods_ListUpdateWithWhereUniqueWithoutAuthorInput>
+    updateMany?: Enumerable<Mods_ListUpdateManyWithWhereWithoutAuthorInput>
+    deleteMany?: Enumerable<Mods_ListScalarWhereInput>
   }
 
-  export type ModsFavoritsUpdateManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModsFavoritsCreateWithoutUserInput>, Enumerable<ModsFavoritsUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModsFavoritsCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<ModsFavoritsUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: ModsFavoritsCreateManyUserInputEnvelope
-    set?: Enumerable<ModsFavoritsWhereUniqueInput>
-    disconnect?: Enumerable<ModsFavoritsWhereUniqueInput>
-    delete?: Enumerable<ModsFavoritsWhereUniqueInput>
-    connect?: Enumerable<ModsFavoritsWhereUniqueInput>
-    update?: Enumerable<ModsFavoritsUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<ModsFavoritsUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<ModsFavoritsScalarWhereInput>
+  export type Mods_FavoritsUpdateManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mods_FavoritsCreateWithoutUserInput>, Enumerable<Mods_FavoritsUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mods_FavoritsCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<Mods_FavoritsUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: Mods_FavoritsCreateManyUserInputEnvelope
+    set?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    disconnect?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    delete?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    connect?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    update?: Enumerable<Mods_FavoritsUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<Mods_FavoritsUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<Mods_FavoritsScalarWhereInput>
   }
 
-  export type ModSubscribersUpdateManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModSubscribersCreateWithoutUserInput>, Enumerable<ModSubscribersUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModSubscribersCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<ModSubscribersUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: ModSubscribersCreateManyUserInputEnvelope
-    set?: Enumerable<ModSubscribersWhereUniqueInput>
-    disconnect?: Enumerable<ModSubscribersWhereUniqueInput>
-    delete?: Enumerable<ModSubscribersWhereUniqueInput>
-    connect?: Enumerable<ModSubscribersWhereUniqueInput>
-    update?: Enumerable<ModSubscribersUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<ModSubscribersUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<ModSubscribersScalarWhereInput>
+  export type Mod_SubscribersUpdateManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mod_SubscribersCreateWithoutUserInput>, Enumerable<Mod_SubscribersUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mod_SubscribersCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<Mod_SubscribersUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: Mod_SubscribersCreateManyUserInputEnvelope
+    set?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    disconnect?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    delete?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    connect?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    update?: Enumerable<Mod_SubscribersUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<Mod_SubscribersUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<Mod_SubscribersScalarWhereInput>
   }
 
-  export type ModDownloadUpdateManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModDownloadCreateWithoutUserInput>, Enumerable<ModDownloadUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModDownloadCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<ModDownloadUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: ModDownloadCreateManyUserInputEnvelope
-    set?: Enumerable<ModDownloadWhereUniqueInput>
-    disconnect?: Enumerable<ModDownloadWhereUniqueInput>
-    delete?: Enumerable<ModDownloadWhereUniqueInput>
-    connect?: Enumerable<ModDownloadWhereUniqueInput>
-    update?: Enumerable<ModDownloadUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<ModDownloadUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<ModDownloadScalarWhereInput>
+  export type Mod_DownloadUpdateManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mod_DownloadCreateWithoutUserInput>, Enumerable<Mod_DownloadUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mod_DownloadCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<Mod_DownloadUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: Mod_DownloadCreateManyUserInputEnvelope
+    set?: Enumerable<Mod_DownloadWhereUniqueInput>
+    disconnect?: Enumerable<Mod_DownloadWhereUniqueInput>
+    delete?: Enumerable<Mod_DownloadWhereUniqueInput>
+    connect?: Enumerable<Mod_DownloadWhereUniqueInput>
+    update?: Enumerable<Mod_DownloadUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<Mod_DownloadUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<Mod_DownloadScalarWhereInput>
+  }
+
+  export type User_SessionUpdateManyWithoutUserInput = {
+    create?: XOR<Enumerable<User_SessionCreateWithoutUserInput>, Enumerable<User_SessionUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<User_SessionCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<User_SessionUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: User_SessionCreateManyUserInputEnvelope
+    set?: Enumerable<User_SessionWhereUniqueInput>
+    disconnect?: Enumerable<User_SessionWhereUniqueInput>
+    delete?: Enumerable<User_SessionWhereUniqueInput>
+    connect?: Enumerable<User_SessionWhereUniqueInput>
+    update?: Enumerable<User_SessionUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<User_SessionUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<User_SessionScalarWhereInput>
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -16927,126 +19408,140 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type UserAuthUncheckedUpdateOneWithoutUserInput = {
-    create?: XOR<UserAuthCreateWithoutUserInput, UserAuthUncheckedCreateWithoutUserInput>
-    connectOrCreate?: UserAuthCreateOrConnectWithoutUserInput
-    upsert?: UserAuthUpsertWithoutUserInput
+  export type User_AuthUncheckedUpdateOneWithoutUserInput = {
+    create?: XOR<User_AuthCreateWithoutUserInput, User_AuthUncheckedCreateWithoutUserInput>
+    connectOrCreate?: User_AuthCreateOrConnectWithoutUserInput
+    upsert?: User_AuthUpsertWithoutUserInput
     disconnect?: boolean
     delete?: boolean
-    connect?: UserAuthWhereUniqueInput
-    update?: XOR<UserAuthUpdateWithoutUserInput, UserAuthUncheckedUpdateWithoutUserInput>
+    connect?: User_AuthWhereUniqueInput
+    update?: XOR<User_AuthUpdateWithoutUserInput, User_AuthUncheckedUpdateWithoutUserInput>
   }
 
-  export type ModsCollectionUncheckedUpdateManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModsCollectionCreateWithoutAuthorInput>, Enumerable<ModsCollectionUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModsCollectionCreateOrConnectWithoutAuthorInput>
-    upsert?: Enumerable<ModsCollectionUpsertWithWhereUniqueWithoutAuthorInput>
-    createMany?: ModsCollectionCreateManyAuthorInputEnvelope
-    set?: Enumerable<ModsCollectionWhereUniqueInput>
-    disconnect?: Enumerable<ModsCollectionWhereUniqueInput>
-    delete?: Enumerable<ModsCollectionWhereUniqueInput>
-    connect?: Enumerable<ModsCollectionWhereUniqueInput>
-    update?: Enumerable<ModsCollectionUpdateWithWhereUniqueWithoutAuthorInput>
-    updateMany?: Enumerable<ModsCollectionUpdateManyWithWhereWithoutAuthorInput>
-    deleteMany?: Enumerable<ModsCollectionScalarWhereInput>
+  export type Mods_CollectionUncheckedUpdateManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mods_CollectionCreateWithoutAuthorInput>, Enumerable<Mods_CollectionUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mods_CollectionCreateOrConnectWithoutAuthorInput>
+    upsert?: Enumerable<Mods_CollectionUpsertWithWhereUniqueWithoutAuthorInput>
+    createMany?: Mods_CollectionCreateManyAuthorInputEnvelope
+    set?: Enumerable<Mods_CollectionWhereUniqueInput>
+    disconnect?: Enumerable<Mods_CollectionWhereUniqueInput>
+    delete?: Enumerable<Mods_CollectionWhereUniqueInput>
+    connect?: Enumerable<Mods_CollectionWhereUniqueInput>
+    update?: Enumerable<Mods_CollectionUpdateWithWhereUniqueWithoutAuthorInput>
+    updateMany?: Enumerable<Mods_CollectionUpdateManyWithWhereWithoutAuthorInput>
+    deleteMany?: Enumerable<Mods_CollectionScalarWhereInput>
   }
 
-  export type ModAuthorUncheckedUpdateManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModAuthorCreateWithoutUserInput>, Enumerable<ModAuthorUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModAuthorCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<ModAuthorUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: ModAuthorCreateManyUserInputEnvelope
-    set?: Enumerable<ModAuthorWhereUniqueInput>
-    disconnect?: Enumerable<ModAuthorWhereUniqueInput>
-    delete?: Enumerable<ModAuthorWhereUniqueInput>
-    connect?: Enumerable<ModAuthorWhereUniqueInput>
-    update?: Enumerable<ModAuthorUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<ModAuthorUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<ModAuthorScalarWhereInput>
+  export type Mod_AuthorUncheckedUpdateManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mod_AuthorCreateWithoutUserInput>, Enumerable<Mod_AuthorUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mod_AuthorCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<Mod_AuthorUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: Mod_AuthorCreateManyUserInputEnvelope
+    set?: Enumerable<Mod_AuthorWhereUniqueInput>
+    disconnect?: Enumerable<Mod_AuthorWhereUniqueInput>
+    delete?: Enumerable<Mod_AuthorWhereUniqueInput>
+    connect?: Enumerable<Mod_AuthorWhereUniqueInput>
+    update?: Enumerable<Mod_AuthorUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<Mod_AuthorUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<Mod_AuthorScalarWhereInput>
   }
 
-  export type ModIssueUncheckedUpdateManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModIssueCreateWithoutAuthorInput>, Enumerable<ModIssueUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModIssueCreateOrConnectWithoutAuthorInput>
-    upsert?: Enumerable<ModIssueUpsertWithWhereUniqueWithoutAuthorInput>
-    createMany?: ModIssueCreateManyAuthorInputEnvelope
-    set?: Enumerable<ModIssueWhereUniqueInput>
-    disconnect?: Enumerable<ModIssueWhereUniqueInput>
-    delete?: Enumerable<ModIssueWhereUniqueInput>
-    connect?: Enumerable<ModIssueWhereUniqueInput>
-    update?: Enumerable<ModIssueUpdateWithWhereUniqueWithoutAuthorInput>
-    updateMany?: Enumerable<ModIssueUpdateManyWithWhereWithoutAuthorInput>
-    deleteMany?: Enumerable<ModIssueScalarWhereInput>
+  export type Mod_IssueUncheckedUpdateManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mod_IssueCreateWithoutAuthorInput>, Enumerable<Mod_IssueUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mod_IssueCreateOrConnectWithoutAuthorInput>
+    upsert?: Enumerable<Mod_IssueUpsertWithWhereUniqueWithoutAuthorInput>
+    createMany?: Mod_IssueCreateManyAuthorInputEnvelope
+    set?: Enumerable<Mod_IssueWhereUniqueInput>
+    disconnect?: Enumerable<Mod_IssueWhereUniqueInput>
+    delete?: Enumerable<Mod_IssueWhereUniqueInput>
+    connect?: Enumerable<Mod_IssueWhereUniqueInput>
+    update?: Enumerable<Mod_IssueUpdateWithWhereUniqueWithoutAuthorInput>
+    updateMany?: Enumerable<Mod_IssueUpdateManyWithWhereWithoutAuthorInput>
+    deleteMany?: Enumerable<Mod_IssueScalarWhereInput>
   }
 
-  export type ModIssuePostUncheckedUpdateManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModIssuePostCreateWithoutAuthorInput>, Enumerable<ModIssuePostUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModIssuePostCreateOrConnectWithoutAuthorInput>
-    upsert?: Enumerable<ModIssuePostUpsertWithWhereUniqueWithoutAuthorInput>
-    createMany?: ModIssuePostCreateManyAuthorInputEnvelope
-    set?: Enumerable<ModIssuePostWhereUniqueInput>
-    disconnect?: Enumerable<ModIssuePostWhereUniqueInput>
-    delete?: Enumerable<ModIssuePostWhereUniqueInput>
-    connect?: Enumerable<ModIssuePostWhereUniqueInput>
-    update?: Enumerable<ModIssuePostUpdateWithWhereUniqueWithoutAuthorInput>
-    updateMany?: Enumerable<ModIssuePostUpdateManyWithWhereWithoutAuthorInput>
-    deleteMany?: Enumerable<ModIssuePostScalarWhereInput>
+  export type Mod_Issue_PostUncheckedUpdateManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mod_Issue_PostCreateWithoutAuthorInput>, Enumerable<Mod_Issue_PostUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mod_Issue_PostCreateOrConnectWithoutAuthorInput>
+    upsert?: Enumerable<Mod_Issue_PostUpsertWithWhereUniqueWithoutAuthorInput>
+    createMany?: Mod_Issue_PostCreateManyAuthorInputEnvelope
+    set?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    disconnect?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    delete?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    connect?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    update?: Enumerable<Mod_Issue_PostUpdateWithWhereUniqueWithoutAuthorInput>
+    updateMany?: Enumerable<Mod_Issue_PostUpdateManyWithWhereWithoutAuthorInput>
+    deleteMany?: Enumerable<Mod_Issue_PostScalarWhereInput>
   }
 
-  export type ModsListUncheckedUpdateManyWithoutAuthorInput = {
-    create?: XOR<Enumerable<ModsListCreateWithoutAuthorInput>, Enumerable<ModsListUncheckedCreateWithoutAuthorInput>>
-    connectOrCreate?: Enumerable<ModsListCreateOrConnectWithoutAuthorInput>
-    upsert?: Enumerable<ModsListUpsertWithWhereUniqueWithoutAuthorInput>
-    createMany?: ModsListCreateManyAuthorInputEnvelope
-    set?: Enumerable<ModsListWhereUniqueInput>
-    disconnect?: Enumerable<ModsListWhereUniqueInput>
-    delete?: Enumerable<ModsListWhereUniqueInput>
-    connect?: Enumerable<ModsListWhereUniqueInput>
-    update?: Enumerable<ModsListUpdateWithWhereUniqueWithoutAuthorInput>
-    updateMany?: Enumerable<ModsListUpdateManyWithWhereWithoutAuthorInput>
-    deleteMany?: Enumerable<ModsListScalarWhereInput>
+  export type Mods_ListUncheckedUpdateManyWithoutAuthorInput = {
+    create?: XOR<Enumerable<Mods_ListCreateWithoutAuthorInput>, Enumerable<Mods_ListUncheckedCreateWithoutAuthorInput>>
+    connectOrCreate?: Enumerable<Mods_ListCreateOrConnectWithoutAuthorInput>
+    upsert?: Enumerable<Mods_ListUpsertWithWhereUniqueWithoutAuthorInput>
+    createMany?: Mods_ListCreateManyAuthorInputEnvelope
+    set?: Enumerable<Mods_ListWhereUniqueInput>
+    disconnect?: Enumerable<Mods_ListWhereUniqueInput>
+    delete?: Enumerable<Mods_ListWhereUniqueInput>
+    connect?: Enumerable<Mods_ListWhereUniqueInput>
+    update?: Enumerable<Mods_ListUpdateWithWhereUniqueWithoutAuthorInput>
+    updateMany?: Enumerable<Mods_ListUpdateManyWithWhereWithoutAuthorInput>
+    deleteMany?: Enumerable<Mods_ListScalarWhereInput>
   }
 
-  export type ModsFavoritsUncheckedUpdateManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModsFavoritsCreateWithoutUserInput>, Enumerable<ModsFavoritsUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModsFavoritsCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<ModsFavoritsUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: ModsFavoritsCreateManyUserInputEnvelope
-    set?: Enumerable<ModsFavoritsWhereUniqueInput>
-    disconnect?: Enumerable<ModsFavoritsWhereUniqueInput>
-    delete?: Enumerable<ModsFavoritsWhereUniqueInput>
-    connect?: Enumerable<ModsFavoritsWhereUniqueInput>
-    update?: Enumerable<ModsFavoritsUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<ModsFavoritsUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<ModsFavoritsScalarWhereInput>
+  export type Mods_FavoritsUncheckedUpdateManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mods_FavoritsCreateWithoutUserInput>, Enumerable<Mods_FavoritsUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mods_FavoritsCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<Mods_FavoritsUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: Mods_FavoritsCreateManyUserInputEnvelope
+    set?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    disconnect?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    delete?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    connect?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    update?: Enumerable<Mods_FavoritsUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<Mods_FavoritsUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<Mods_FavoritsScalarWhereInput>
   }
 
-  export type ModSubscribersUncheckedUpdateManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModSubscribersCreateWithoutUserInput>, Enumerable<ModSubscribersUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModSubscribersCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<ModSubscribersUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: ModSubscribersCreateManyUserInputEnvelope
-    set?: Enumerable<ModSubscribersWhereUniqueInput>
-    disconnect?: Enumerable<ModSubscribersWhereUniqueInput>
-    delete?: Enumerable<ModSubscribersWhereUniqueInput>
-    connect?: Enumerable<ModSubscribersWhereUniqueInput>
-    update?: Enumerable<ModSubscribersUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<ModSubscribersUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<ModSubscribersScalarWhereInput>
+  export type Mod_SubscribersUncheckedUpdateManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mod_SubscribersCreateWithoutUserInput>, Enumerable<Mod_SubscribersUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mod_SubscribersCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<Mod_SubscribersUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: Mod_SubscribersCreateManyUserInputEnvelope
+    set?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    disconnect?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    delete?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    connect?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    update?: Enumerable<Mod_SubscribersUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<Mod_SubscribersUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<Mod_SubscribersScalarWhereInput>
   }
 
-  export type ModDownloadUncheckedUpdateManyWithoutUserInput = {
-    create?: XOR<Enumerable<ModDownloadCreateWithoutUserInput>, Enumerable<ModDownloadUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<ModDownloadCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<ModDownloadUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: ModDownloadCreateManyUserInputEnvelope
-    set?: Enumerable<ModDownloadWhereUniqueInput>
-    disconnect?: Enumerable<ModDownloadWhereUniqueInput>
-    delete?: Enumerable<ModDownloadWhereUniqueInput>
-    connect?: Enumerable<ModDownloadWhereUniqueInput>
-    update?: Enumerable<ModDownloadUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<ModDownloadUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<ModDownloadScalarWhereInput>
+  export type Mod_DownloadUncheckedUpdateManyWithoutUserInput = {
+    create?: XOR<Enumerable<Mod_DownloadCreateWithoutUserInput>, Enumerable<Mod_DownloadUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<Mod_DownloadCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<Mod_DownloadUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: Mod_DownloadCreateManyUserInputEnvelope
+    set?: Enumerable<Mod_DownloadWhereUniqueInput>
+    disconnect?: Enumerable<Mod_DownloadWhereUniqueInput>
+    delete?: Enumerable<Mod_DownloadWhereUniqueInput>
+    connect?: Enumerable<Mod_DownloadWhereUniqueInput>
+    update?: Enumerable<Mod_DownloadUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<Mod_DownloadUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<Mod_DownloadScalarWhereInput>
+  }
+
+  export type User_SessionUncheckedUpdateManyWithoutUserInput = {
+    create?: XOR<Enumerable<User_SessionCreateWithoutUserInput>, Enumerable<User_SessionUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<User_SessionCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<User_SessionUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: User_SessionCreateManyUserInputEnvelope
+    set?: Enumerable<User_SessionWhereUniqueInput>
+    disconnect?: Enumerable<User_SessionWhereUniqueInput>
+    delete?: Enumerable<User_SessionWhereUniqueInput>
+    connect?: Enumerable<User_SessionWhereUniqueInput>
+    update?: Enumerable<User_SessionUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<User_SessionUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<User_SessionScalarWhereInput>
   }
 
   export type UserCreateNestedOneWithoutUserAuthInput = {
@@ -17119,388 +19614,388 @@ export namespace Prisma {
     deleteMany?: Enumerable<ModScalarWhereInput>
   }
 
-  export type ModsCollectionCreateNestedOneWithoutModsInput = {
-    create?: XOR<ModsCollectionCreateWithoutModsInput, ModsCollectionUncheckedCreateWithoutModsInput>
-    connectOrCreate?: ModsCollectionCreateOrConnectWithoutModsInput
-    connect?: ModsCollectionWhereUniqueInput
+  export type Mods_CollectionCreateNestedOneWithoutModsInput = {
+    create?: XOR<Mods_CollectionCreateWithoutModsInput, Mods_CollectionUncheckedCreateWithoutModsInput>
+    connectOrCreate?: Mods_CollectionCreateOrConnectWithoutModsInput
+    connect?: Mods_CollectionWhereUniqueInput
   }
 
-  export type ModImageCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModImageCreateWithoutModInput>, Enumerable<ModImageUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModImageCreateOrConnectWithoutModInput>
-    createMany?: ModImageCreateManyModInputEnvelope
-    connect?: Enumerable<ModImageWhereUniqueInput>
+  export type Mod_ImageCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_ImageCreateWithoutModInput>, Enumerable<Mod_ImageUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_ImageCreateOrConnectWithoutModInput>
+    createMany?: Mod_ImageCreateManyModInputEnvelope
+    connect?: Enumerable<Mod_ImageWhereUniqueInput>
   }
 
-  export type ModAuthorCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModAuthorCreateWithoutModInput>, Enumerable<ModAuthorUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModAuthorCreateOrConnectWithoutModInput>
-    createMany?: ModAuthorCreateManyModInputEnvelope
-    connect?: Enumerable<ModAuthorWhereUniqueInput>
+  export type Mod_AuthorCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_AuthorCreateWithoutModInput>, Enumerable<Mod_AuthorUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_AuthorCreateOrConnectWithoutModInput>
+    createMany?: Mod_AuthorCreateManyModInputEnvelope
+    connect?: Enumerable<Mod_AuthorWhereUniqueInput>
   }
 
-  export type ModTagCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModTagCreateWithoutModInput>, Enumerable<ModTagUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModTagCreateOrConnectWithoutModInput>
-    connect?: Enumerable<ModTagWhereUniqueInput>
+  export type Mod_TagCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_TagCreateWithoutModInput>, Enumerable<Mod_TagUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_TagCreateOrConnectWithoutModInput>
+    connect?: Enumerable<Mod_TagWhereUniqueInput>
   }
 
-  export type ModVersionCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModVersionCreateWithoutModInput>, Enumerable<ModVersionUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModVersionCreateOrConnectWithoutModInput>
-    createMany?: ModVersionCreateManyModInputEnvelope
-    connect?: Enumerable<ModVersionWhereUniqueInput>
+  export type Mod_VersionCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_VersionCreateWithoutModInput>, Enumerable<Mod_VersionUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_VersionCreateOrConnectWithoutModInput>
+    createMany?: Mod_VersionCreateManyModInputEnvelope
+    connect?: Enumerable<Mod_VersionWhereUniqueInput>
   }
 
-  export type ModsListCreateNestedManyWithoutModsInput = {
-    create?: XOR<Enumerable<ModsListCreateWithoutModsInput>, Enumerable<ModsListUncheckedCreateWithoutModsInput>>
-    connectOrCreate?: Enumerable<ModsListCreateOrConnectWithoutModsInput>
-    connect?: Enumerable<ModsListWhereUniqueInput>
+  export type Mods_ListCreateNestedManyWithoutModsInput = {
+    create?: XOR<Enumerable<Mods_ListCreateWithoutModsInput>, Enumerable<Mods_ListUncheckedCreateWithoutModsInput>>
+    connectOrCreate?: Enumerable<Mods_ListCreateOrConnectWithoutModsInput>
+    connect?: Enumerable<Mods_ListWhereUniqueInput>
   }
 
-  export type ModIssueCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModIssueCreateWithoutModInput>, Enumerable<ModIssueUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModIssueCreateOrConnectWithoutModInput>
-    createMany?: ModIssueCreateManyModInputEnvelope
-    connect?: Enumerable<ModIssueWhereUniqueInput>
+  export type Mod_IssueCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_IssueCreateWithoutModInput>, Enumerable<Mod_IssueUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_IssueCreateOrConnectWithoutModInput>
+    createMany?: Mod_IssueCreateManyModInputEnvelope
+    connect?: Enumerable<Mod_IssueWhereUniqueInput>
   }
 
-  export type ModsFavoritsCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModsFavoritsCreateWithoutModInput>, Enumerable<ModsFavoritsUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModsFavoritsCreateOrConnectWithoutModInput>
-    createMany?: ModsFavoritsCreateManyModInputEnvelope
-    connect?: Enumerable<ModsFavoritsWhereUniqueInput>
+  export type Mods_FavoritsCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mods_FavoritsCreateWithoutModInput>, Enumerable<Mods_FavoritsUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mods_FavoritsCreateOrConnectWithoutModInput>
+    createMany?: Mods_FavoritsCreateManyModInputEnvelope
+    connect?: Enumerable<Mods_FavoritsWhereUniqueInput>
   }
 
-  export type ModSubscribersCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModSubscribersCreateWithoutModInput>, Enumerable<ModSubscribersUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModSubscribersCreateOrConnectWithoutModInput>
-    createMany?: ModSubscribersCreateManyModInputEnvelope
-    connect?: Enumerable<ModSubscribersWhereUniqueInput>
+  export type Mod_SubscribersCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_SubscribersCreateWithoutModInput>, Enumerable<Mod_SubscribersUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_SubscribersCreateOrConnectWithoutModInput>
+    createMany?: Mod_SubscribersCreateManyModInputEnvelope
+    connect?: Enumerable<Mod_SubscribersWhereUniqueInput>
   }
 
-  export type ModDownloadCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModDownloadCreateWithoutModInput>, Enumerable<ModDownloadUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModDownloadCreateOrConnectWithoutModInput>
-    createMany?: ModDownloadCreateManyModInputEnvelope
-    connect?: Enumerable<ModDownloadWhereUniqueInput>
+  export type Mod_DownloadCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_DownloadCreateWithoutModInput>, Enumerable<Mod_DownloadUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_DownloadCreateOrConnectWithoutModInput>
+    createMany?: Mod_DownloadCreateManyModInputEnvelope
+    connect?: Enumerable<Mod_DownloadWhereUniqueInput>
   }
 
-  export type ModImageUncheckedCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModImageCreateWithoutModInput>, Enumerable<ModImageUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModImageCreateOrConnectWithoutModInput>
-    createMany?: ModImageCreateManyModInputEnvelope
-    connect?: Enumerable<ModImageWhereUniqueInput>
+  export type Mod_ImageUncheckedCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_ImageCreateWithoutModInput>, Enumerable<Mod_ImageUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_ImageCreateOrConnectWithoutModInput>
+    createMany?: Mod_ImageCreateManyModInputEnvelope
+    connect?: Enumerable<Mod_ImageWhereUniqueInput>
   }
 
-  export type ModAuthorUncheckedCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModAuthorCreateWithoutModInput>, Enumerable<ModAuthorUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModAuthorCreateOrConnectWithoutModInput>
-    createMany?: ModAuthorCreateManyModInputEnvelope
-    connect?: Enumerable<ModAuthorWhereUniqueInput>
+  export type Mod_AuthorUncheckedCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_AuthorCreateWithoutModInput>, Enumerable<Mod_AuthorUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_AuthorCreateOrConnectWithoutModInput>
+    createMany?: Mod_AuthorCreateManyModInputEnvelope
+    connect?: Enumerable<Mod_AuthorWhereUniqueInput>
   }
 
-  export type ModTagUncheckedCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModTagCreateWithoutModInput>, Enumerable<ModTagUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModTagCreateOrConnectWithoutModInput>
-    connect?: Enumerable<ModTagWhereUniqueInput>
+  export type Mod_TagUncheckedCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_TagCreateWithoutModInput>, Enumerable<Mod_TagUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_TagCreateOrConnectWithoutModInput>
+    connect?: Enumerable<Mod_TagWhereUniqueInput>
   }
 
-  export type ModVersionUncheckedCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModVersionCreateWithoutModInput>, Enumerable<ModVersionUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModVersionCreateOrConnectWithoutModInput>
-    createMany?: ModVersionCreateManyModInputEnvelope
-    connect?: Enumerable<ModVersionWhereUniqueInput>
+  export type Mod_VersionUncheckedCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_VersionCreateWithoutModInput>, Enumerable<Mod_VersionUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_VersionCreateOrConnectWithoutModInput>
+    createMany?: Mod_VersionCreateManyModInputEnvelope
+    connect?: Enumerable<Mod_VersionWhereUniqueInput>
   }
 
-  export type ModsListUncheckedCreateNestedManyWithoutModsInput = {
-    create?: XOR<Enumerable<ModsListCreateWithoutModsInput>, Enumerable<ModsListUncheckedCreateWithoutModsInput>>
-    connectOrCreate?: Enumerable<ModsListCreateOrConnectWithoutModsInput>
-    connect?: Enumerable<ModsListWhereUniqueInput>
+  export type Mods_ListUncheckedCreateNestedManyWithoutModsInput = {
+    create?: XOR<Enumerable<Mods_ListCreateWithoutModsInput>, Enumerable<Mods_ListUncheckedCreateWithoutModsInput>>
+    connectOrCreate?: Enumerable<Mods_ListCreateOrConnectWithoutModsInput>
+    connect?: Enumerable<Mods_ListWhereUniqueInput>
   }
 
-  export type ModIssueUncheckedCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModIssueCreateWithoutModInput>, Enumerable<ModIssueUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModIssueCreateOrConnectWithoutModInput>
-    createMany?: ModIssueCreateManyModInputEnvelope
-    connect?: Enumerable<ModIssueWhereUniqueInput>
+  export type Mod_IssueUncheckedCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_IssueCreateWithoutModInput>, Enumerable<Mod_IssueUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_IssueCreateOrConnectWithoutModInput>
+    createMany?: Mod_IssueCreateManyModInputEnvelope
+    connect?: Enumerable<Mod_IssueWhereUniqueInput>
   }
 
-  export type ModsFavoritsUncheckedCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModsFavoritsCreateWithoutModInput>, Enumerable<ModsFavoritsUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModsFavoritsCreateOrConnectWithoutModInput>
-    createMany?: ModsFavoritsCreateManyModInputEnvelope
-    connect?: Enumerable<ModsFavoritsWhereUniqueInput>
+  export type Mods_FavoritsUncheckedCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mods_FavoritsCreateWithoutModInput>, Enumerable<Mods_FavoritsUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mods_FavoritsCreateOrConnectWithoutModInput>
+    createMany?: Mods_FavoritsCreateManyModInputEnvelope
+    connect?: Enumerable<Mods_FavoritsWhereUniqueInput>
   }
 
-  export type ModSubscribersUncheckedCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModSubscribersCreateWithoutModInput>, Enumerable<ModSubscribersUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModSubscribersCreateOrConnectWithoutModInput>
-    createMany?: ModSubscribersCreateManyModInputEnvelope
-    connect?: Enumerable<ModSubscribersWhereUniqueInput>
+  export type Mod_SubscribersUncheckedCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_SubscribersCreateWithoutModInput>, Enumerable<Mod_SubscribersUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_SubscribersCreateOrConnectWithoutModInput>
+    createMany?: Mod_SubscribersCreateManyModInputEnvelope
+    connect?: Enumerable<Mod_SubscribersWhereUniqueInput>
   }
 
-  export type ModDownloadUncheckedCreateNestedManyWithoutModInput = {
-    create?: XOR<Enumerable<ModDownloadCreateWithoutModInput>, Enumerable<ModDownloadUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModDownloadCreateOrConnectWithoutModInput>
-    createMany?: ModDownloadCreateManyModInputEnvelope
-    connect?: Enumerable<ModDownloadWhereUniqueInput>
+  export type Mod_DownloadUncheckedCreateNestedManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_DownloadCreateWithoutModInput>, Enumerable<Mod_DownloadUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_DownloadCreateOrConnectWithoutModInput>
+    createMany?: Mod_DownloadCreateManyModInputEnvelope
+    connect?: Enumerable<Mod_DownloadWhereUniqueInput>
   }
 
-  export type ModsCollectionUpdateOneRequiredWithoutModsInput = {
-    create?: XOR<ModsCollectionCreateWithoutModsInput, ModsCollectionUncheckedCreateWithoutModsInput>
-    connectOrCreate?: ModsCollectionCreateOrConnectWithoutModsInput
-    upsert?: ModsCollectionUpsertWithoutModsInput
-    connect?: ModsCollectionWhereUniqueInput
-    update?: XOR<ModsCollectionUpdateWithoutModsInput, ModsCollectionUncheckedUpdateWithoutModsInput>
+  export type Mods_CollectionUpdateOneRequiredWithoutModsInput = {
+    create?: XOR<Mods_CollectionCreateWithoutModsInput, Mods_CollectionUncheckedCreateWithoutModsInput>
+    connectOrCreate?: Mods_CollectionCreateOrConnectWithoutModsInput
+    upsert?: Mods_CollectionUpsertWithoutModsInput
+    connect?: Mods_CollectionWhereUniqueInput
+    update?: XOR<Mods_CollectionUpdateWithoutModsInput, Mods_CollectionUncheckedUpdateWithoutModsInput>
   }
 
-  export type ModImageUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModImageCreateWithoutModInput>, Enumerable<ModImageUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModImageCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModImageUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModImageCreateManyModInputEnvelope
-    set?: Enumerable<ModImageWhereUniqueInput>
-    disconnect?: Enumerable<ModImageWhereUniqueInput>
-    delete?: Enumerable<ModImageWhereUniqueInput>
-    connect?: Enumerable<ModImageWhereUniqueInput>
-    update?: Enumerable<ModImageUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModImageUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModImageScalarWhereInput>
+  export type Mod_ImageUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_ImageCreateWithoutModInput>, Enumerable<Mod_ImageUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_ImageCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_ImageUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mod_ImageCreateManyModInputEnvelope
+    set?: Enumerable<Mod_ImageWhereUniqueInput>
+    disconnect?: Enumerable<Mod_ImageWhereUniqueInput>
+    delete?: Enumerable<Mod_ImageWhereUniqueInput>
+    connect?: Enumerable<Mod_ImageWhereUniqueInput>
+    update?: Enumerable<Mod_ImageUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_ImageUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_ImageScalarWhereInput>
   }
 
-  export type ModAuthorUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModAuthorCreateWithoutModInput>, Enumerable<ModAuthorUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModAuthorCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModAuthorUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModAuthorCreateManyModInputEnvelope
-    set?: Enumerable<ModAuthorWhereUniqueInput>
-    disconnect?: Enumerable<ModAuthorWhereUniqueInput>
-    delete?: Enumerable<ModAuthorWhereUniqueInput>
-    connect?: Enumerable<ModAuthorWhereUniqueInput>
-    update?: Enumerable<ModAuthorUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModAuthorUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModAuthorScalarWhereInput>
+  export type Mod_AuthorUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_AuthorCreateWithoutModInput>, Enumerable<Mod_AuthorUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_AuthorCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_AuthorUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mod_AuthorCreateManyModInputEnvelope
+    set?: Enumerable<Mod_AuthorWhereUniqueInput>
+    disconnect?: Enumerable<Mod_AuthorWhereUniqueInput>
+    delete?: Enumerable<Mod_AuthorWhereUniqueInput>
+    connect?: Enumerable<Mod_AuthorWhereUniqueInput>
+    update?: Enumerable<Mod_AuthorUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_AuthorUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_AuthorScalarWhereInput>
   }
 
-  export type ModTagUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModTagCreateWithoutModInput>, Enumerable<ModTagUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModTagCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModTagUpsertWithWhereUniqueWithoutModInput>
-    set?: Enumerable<ModTagWhereUniqueInput>
-    disconnect?: Enumerable<ModTagWhereUniqueInput>
-    delete?: Enumerable<ModTagWhereUniqueInput>
-    connect?: Enumerable<ModTagWhereUniqueInput>
-    update?: Enumerable<ModTagUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModTagUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModTagScalarWhereInput>
+  export type Mod_TagUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_TagCreateWithoutModInput>, Enumerable<Mod_TagUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_TagCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_TagUpsertWithWhereUniqueWithoutModInput>
+    set?: Enumerable<Mod_TagWhereUniqueInput>
+    disconnect?: Enumerable<Mod_TagWhereUniqueInput>
+    delete?: Enumerable<Mod_TagWhereUniqueInput>
+    connect?: Enumerable<Mod_TagWhereUniqueInput>
+    update?: Enumerable<Mod_TagUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_TagUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_TagScalarWhereInput>
   }
 
-  export type ModVersionUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModVersionCreateWithoutModInput>, Enumerable<ModVersionUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModVersionCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModVersionUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModVersionCreateManyModInputEnvelope
-    set?: Enumerable<ModVersionWhereUniqueInput>
-    disconnect?: Enumerable<ModVersionWhereUniqueInput>
-    delete?: Enumerable<ModVersionWhereUniqueInput>
-    connect?: Enumerable<ModVersionWhereUniqueInput>
-    update?: Enumerable<ModVersionUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModVersionUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModVersionScalarWhereInput>
+  export type Mod_VersionUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_VersionCreateWithoutModInput>, Enumerable<Mod_VersionUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_VersionCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_VersionUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mod_VersionCreateManyModInputEnvelope
+    set?: Enumerable<Mod_VersionWhereUniqueInput>
+    disconnect?: Enumerable<Mod_VersionWhereUniqueInput>
+    delete?: Enumerable<Mod_VersionWhereUniqueInput>
+    connect?: Enumerable<Mod_VersionWhereUniqueInput>
+    update?: Enumerable<Mod_VersionUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_VersionUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_VersionScalarWhereInput>
   }
 
-  export type ModsListUpdateManyWithoutModsInput = {
-    create?: XOR<Enumerable<ModsListCreateWithoutModsInput>, Enumerable<ModsListUncheckedCreateWithoutModsInput>>
-    connectOrCreate?: Enumerable<ModsListCreateOrConnectWithoutModsInput>
-    upsert?: Enumerable<ModsListUpsertWithWhereUniqueWithoutModsInput>
-    set?: Enumerable<ModsListWhereUniqueInput>
-    disconnect?: Enumerable<ModsListWhereUniqueInput>
-    delete?: Enumerable<ModsListWhereUniqueInput>
-    connect?: Enumerable<ModsListWhereUniqueInput>
-    update?: Enumerable<ModsListUpdateWithWhereUniqueWithoutModsInput>
-    updateMany?: Enumerable<ModsListUpdateManyWithWhereWithoutModsInput>
-    deleteMany?: Enumerable<ModsListScalarWhereInput>
+  export type Mods_ListUpdateManyWithoutModsInput = {
+    create?: XOR<Enumerable<Mods_ListCreateWithoutModsInput>, Enumerable<Mods_ListUncheckedCreateWithoutModsInput>>
+    connectOrCreate?: Enumerable<Mods_ListCreateOrConnectWithoutModsInput>
+    upsert?: Enumerable<Mods_ListUpsertWithWhereUniqueWithoutModsInput>
+    set?: Enumerable<Mods_ListWhereUniqueInput>
+    disconnect?: Enumerable<Mods_ListWhereUniqueInput>
+    delete?: Enumerable<Mods_ListWhereUniqueInput>
+    connect?: Enumerable<Mods_ListWhereUniqueInput>
+    update?: Enumerable<Mods_ListUpdateWithWhereUniqueWithoutModsInput>
+    updateMany?: Enumerable<Mods_ListUpdateManyWithWhereWithoutModsInput>
+    deleteMany?: Enumerable<Mods_ListScalarWhereInput>
   }
 
-  export type ModIssueUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModIssueCreateWithoutModInput>, Enumerable<ModIssueUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModIssueCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModIssueUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModIssueCreateManyModInputEnvelope
-    set?: Enumerable<ModIssueWhereUniqueInput>
-    disconnect?: Enumerable<ModIssueWhereUniqueInput>
-    delete?: Enumerable<ModIssueWhereUniqueInput>
-    connect?: Enumerable<ModIssueWhereUniqueInput>
-    update?: Enumerable<ModIssueUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModIssueUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModIssueScalarWhereInput>
+  export type Mod_IssueUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_IssueCreateWithoutModInput>, Enumerable<Mod_IssueUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_IssueCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_IssueUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mod_IssueCreateManyModInputEnvelope
+    set?: Enumerable<Mod_IssueWhereUniqueInput>
+    disconnect?: Enumerable<Mod_IssueWhereUniqueInput>
+    delete?: Enumerable<Mod_IssueWhereUniqueInput>
+    connect?: Enumerable<Mod_IssueWhereUniqueInput>
+    update?: Enumerable<Mod_IssueUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_IssueUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_IssueScalarWhereInput>
   }
 
-  export type ModsFavoritsUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModsFavoritsCreateWithoutModInput>, Enumerable<ModsFavoritsUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModsFavoritsCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModsFavoritsUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModsFavoritsCreateManyModInputEnvelope
-    set?: Enumerable<ModsFavoritsWhereUniqueInput>
-    disconnect?: Enumerable<ModsFavoritsWhereUniqueInput>
-    delete?: Enumerable<ModsFavoritsWhereUniqueInput>
-    connect?: Enumerable<ModsFavoritsWhereUniqueInput>
-    update?: Enumerable<ModsFavoritsUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModsFavoritsUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModsFavoritsScalarWhereInput>
+  export type Mods_FavoritsUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mods_FavoritsCreateWithoutModInput>, Enumerable<Mods_FavoritsUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mods_FavoritsCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mods_FavoritsUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mods_FavoritsCreateManyModInputEnvelope
+    set?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    disconnect?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    delete?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    connect?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    update?: Enumerable<Mods_FavoritsUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mods_FavoritsUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mods_FavoritsScalarWhereInput>
   }
 
-  export type ModSubscribersUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModSubscribersCreateWithoutModInput>, Enumerable<ModSubscribersUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModSubscribersCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModSubscribersUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModSubscribersCreateManyModInputEnvelope
-    set?: Enumerable<ModSubscribersWhereUniqueInput>
-    disconnect?: Enumerable<ModSubscribersWhereUniqueInput>
-    delete?: Enumerable<ModSubscribersWhereUniqueInput>
-    connect?: Enumerable<ModSubscribersWhereUniqueInput>
-    update?: Enumerable<ModSubscribersUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModSubscribersUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModSubscribersScalarWhereInput>
+  export type Mod_SubscribersUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_SubscribersCreateWithoutModInput>, Enumerable<Mod_SubscribersUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_SubscribersCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_SubscribersUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mod_SubscribersCreateManyModInputEnvelope
+    set?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    disconnect?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    delete?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    connect?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    update?: Enumerable<Mod_SubscribersUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_SubscribersUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_SubscribersScalarWhereInput>
   }
 
-  export type ModDownloadUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModDownloadCreateWithoutModInput>, Enumerable<ModDownloadUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModDownloadCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModDownloadUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModDownloadCreateManyModInputEnvelope
-    set?: Enumerable<ModDownloadWhereUniqueInput>
-    disconnect?: Enumerable<ModDownloadWhereUniqueInput>
-    delete?: Enumerable<ModDownloadWhereUniqueInput>
-    connect?: Enumerable<ModDownloadWhereUniqueInput>
-    update?: Enumerable<ModDownloadUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModDownloadUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModDownloadScalarWhereInput>
+  export type Mod_DownloadUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_DownloadCreateWithoutModInput>, Enumerable<Mod_DownloadUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_DownloadCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_DownloadUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mod_DownloadCreateManyModInputEnvelope
+    set?: Enumerable<Mod_DownloadWhereUniqueInput>
+    disconnect?: Enumerable<Mod_DownloadWhereUniqueInput>
+    delete?: Enumerable<Mod_DownloadWhereUniqueInput>
+    connect?: Enumerable<Mod_DownloadWhereUniqueInput>
+    update?: Enumerable<Mod_DownloadUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_DownloadUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_DownloadScalarWhereInput>
   }
 
-  export type ModImageUncheckedUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModImageCreateWithoutModInput>, Enumerable<ModImageUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModImageCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModImageUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModImageCreateManyModInputEnvelope
-    set?: Enumerable<ModImageWhereUniqueInput>
-    disconnect?: Enumerable<ModImageWhereUniqueInput>
-    delete?: Enumerable<ModImageWhereUniqueInput>
-    connect?: Enumerable<ModImageWhereUniqueInput>
-    update?: Enumerable<ModImageUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModImageUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModImageScalarWhereInput>
+  export type Mod_ImageUncheckedUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_ImageCreateWithoutModInput>, Enumerable<Mod_ImageUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_ImageCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_ImageUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mod_ImageCreateManyModInputEnvelope
+    set?: Enumerable<Mod_ImageWhereUniqueInput>
+    disconnect?: Enumerable<Mod_ImageWhereUniqueInput>
+    delete?: Enumerable<Mod_ImageWhereUniqueInput>
+    connect?: Enumerable<Mod_ImageWhereUniqueInput>
+    update?: Enumerable<Mod_ImageUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_ImageUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_ImageScalarWhereInput>
   }
 
-  export type ModAuthorUncheckedUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModAuthorCreateWithoutModInput>, Enumerable<ModAuthorUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModAuthorCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModAuthorUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModAuthorCreateManyModInputEnvelope
-    set?: Enumerable<ModAuthorWhereUniqueInput>
-    disconnect?: Enumerable<ModAuthorWhereUniqueInput>
-    delete?: Enumerable<ModAuthorWhereUniqueInput>
-    connect?: Enumerable<ModAuthorWhereUniqueInput>
-    update?: Enumerable<ModAuthorUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModAuthorUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModAuthorScalarWhereInput>
+  export type Mod_AuthorUncheckedUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_AuthorCreateWithoutModInput>, Enumerable<Mod_AuthorUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_AuthorCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_AuthorUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mod_AuthorCreateManyModInputEnvelope
+    set?: Enumerable<Mod_AuthorWhereUniqueInput>
+    disconnect?: Enumerable<Mod_AuthorWhereUniqueInput>
+    delete?: Enumerable<Mod_AuthorWhereUniqueInput>
+    connect?: Enumerable<Mod_AuthorWhereUniqueInput>
+    update?: Enumerable<Mod_AuthorUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_AuthorUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_AuthorScalarWhereInput>
   }
 
-  export type ModTagUncheckedUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModTagCreateWithoutModInput>, Enumerable<ModTagUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModTagCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModTagUpsertWithWhereUniqueWithoutModInput>
-    set?: Enumerable<ModTagWhereUniqueInput>
-    disconnect?: Enumerable<ModTagWhereUniqueInput>
-    delete?: Enumerable<ModTagWhereUniqueInput>
-    connect?: Enumerable<ModTagWhereUniqueInput>
-    update?: Enumerable<ModTagUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModTagUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModTagScalarWhereInput>
+  export type Mod_TagUncheckedUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_TagCreateWithoutModInput>, Enumerable<Mod_TagUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_TagCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_TagUpsertWithWhereUniqueWithoutModInput>
+    set?: Enumerable<Mod_TagWhereUniqueInput>
+    disconnect?: Enumerable<Mod_TagWhereUniqueInput>
+    delete?: Enumerable<Mod_TagWhereUniqueInput>
+    connect?: Enumerable<Mod_TagWhereUniqueInput>
+    update?: Enumerable<Mod_TagUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_TagUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_TagScalarWhereInput>
   }
 
-  export type ModVersionUncheckedUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModVersionCreateWithoutModInput>, Enumerable<ModVersionUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModVersionCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModVersionUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModVersionCreateManyModInputEnvelope
-    set?: Enumerable<ModVersionWhereUniqueInput>
-    disconnect?: Enumerable<ModVersionWhereUniqueInput>
-    delete?: Enumerable<ModVersionWhereUniqueInput>
-    connect?: Enumerable<ModVersionWhereUniqueInput>
-    update?: Enumerable<ModVersionUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModVersionUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModVersionScalarWhereInput>
+  export type Mod_VersionUncheckedUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_VersionCreateWithoutModInput>, Enumerable<Mod_VersionUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_VersionCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_VersionUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mod_VersionCreateManyModInputEnvelope
+    set?: Enumerable<Mod_VersionWhereUniqueInput>
+    disconnect?: Enumerable<Mod_VersionWhereUniqueInput>
+    delete?: Enumerable<Mod_VersionWhereUniqueInput>
+    connect?: Enumerable<Mod_VersionWhereUniqueInput>
+    update?: Enumerable<Mod_VersionUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_VersionUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_VersionScalarWhereInput>
   }
 
-  export type ModsListUncheckedUpdateManyWithoutModsInput = {
-    create?: XOR<Enumerable<ModsListCreateWithoutModsInput>, Enumerable<ModsListUncheckedCreateWithoutModsInput>>
-    connectOrCreate?: Enumerable<ModsListCreateOrConnectWithoutModsInput>
-    upsert?: Enumerable<ModsListUpsertWithWhereUniqueWithoutModsInput>
-    set?: Enumerable<ModsListWhereUniqueInput>
-    disconnect?: Enumerable<ModsListWhereUniqueInput>
-    delete?: Enumerable<ModsListWhereUniqueInput>
-    connect?: Enumerable<ModsListWhereUniqueInput>
-    update?: Enumerable<ModsListUpdateWithWhereUniqueWithoutModsInput>
-    updateMany?: Enumerable<ModsListUpdateManyWithWhereWithoutModsInput>
-    deleteMany?: Enumerable<ModsListScalarWhereInput>
+  export type Mods_ListUncheckedUpdateManyWithoutModsInput = {
+    create?: XOR<Enumerable<Mods_ListCreateWithoutModsInput>, Enumerable<Mods_ListUncheckedCreateWithoutModsInput>>
+    connectOrCreate?: Enumerable<Mods_ListCreateOrConnectWithoutModsInput>
+    upsert?: Enumerable<Mods_ListUpsertWithWhereUniqueWithoutModsInput>
+    set?: Enumerable<Mods_ListWhereUniqueInput>
+    disconnect?: Enumerable<Mods_ListWhereUniqueInput>
+    delete?: Enumerable<Mods_ListWhereUniqueInput>
+    connect?: Enumerable<Mods_ListWhereUniqueInput>
+    update?: Enumerable<Mods_ListUpdateWithWhereUniqueWithoutModsInput>
+    updateMany?: Enumerable<Mods_ListUpdateManyWithWhereWithoutModsInput>
+    deleteMany?: Enumerable<Mods_ListScalarWhereInput>
   }
 
-  export type ModIssueUncheckedUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModIssueCreateWithoutModInput>, Enumerable<ModIssueUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModIssueCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModIssueUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModIssueCreateManyModInputEnvelope
-    set?: Enumerable<ModIssueWhereUniqueInput>
-    disconnect?: Enumerable<ModIssueWhereUniqueInput>
-    delete?: Enumerable<ModIssueWhereUniqueInput>
-    connect?: Enumerable<ModIssueWhereUniqueInput>
-    update?: Enumerable<ModIssueUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModIssueUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModIssueScalarWhereInput>
+  export type Mod_IssueUncheckedUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_IssueCreateWithoutModInput>, Enumerable<Mod_IssueUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_IssueCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_IssueUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mod_IssueCreateManyModInputEnvelope
+    set?: Enumerable<Mod_IssueWhereUniqueInput>
+    disconnect?: Enumerable<Mod_IssueWhereUniqueInput>
+    delete?: Enumerable<Mod_IssueWhereUniqueInput>
+    connect?: Enumerable<Mod_IssueWhereUniqueInput>
+    update?: Enumerable<Mod_IssueUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_IssueUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_IssueScalarWhereInput>
   }
 
-  export type ModsFavoritsUncheckedUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModsFavoritsCreateWithoutModInput>, Enumerable<ModsFavoritsUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModsFavoritsCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModsFavoritsUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModsFavoritsCreateManyModInputEnvelope
-    set?: Enumerable<ModsFavoritsWhereUniqueInput>
-    disconnect?: Enumerable<ModsFavoritsWhereUniqueInput>
-    delete?: Enumerable<ModsFavoritsWhereUniqueInput>
-    connect?: Enumerable<ModsFavoritsWhereUniqueInput>
-    update?: Enumerable<ModsFavoritsUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModsFavoritsUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModsFavoritsScalarWhereInput>
+  export type Mods_FavoritsUncheckedUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mods_FavoritsCreateWithoutModInput>, Enumerable<Mods_FavoritsUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mods_FavoritsCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mods_FavoritsUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mods_FavoritsCreateManyModInputEnvelope
+    set?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    disconnect?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    delete?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    connect?: Enumerable<Mods_FavoritsWhereUniqueInput>
+    update?: Enumerable<Mods_FavoritsUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mods_FavoritsUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mods_FavoritsScalarWhereInput>
   }
 
-  export type ModSubscribersUncheckedUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModSubscribersCreateWithoutModInput>, Enumerable<ModSubscribersUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModSubscribersCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModSubscribersUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModSubscribersCreateManyModInputEnvelope
-    set?: Enumerable<ModSubscribersWhereUniqueInput>
-    disconnect?: Enumerable<ModSubscribersWhereUniqueInput>
-    delete?: Enumerable<ModSubscribersWhereUniqueInput>
-    connect?: Enumerable<ModSubscribersWhereUniqueInput>
-    update?: Enumerable<ModSubscribersUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModSubscribersUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModSubscribersScalarWhereInput>
+  export type Mod_SubscribersUncheckedUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_SubscribersCreateWithoutModInput>, Enumerable<Mod_SubscribersUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_SubscribersCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_SubscribersUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mod_SubscribersCreateManyModInputEnvelope
+    set?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    disconnect?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    delete?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    connect?: Enumerable<Mod_SubscribersWhereUniqueInput>
+    update?: Enumerable<Mod_SubscribersUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_SubscribersUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_SubscribersScalarWhereInput>
   }
 
-  export type ModDownloadUncheckedUpdateManyWithoutModInput = {
-    create?: XOR<Enumerable<ModDownloadCreateWithoutModInput>, Enumerable<ModDownloadUncheckedCreateWithoutModInput>>
-    connectOrCreate?: Enumerable<ModDownloadCreateOrConnectWithoutModInput>
-    upsert?: Enumerable<ModDownloadUpsertWithWhereUniqueWithoutModInput>
-    createMany?: ModDownloadCreateManyModInputEnvelope
-    set?: Enumerable<ModDownloadWhereUniqueInput>
-    disconnect?: Enumerable<ModDownloadWhereUniqueInput>
-    delete?: Enumerable<ModDownloadWhereUniqueInput>
-    connect?: Enumerable<ModDownloadWhereUniqueInput>
-    update?: Enumerable<ModDownloadUpdateWithWhereUniqueWithoutModInput>
-    updateMany?: Enumerable<ModDownloadUpdateManyWithWhereWithoutModInput>
-    deleteMany?: Enumerable<ModDownloadScalarWhereInput>
+  export type Mod_DownloadUncheckedUpdateManyWithoutModInput = {
+    create?: XOR<Enumerable<Mod_DownloadCreateWithoutModInput>, Enumerable<Mod_DownloadUncheckedCreateWithoutModInput>>
+    connectOrCreate?: Enumerable<Mod_DownloadCreateOrConnectWithoutModInput>
+    upsert?: Enumerable<Mod_DownloadUpsertWithWhereUniqueWithoutModInput>
+    createMany?: Mod_DownloadCreateManyModInputEnvelope
+    set?: Enumerable<Mod_DownloadWhereUniqueInput>
+    disconnect?: Enumerable<Mod_DownloadWhereUniqueInput>
+    delete?: Enumerable<Mod_DownloadWhereUniqueInput>
+    connect?: Enumerable<Mod_DownloadWhereUniqueInput>
+    update?: Enumerable<Mod_DownloadUpdateWithWhereUniqueWithoutModInput>
+    updateMany?: Enumerable<Mod_DownloadUpdateManyWithWhereWithoutModInput>
+    deleteMany?: Enumerable<Mod_DownloadScalarWhereInput>
   }
 
   export type UserCreateNestedOneWithoutModAuthorsInput = {
@@ -17589,18 +20084,18 @@ export namespace Prisma {
     connect?: ModWhereUniqueInput
   }
 
-  export type ModDownloadCreateNestedManyWithoutVersionInput = {
-    create?: XOR<Enumerable<ModDownloadCreateWithoutVersionInput>, Enumerable<ModDownloadUncheckedCreateWithoutVersionInput>>
-    connectOrCreate?: Enumerable<ModDownloadCreateOrConnectWithoutVersionInput>
-    createMany?: ModDownloadCreateManyVersionInputEnvelope
-    connect?: Enumerable<ModDownloadWhereUniqueInput>
+  export type Mod_DownloadCreateNestedManyWithoutVersionInput = {
+    create?: XOR<Enumerable<Mod_DownloadCreateWithoutVersionInput>, Enumerable<Mod_DownloadUncheckedCreateWithoutVersionInput>>
+    connectOrCreate?: Enumerable<Mod_DownloadCreateOrConnectWithoutVersionInput>
+    createMany?: Mod_DownloadCreateManyVersionInputEnvelope
+    connect?: Enumerable<Mod_DownloadWhereUniqueInput>
   }
 
-  export type ModDownloadUncheckedCreateNestedManyWithoutVersionInput = {
-    create?: XOR<Enumerable<ModDownloadCreateWithoutVersionInput>, Enumerable<ModDownloadUncheckedCreateWithoutVersionInput>>
-    connectOrCreate?: Enumerable<ModDownloadCreateOrConnectWithoutVersionInput>
-    createMany?: ModDownloadCreateManyVersionInputEnvelope
-    connect?: Enumerable<ModDownloadWhereUniqueInput>
+  export type Mod_DownloadUncheckedCreateNestedManyWithoutVersionInput = {
+    create?: XOR<Enumerable<Mod_DownloadCreateWithoutVersionInput>, Enumerable<Mod_DownloadUncheckedCreateWithoutVersionInput>>
+    connectOrCreate?: Enumerable<Mod_DownloadCreateOrConnectWithoutVersionInput>
+    createMany?: Mod_DownloadCreateManyVersionInputEnvelope
+    connect?: Enumerable<Mod_DownloadWhereUniqueInput>
   }
 
   export type ModUpdateOneRequiredWithoutVersionsInput = {
@@ -17611,32 +20106,32 @@ export namespace Prisma {
     update?: XOR<ModUpdateWithoutVersionsInput, ModUncheckedUpdateWithoutVersionsInput>
   }
 
-  export type ModDownloadUpdateManyWithoutVersionInput = {
-    create?: XOR<Enumerable<ModDownloadCreateWithoutVersionInput>, Enumerable<ModDownloadUncheckedCreateWithoutVersionInput>>
-    connectOrCreate?: Enumerable<ModDownloadCreateOrConnectWithoutVersionInput>
-    upsert?: Enumerable<ModDownloadUpsertWithWhereUniqueWithoutVersionInput>
-    createMany?: ModDownloadCreateManyVersionInputEnvelope
-    set?: Enumerable<ModDownloadWhereUniqueInput>
-    disconnect?: Enumerable<ModDownloadWhereUniqueInput>
-    delete?: Enumerable<ModDownloadWhereUniqueInput>
-    connect?: Enumerable<ModDownloadWhereUniqueInput>
-    update?: Enumerable<ModDownloadUpdateWithWhereUniqueWithoutVersionInput>
-    updateMany?: Enumerable<ModDownloadUpdateManyWithWhereWithoutVersionInput>
-    deleteMany?: Enumerable<ModDownloadScalarWhereInput>
+  export type Mod_DownloadUpdateManyWithoutVersionInput = {
+    create?: XOR<Enumerable<Mod_DownloadCreateWithoutVersionInput>, Enumerable<Mod_DownloadUncheckedCreateWithoutVersionInput>>
+    connectOrCreate?: Enumerable<Mod_DownloadCreateOrConnectWithoutVersionInput>
+    upsert?: Enumerable<Mod_DownloadUpsertWithWhereUniqueWithoutVersionInput>
+    createMany?: Mod_DownloadCreateManyVersionInputEnvelope
+    set?: Enumerable<Mod_DownloadWhereUniqueInput>
+    disconnect?: Enumerable<Mod_DownloadWhereUniqueInput>
+    delete?: Enumerable<Mod_DownloadWhereUniqueInput>
+    connect?: Enumerable<Mod_DownloadWhereUniqueInput>
+    update?: Enumerable<Mod_DownloadUpdateWithWhereUniqueWithoutVersionInput>
+    updateMany?: Enumerable<Mod_DownloadUpdateManyWithWhereWithoutVersionInput>
+    deleteMany?: Enumerable<Mod_DownloadScalarWhereInput>
   }
 
-  export type ModDownloadUncheckedUpdateManyWithoutVersionInput = {
-    create?: XOR<Enumerable<ModDownloadCreateWithoutVersionInput>, Enumerable<ModDownloadUncheckedCreateWithoutVersionInput>>
-    connectOrCreate?: Enumerable<ModDownloadCreateOrConnectWithoutVersionInput>
-    upsert?: Enumerable<ModDownloadUpsertWithWhereUniqueWithoutVersionInput>
-    createMany?: ModDownloadCreateManyVersionInputEnvelope
-    set?: Enumerable<ModDownloadWhereUniqueInput>
-    disconnect?: Enumerable<ModDownloadWhereUniqueInput>
-    delete?: Enumerable<ModDownloadWhereUniqueInput>
-    connect?: Enumerable<ModDownloadWhereUniqueInput>
-    update?: Enumerable<ModDownloadUpdateWithWhereUniqueWithoutVersionInput>
-    updateMany?: Enumerable<ModDownloadUpdateManyWithWhereWithoutVersionInput>
-    deleteMany?: Enumerable<ModDownloadScalarWhereInput>
+  export type Mod_DownloadUncheckedUpdateManyWithoutVersionInput = {
+    create?: XOR<Enumerable<Mod_DownloadCreateWithoutVersionInput>, Enumerable<Mod_DownloadUncheckedCreateWithoutVersionInput>>
+    connectOrCreate?: Enumerable<Mod_DownloadCreateOrConnectWithoutVersionInput>
+    upsert?: Enumerable<Mod_DownloadUpsertWithWhereUniqueWithoutVersionInput>
+    createMany?: Mod_DownloadCreateManyVersionInputEnvelope
+    set?: Enumerable<Mod_DownloadWhereUniqueInput>
+    disconnect?: Enumerable<Mod_DownloadWhereUniqueInput>
+    delete?: Enumerable<Mod_DownloadWhereUniqueInput>
+    connect?: Enumerable<Mod_DownloadWhereUniqueInput>
+    update?: Enumerable<Mod_DownloadUpdateWithWhereUniqueWithoutVersionInput>
+    updateMany?: Enumerable<Mod_DownloadUpdateManyWithWhereWithoutVersionInput>
+    deleteMany?: Enumerable<Mod_DownloadScalarWhereInput>
   }
 
   export type ModCreateNestedOneWithoutIssuesInput = {
@@ -17651,22 +20146,22 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type ModIssuePostCreateNestedManyWithoutIssueInput = {
-    create?: XOR<Enumerable<ModIssuePostCreateWithoutIssueInput>, Enumerable<ModIssuePostUncheckedCreateWithoutIssueInput>>
-    connectOrCreate?: Enumerable<ModIssuePostCreateOrConnectWithoutIssueInput>
-    createMany?: ModIssuePostCreateManyIssueInputEnvelope
-    connect?: Enumerable<ModIssuePostWhereUniqueInput>
+  export type Mod_Issue_PostCreateNestedManyWithoutIssueInput = {
+    create?: XOR<Enumerable<Mod_Issue_PostCreateWithoutIssueInput>, Enumerable<Mod_Issue_PostUncheckedCreateWithoutIssueInput>>
+    connectOrCreate?: Enumerable<Mod_Issue_PostCreateOrConnectWithoutIssueInput>
+    createMany?: Mod_Issue_PostCreateManyIssueInputEnvelope
+    connect?: Enumerable<Mod_Issue_PostWhereUniqueInput>
   }
 
-  export type ModIssuePostUncheckedCreateNestedManyWithoutIssueInput = {
-    create?: XOR<Enumerable<ModIssuePostCreateWithoutIssueInput>, Enumerable<ModIssuePostUncheckedCreateWithoutIssueInput>>
-    connectOrCreate?: Enumerable<ModIssuePostCreateOrConnectWithoutIssueInput>
-    createMany?: ModIssuePostCreateManyIssueInputEnvelope
-    connect?: Enumerable<ModIssuePostWhereUniqueInput>
+  export type Mod_Issue_PostUncheckedCreateNestedManyWithoutIssueInput = {
+    create?: XOR<Enumerable<Mod_Issue_PostCreateWithoutIssueInput>, Enumerable<Mod_Issue_PostUncheckedCreateWithoutIssueInput>>
+    connectOrCreate?: Enumerable<Mod_Issue_PostCreateOrConnectWithoutIssueInput>
+    createMany?: Mod_Issue_PostCreateManyIssueInputEnvelope
+    connect?: Enumerable<Mod_Issue_PostWhereUniqueInput>
   }
 
-  export type EnumModIssueTypeFieldUpdateOperationsInput = {
-    set?: ModIssueType
+  export type EnumMod_Issue_TypeFieldUpdateOperationsInput = {
+    set?: Mod_Issue_Type
   }
 
   export type ModUpdateOneRequiredWithoutIssuesInput = {
@@ -17685,38 +20180,38 @@ export namespace Prisma {
     update?: XOR<UserUpdateWithoutModIssuesInput, UserUncheckedUpdateWithoutModIssuesInput>
   }
 
-  export type ModIssuePostUpdateManyWithoutIssueInput = {
-    create?: XOR<Enumerable<ModIssuePostCreateWithoutIssueInput>, Enumerable<ModIssuePostUncheckedCreateWithoutIssueInput>>
-    connectOrCreate?: Enumerable<ModIssuePostCreateOrConnectWithoutIssueInput>
-    upsert?: Enumerable<ModIssuePostUpsertWithWhereUniqueWithoutIssueInput>
-    createMany?: ModIssuePostCreateManyIssueInputEnvelope
-    set?: Enumerable<ModIssuePostWhereUniqueInput>
-    disconnect?: Enumerable<ModIssuePostWhereUniqueInput>
-    delete?: Enumerable<ModIssuePostWhereUniqueInput>
-    connect?: Enumerable<ModIssuePostWhereUniqueInput>
-    update?: Enumerable<ModIssuePostUpdateWithWhereUniqueWithoutIssueInput>
-    updateMany?: Enumerable<ModIssuePostUpdateManyWithWhereWithoutIssueInput>
-    deleteMany?: Enumerable<ModIssuePostScalarWhereInput>
+  export type Mod_Issue_PostUpdateManyWithoutIssueInput = {
+    create?: XOR<Enumerable<Mod_Issue_PostCreateWithoutIssueInput>, Enumerable<Mod_Issue_PostUncheckedCreateWithoutIssueInput>>
+    connectOrCreate?: Enumerable<Mod_Issue_PostCreateOrConnectWithoutIssueInput>
+    upsert?: Enumerable<Mod_Issue_PostUpsertWithWhereUniqueWithoutIssueInput>
+    createMany?: Mod_Issue_PostCreateManyIssueInputEnvelope
+    set?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    disconnect?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    delete?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    connect?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    update?: Enumerable<Mod_Issue_PostUpdateWithWhereUniqueWithoutIssueInput>
+    updateMany?: Enumerable<Mod_Issue_PostUpdateManyWithWhereWithoutIssueInput>
+    deleteMany?: Enumerable<Mod_Issue_PostScalarWhereInput>
   }
 
-  export type ModIssuePostUncheckedUpdateManyWithoutIssueInput = {
-    create?: XOR<Enumerable<ModIssuePostCreateWithoutIssueInput>, Enumerable<ModIssuePostUncheckedCreateWithoutIssueInput>>
-    connectOrCreate?: Enumerable<ModIssuePostCreateOrConnectWithoutIssueInput>
-    upsert?: Enumerable<ModIssuePostUpsertWithWhereUniqueWithoutIssueInput>
-    createMany?: ModIssuePostCreateManyIssueInputEnvelope
-    set?: Enumerable<ModIssuePostWhereUniqueInput>
-    disconnect?: Enumerable<ModIssuePostWhereUniqueInput>
-    delete?: Enumerable<ModIssuePostWhereUniqueInput>
-    connect?: Enumerable<ModIssuePostWhereUniqueInput>
-    update?: Enumerable<ModIssuePostUpdateWithWhereUniqueWithoutIssueInput>
-    updateMany?: Enumerable<ModIssuePostUpdateManyWithWhereWithoutIssueInput>
-    deleteMany?: Enumerable<ModIssuePostScalarWhereInput>
+  export type Mod_Issue_PostUncheckedUpdateManyWithoutIssueInput = {
+    create?: XOR<Enumerable<Mod_Issue_PostCreateWithoutIssueInput>, Enumerable<Mod_Issue_PostUncheckedCreateWithoutIssueInput>>
+    connectOrCreate?: Enumerable<Mod_Issue_PostCreateOrConnectWithoutIssueInput>
+    upsert?: Enumerable<Mod_Issue_PostUpsertWithWhereUniqueWithoutIssueInput>
+    createMany?: Mod_Issue_PostCreateManyIssueInputEnvelope
+    set?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    disconnect?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    delete?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    connect?: Enumerable<Mod_Issue_PostWhereUniqueInput>
+    update?: Enumerable<Mod_Issue_PostUpdateWithWhereUniqueWithoutIssueInput>
+    updateMany?: Enumerable<Mod_Issue_PostUpdateManyWithWhereWithoutIssueInput>
+    deleteMany?: Enumerable<Mod_Issue_PostScalarWhereInput>
   }
 
-  export type ModIssueCreateNestedOneWithoutModIssuePostInput = {
-    create?: XOR<ModIssueCreateWithoutModIssuePostInput, ModIssueUncheckedCreateWithoutModIssuePostInput>
-    connectOrCreate?: ModIssueCreateOrConnectWithoutModIssuePostInput
-    connect?: ModIssueWhereUniqueInput
+  export type Mod_IssueCreateNestedOneWithoutModIssuePostInput = {
+    create?: XOR<Mod_IssueCreateWithoutModIssuePostInput, Mod_IssueUncheckedCreateWithoutModIssuePostInput>
+    connectOrCreate?: Mod_IssueCreateOrConnectWithoutModIssuePostInput
+    connect?: Mod_IssueWhereUniqueInput
   }
 
   export type UserCreateNestedOneWithoutModIssuePostsInput = {
@@ -17725,12 +20220,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type ModIssueUpdateOneRequiredWithoutModIssuePostInput = {
-    create?: XOR<ModIssueCreateWithoutModIssuePostInput, ModIssueUncheckedCreateWithoutModIssuePostInput>
-    connectOrCreate?: ModIssueCreateOrConnectWithoutModIssuePostInput
-    upsert?: ModIssueUpsertWithoutModIssuePostInput
-    connect?: ModIssueWhereUniqueInput
-    update?: XOR<ModIssueUpdateWithoutModIssuePostInput, ModIssueUncheckedUpdateWithoutModIssuePostInput>
+  export type Mod_IssueUpdateOneRequiredWithoutModIssuePostInput = {
+    create?: XOR<Mod_IssueCreateWithoutModIssuePostInput, Mod_IssueUncheckedCreateWithoutModIssuePostInput>
+    connectOrCreate?: Mod_IssueCreateOrConnectWithoutModIssuePostInput
+    upsert?: Mod_IssueUpsertWithoutModIssuePostInput
+    connect?: Mod_IssueWhereUniqueInput
+    update?: XOR<Mod_IssueUpdateWithoutModIssuePostInput, Mod_IssueUncheckedUpdateWithoutModIssuePostInput>
   }
 
   export type UserUpdateOneRequiredWithoutModIssuePostsInput = {
@@ -17861,10 +20356,10 @@ export namespace Prisma {
     connect?: ModWhereUniqueInput
   }
 
-  export type ModVersionCreateNestedOneWithoutDownloadsInput = {
-    create?: XOR<ModVersionCreateWithoutDownloadsInput, ModVersionUncheckedCreateWithoutDownloadsInput>
-    connectOrCreate?: ModVersionCreateOrConnectWithoutDownloadsInput
-    connect?: ModVersionWhereUniqueInput
+  export type Mod_VersionCreateNestedOneWithoutDownloadsInput = {
+    create?: XOR<Mod_VersionCreateWithoutDownloadsInput, Mod_VersionUncheckedCreateWithoutDownloadsInput>
+    connectOrCreate?: Mod_VersionCreateOrConnectWithoutDownloadsInput
+    connect?: Mod_VersionWhereUniqueInput
   }
 
   export type UserUpdateOneRequiredWithoutModDownloadsInput = {
@@ -17883,12 +20378,94 @@ export namespace Prisma {
     update?: XOR<ModUpdateWithoutDownloadsInput, ModUncheckedUpdateWithoutDownloadsInput>
   }
 
-  export type ModVersionUpdateOneRequiredWithoutDownloadsInput = {
-    create?: XOR<ModVersionCreateWithoutDownloadsInput, ModVersionUncheckedCreateWithoutDownloadsInput>
-    connectOrCreate?: ModVersionCreateOrConnectWithoutDownloadsInput
-    upsert?: ModVersionUpsertWithoutDownloadsInput
-    connect?: ModVersionWhereUniqueInput
-    update?: XOR<ModVersionUpdateWithoutDownloadsInput, ModVersionUncheckedUpdateWithoutDownloadsInput>
+  export type Mod_VersionUpdateOneRequiredWithoutDownloadsInput = {
+    create?: XOR<Mod_VersionCreateWithoutDownloadsInput, Mod_VersionUncheckedCreateWithoutDownloadsInput>
+    connectOrCreate?: Mod_VersionCreateOrConnectWithoutDownloadsInput
+    upsert?: Mod_VersionUpsertWithoutDownloadsInput
+    connect?: Mod_VersionWhereUniqueInput
+    update?: XOR<Mod_VersionUpdateWithoutDownloadsInput, Mod_VersionUncheckedUpdateWithoutDownloadsInput>
+  }
+
+  export type UserCreateNestedOneWithoutUserSessionInput = {
+    create?: XOR<UserCreateWithoutUserSessionInput, UserUncheckedCreateWithoutUserSessionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserSessionInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type User_TokenCreateNestedManyWithoutSessionInput = {
+    create?: XOR<Enumerable<User_TokenCreateWithoutSessionInput>, Enumerable<User_TokenUncheckedCreateWithoutSessionInput>>
+    connectOrCreate?: Enumerable<User_TokenCreateOrConnectWithoutSessionInput>
+    createMany?: User_TokenCreateManySessionInputEnvelope
+    connect?: Enumerable<User_TokenWhereUniqueInput>
+  }
+
+  export type User_TokenUncheckedCreateNestedManyWithoutSessionInput = {
+    create?: XOR<Enumerable<User_TokenCreateWithoutSessionInput>, Enumerable<User_TokenUncheckedCreateWithoutSessionInput>>
+    connectOrCreate?: Enumerable<User_TokenCreateOrConnectWithoutSessionInput>
+    createMany?: User_TokenCreateManySessionInputEnvelope
+    connect?: Enumerable<User_TokenWhereUniqueInput>
+  }
+
+  export type EnumUser_Agent_TypeFieldUpdateOperationsInput = {
+    set?: User_Agent_Type
+  }
+
+  export type EnumUser_Agent_OSFieldUpdateOperationsInput = {
+    set?: User_Agent_OS
+  }
+
+  export type UserUpdateOneRequiredWithoutUserSessionInput = {
+    create?: XOR<UserCreateWithoutUserSessionInput, UserUncheckedCreateWithoutUserSessionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserSessionInput
+    upsert?: UserUpsertWithoutUserSessionInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<UserUpdateWithoutUserSessionInput, UserUncheckedUpdateWithoutUserSessionInput>
+  }
+
+  export type User_TokenUpdateManyWithoutSessionInput = {
+    create?: XOR<Enumerable<User_TokenCreateWithoutSessionInput>, Enumerable<User_TokenUncheckedCreateWithoutSessionInput>>
+    connectOrCreate?: Enumerable<User_TokenCreateOrConnectWithoutSessionInput>
+    upsert?: Enumerable<User_TokenUpsertWithWhereUniqueWithoutSessionInput>
+    createMany?: User_TokenCreateManySessionInputEnvelope
+    set?: Enumerable<User_TokenWhereUniqueInput>
+    disconnect?: Enumerable<User_TokenWhereUniqueInput>
+    delete?: Enumerable<User_TokenWhereUniqueInput>
+    connect?: Enumerable<User_TokenWhereUniqueInput>
+    update?: Enumerable<User_TokenUpdateWithWhereUniqueWithoutSessionInput>
+    updateMany?: Enumerable<User_TokenUpdateManyWithWhereWithoutSessionInput>
+    deleteMany?: Enumerable<User_TokenScalarWhereInput>
+  }
+
+  export type User_TokenUncheckedUpdateManyWithoutSessionInput = {
+    create?: XOR<Enumerable<User_TokenCreateWithoutSessionInput>, Enumerable<User_TokenUncheckedCreateWithoutSessionInput>>
+    connectOrCreate?: Enumerable<User_TokenCreateOrConnectWithoutSessionInput>
+    upsert?: Enumerable<User_TokenUpsertWithWhereUniqueWithoutSessionInput>
+    createMany?: User_TokenCreateManySessionInputEnvelope
+    set?: Enumerable<User_TokenWhereUniqueInput>
+    disconnect?: Enumerable<User_TokenWhereUniqueInput>
+    delete?: Enumerable<User_TokenWhereUniqueInput>
+    connect?: Enumerable<User_TokenWhereUniqueInput>
+    update?: Enumerable<User_TokenUpdateWithWhereUniqueWithoutSessionInput>
+    updateMany?: Enumerable<User_TokenUpdateManyWithWhereWithoutSessionInput>
+    deleteMany?: Enumerable<User_TokenScalarWhereInput>
+  }
+
+  export type User_SessionCreateNestedOneWithoutTokensInput = {
+    create?: XOR<User_SessionCreateWithoutTokensInput, User_SessionUncheckedCreateWithoutTokensInput>
+    connectOrCreate?: User_SessionCreateOrConnectWithoutTokensInput
+    connect?: User_SessionWhereUniqueInput
+  }
+
+  export type EnumUser_Token_TypeFieldUpdateOperationsInput = {
+    set?: User_Token_Type
+  }
+
+  export type User_SessionUpdateOneRequiredWithoutTokensInput = {
+    create?: XOR<User_SessionCreateWithoutTokensInput, User_SessionUncheckedCreateWithoutTokensInput>
+    connectOrCreate?: User_SessionCreateOrConnectWithoutTokensInput
+    upsert?: User_SessionUpsertWithoutTokensInput
+    connect?: User_SessionWhereUniqueInput
+    update?: XOR<User_SessionUpdateWithoutTokensInput, User_SessionUncheckedUpdateWithoutTokensInput>
   }
 
   export type NestedIntFilter = {
@@ -17998,39 +20575,90 @@ export namespace Prisma {
     _max?: NestedBoolFilter
   }
 
-  export type NestedEnumModIssueTypeFilter = {
-    equals?: ModIssueType
-    in?: Enumerable<ModIssueType>
-    notIn?: Enumerable<ModIssueType>
-    not?: NestedEnumModIssueTypeFilter | ModIssueType
+  export type NestedEnumMod_Issue_TypeFilter = {
+    equals?: Mod_Issue_Type
+    in?: Enumerable<Mod_Issue_Type>
+    notIn?: Enumerable<Mod_Issue_Type>
+    not?: NestedEnumMod_Issue_TypeFilter | Mod_Issue_Type
   }
 
-  export type NestedEnumModIssueTypeWithAggregatesFilter = {
-    equals?: ModIssueType
-    in?: Enumerable<ModIssueType>
-    notIn?: Enumerable<ModIssueType>
-    not?: NestedEnumModIssueTypeWithAggregatesFilter | ModIssueType
+  export type NestedEnumMod_Issue_TypeWithAggregatesFilter = {
+    equals?: Mod_Issue_Type
+    in?: Enumerable<Mod_Issue_Type>
+    notIn?: Enumerable<Mod_Issue_Type>
+    not?: NestedEnumMod_Issue_TypeWithAggregatesFilter | Mod_Issue_Type
     _count?: NestedIntFilter
-    _min?: NestedEnumModIssueTypeFilter
-    _max?: NestedEnumModIssueTypeFilter
+    _min?: NestedEnumMod_Issue_TypeFilter
+    _max?: NestedEnumMod_Issue_TypeFilter
   }
 
-  export type UserAuthCreateWithoutUserInput = {
+  export type NestedEnumUser_Agent_TypeFilter = {
+    equals?: User_Agent_Type
+    in?: Enumerable<User_Agent_Type>
+    notIn?: Enumerable<User_Agent_Type>
+    not?: NestedEnumUser_Agent_TypeFilter | User_Agent_Type
+  }
+
+  export type NestedEnumUser_Agent_OSFilter = {
+    equals?: User_Agent_OS
+    in?: Enumerable<User_Agent_OS>
+    notIn?: Enumerable<User_Agent_OS>
+    not?: NestedEnumUser_Agent_OSFilter | User_Agent_OS
+  }
+
+  export type NestedEnumUser_Agent_TypeWithAggregatesFilter = {
+    equals?: User_Agent_Type
+    in?: Enumerable<User_Agent_Type>
+    notIn?: Enumerable<User_Agent_Type>
+    not?: NestedEnumUser_Agent_TypeWithAggregatesFilter | User_Agent_Type
+    _count?: NestedIntFilter
+    _min?: NestedEnumUser_Agent_TypeFilter
+    _max?: NestedEnumUser_Agent_TypeFilter
+  }
+
+  export type NestedEnumUser_Agent_OSWithAggregatesFilter = {
+    equals?: User_Agent_OS
+    in?: Enumerable<User_Agent_OS>
+    notIn?: Enumerable<User_Agent_OS>
+    not?: NestedEnumUser_Agent_OSWithAggregatesFilter | User_Agent_OS
+    _count?: NestedIntFilter
+    _min?: NestedEnumUser_Agent_OSFilter
+    _max?: NestedEnumUser_Agent_OSFilter
+  }
+
+  export type NestedEnumUser_Token_TypeFilter = {
+    equals?: User_Token_Type
+    in?: Enumerable<User_Token_Type>
+    notIn?: Enumerable<User_Token_Type>
+    not?: NestedEnumUser_Token_TypeFilter | User_Token_Type
+  }
+
+  export type NestedEnumUser_Token_TypeWithAggregatesFilter = {
+    equals?: User_Token_Type
+    in?: Enumerable<User_Token_Type>
+    notIn?: Enumerable<User_Token_Type>
+    not?: NestedEnumUser_Token_TypeWithAggregatesFilter | User_Token_Type
+    _count?: NestedIntFilter
+    _min?: NestedEnumUser_Token_TypeFilter
+    _max?: NestedEnumUser_Token_TypeFilter
+  }
+
+  export type User_AuthCreateWithoutUserInput = {
     email: string
     password: string
   }
 
-  export type UserAuthUncheckedCreateWithoutUserInput = {
+  export type User_AuthUncheckedCreateWithoutUserInput = {
     email: string
     password: string
   }
 
-  export type UserAuthCreateOrConnectWithoutUserInput = {
-    where: UserAuthWhereUniqueInput
-    create: XOR<UserAuthCreateWithoutUserInput, UserAuthUncheckedCreateWithoutUserInput>
+  export type User_AuthCreateOrConnectWithoutUserInput = {
+    where: User_AuthWhereUniqueInput
+    create: XOR<User_AuthCreateWithoutUserInput, User_AuthUncheckedCreateWithoutUserInput>
   }
 
-  export type ModsCollectionCreateWithoutAuthorInput = {
+  export type Mods_CollectionCreateWithoutAuthorInput = {
     avatar: string
     name: string
     description: string
@@ -18039,7 +20667,7 @@ export namespace Prisma {
     Mods?: ModCreateNestedManyWithoutCollectionInput
   }
 
-  export type ModsCollectionUncheckedCreateWithoutAuthorInput = {
+  export type Mods_CollectionUncheckedCreateWithoutAuthorInput = {
     id?: number
     avatar: string
     name: string
@@ -18049,200 +20677,233 @@ export namespace Prisma {
     Mods?: ModUncheckedCreateNestedManyWithoutCollectionInput
   }
 
-  export type ModsCollectionCreateOrConnectWithoutAuthorInput = {
-    where: ModsCollectionWhereUniqueInput
-    create: XOR<ModsCollectionCreateWithoutAuthorInput, ModsCollectionUncheckedCreateWithoutAuthorInput>
+  export type Mods_CollectionCreateOrConnectWithoutAuthorInput = {
+    where: Mods_CollectionWhereUniqueInput
+    create: XOR<Mods_CollectionCreateWithoutAuthorInput, Mods_CollectionUncheckedCreateWithoutAuthorInput>
   }
 
-  export type ModsCollectionCreateManyAuthorInputEnvelope = {
-    data: Enumerable<ModsCollectionCreateManyAuthorInput>
+  export type Mods_CollectionCreateManyAuthorInputEnvelope = {
+    data: Enumerable<Mods_CollectionCreateManyAuthorInput>
     skipDuplicates?: boolean
   }
 
-  export type ModAuthorCreateWithoutUserInput = {
+  export type Mod_AuthorCreateWithoutUserInput = {
     type: number
     Mod: ModCreateNestedOneWithoutAuthorsInput
   }
 
-  export type ModAuthorUncheckedCreateWithoutUserInput = {
+  export type Mod_AuthorUncheckedCreateWithoutUserInput = {
     mod_id: number
     type: number
   }
 
-  export type ModAuthorCreateOrConnectWithoutUserInput = {
-    where: ModAuthorWhereUniqueInput
-    create: XOR<ModAuthorCreateWithoutUserInput, ModAuthorUncheckedCreateWithoutUserInput>
+  export type Mod_AuthorCreateOrConnectWithoutUserInput = {
+    where: Mod_AuthorWhereUniqueInput
+    create: XOR<Mod_AuthorCreateWithoutUserInput, Mod_AuthorUncheckedCreateWithoutUserInput>
   }
 
-  export type ModAuthorCreateManyUserInputEnvelope = {
-    data: Enumerable<ModAuthorCreateManyUserInput>
+  export type Mod_AuthorCreateManyUserInputEnvelope = {
+    data: Enumerable<Mod_AuthorCreateManyUserInput>
     skipDuplicates?: boolean
   }
 
-  export type ModIssueCreateWithoutAuthorInput = {
+  export type Mod_IssueCreateWithoutAuthorInput = {
     name: string
-    type: ModIssueType
+    type: Mod_Issue_Type
     createDate?: Date | string
     Mod: ModCreateNestedOneWithoutIssuesInput
-    ModIssuePost?: ModIssuePostCreateNestedManyWithoutIssueInput
+    ModIssuePost?: Mod_Issue_PostCreateNestedManyWithoutIssueInput
   }
 
-  export type ModIssueUncheckedCreateWithoutAuthorInput = {
+  export type Mod_IssueUncheckedCreateWithoutAuthorInput = {
     id?: number
     mod_id: number
     name: string
-    type: ModIssueType
+    type: Mod_Issue_Type
     createDate?: Date | string
-    ModIssuePost?: ModIssuePostUncheckedCreateNestedManyWithoutIssueInput
+    ModIssuePost?: Mod_Issue_PostUncheckedCreateNestedManyWithoutIssueInput
   }
 
-  export type ModIssueCreateOrConnectWithoutAuthorInput = {
-    where: ModIssueWhereUniqueInput
-    create: XOR<ModIssueCreateWithoutAuthorInput, ModIssueUncheckedCreateWithoutAuthorInput>
+  export type Mod_IssueCreateOrConnectWithoutAuthorInput = {
+    where: Mod_IssueWhereUniqueInput
+    create: XOR<Mod_IssueCreateWithoutAuthorInput, Mod_IssueUncheckedCreateWithoutAuthorInput>
   }
 
-  export type ModIssueCreateManyAuthorInputEnvelope = {
-    data: Enumerable<ModIssueCreateManyAuthorInput>
+  export type Mod_IssueCreateManyAuthorInputEnvelope = {
+    data: Enumerable<Mod_IssueCreateManyAuthorInput>
     skipDuplicates?: boolean
   }
 
-  export type ModIssuePostCreateWithoutAuthorInput = {
+  export type Mod_Issue_PostCreateWithoutAuthorInput = {
     createDate?: Date | string
     text: string
-    Issue: ModIssueCreateNestedOneWithoutModIssuePostInput
+    Issue: Mod_IssueCreateNestedOneWithoutModIssuePostInput
   }
 
-  export type ModIssuePostUncheckedCreateWithoutAuthorInput = {
+  export type Mod_Issue_PostUncheckedCreateWithoutAuthorInput = {
     id?: number
     issue_id: number
     createDate?: Date | string
     text: string
   }
 
-  export type ModIssuePostCreateOrConnectWithoutAuthorInput = {
-    where: ModIssuePostWhereUniqueInput
-    create: XOR<ModIssuePostCreateWithoutAuthorInput, ModIssuePostUncheckedCreateWithoutAuthorInput>
+  export type Mod_Issue_PostCreateOrConnectWithoutAuthorInput = {
+    where: Mod_Issue_PostWhereUniqueInput
+    create: XOR<Mod_Issue_PostCreateWithoutAuthorInput, Mod_Issue_PostUncheckedCreateWithoutAuthorInput>
   }
 
-  export type ModIssuePostCreateManyAuthorInputEnvelope = {
-    data: Enumerable<ModIssuePostCreateManyAuthorInput>
+  export type Mod_Issue_PostCreateManyAuthorInputEnvelope = {
+    data: Enumerable<Mod_Issue_PostCreateManyAuthorInput>
     skipDuplicates?: boolean
   }
 
-  export type ModsListCreateWithoutAuthorInput = {
+  export type Mods_ListCreateWithoutAuthorInput = {
     is_public: boolean
     name: string
     Mods?: ModCreateNestedManyWithoutListsInput
   }
 
-  export type ModsListUncheckedCreateWithoutAuthorInput = {
+  export type Mods_ListUncheckedCreateWithoutAuthorInput = {
     id?: number
     is_public: boolean
     name: string
     Mods?: ModUncheckedCreateNestedManyWithoutListsInput
   }
 
-  export type ModsListCreateOrConnectWithoutAuthorInput = {
-    where: ModsListWhereUniqueInput
-    create: XOR<ModsListCreateWithoutAuthorInput, ModsListUncheckedCreateWithoutAuthorInput>
+  export type Mods_ListCreateOrConnectWithoutAuthorInput = {
+    where: Mods_ListWhereUniqueInput
+    create: XOR<Mods_ListCreateWithoutAuthorInput, Mods_ListUncheckedCreateWithoutAuthorInput>
   }
 
-  export type ModsListCreateManyAuthorInputEnvelope = {
-    data: Enumerable<ModsListCreateManyAuthorInput>
+  export type Mods_ListCreateManyAuthorInputEnvelope = {
+    data: Enumerable<Mods_ListCreateManyAuthorInput>
     skipDuplicates?: boolean
   }
 
-  export type ModsFavoritsCreateWithoutUserInput = {
+  export type Mods_FavoritsCreateWithoutUserInput = {
     Mod: ModCreateNestedOneWithoutFavoritsInput
   }
 
-  export type ModsFavoritsUncheckedCreateWithoutUserInput = {
+  export type Mods_FavoritsUncheckedCreateWithoutUserInput = {
     mod_id: number
   }
 
-  export type ModsFavoritsCreateOrConnectWithoutUserInput = {
-    where: ModsFavoritsWhereUniqueInput
-    create: XOR<ModsFavoritsCreateWithoutUserInput, ModsFavoritsUncheckedCreateWithoutUserInput>
+  export type Mods_FavoritsCreateOrConnectWithoutUserInput = {
+    where: Mods_FavoritsWhereUniqueInput
+    create: XOR<Mods_FavoritsCreateWithoutUserInput, Mods_FavoritsUncheckedCreateWithoutUserInput>
   }
 
-  export type ModsFavoritsCreateManyUserInputEnvelope = {
-    data: Enumerable<ModsFavoritsCreateManyUserInput>
+  export type Mods_FavoritsCreateManyUserInputEnvelope = {
+    data: Enumerable<Mods_FavoritsCreateManyUserInput>
     skipDuplicates?: boolean
   }
 
-  export type ModSubscribersCreateWithoutUserInput = {
+  export type Mod_SubscribersCreateWithoutUserInput = {
     Mod: ModCreateNestedOneWithoutSubscribersInput
   }
 
-  export type ModSubscribersUncheckedCreateWithoutUserInput = {
+  export type Mod_SubscribersUncheckedCreateWithoutUserInput = {
     mod_id: number
   }
 
-  export type ModSubscribersCreateOrConnectWithoutUserInput = {
-    where: ModSubscribersWhereUniqueInput
-    create: XOR<ModSubscribersCreateWithoutUserInput, ModSubscribersUncheckedCreateWithoutUserInput>
+  export type Mod_SubscribersCreateOrConnectWithoutUserInput = {
+    where: Mod_SubscribersWhereUniqueInput
+    create: XOR<Mod_SubscribersCreateWithoutUserInput, Mod_SubscribersUncheckedCreateWithoutUserInput>
   }
 
-  export type ModSubscribersCreateManyUserInputEnvelope = {
-    data: Enumerable<ModSubscribersCreateManyUserInput>
+  export type Mod_SubscribersCreateManyUserInputEnvelope = {
+    data: Enumerable<Mod_SubscribersCreateManyUserInput>
     skipDuplicates?: boolean
   }
 
-  export type ModDownloadCreateWithoutUserInput = {
+  export type Mod_DownloadCreateWithoutUserInput = {
     Mod: ModCreateNestedOneWithoutDownloadsInput
-    Version: ModVersionCreateNestedOneWithoutDownloadsInput
+    Version: Mod_VersionCreateNestedOneWithoutDownloadsInput
   }
 
-  export type ModDownloadUncheckedCreateWithoutUserInput = {
+  export type Mod_DownloadUncheckedCreateWithoutUserInput = {
     mod_id: number
     version_id: number
   }
 
-  export type ModDownloadCreateOrConnectWithoutUserInput = {
-    where: ModDownloadWhereUniqueInput
-    create: XOR<ModDownloadCreateWithoutUserInput, ModDownloadUncheckedCreateWithoutUserInput>
+  export type Mod_DownloadCreateOrConnectWithoutUserInput = {
+    where: Mod_DownloadWhereUniqueInput
+    create: XOR<Mod_DownloadCreateWithoutUserInput, Mod_DownloadUncheckedCreateWithoutUserInput>
   }
 
-  export type ModDownloadCreateManyUserInputEnvelope = {
-    data: Enumerable<ModDownloadCreateManyUserInput>
+  export type Mod_DownloadCreateManyUserInputEnvelope = {
+    data: Enumerable<Mod_DownloadCreateManyUserInput>
     skipDuplicates?: boolean
   }
 
-  export type UserAuthUpsertWithoutUserInput = {
-    update: XOR<UserAuthUpdateWithoutUserInput, UserAuthUncheckedUpdateWithoutUserInput>
-    create: XOR<UserAuthCreateWithoutUserInput, UserAuthUncheckedCreateWithoutUserInput>
+  export type User_SessionCreateWithoutUserInput = {
+    userAgent: string
+    userAgentType: User_Agent_Type
+    userAgentOS: User_Agent_OS
+    userAgentDevice: string
+    uuid: string
+    ipv4: string
+    is_active?: boolean
+    Tokens?: User_TokenCreateNestedManyWithoutSessionInput
   }
 
-  export type UserAuthUpdateWithoutUserInput = {
+  export type User_SessionUncheckedCreateWithoutUserInput = {
+    id?: number
+    userAgent: string
+    userAgentType: User_Agent_Type
+    userAgentOS: User_Agent_OS
+    userAgentDevice: string
+    uuid: string
+    ipv4: string
+    is_active?: boolean
+    Tokens?: User_TokenUncheckedCreateNestedManyWithoutSessionInput
+  }
+
+  export type User_SessionCreateOrConnectWithoutUserInput = {
+    where: User_SessionWhereUniqueInput
+    create: XOR<User_SessionCreateWithoutUserInput, User_SessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type User_SessionCreateManyUserInputEnvelope = {
+    data: Enumerable<User_SessionCreateManyUserInput>
+    skipDuplicates?: boolean
+  }
+
+  export type User_AuthUpsertWithoutUserInput = {
+    update: XOR<User_AuthUpdateWithoutUserInput, User_AuthUncheckedUpdateWithoutUserInput>
+    create: XOR<User_AuthCreateWithoutUserInput, User_AuthUncheckedCreateWithoutUserInput>
+  }
+
+  export type User_AuthUpdateWithoutUserInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
-  export type UserAuthUncheckedUpdateWithoutUserInput = {
+  export type User_AuthUncheckedUpdateWithoutUserInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModsCollectionUpsertWithWhereUniqueWithoutAuthorInput = {
-    where: ModsCollectionWhereUniqueInput
-    update: XOR<ModsCollectionUpdateWithoutAuthorInput, ModsCollectionUncheckedUpdateWithoutAuthorInput>
-    create: XOR<ModsCollectionCreateWithoutAuthorInput, ModsCollectionUncheckedCreateWithoutAuthorInput>
+  export type Mods_CollectionUpsertWithWhereUniqueWithoutAuthorInput = {
+    where: Mods_CollectionWhereUniqueInput
+    update: XOR<Mods_CollectionUpdateWithoutAuthorInput, Mods_CollectionUncheckedUpdateWithoutAuthorInput>
+    create: XOR<Mods_CollectionCreateWithoutAuthorInput, Mods_CollectionUncheckedCreateWithoutAuthorInput>
   }
 
-  export type ModsCollectionUpdateWithWhereUniqueWithoutAuthorInput = {
-    where: ModsCollectionWhereUniqueInput
-    data: XOR<ModsCollectionUpdateWithoutAuthorInput, ModsCollectionUncheckedUpdateWithoutAuthorInput>
+  export type Mods_CollectionUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: Mods_CollectionWhereUniqueInput
+    data: XOR<Mods_CollectionUpdateWithoutAuthorInput, Mods_CollectionUncheckedUpdateWithoutAuthorInput>
   }
 
-  export type ModsCollectionUpdateManyWithWhereWithoutAuthorInput = {
-    where: ModsCollectionScalarWhereInput
-    data: XOR<ModsCollectionUpdateManyMutationInput, ModsCollectionUncheckedUpdateManyWithoutModsCollectionsInput>
+  export type Mods_CollectionUpdateManyWithWhereWithoutAuthorInput = {
+    where: Mods_CollectionScalarWhereInput
+    data: XOR<Mods_CollectionUpdateManyMutationInput, Mods_CollectionUncheckedUpdateManyWithoutModsCollectionsInput>
   }
 
-  export type ModsCollectionScalarWhereInput = {
-    AND?: Enumerable<ModsCollectionScalarWhereInput>
-    OR?: Enumerable<ModsCollectionScalarWhereInput>
-    NOT?: Enumerable<ModsCollectionScalarWhereInput>
+  export type Mods_CollectionScalarWhereInput = {
+    AND?: Enumerable<Mods_CollectionScalarWhereInput>
+    OR?: Enumerable<Mods_CollectionScalarWhereInput>
+    NOT?: Enumerable<Mods_CollectionScalarWhereInput>
     id?: IntFilter | number
     avatar?: StringFilter | string
     name?: StringFilter | string
@@ -18252,79 +20913,79 @@ export namespace Prisma {
     author_id?: IntFilter | number
   }
 
-  export type ModAuthorUpsertWithWhereUniqueWithoutUserInput = {
-    where: ModAuthorWhereUniqueInput
-    update: XOR<ModAuthorUpdateWithoutUserInput, ModAuthorUncheckedUpdateWithoutUserInput>
-    create: XOR<ModAuthorCreateWithoutUserInput, ModAuthorUncheckedCreateWithoutUserInput>
+  export type Mod_AuthorUpsertWithWhereUniqueWithoutUserInput = {
+    where: Mod_AuthorWhereUniqueInput
+    update: XOR<Mod_AuthorUpdateWithoutUserInput, Mod_AuthorUncheckedUpdateWithoutUserInput>
+    create: XOR<Mod_AuthorCreateWithoutUserInput, Mod_AuthorUncheckedCreateWithoutUserInput>
   }
 
-  export type ModAuthorUpdateWithWhereUniqueWithoutUserInput = {
-    where: ModAuthorWhereUniqueInput
-    data: XOR<ModAuthorUpdateWithoutUserInput, ModAuthorUncheckedUpdateWithoutUserInput>
+  export type Mod_AuthorUpdateWithWhereUniqueWithoutUserInput = {
+    where: Mod_AuthorWhereUniqueInput
+    data: XOR<Mod_AuthorUpdateWithoutUserInput, Mod_AuthorUncheckedUpdateWithoutUserInput>
   }
 
-  export type ModAuthorUpdateManyWithWhereWithoutUserInput = {
-    where: ModAuthorScalarWhereInput
-    data: XOR<ModAuthorUpdateManyMutationInput, ModAuthorUncheckedUpdateManyWithoutModAuthorsInput>
+  export type Mod_AuthorUpdateManyWithWhereWithoutUserInput = {
+    where: Mod_AuthorScalarWhereInput
+    data: XOR<Mod_AuthorUpdateManyMutationInput, Mod_AuthorUncheckedUpdateManyWithoutModAuthorsInput>
   }
 
-  export type ModAuthorScalarWhereInput = {
-    AND?: Enumerable<ModAuthorScalarWhereInput>
-    OR?: Enumerable<ModAuthorScalarWhereInput>
-    NOT?: Enumerable<ModAuthorScalarWhereInput>
+  export type Mod_AuthorScalarWhereInput = {
+    AND?: Enumerable<Mod_AuthorScalarWhereInput>
+    OR?: Enumerable<Mod_AuthorScalarWhereInput>
+    NOT?: Enumerable<Mod_AuthorScalarWhereInput>
     mod_id?: IntFilter | number
     user_id?: IntFilter | number
     type?: IntFilter | number
   }
 
-  export type ModIssueUpsertWithWhereUniqueWithoutAuthorInput = {
-    where: ModIssueWhereUniqueInput
-    update: XOR<ModIssueUpdateWithoutAuthorInput, ModIssueUncheckedUpdateWithoutAuthorInput>
-    create: XOR<ModIssueCreateWithoutAuthorInput, ModIssueUncheckedCreateWithoutAuthorInput>
+  export type Mod_IssueUpsertWithWhereUniqueWithoutAuthorInput = {
+    where: Mod_IssueWhereUniqueInput
+    update: XOR<Mod_IssueUpdateWithoutAuthorInput, Mod_IssueUncheckedUpdateWithoutAuthorInput>
+    create: XOR<Mod_IssueCreateWithoutAuthorInput, Mod_IssueUncheckedCreateWithoutAuthorInput>
   }
 
-  export type ModIssueUpdateWithWhereUniqueWithoutAuthorInput = {
-    where: ModIssueWhereUniqueInput
-    data: XOR<ModIssueUpdateWithoutAuthorInput, ModIssueUncheckedUpdateWithoutAuthorInput>
+  export type Mod_IssueUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: Mod_IssueWhereUniqueInput
+    data: XOR<Mod_IssueUpdateWithoutAuthorInput, Mod_IssueUncheckedUpdateWithoutAuthorInput>
   }
 
-  export type ModIssueUpdateManyWithWhereWithoutAuthorInput = {
-    where: ModIssueScalarWhereInput
-    data: XOR<ModIssueUpdateManyMutationInput, ModIssueUncheckedUpdateManyWithoutModIssuesInput>
+  export type Mod_IssueUpdateManyWithWhereWithoutAuthorInput = {
+    where: Mod_IssueScalarWhereInput
+    data: XOR<Mod_IssueUpdateManyMutationInput, Mod_IssueUncheckedUpdateManyWithoutModIssuesInput>
   }
 
-  export type ModIssueScalarWhereInput = {
-    AND?: Enumerable<ModIssueScalarWhereInput>
-    OR?: Enumerable<ModIssueScalarWhereInput>
-    NOT?: Enumerable<ModIssueScalarWhereInput>
+  export type Mod_IssueScalarWhereInput = {
+    AND?: Enumerable<Mod_IssueScalarWhereInput>
+    OR?: Enumerable<Mod_IssueScalarWhereInput>
+    NOT?: Enumerable<Mod_IssueScalarWhereInput>
     id?: IntFilter | number
     mod_id?: IntFilter | number
     name?: StringFilter | string
-    type?: EnumModIssueTypeFilter | ModIssueType
+    type?: EnumMod_Issue_TypeFilter | Mod_Issue_Type
     author_id?: IntFilter | number
     createDate?: DateTimeFilter | Date | string
   }
 
-  export type ModIssuePostUpsertWithWhereUniqueWithoutAuthorInput = {
-    where: ModIssuePostWhereUniqueInput
-    update: XOR<ModIssuePostUpdateWithoutAuthorInput, ModIssuePostUncheckedUpdateWithoutAuthorInput>
-    create: XOR<ModIssuePostCreateWithoutAuthorInput, ModIssuePostUncheckedCreateWithoutAuthorInput>
+  export type Mod_Issue_PostUpsertWithWhereUniqueWithoutAuthorInput = {
+    where: Mod_Issue_PostWhereUniqueInput
+    update: XOR<Mod_Issue_PostUpdateWithoutAuthorInput, Mod_Issue_PostUncheckedUpdateWithoutAuthorInput>
+    create: XOR<Mod_Issue_PostCreateWithoutAuthorInput, Mod_Issue_PostUncheckedCreateWithoutAuthorInput>
   }
 
-  export type ModIssuePostUpdateWithWhereUniqueWithoutAuthorInput = {
-    where: ModIssuePostWhereUniqueInput
-    data: XOR<ModIssuePostUpdateWithoutAuthorInput, ModIssuePostUncheckedUpdateWithoutAuthorInput>
+  export type Mod_Issue_PostUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: Mod_Issue_PostWhereUniqueInput
+    data: XOR<Mod_Issue_PostUpdateWithoutAuthorInput, Mod_Issue_PostUncheckedUpdateWithoutAuthorInput>
   }
 
-  export type ModIssuePostUpdateManyWithWhereWithoutAuthorInput = {
-    where: ModIssuePostScalarWhereInput
-    data: XOR<ModIssuePostUpdateManyMutationInput, ModIssuePostUncheckedUpdateManyWithoutModIssuePostsInput>
+  export type Mod_Issue_PostUpdateManyWithWhereWithoutAuthorInput = {
+    where: Mod_Issue_PostScalarWhereInput
+    data: XOR<Mod_Issue_PostUpdateManyMutationInput, Mod_Issue_PostUncheckedUpdateManyWithoutModIssuePostsInput>
   }
 
-  export type ModIssuePostScalarWhereInput = {
-    AND?: Enumerable<ModIssuePostScalarWhereInput>
-    OR?: Enumerable<ModIssuePostScalarWhereInput>
-    NOT?: Enumerable<ModIssuePostScalarWhereInput>
+  export type Mod_Issue_PostScalarWhereInput = {
+    AND?: Enumerable<Mod_Issue_PostScalarWhereInput>
+    OR?: Enumerable<Mod_Issue_PostScalarWhereInput>
+    NOT?: Enumerable<Mod_Issue_PostScalarWhereInput>
     id?: IntFilter | number
     issue_id?: IntFilter | number
     author_id?: IntFilter | number
@@ -18332,103 +20993,134 @@ export namespace Prisma {
     text?: StringFilter | string
   }
 
-  export type ModsListUpsertWithWhereUniqueWithoutAuthorInput = {
-    where: ModsListWhereUniqueInput
-    update: XOR<ModsListUpdateWithoutAuthorInput, ModsListUncheckedUpdateWithoutAuthorInput>
-    create: XOR<ModsListCreateWithoutAuthorInput, ModsListUncheckedCreateWithoutAuthorInput>
+  export type Mods_ListUpsertWithWhereUniqueWithoutAuthorInput = {
+    where: Mods_ListWhereUniqueInput
+    update: XOR<Mods_ListUpdateWithoutAuthorInput, Mods_ListUncheckedUpdateWithoutAuthorInput>
+    create: XOR<Mods_ListCreateWithoutAuthorInput, Mods_ListUncheckedCreateWithoutAuthorInput>
   }
 
-  export type ModsListUpdateWithWhereUniqueWithoutAuthorInput = {
-    where: ModsListWhereUniqueInput
-    data: XOR<ModsListUpdateWithoutAuthorInput, ModsListUncheckedUpdateWithoutAuthorInput>
+  export type Mods_ListUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: Mods_ListWhereUniqueInput
+    data: XOR<Mods_ListUpdateWithoutAuthorInput, Mods_ListUncheckedUpdateWithoutAuthorInput>
   }
 
-  export type ModsListUpdateManyWithWhereWithoutAuthorInput = {
-    where: ModsListScalarWhereInput
-    data: XOR<ModsListUpdateManyMutationInput, ModsListUncheckedUpdateManyWithoutModsListsInput>
+  export type Mods_ListUpdateManyWithWhereWithoutAuthorInput = {
+    where: Mods_ListScalarWhereInput
+    data: XOR<Mods_ListUpdateManyMutationInput, Mods_ListUncheckedUpdateManyWithoutModsListsInput>
   }
 
-  export type ModsListScalarWhereInput = {
-    AND?: Enumerable<ModsListScalarWhereInput>
-    OR?: Enumerable<ModsListScalarWhereInput>
-    NOT?: Enumerable<ModsListScalarWhereInput>
+  export type Mods_ListScalarWhereInput = {
+    AND?: Enumerable<Mods_ListScalarWhereInput>
+    OR?: Enumerable<Mods_ListScalarWhereInput>
+    NOT?: Enumerable<Mods_ListScalarWhereInput>
     id?: IntFilter | number
     author_id?: IntFilter | number
     is_public?: BoolFilter | boolean
     name?: StringFilter | string
   }
 
-  export type ModsFavoritsUpsertWithWhereUniqueWithoutUserInput = {
-    where: ModsFavoritsWhereUniqueInput
-    update: XOR<ModsFavoritsUpdateWithoutUserInput, ModsFavoritsUncheckedUpdateWithoutUserInput>
-    create: XOR<ModsFavoritsCreateWithoutUserInput, ModsFavoritsUncheckedCreateWithoutUserInput>
+  export type Mods_FavoritsUpsertWithWhereUniqueWithoutUserInput = {
+    where: Mods_FavoritsWhereUniqueInput
+    update: XOR<Mods_FavoritsUpdateWithoutUserInput, Mods_FavoritsUncheckedUpdateWithoutUserInput>
+    create: XOR<Mods_FavoritsCreateWithoutUserInput, Mods_FavoritsUncheckedCreateWithoutUserInput>
   }
 
-  export type ModsFavoritsUpdateWithWhereUniqueWithoutUserInput = {
-    where: ModsFavoritsWhereUniqueInput
-    data: XOR<ModsFavoritsUpdateWithoutUserInput, ModsFavoritsUncheckedUpdateWithoutUserInput>
+  export type Mods_FavoritsUpdateWithWhereUniqueWithoutUserInput = {
+    where: Mods_FavoritsWhereUniqueInput
+    data: XOR<Mods_FavoritsUpdateWithoutUserInput, Mods_FavoritsUncheckedUpdateWithoutUserInput>
   }
 
-  export type ModsFavoritsUpdateManyWithWhereWithoutUserInput = {
-    where: ModsFavoritsScalarWhereInput
-    data: XOR<ModsFavoritsUpdateManyMutationInput, ModsFavoritsUncheckedUpdateManyWithoutModsFavoritsInput>
+  export type Mods_FavoritsUpdateManyWithWhereWithoutUserInput = {
+    where: Mods_FavoritsScalarWhereInput
+    data: XOR<Mods_FavoritsUpdateManyMutationInput, Mods_FavoritsUncheckedUpdateManyWithoutModsFavoritsInput>
   }
 
-  export type ModsFavoritsScalarWhereInput = {
-    AND?: Enumerable<ModsFavoritsScalarWhereInput>
-    OR?: Enumerable<ModsFavoritsScalarWhereInput>
-    NOT?: Enumerable<ModsFavoritsScalarWhereInput>
+  export type Mods_FavoritsScalarWhereInput = {
+    AND?: Enumerable<Mods_FavoritsScalarWhereInput>
+    OR?: Enumerable<Mods_FavoritsScalarWhereInput>
+    NOT?: Enumerable<Mods_FavoritsScalarWhereInput>
     user_id?: IntFilter | number
     mod_id?: IntFilter | number
   }
 
-  export type ModSubscribersUpsertWithWhereUniqueWithoutUserInput = {
-    where: ModSubscribersWhereUniqueInput
-    update: XOR<ModSubscribersUpdateWithoutUserInput, ModSubscribersUncheckedUpdateWithoutUserInput>
-    create: XOR<ModSubscribersCreateWithoutUserInput, ModSubscribersUncheckedCreateWithoutUserInput>
+  export type Mod_SubscribersUpsertWithWhereUniqueWithoutUserInput = {
+    where: Mod_SubscribersWhereUniqueInput
+    update: XOR<Mod_SubscribersUpdateWithoutUserInput, Mod_SubscribersUncheckedUpdateWithoutUserInput>
+    create: XOR<Mod_SubscribersCreateWithoutUserInput, Mod_SubscribersUncheckedCreateWithoutUserInput>
   }
 
-  export type ModSubscribersUpdateWithWhereUniqueWithoutUserInput = {
-    where: ModSubscribersWhereUniqueInput
-    data: XOR<ModSubscribersUpdateWithoutUserInput, ModSubscribersUncheckedUpdateWithoutUserInput>
+  export type Mod_SubscribersUpdateWithWhereUniqueWithoutUserInput = {
+    where: Mod_SubscribersWhereUniqueInput
+    data: XOR<Mod_SubscribersUpdateWithoutUserInput, Mod_SubscribersUncheckedUpdateWithoutUserInput>
   }
 
-  export type ModSubscribersUpdateManyWithWhereWithoutUserInput = {
-    where: ModSubscribersScalarWhereInput
-    data: XOR<ModSubscribersUpdateManyMutationInput, ModSubscribersUncheckedUpdateManyWithoutModSubscribersInput>
+  export type Mod_SubscribersUpdateManyWithWhereWithoutUserInput = {
+    where: Mod_SubscribersScalarWhereInput
+    data: XOR<Mod_SubscribersUpdateManyMutationInput, Mod_SubscribersUncheckedUpdateManyWithoutModSubscribersInput>
   }
 
-  export type ModSubscribersScalarWhereInput = {
-    AND?: Enumerable<ModSubscribersScalarWhereInput>
-    OR?: Enumerable<ModSubscribersScalarWhereInput>
-    NOT?: Enumerable<ModSubscribersScalarWhereInput>
+  export type Mod_SubscribersScalarWhereInput = {
+    AND?: Enumerable<Mod_SubscribersScalarWhereInput>
+    OR?: Enumerable<Mod_SubscribersScalarWhereInput>
+    NOT?: Enumerable<Mod_SubscribersScalarWhereInput>
     user_id?: IntFilter | number
     mod_id?: IntFilter | number
   }
 
-  export type ModDownloadUpsertWithWhereUniqueWithoutUserInput = {
-    where: ModDownloadWhereUniqueInput
-    update: XOR<ModDownloadUpdateWithoutUserInput, ModDownloadUncheckedUpdateWithoutUserInput>
-    create: XOR<ModDownloadCreateWithoutUserInput, ModDownloadUncheckedCreateWithoutUserInput>
+  export type Mod_DownloadUpsertWithWhereUniqueWithoutUserInput = {
+    where: Mod_DownloadWhereUniqueInput
+    update: XOR<Mod_DownloadUpdateWithoutUserInput, Mod_DownloadUncheckedUpdateWithoutUserInput>
+    create: XOR<Mod_DownloadCreateWithoutUserInput, Mod_DownloadUncheckedCreateWithoutUserInput>
   }
 
-  export type ModDownloadUpdateWithWhereUniqueWithoutUserInput = {
-    where: ModDownloadWhereUniqueInput
-    data: XOR<ModDownloadUpdateWithoutUserInput, ModDownloadUncheckedUpdateWithoutUserInput>
+  export type Mod_DownloadUpdateWithWhereUniqueWithoutUserInput = {
+    where: Mod_DownloadWhereUniqueInput
+    data: XOR<Mod_DownloadUpdateWithoutUserInput, Mod_DownloadUncheckedUpdateWithoutUserInput>
   }
 
-  export type ModDownloadUpdateManyWithWhereWithoutUserInput = {
-    where: ModDownloadScalarWhereInput
-    data: XOR<ModDownloadUpdateManyMutationInput, ModDownloadUncheckedUpdateManyWithoutModDownloadsInput>
+  export type Mod_DownloadUpdateManyWithWhereWithoutUserInput = {
+    where: Mod_DownloadScalarWhereInput
+    data: XOR<Mod_DownloadUpdateManyMutationInput, Mod_DownloadUncheckedUpdateManyWithoutModDownloadsInput>
   }
 
-  export type ModDownloadScalarWhereInput = {
-    AND?: Enumerable<ModDownloadScalarWhereInput>
-    OR?: Enumerable<ModDownloadScalarWhereInput>
-    NOT?: Enumerable<ModDownloadScalarWhereInput>
+  export type Mod_DownloadScalarWhereInput = {
+    AND?: Enumerable<Mod_DownloadScalarWhereInput>
+    OR?: Enumerable<Mod_DownloadScalarWhereInput>
+    NOT?: Enumerable<Mod_DownloadScalarWhereInput>
     user_id?: IntFilter | number
     mod_id?: IntFilter | number
     version_id?: IntFilter | number
+  }
+
+  export type User_SessionUpsertWithWhereUniqueWithoutUserInput = {
+    where: User_SessionWhereUniqueInput
+    update: XOR<User_SessionUpdateWithoutUserInput, User_SessionUncheckedUpdateWithoutUserInput>
+    create: XOR<User_SessionCreateWithoutUserInput, User_SessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type User_SessionUpdateWithWhereUniqueWithoutUserInput = {
+    where: User_SessionWhereUniqueInput
+    data: XOR<User_SessionUpdateWithoutUserInput, User_SessionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type User_SessionUpdateManyWithWhereWithoutUserInput = {
+    where: User_SessionScalarWhereInput
+    data: XOR<User_SessionUpdateManyMutationInput, User_SessionUncheckedUpdateManyWithoutUserSessionInput>
+  }
+
+  export type User_SessionScalarWhereInput = {
+    AND?: Enumerable<User_SessionScalarWhereInput>
+    OR?: Enumerable<User_SessionScalarWhereInput>
+    NOT?: Enumerable<User_SessionScalarWhereInput>
+    id?: IntFilter | number
+    userId?: IntFilter | number
+    userAgent?: StringFilter | string
+    userAgentType?: EnumUser_Agent_TypeFilter | User_Agent_Type
+    userAgentOS?: EnumUser_Agent_OSFilter | User_Agent_OS
+    userAgentDevice?: StringFilter | string
+    uuid?: StringFilter | string
+    ipv4?: StringFilter | string
+    is_active?: BoolFilter | boolean
   }
 
   export type UserCreateWithoutUserAuthInput = {
@@ -18436,14 +21128,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    ModsCollections?: ModsCollectionCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadCreateNestedManyWithoutUserInput
+    ModsCollections?: Mods_CollectionCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUserAuthInput = {
@@ -18452,14 +21145,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    ModsCollections?: ModsCollectionUncheckedCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedCreateNestedManyWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUserAuthInput = {
@@ -18477,14 +21171,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    ModsCollections?: ModsCollectionUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUpdateManyWithoutUserInput
+    ModsCollections?: Mods_CollectionUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUpdateManyWithoutUserInput
+    UserSession?: User_SessionUpdateManyWithoutUserInput
   }
 
   export type UserUncheckedUpdateWithoutUserAuthInput = {
@@ -18493,14 +21188,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    ModsCollections?: ModsCollectionUncheckedUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedUpdateManyWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedUpdateManyWithoutUserInput
+    UserSession?: User_SessionUncheckedUpdateManyWithoutUserInput
   }
 
   export type UserCreateWithoutModsCollectionsInput = {
@@ -18508,14 +21204,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthCreateNestedOneWithoutUserInput
-    ModAuthors?: ModAuthorCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthCreateNestedOneWithoutUserInput
+    ModAuthors?: Mod_AuthorCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutModsCollectionsInput = {
@@ -18524,14 +21221,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthUncheckedCreateNestedOneWithoutUserInput
-    ModAuthors?: ModAuthorUncheckedCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedCreateNestedOneWithoutUserInput
+    ModAuthors?: Mod_AuthorUncheckedCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutModsCollectionsInput = {
@@ -18552,15 +21250,15 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Images?: ModImageCreateNestedManyWithoutModInput
-    Authors?: ModAuthorCreateNestedManyWithoutModInput
-    Tags?: ModTagCreateNestedManyWithoutModInput
-    Versions?: ModVersionCreateNestedManyWithoutModInput
-    Lists?: ModsListCreateNestedManyWithoutModsInput
-    Issues?: ModIssueCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadCreateNestedManyWithoutModInput
+    Images?: Mod_ImageCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorCreateNestedManyWithoutModInput
+    Tags?: Mod_TagCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionCreateNestedManyWithoutModInput
+    Lists?: Mods_ListCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadCreateNestedManyWithoutModInput
   }
 
   export type ModUncheckedCreateWithoutCollectionInput = {
@@ -18577,15 +21275,15 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Images?: ModImageUncheckedCreateNestedManyWithoutModInput
-    Authors?: ModAuthorUncheckedCreateNestedManyWithoutModInput
-    Tags?: ModTagUncheckedCreateNestedManyWithoutModInput
-    Versions?: ModVersionUncheckedCreateNestedManyWithoutModInput
-    Lists?: ModsListUncheckedCreateNestedManyWithoutModsInput
-    Issues?: ModIssueUncheckedCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadUncheckedCreateNestedManyWithoutModInput
+    Images?: Mod_ImageUncheckedCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedCreateNestedManyWithoutModInput
+    Tags?: Mod_TagUncheckedCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionUncheckedCreateNestedManyWithoutModInput
+    Lists?: Mods_ListUncheckedCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedCreateNestedManyWithoutModInput
   }
 
   export type ModCreateOrConnectWithoutCollectionInput = {
@@ -18608,14 +21306,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUpdateOneWithoutUserInput
-    ModAuthors?: ModAuthorUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUpdateOneWithoutUserInput
+    ModAuthors?: Mod_AuthorUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUpdateManyWithoutUserInput
+    UserSession?: User_SessionUpdateManyWithoutUserInput
   }
 
   export type UserUncheckedUpdateWithoutModsCollectionsInput = {
@@ -18624,14 +21323,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUncheckedUpdateOneWithoutUserInput
-    ModAuthors?: ModAuthorUncheckedUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedUpdateOneWithoutUserInput
+    ModAuthors?: Mod_AuthorUncheckedUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedUpdateManyWithoutUserInput
+    UserSession?: User_SessionUncheckedUpdateManyWithoutUserInput
   }
 
   export type ModUpsertWithWhereUniqueWithoutCollectionInput = {
@@ -18670,7 +21370,7 @@ export namespace Prisma {
     docs_url?: StringFilter | string
   }
 
-  export type ModsCollectionCreateWithoutModsInput = {
+  export type Mods_CollectionCreateWithoutModsInput = {
     avatar: string
     name: string
     description: string
@@ -18679,7 +21379,7 @@ export namespace Prisma {
     Author: UserCreateNestedOneWithoutModsCollectionsInput
   }
 
-  export type ModsCollectionUncheckedCreateWithoutModsInput = {
+  export type Mods_CollectionUncheckedCreateWithoutModsInput = {
     id?: number
     avatar: string
     name: string
@@ -18689,196 +21389,196 @@ export namespace Prisma {
     author_id: number
   }
 
-  export type ModsCollectionCreateOrConnectWithoutModsInput = {
-    where: ModsCollectionWhereUniqueInput
-    create: XOR<ModsCollectionCreateWithoutModsInput, ModsCollectionUncheckedCreateWithoutModsInput>
+  export type Mods_CollectionCreateOrConnectWithoutModsInput = {
+    where: Mods_CollectionWhereUniqueInput
+    create: XOR<Mods_CollectionCreateWithoutModsInput, Mods_CollectionUncheckedCreateWithoutModsInput>
   }
 
-  export type ModImageCreateWithoutModInput = {
+  export type Mod_ImageCreateWithoutModInput = {
     url: string
   }
 
-  export type ModImageUncheckedCreateWithoutModInput = {
+  export type Mod_ImageUncheckedCreateWithoutModInput = {
     id?: number
     url: string
   }
 
-  export type ModImageCreateOrConnectWithoutModInput = {
-    where: ModImageWhereUniqueInput
-    create: XOR<ModImageCreateWithoutModInput, ModImageUncheckedCreateWithoutModInput>
+  export type Mod_ImageCreateOrConnectWithoutModInput = {
+    where: Mod_ImageWhereUniqueInput
+    create: XOR<Mod_ImageCreateWithoutModInput, Mod_ImageUncheckedCreateWithoutModInput>
   }
 
-  export type ModImageCreateManyModInputEnvelope = {
-    data: Enumerable<ModImageCreateManyModInput>
+  export type Mod_ImageCreateManyModInputEnvelope = {
+    data: Enumerable<Mod_ImageCreateManyModInput>
     skipDuplicates?: boolean
   }
 
-  export type ModAuthorCreateWithoutModInput = {
+  export type Mod_AuthorCreateWithoutModInput = {
     type: number
     User: UserCreateNestedOneWithoutModAuthorsInput
   }
 
-  export type ModAuthorUncheckedCreateWithoutModInput = {
+  export type Mod_AuthorUncheckedCreateWithoutModInput = {
     user_id: number
     type: number
   }
 
-  export type ModAuthorCreateOrConnectWithoutModInput = {
-    where: ModAuthorWhereUniqueInput
-    create: XOR<ModAuthorCreateWithoutModInput, ModAuthorUncheckedCreateWithoutModInput>
+  export type Mod_AuthorCreateOrConnectWithoutModInput = {
+    where: Mod_AuthorWhereUniqueInput
+    create: XOR<Mod_AuthorCreateWithoutModInput, Mod_AuthorUncheckedCreateWithoutModInput>
   }
 
-  export type ModAuthorCreateManyModInputEnvelope = {
-    data: Enumerable<ModAuthorCreateManyModInput>
+  export type Mod_AuthorCreateManyModInputEnvelope = {
+    data: Enumerable<Mod_AuthorCreateManyModInput>
     skipDuplicates?: boolean
   }
 
-  export type ModTagCreateWithoutModInput = {
+  export type Mod_TagCreateWithoutModInput = {
     name: string
   }
 
-  export type ModTagUncheckedCreateWithoutModInput = {
+  export type Mod_TagUncheckedCreateWithoutModInput = {
     id?: number
     name: string
   }
 
-  export type ModTagCreateOrConnectWithoutModInput = {
-    where: ModTagWhereUniqueInput
-    create: XOR<ModTagCreateWithoutModInput, ModTagUncheckedCreateWithoutModInput>
+  export type Mod_TagCreateOrConnectWithoutModInput = {
+    where: Mod_TagWhereUniqueInput
+    create: XOR<Mod_TagCreateWithoutModInput, Mod_TagUncheckedCreateWithoutModInput>
   }
 
-  export type ModVersionCreateWithoutModInput = {
+  export type Mod_VersionCreateWithoutModInput = {
     version: string
     game_version: string
     releaseDate?: Date | string
-    Downloads?: ModDownloadCreateNestedManyWithoutVersionInput
+    Downloads?: Mod_DownloadCreateNestedManyWithoutVersionInput
   }
 
-  export type ModVersionUncheckedCreateWithoutModInput = {
+  export type Mod_VersionUncheckedCreateWithoutModInput = {
     id?: number
     version: string
     game_version: string
     releaseDate?: Date | string
-    Downloads?: ModDownloadUncheckedCreateNestedManyWithoutVersionInput
+    Downloads?: Mod_DownloadUncheckedCreateNestedManyWithoutVersionInput
   }
 
-  export type ModVersionCreateOrConnectWithoutModInput = {
-    where: ModVersionWhereUniqueInput
-    create: XOR<ModVersionCreateWithoutModInput, ModVersionUncheckedCreateWithoutModInput>
+  export type Mod_VersionCreateOrConnectWithoutModInput = {
+    where: Mod_VersionWhereUniqueInput
+    create: XOR<Mod_VersionCreateWithoutModInput, Mod_VersionUncheckedCreateWithoutModInput>
   }
 
-  export type ModVersionCreateManyModInputEnvelope = {
-    data: Enumerable<ModVersionCreateManyModInput>
+  export type Mod_VersionCreateManyModInputEnvelope = {
+    data: Enumerable<Mod_VersionCreateManyModInput>
     skipDuplicates?: boolean
   }
 
-  export type ModsListCreateWithoutModsInput = {
+  export type Mods_ListCreateWithoutModsInput = {
     is_public: boolean
     name: string
     Author: UserCreateNestedOneWithoutModsListsInput
   }
 
-  export type ModsListUncheckedCreateWithoutModsInput = {
+  export type Mods_ListUncheckedCreateWithoutModsInput = {
     id?: number
     author_id: number
     is_public: boolean
     name: string
   }
 
-  export type ModsListCreateOrConnectWithoutModsInput = {
-    where: ModsListWhereUniqueInput
-    create: XOR<ModsListCreateWithoutModsInput, ModsListUncheckedCreateWithoutModsInput>
+  export type Mods_ListCreateOrConnectWithoutModsInput = {
+    where: Mods_ListWhereUniqueInput
+    create: XOR<Mods_ListCreateWithoutModsInput, Mods_ListUncheckedCreateWithoutModsInput>
   }
 
-  export type ModIssueCreateWithoutModInput = {
+  export type Mod_IssueCreateWithoutModInput = {
     name: string
-    type: ModIssueType
+    type: Mod_Issue_Type
     createDate?: Date | string
     Author: UserCreateNestedOneWithoutModIssuesInput
-    ModIssuePost?: ModIssuePostCreateNestedManyWithoutIssueInput
+    ModIssuePost?: Mod_Issue_PostCreateNestedManyWithoutIssueInput
   }
 
-  export type ModIssueUncheckedCreateWithoutModInput = {
+  export type Mod_IssueUncheckedCreateWithoutModInput = {
     id?: number
     name: string
-    type: ModIssueType
+    type: Mod_Issue_Type
     author_id: number
     createDate?: Date | string
-    ModIssuePost?: ModIssuePostUncheckedCreateNestedManyWithoutIssueInput
+    ModIssuePost?: Mod_Issue_PostUncheckedCreateNestedManyWithoutIssueInput
   }
 
-  export type ModIssueCreateOrConnectWithoutModInput = {
-    where: ModIssueWhereUniqueInput
-    create: XOR<ModIssueCreateWithoutModInput, ModIssueUncheckedCreateWithoutModInput>
+  export type Mod_IssueCreateOrConnectWithoutModInput = {
+    where: Mod_IssueWhereUniqueInput
+    create: XOR<Mod_IssueCreateWithoutModInput, Mod_IssueUncheckedCreateWithoutModInput>
   }
 
-  export type ModIssueCreateManyModInputEnvelope = {
-    data: Enumerable<ModIssueCreateManyModInput>
+  export type Mod_IssueCreateManyModInputEnvelope = {
+    data: Enumerable<Mod_IssueCreateManyModInput>
     skipDuplicates?: boolean
   }
 
-  export type ModsFavoritsCreateWithoutModInput = {
+  export type Mods_FavoritsCreateWithoutModInput = {
     User: UserCreateNestedOneWithoutModsFavoritsInput
   }
 
-  export type ModsFavoritsUncheckedCreateWithoutModInput = {
+  export type Mods_FavoritsUncheckedCreateWithoutModInput = {
     user_id: number
   }
 
-  export type ModsFavoritsCreateOrConnectWithoutModInput = {
-    where: ModsFavoritsWhereUniqueInput
-    create: XOR<ModsFavoritsCreateWithoutModInput, ModsFavoritsUncheckedCreateWithoutModInput>
+  export type Mods_FavoritsCreateOrConnectWithoutModInput = {
+    where: Mods_FavoritsWhereUniqueInput
+    create: XOR<Mods_FavoritsCreateWithoutModInput, Mods_FavoritsUncheckedCreateWithoutModInput>
   }
 
-  export type ModsFavoritsCreateManyModInputEnvelope = {
-    data: Enumerable<ModsFavoritsCreateManyModInput>
+  export type Mods_FavoritsCreateManyModInputEnvelope = {
+    data: Enumerable<Mods_FavoritsCreateManyModInput>
     skipDuplicates?: boolean
   }
 
-  export type ModSubscribersCreateWithoutModInput = {
+  export type Mod_SubscribersCreateWithoutModInput = {
     User: UserCreateNestedOneWithoutModSubscribersInput
   }
 
-  export type ModSubscribersUncheckedCreateWithoutModInput = {
+  export type Mod_SubscribersUncheckedCreateWithoutModInput = {
     user_id: number
   }
 
-  export type ModSubscribersCreateOrConnectWithoutModInput = {
-    where: ModSubscribersWhereUniqueInput
-    create: XOR<ModSubscribersCreateWithoutModInput, ModSubscribersUncheckedCreateWithoutModInput>
+  export type Mod_SubscribersCreateOrConnectWithoutModInput = {
+    where: Mod_SubscribersWhereUniqueInput
+    create: XOR<Mod_SubscribersCreateWithoutModInput, Mod_SubscribersUncheckedCreateWithoutModInput>
   }
 
-  export type ModSubscribersCreateManyModInputEnvelope = {
-    data: Enumerable<ModSubscribersCreateManyModInput>
+  export type Mod_SubscribersCreateManyModInputEnvelope = {
+    data: Enumerable<Mod_SubscribersCreateManyModInput>
     skipDuplicates?: boolean
   }
 
-  export type ModDownloadCreateWithoutModInput = {
+  export type Mod_DownloadCreateWithoutModInput = {
     User: UserCreateNestedOneWithoutModDownloadsInput
-    Version: ModVersionCreateNestedOneWithoutDownloadsInput
+    Version: Mod_VersionCreateNestedOneWithoutDownloadsInput
   }
 
-  export type ModDownloadUncheckedCreateWithoutModInput = {
+  export type Mod_DownloadUncheckedCreateWithoutModInput = {
     user_id: number
     version_id: number
   }
 
-  export type ModDownloadCreateOrConnectWithoutModInput = {
-    where: ModDownloadWhereUniqueInput
-    create: XOR<ModDownloadCreateWithoutModInput, ModDownloadUncheckedCreateWithoutModInput>
+  export type Mod_DownloadCreateOrConnectWithoutModInput = {
+    where: Mod_DownloadWhereUniqueInput
+    create: XOR<Mod_DownloadCreateWithoutModInput, Mod_DownloadUncheckedCreateWithoutModInput>
   }
 
-  export type ModDownloadCreateManyModInputEnvelope = {
-    data: Enumerable<ModDownloadCreateManyModInput>
+  export type Mod_DownloadCreateManyModInputEnvelope = {
+    data: Enumerable<Mod_DownloadCreateManyModInput>
     skipDuplicates?: boolean
   }
 
-  export type ModsCollectionUpsertWithoutModsInput = {
-    update: XOR<ModsCollectionUpdateWithoutModsInput, ModsCollectionUncheckedUpdateWithoutModsInput>
-    create: XOR<ModsCollectionCreateWithoutModsInput, ModsCollectionUncheckedCreateWithoutModsInput>
+  export type Mods_CollectionUpsertWithoutModsInput = {
+    update: XOR<Mods_CollectionUpdateWithoutModsInput, Mods_CollectionUncheckedUpdateWithoutModsInput>
+    create: XOR<Mods_CollectionCreateWithoutModsInput, Mods_CollectionUncheckedCreateWithoutModsInput>
   }
 
-  export type ModsCollectionUpdateWithoutModsInput = {
+  export type Mods_CollectionUpdateWithoutModsInput = {
     avatar?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -18887,7 +21587,7 @@ export namespace Prisma {
     Author?: UserUpdateOneRequiredWithoutModsCollectionsInput
   }
 
-  export type ModsCollectionUncheckedUpdateWithoutModsInput = {
+  export type Mods_CollectionUncheckedUpdateWithoutModsInput = {
     id?: IntFieldUpdateOperationsInput | number
     avatar?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -18897,91 +21597,91 @@ export namespace Prisma {
     author_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModImageUpsertWithWhereUniqueWithoutModInput = {
-    where: ModImageWhereUniqueInput
-    update: XOR<ModImageUpdateWithoutModInput, ModImageUncheckedUpdateWithoutModInput>
-    create: XOR<ModImageCreateWithoutModInput, ModImageUncheckedCreateWithoutModInput>
+  export type Mod_ImageUpsertWithWhereUniqueWithoutModInput = {
+    where: Mod_ImageWhereUniqueInput
+    update: XOR<Mod_ImageUpdateWithoutModInput, Mod_ImageUncheckedUpdateWithoutModInput>
+    create: XOR<Mod_ImageCreateWithoutModInput, Mod_ImageUncheckedCreateWithoutModInput>
   }
 
-  export type ModImageUpdateWithWhereUniqueWithoutModInput = {
-    where: ModImageWhereUniqueInput
-    data: XOR<ModImageUpdateWithoutModInput, ModImageUncheckedUpdateWithoutModInput>
+  export type Mod_ImageUpdateWithWhereUniqueWithoutModInput = {
+    where: Mod_ImageWhereUniqueInput
+    data: XOR<Mod_ImageUpdateWithoutModInput, Mod_ImageUncheckedUpdateWithoutModInput>
   }
 
-  export type ModImageUpdateManyWithWhereWithoutModInput = {
-    where: ModImageScalarWhereInput
-    data: XOR<ModImageUpdateManyMutationInput, ModImageUncheckedUpdateManyWithoutImagesInput>
+  export type Mod_ImageUpdateManyWithWhereWithoutModInput = {
+    where: Mod_ImageScalarWhereInput
+    data: XOR<Mod_ImageUpdateManyMutationInput, Mod_ImageUncheckedUpdateManyWithoutImagesInput>
   }
 
-  export type ModImageScalarWhereInput = {
-    AND?: Enumerable<ModImageScalarWhereInput>
-    OR?: Enumerable<ModImageScalarWhereInput>
-    NOT?: Enumerable<ModImageScalarWhereInput>
+  export type Mod_ImageScalarWhereInput = {
+    AND?: Enumerable<Mod_ImageScalarWhereInput>
+    OR?: Enumerable<Mod_ImageScalarWhereInput>
+    NOT?: Enumerable<Mod_ImageScalarWhereInput>
     id?: IntFilter | number
     mod_id?: IntFilter | number
     url?: StringFilter | string
   }
 
-  export type ModAuthorUpsertWithWhereUniqueWithoutModInput = {
-    where: ModAuthorWhereUniqueInput
-    update: XOR<ModAuthorUpdateWithoutModInput, ModAuthorUncheckedUpdateWithoutModInput>
-    create: XOR<ModAuthorCreateWithoutModInput, ModAuthorUncheckedCreateWithoutModInput>
+  export type Mod_AuthorUpsertWithWhereUniqueWithoutModInput = {
+    where: Mod_AuthorWhereUniqueInput
+    update: XOR<Mod_AuthorUpdateWithoutModInput, Mod_AuthorUncheckedUpdateWithoutModInput>
+    create: XOR<Mod_AuthorCreateWithoutModInput, Mod_AuthorUncheckedCreateWithoutModInput>
   }
 
-  export type ModAuthorUpdateWithWhereUniqueWithoutModInput = {
-    where: ModAuthorWhereUniqueInput
-    data: XOR<ModAuthorUpdateWithoutModInput, ModAuthorUncheckedUpdateWithoutModInput>
+  export type Mod_AuthorUpdateWithWhereUniqueWithoutModInput = {
+    where: Mod_AuthorWhereUniqueInput
+    data: XOR<Mod_AuthorUpdateWithoutModInput, Mod_AuthorUncheckedUpdateWithoutModInput>
   }
 
-  export type ModAuthorUpdateManyWithWhereWithoutModInput = {
-    where: ModAuthorScalarWhereInput
-    data: XOR<ModAuthorUpdateManyMutationInput, ModAuthorUncheckedUpdateManyWithoutAuthorsInput>
+  export type Mod_AuthorUpdateManyWithWhereWithoutModInput = {
+    where: Mod_AuthorScalarWhereInput
+    data: XOR<Mod_AuthorUpdateManyMutationInput, Mod_AuthorUncheckedUpdateManyWithoutAuthorsInput>
   }
 
-  export type ModTagUpsertWithWhereUniqueWithoutModInput = {
-    where: ModTagWhereUniqueInput
-    update: XOR<ModTagUpdateWithoutModInput, ModTagUncheckedUpdateWithoutModInput>
-    create: XOR<ModTagCreateWithoutModInput, ModTagUncheckedCreateWithoutModInput>
+  export type Mod_TagUpsertWithWhereUniqueWithoutModInput = {
+    where: Mod_TagWhereUniqueInput
+    update: XOR<Mod_TagUpdateWithoutModInput, Mod_TagUncheckedUpdateWithoutModInput>
+    create: XOR<Mod_TagCreateWithoutModInput, Mod_TagUncheckedCreateWithoutModInput>
   }
 
-  export type ModTagUpdateWithWhereUniqueWithoutModInput = {
-    where: ModTagWhereUniqueInput
-    data: XOR<ModTagUpdateWithoutModInput, ModTagUncheckedUpdateWithoutModInput>
+  export type Mod_TagUpdateWithWhereUniqueWithoutModInput = {
+    where: Mod_TagWhereUniqueInput
+    data: XOR<Mod_TagUpdateWithoutModInput, Mod_TagUncheckedUpdateWithoutModInput>
   }
 
-  export type ModTagUpdateManyWithWhereWithoutModInput = {
-    where: ModTagScalarWhereInput
-    data: XOR<ModTagUpdateManyMutationInput, ModTagUncheckedUpdateManyWithoutTagsInput>
+  export type Mod_TagUpdateManyWithWhereWithoutModInput = {
+    where: Mod_TagScalarWhereInput
+    data: XOR<Mod_TagUpdateManyMutationInput, Mod_TagUncheckedUpdateManyWithoutTagsInput>
   }
 
-  export type ModTagScalarWhereInput = {
-    AND?: Enumerable<ModTagScalarWhereInput>
-    OR?: Enumerable<ModTagScalarWhereInput>
-    NOT?: Enumerable<ModTagScalarWhereInput>
+  export type Mod_TagScalarWhereInput = {
+    AND?: Enumerable<Mod_TagScalarWhereInput>
+    OR?: Enumerable<Mod_TagScalarWhereInput>
+    NOT?: Enumerable<Mod_TagScalarWhereInput>
     id?: IntFilter | number
     name?: StringFilter | string
   }
 
-  export type ModVersionUpsertWithWhereUniqueWithoutModInput = {
-    where: ModVersionWhereUniqueInput
-    update: XOR<ModVersionUpdateWithoutModInput, ModVersionUncheckedUpdateWithoutModInput>
-    create: XOR<ModVersionCreateWithoutModInput, ModVersionUncheckedCreateWithoutModInput>
+  export type Mod_VersionUpsertWithWhereUniqueWithoutModInput = {
+    where: Mod_VersionWhereUniqueInput
+    update: XOR<Mod_VersionUpdateWithoutModInput, Mod_VersionUncheckedUpdateWithoutModInput>
+    create: XOR<Mod_VersionCreateWithoutModInput, Mod_VersionUncheckedCreateWithoutModInput>
   }
 
-  export type ModVersionUpdateWithWhereUniqueWithoutModInput = {
-    where: ModVersionWhereUniqueInput
-    data: XOR<ModVersionUpdateWithoutModInput, ModVersionUncheckedUpdateWithoutModInput>
+  export type Mod_VersionUpdateWithWhereUniqueWithoutModInput = {
+    where: Mod_VersionWhereUniqueInput
+    data: XOR<Mod_VersionUpdateWithoutModInput, Mod_VersionUncheckedUpdateWithoutModInput>
   }
 
-  export type ModVersionUpdateManyWithWhereWithoutModInput = {
-    where: ModVersionScalarWhereInput
-    data: XOR<ModVersionUpdateManyMutationInput, ModVersionUncheckedUpdateManyWithoutVersionsInput>
+  export type Mod_VersionUpdateManyWithWhereWithoutModInput = {
+    where: Mod_VersionScalarWhereInput
+    data: XOR<Mod_VersionUpdateManyMutationInput, Mod_VersionUncheckedUpdateManyWithoutVersionsInput>
   }
 
-  export type ModVersionScalarWhereInput = {
-    AND?: Enumerable<ModVersionScalarWhereInput>
-    OR?: Enumerable<ModVersionScalarWhereInput>
-    NOT?: Enumerable<ModVersionScalarWhereInput>
+  export type Mod_VersionScalarWhereInput = {
+    AND?: Enumerable<Mod_VersionScalarWhereInput>
+    OR?: Enumerable<Mod_VersionScalarWhereInput>
+    NOT?: Enumerable<Mod_VersionScalarWhereInput>
     id?: IntFilter | number
     mod_id?: IntFilter | number
     version?: StringFilter | string
@@ -18989,84 +21689,84 @@ export namespace Prisma {
     releaseDate?: DateTimeFilter | Date | string
   }
 
-  export type ModsListUpsertWithWhereUniqueWithoutModsInput = {
-    where: ModsListWhereUniqueInput
-    update: XOR<ModsListUpdateWithoutModsInput, ModsListUncheckedUpdateWithoutModsInput>
-    create: XOR<ModsListCreateWithoutModsInput, ModsListUncheckedCreateWithoutModsInput>
+  export type Mods_ListUpsertWithWhereUniqueWithoutModsInput = {
+    where: Mods_ListWhereUniqueInput
+    update: XOR<Mods_ListUpdateWithoutModsInput, Mods_ListUncheckedUpdateWithoutModsInput>
+    create: XOR<Mods_ListCreateWithoutModsInput, Mods_ListUncheckedCreateWithoutModsInput>
   }
 
-  export type ModsListUpdateWithWhereUniqueWithoutModsInput = {
-    where: ModsListWhereUniqueInput
-    data: XOR<ModsListUpdateWithoutModsInput, ModsListUncheckedUpdateWithoutModsInput>
+  export type Mods_ListUpdateWithWhereUniqueWithoutModsInput = {
+    where: Mods_ListWhereUniqueInput
+    data: XOR<Mods_ListUpdateWithoutModsInput, Mods_ListUncheckedUpdateWithoutModsInput>
   }
 
-  export type ModsListUpdateManyWithWhereWithoutModsInput = {
-    where: ModsListScalarWhereInput
-    data: XOR<ModsListUpdateManyMutationInput, ModsListUncheckedUpdateManyWithoutListsInput>
+  export type Mods_ListUpdateManyWithWhereWithoutModsInput = {
+    where: Mods_ListScalarWhereInput
+    data: XOR<Mods_ListUpdateManyMutationInput, Mods_ListUncheckedUpdateManyWithoutListsInput>
   }
 
-  export type ModIssueUpsertWithWhereUniqueWithoutModInput = {
-    where: ModIssueWhereUniqueInput
-    update: XOR<ModIssueUpdateWithoutModInput, ModIssueUncheckedUpdateWithoutModInput>
-    create: XOR<ModIssueCreateWithoutModInput, ModIssueUncheckedCreateWithoutModInput>
+  export type Mod_IssueUpsertWithWhereUniqueWithoutModInput = {
+    where: Mod_IssueWhereUniqueInput
+    update: XOR<Mod_IssueUpdateWithoutModInput, Mod_IssueUncheckedUpdateWithoutModInput>
+    create: XOR<Mod_IssueCreateWithoutModInput, Mod_IssueUncheckedCreateWithoutModInput>
   }
 
-  export type ModIssueUpdateWithWhereUniqueWithoutModInput = {
-    where: ModIssueWhereUniqueInput
-    data: XOR<ModIssueUpdateWithoutModInput, ModIssueUncheckedUpdateWithoutModInput>
+  export type Mod_IssueUpdateWithWhereUniqueWithoutModInput = {
+    where: Mod_IssueWhereUniqueInput
+    data: XOR<Mod_IssueUpdateWithoutModInput, Mod_IssueUncheckedUpdateWithoutModInput>
   }
 
-  export type ModIssueUpdateManyWithWhereWithoutModInput = {
-    where: ModIssueScalarWhereInput
-    data: XOR<ModIssueUpdateManyMutationInput, ModIssueUncheckedUpdateManyWithoutIssuesInput>
+  export type Mod_IssueUpdateManyWithWhereWithoutModInput = {
+    where: Mod_IssueScalarWhereInput
+    data: XOR<Mod_IssueUpdateManyMutationInput, Mod_IssueUncheckedUpdateManyWithoutIssuesInput>
   }
 
-  export type ModsFavoritsUpsertWithWhereUniqueWithoutModInput = {
-    where: ModsFavoritsWhereUniqueInput
-    update: XOR<ModsFavoritsUpdateWithoutModInput, ModsFavoritsUncheckedUpdateWithoutModInput>
-    create: XOR<ModsFavoritsCreateWithoutModInput, ModsFavoritsUncheckedCreateWithoutModInput>
+  export type Mods_FavoritsUpsertWithWhereUniqueWithoutModInput = {
+    where: Mods_FavoritsWhereUniqueInput
+    update: XOR<Mods_FavoritsUpdateWithoutModInput, Mods_FavoritsUncheckedUpdateWithoutModInput>
+    create: XOR<Mods_FavoritsCreateWithoutModInput, Mods_FavoritsUncheckedCreateWithoutModInput>
   }
 
-  export type ModsFavoritsUpdateWithWhereUniqueWithoutModInput = {
-    where: ModsFavoritsWhereUniqueInput
-    data: XOR<ModsFavoritsUpdateWithoutModInput, ModsFavoritsUncheckedUpdateWithoutModInput>
+  export type Mods_FavoritsUpdateWithWhereUniqueWithoutModInput = {
+    where: Mods_FavoritsWhereUniqueInput
+    data: XOR<Mods_FavoritsUpdateWithoutModInput, Mods_FavoritsUncheckedUpdateWithoutModInput>
   }
 
-  export type ModsFavoritsUpdateManyWithWhereWithoutModInput = {
-    where: ModsFavoritsScalarWhereInput
-    data: XOR<ModsFavoritsUpdateManyMutationInput, ModsFavoritsUncheckedUpdateManyWithoutFavoritsInput>
+  export type Mods_FavoritsUpdateManyWithWhereWithoutModInput = {
+    where: Mods_FavoritsScalarWhereInput
+    data: XOR<Mods_FavoritsUpdateManyMutationInput, Mods_FavoritsUncheckedUpdateManyWithoutFavoritsInput>
   }
 
-  export type ModSubscribersUpsertWithWhereUniqueWithoutModInput = {
-    where: ModSubscribersWhereUniqueInput
-    update: XOR<ModSubscribersUpdateWithoutModInput, ModSubscribersUncheckedUpdateWithoutModInput>
-    create: XOR<ModSubscribersCreateWithoutModInput, ModSubscribersUncheckedCreateWithoutModInput>
+  export type Mod_SubscribersUpsertWithWhereUniqueWithoutModInput = {
+    where: Mod_SubscribersWhereUniqueInput
+    update: XOR<Mod_SubscribersUpdateWithoutModInput, Mod_SubscribersUncheckedUpdateWithoutModInput>
+    create: XOR<Mod_SubscribersCreateWithoutModInput, Mod_SubscribersUncheckedCreateWithoutModInput>
   }
 
-  export type ModSubscribersUpdateWithWhereUniqueWithoutModInput = {
-    where: ModSubscribersWhereUniqueInput
-    data: XOR<ModSubscribersUpdateWithoutModInput, ModSubscribersUncheckedUpdateWithoutModInput>
+  export type Mod_SubscribersUpdateWithWhereUniqueWithoutModInput = {
+    where: Mod_SubscribersWhereUniqueInput
+    data: XOR<Mod_SubscribersUpdateWithoutModInput, Mod_SubscribersUncheckedUpdateWithoutModInput>
   }
 
-  export type ModSubscribersUpdateManyWithWhereWithoutModInput = {
-    where: ModSubscribersScalarWhereInput
-    data: XOR<ModSubscribersUpdateManyMutationInput, ModSubscribersUncheckedUpdateManyWithoutSubscribersInput>
+  export type Mod_SubscribersUpdateManyWithWhereWithoutModInput = {
+    where: Mod_SubscribersScalarWhereInput
+    data: XOR<Mod_SubscribersUpdateManyMutationInput, Mod_SubscribersUncheckedUpdateManyWithoutSubscribersInput>
   }
 
-  export type ModDownloadUpsertWithWhereUniqueWithoutModInput = {
-    where: ModDownloadWhereUniqueInput
-    update: XOR<ModDownloadUpdateWithoutModInput, ModDownloadUncheckedUpdateWithoutModInput>
-    create: XOR<ModDownloadCreateWithoutModInput, ModDownloadUncheckedCreateWithoutModInput>
+  export type Mod_DownloadUpsertWithWhereUniqueWithoutModInput = {
+    where: Mod_DownloadWhereUniqueInput
+    update: XOR<Mod_DownloadUpdateWithoutModInput, Mod_DownloadUncheckedUpdateWithoutModInput>
+    create: XOR<Mod_DownloadCreateWithoutModInput, Mod_DownloadUncheckedCreateWithoutModInput>
   }
 
-  export type ModDownloadUpdateWithWhereUniqueWithoutModInput = {
-    where: ModDownloadWhereUniqueInput
-    data: XOR<ModDownloadUpdateWithoutModInput, ModDownloadUncheckedUpdateWithoutModInput>
+  export type Mod_DownloadUpdateWithWhereUniqueWithoutModInput = {
+    where: Mod_DownloadWhereUniqueInput
+    data: XOR<Mod_DownloadUpdateWithoutModInput, Mod_DownloadUncheckedUpdateWithoutModInput>
   }
 
-  export type ModDownloadUpdateManyWithWhereWithoutModInput = {
-    where: ModDownloadScalarWhereInput
-    data: XOR<ModDownloadUpdateManyMutationInput, ModDownloadUncheckedUpdateManyWithoutDownloadsInput>
+  export type Mod_DownloadUpdateManyWithWhereWithoutModInput = {
+    where: Mod_DownloadScalarWhereInput
+    data: XOR<Mod_DownloadUpdateManyMutationInput, Mod_DownloadUncheckedUpdateManyWithoutDownloadsInput>
   }
 
   export type UserCreateWithoutModAuthorsInput = {
@@ -19074,14 +21774,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionCreateNestedManyWithoutAuthorInput
-    ModIssues?: ModIssueCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionCreateNestedManyWithoutAuthorInput
+    ModIssues?: Mod_IssueCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutModAuthorsInput = {
@@ -19090,14 +21791,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthUncheckedCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedCreateNestedManyWithoutAuthorInput
-    ModIssues?: ModIssueUncheckedCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedCreateNestedManyWithoutAuthorInput
+    ModIssues?: Mod_IssueUncheckedCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutModAuthorsInput = {
@@ -19118,15 +21820,15 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Collection: ModsCollectionCreateNestedOneWithoutModsInput
-    Images?: ModImageCreateNestedManyWithoutModInput
-    Tags?: ModTagCreateNestedManyWithoutModInput
-    Versions?: ModVersionCreateNestedManyWithoutModInput
-    Lists?: ModsListCreateNestedManyWithoutModsInput
-    Issues?: ModIssueCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadCreateNestedManyWithoutModInput
+    Collection: Mods_CollectionCreateNestedOneWithoutModsInput
+    Images?: Mod_ImageCreateNestedManyWithoutModInput
+    Tags?: Mod_TagCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionCreateNestedManyWithoutModInput
+    Lists?: Mods_ListCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadCreateNestedManyWithoutModInput
   }
 
   export type ModUncheckedCreateWithoutAuthorsInput = {
@@ -19144,14 +21846,14 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Images?: ModImageUncheckedCreateNestedManyWithoutModInput
-    Tags?: ModTagUncheckedCreateNestedManyWithoutModInput
-    Versions?: ModVersionUncheckedCreateNestedManyWithoutModInput
-    Lists?: ModsListUncheckedCreateNestedManyWithoutModsInput
-    Issues?: ModIssueUncheckedCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadUncheckedCreateNestedManyWithoutModInput
+    Images?: Mod_ImageUncheckedCreateNestedManyWithoutModInput
+    Tags?: Mod_TagUncheckedCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionUncheckedCreateNestedManyWithoutModInput
+    Lists?: Mods_ListUncheckedCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedCreateNestedManyWithoutModInput
   }
 
   export type ModCreateOrConnectWithoutAuthorsInput = {
@@ -19169,14 +21871,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUpdateManyWithoutAuthorInput
-    ModIssues?: ModIssueUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUpdateManyWithoutAuthorInput
+    ModIssues?: Mod_IssueUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUpdateManyWithoutUserInput
+    UserSession?: User_SessionUpdateManyWithoutUserInput
   }
 
   export type UserUncheckedUpdateWithoutModAuthorsInput = {
@@ -19185,14 +21888,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUncheckedUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedUpdateManyWithoutAuthorInput
-    ModIssues?: ModIssueUncheckedUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedUpdateManyWithoutAuthorInput
+    ModIssues?: Mod_IssueUncheckedUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedUpdateManyWithoutUserInput
+    UserSession?: User_SessionUncheckedUpdateManyWithoutUserInput
   }
 
   export type ModUpsertWithoutAuthorsInput = {
@@ -19213,15 +21917,15 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Collection?: ModsCollectionUpdateOneRequiredWithoutModsInput
-    Images?: ModImageUpdateManyWithoutModInput
-    Tags?: ModTagUpdateManyWithoutModInput
-    Versions?: ModVersionUpdateManyWithoutModInput
-    Lists?: ModsListUpdateManyWithoutModsInput
-    Issues?: ModIssueUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUpdateManyWithoutModInput
-    Downloads?: ModDownloadUpdateManyWithoutModInput
+    Collection?: Mods_CollectionUpdateOneRequiredWithoutModsInput
+    Images?: Mod_ImageUpdateManyWithoutModInput
+    Tags?: Mod_TagUpdateManyWithoutModInput
+    Versions?: Mod_VersionUpdateManyWithoutModInput
+    Lists?: Mods_ListUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUpdateManyWithoutModInput
   }
 
   export type ModUncheckedUpdateWithoutAuthorsInput = {
@@ -19239,14 +21943,14 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Images?: ModImageUncheckedUpdateManyWithoutModInput
-    Tags?: ModTagUncheckedUpdateManyWithoutModInput
-    Versions?: ModVersionUncheckedUpdateManyWithoutModInput
-    Lists?: ModsListUncheckedUpdateManyWithoutModsInput
-    Issues?: ModIssueUncheckedUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedUpdateManyWithoutModInput
-    Downloads?: ModDownloadUncheckedUpdateManyWithoutModInput
+    Images?: Mod_ImageUncheckedUpdateManyWithoutModInput
+    Tags?: Mod_TagUncheckedUpdateManyWithoutModInput
+    Versions?: Mod_VersionUncheckedUpdateManyWithoutModInput
+    Lists?: Mods_ListUncheckedUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedUpdateManyWithoutModInput
   }
 
   export type ModCreateWithoutImagesInput = {
@@ -19262,15 +21966,15 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Collection: ModsCollectionCreateNestedOneWithoutModsInput
-    Authors?: ModAuthorCreateNestedManyWithoutModInput
-    Tags?: ModTagCreateNestedManyWithoutModInput
-    Versions?: ModVersionCreateNestedManyWithoutModInput
-    Lists?: ModsListCreateNestedManyWithoutModsInput
-    Issues?: ModIssueCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadCreateNestedManyWithoutModInput
+    Collection: Mods_CollectionCreateNestedOneWithoutModsInput
+    Authors?: Mod_AuthorCreateNestedManyWithoutModInput
+    Tags?: Mod_TagCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionCreateNestedManyWithoutModInput
+    Lists?: Mods_ListCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadCreateNestedManyWithoutModInput
   }
 
   export type ModUncheckedCreateWithoutImagesInput = {
@@ -19288,14 +21992,14 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Authors?: ModAuthorUncheckedCreateNestedManyWithoutModInput
-    Tags?: ModTagUncheckedCreateNestedManyWithoutModInput
-    Versions?: ModVersionUncheckedCreateNestedManyWithoutModInput
-    Lists?: ModsListUncheckedCreateNestedManyWithoutModsInput
-    Issues?: ModIssueUncheckedCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadUncheckedCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedCreateNestedManyWithoutModInput
+    Tags?: Mod_TagUncheckedCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionUncheckedCreateNestedManyWithoutModInput
+    Lists?: Mods_ListUncheckedCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedCreateNestedManyWithoutModInput
   }
 
   export type ModCreateOrConnectWithoutImagesInput = {
@@ -19321,15 +22025,15 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Collection?: ModsCollectionUpdateOneRequiredWithoutModsInput
-    Authors?: ModAuthorUpdateManyWithoutModInput
-    Tags?: ModTagUpdateManyWithoutModInput
-    Versions?: ModVersionUpdateManyWithoutModInput
-    Lists?: ModsListUpdateManyWithoutModsInput
-    Issues?: ModIssueUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUpdateManyWithoutModInput
-    Downloads?: ModDownloadUpdateManyWithoutModInput
+    Collection?: Mods_CollectionUpdateOneRequiredWithoutModsInput
+    Authors?: Mod_AuthorUpdateManyWithoutModInput
+    Tags?: Mod_TagUpdateManyWithoutModInput
+    Versions?: Mod_VersionUpdateManyWithoutModInput
+    Lists?: Mods_ListUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUpdateManyWithoutModInput
   }
 
   export type ModUncheckedUpdateWithoutImagesInput = {
@@ -19347,14 +22051,14 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Authors?: ModAuthorUncheckedUpdateManyWithoutModInput
-    Tags?: ModTagUncheckedUpdateManyWithoutModInput
-    Versions?: ModVersionUncheckedUpdateManyWithoutModInput
-    Lists?: ModsListUncheckedUpdateManyWithoutModsInput
-    Issues?: ModIssueUncheckedUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedUpdateManyWithoutModInput
-    Downloads?: ModDownloadUncheckedUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedUpdateManyWithoutModInput
+    Tags?: Mod_TagUncheckedUpdateManyWithoutModInput
+    Versions?: Mod_VersionUncheckedUpdateManyWithoutModInput
+    Lists?: Mods_ListUncheckedUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedUpdateManyWithoutModInput
   }
 
   export type ModCreateWithoutTagsInput = {
@@ -19370,15 +22074,15 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Collection: ModsCollectionCreateNestedOneWithoutModsInput
-    Images?: ModImageCreateNestedManyWithoutModInput
-    Authors?: ModAuthorCreateNestedManyWithoutModInput
-    Versions?: ModVersionCreateNestedManyWithoutModInput
-    Lists?: ModsListCreateNestedManyWithoutModsInput
-    Issues?: ModIssueCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadCreateNestedManyWithoutModInput
+    Collection: Mods_CollectionCreateNestedOneWithoutModsInput
+    Images?: Mod_ImageCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionCreateNestedManyWithoutModInput
+    Lists?: Mods_ListCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadCreateNestedManyWithoutModInput
   }
 
   export type ModUncheckedCreateWithoutTagsInput = {
@@ -19396,14 +22100,14 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Images?: ModImageUncheckedCreateNestedManyWithoutModInput
-    Authors?: ModAuthorUncheckedCreateNestedManyWithoutModInput
-    Versions?: ModVersionUncheckedCreateNestedManyWithoutModInput
-    Lists?: ModsListUncheckedCreateNestedManyWithoutModsInput
-    Issues?: ModIssueUncheckedCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadUncheckedCreateNestedManyWithoutModInput
+    Images?: Mod_ImageUncheckedCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionUncheckedCreateNestedManyWithoutModInput
+    Lists?: Mods_ListUncheckedCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedCreateNestedManyWithoutModInput
   }
 
   export type ModCreateOrConnectWithoutTagsInput = {
@@ -19440,15 +22144,15 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Collection: ModsCollectionCreateNestedOneWithoutModsInput
-    Images?: ModImageCreateNestedManyWithoutModInput
-    Authors?: ModAuthorCreateNestedManyWithoutModInput
-    Tags?: ModTagCreateNestedManyWithoutModInput
-    Lists?: ModsListCreateNestedManyWithoutModsInput
-    Issues?: ModIssueCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadCreateNestedManyWithoutModInput
+    Collection: Mods_CollectionCreateNestedOneWithoutModsInput
+    Images?: Mod_ImageCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorCreateNestedManyWithoutModInput
+    Tags?: Mod_TagCreateNestedManyWithoutModInput
+    Lists?: Mods_ListCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadCreateNestedManyWithoutModInput
   }
 
   export type ModUncheckedCreateWithoutVersionsInput = {
@@ -19466,14 +22170,14 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Images?: ModImageUncheckedCreateNestedManyWithoutModInput
-    Authors?: ModAuthorUncheckedCreateNestedManyWithoutModInput
-    Tags?: ModTagUncheckedCreateNestedManyWithoutModInput
-    Lists?: ModsListUncheckedCreateNestedManyWithoutModsInput
-    Issues?: ModIssueUncheckedCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadUncheckedCreateNestedManyWithoutModInput
+    Images?: Mod_ImageUncheckedCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedCreateNestedManyWithoutModInput
+    Tags?: Mod_TagUncheckedCreateNestedManyWithoutModInput
+    Lists?: Mods_ListUncheckedCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedCreateNestedManyWithoutModInput
   }
 
   export type ModCreateOrConnectWithoutVersionsInput = {
@@ -19481,23 +22185,23 @@ export namespace Prisma {
     create: XOR<ModCreateWithoutVersionsInput, ModUncheckedCreateWithoutVersionsInput>
   }
 
-  export type ModDownloadCreateWithoutVersionInput = {
+  export type Mod_DownloadCreateWithoutVersionInput = {
     User: UserCreateNestedOneWithoutModDownloadsInput
     Mod: ModCreateNestedOneWithoutDownloadsInput
   }
 
-  export type ModDownloadUncheckedCreateWithoutVersionInput = {
+  export type Mod_DownloadUncheckedCreateWithoutVersionInput = {
     user_id: number
     mod_id: number
   }
 
-  export type ModDownloadCreateOrConnectWithoutVersionInput = {
-    where: ModDownloadWhereUniqueInput
-    create: XOR<ModDownloadCreateWithoutVersionInput, ModDownloadUncheckedCreateWithoutVersionInput>
+  export type Mod_DownloadCreateOrConnectWithoutVersionInput = {
+    where: Mod_DownloadWhereUniqueInput
+    create: XOR<Mod_DownloadCreateWithoutVersionInput, Mod_DownloadUncheckedCreateWithoutVersionInput>
   }
 
-  export type ModDownloadCreateManyVersionInputEnvelope = {
-    data: Enumerable<ModDownloadCreateManyVersionInput>
+  export type Mod_DownloadCreateManyVersionInputEnvelope = {
+    data: Enumerable<Mod_DownloadCreateManyVersionInput>
     skipDuplicates?: boolean
   }
 
@@ -19519,15 +22223,15 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Collection?: ModsCollectionUpdateOneRequiredWithoutModsInput
-    Images?: ModImageUpdateManyWithoutModInput
-    Authors?: ModAuthorUpdateManyWithoutModInput
-    Tags?: ModTagUpdateManyWithoutModInput
-    Lists?: ModsListUpdateManyWithoutModsInput
-    Issues?: ModIssueUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUpdateManyWithoutModInput
-    Downloads?: ModDownloadUpdateManyWithoutModInput
+    Collection?: Mods_CollectionUpdateOneRequiredWithoutModsInput
+    Images?: Mod_ImageUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUpdateManyWithoutModInput
+    Tags?: Mod_TagUpdateManyWithoutModInput
+    Lists?: Mods_ListUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUpdateManyWithoutModInput
   }
 
   export type ModUncheckedUpdateWithoutVersionsInput = {
@@ -19545,30 +22249,30 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Images?: ModImageUncheckedUpdateManyWithoutModInput
-    Authors?: ModAuthorUncheckedUpdateManyWithoutModInput
-    Tags?: ModTagUncheckedUpdateManyWithoutModInput
-    Lists?: ModsListUncheckedUpdateManyWithoutModsInput
-    Issues?: ModIssueUncheckedUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedUpdateManyWithoutModInput
-    Downloads?: ModDownloadUncheckedUpdateManyWithoutModInput
+    Images?: Mod_ImageUncheckedUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedUpdateManyWithoutModInput
+    Tags?: Mod_TagUncheckedUpdateManyWithoutModInput
+    Lists?: Mods_ListUncheckedUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedUpdateManyWithoutModInput
   }
 
-  export type ModDownloadUpsertWithWhereUniqueWithoutVersionInput = {
-    where: ModDownloadWhereUniqueInput
-    update: XOR<ModDownloadUpdateWithoutVersionInput, ModDownloadUncheckedUpdateWithoutVersionInput>
-    create: XOR<ModDownloadCreateWithoutVersionInput, ModDownloadUncheckedCreateWithoutVersionInput>
+  export type Mod_DownloadUpsertWithWhereUniqueWithoutVersionInput = {
+    where: Mod_DownloadWhereUniqueInput
+    update: XOR<Mod_DownloadUpdateWithoutVersionInput, Mod_DownloadUncheckedUpdateWithoutVersionInput>
+    create: XOR<Mod_DownloadCreateWithoutVersionInput, Mod_DownloadUncheckedCreateWithoutVersionInput>
   }
 
-  export type ModDownloadUpdateWithWhereUniqueWithoutVersionInput = {
-    where: ModDownloadWhereUniqueInput
-    data: XOR<ModDownloadUpdateWithoutVersionInput, ModDownloadUncheckedUpdateWithoutVersionInput>
+  export type Mod_DownloadUpdateWithWhereUniqueWithoutVersionInput = {
+    where: Mod_DownloadWhereUniqueInput
+    data: XOR<Mod_DownloadUpdateWithoutVersionInput, Mod_DownloadUncheckedUpdateWithoutVersionInput>
   }
 
-  export type ModDownloadUpdateManyWithWhereWithoutVersionInput = {
-    where: ModDownloadScalarWhereInput
-    data: XOR<ModDownloadUpdateManyMutationInput, ModDownloadUncheckedUpdateManyWithoutDownloadsInput>
+  export type Mod_DownloadUpdateManyWithWhereWithoutVersionInput = {
+    where: Mod_DownloadScalarWhereInput
+    data: XOR<Mod_DownloadUpdateManyMutationInput, Mod_DownloadUncheckedUpdateManyWithoutDownloadsInput>
   }
 
   export type ModCreateWithoutIssuesInput = {
@@ -19584,15 +22288,15 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Collection: ModsCollectionCreateNestedOneWithoutModsInput
-    Images?: ModImageCreateNestedManyWithoutModInput
-    Authors?: ModAuthorCreateNestedManyWithoutModInput
-    Tags?: ModTagCreateNestedManyWithoutModInput
-    Versions?: ModVersionCreateNestedManyWithoutModInput
-    Lists?: ModsListCreateNestedManyWithoutModsInput
-    Favorits?: ModsFavoritsCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadCreateNestedManyWithoutModInput
+    Collection: Mods_CollectionCreateNestedOneWithoutModsInput
+    Images?: Mod_ImageCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorCreateNestedManyWithoutModInput
+    Tags?: Mod_TagCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionCreateNestedManyWithoutModInput
+    Lists?: Mods_ListCreateNestedManyWithoutModsInput
+    Favorits?: Mods_FavoritsCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadCreateNestedManyWithoutModInput
   }
 
   export type ModUncheckedCreateWithoutIssuesInput = {
@@ -19610,14 +22314,14 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Images?: ModImageUncheckedCreateNestedManyWithoutModInput
-    Authors?: ModAuthorUncheckedCreateNestedManyWithoutModInput
-    Tags?: ModTagUncheckedCreateNestedManyWithoutModInput
-    Versions?: ModVersionUncheckedCreateNestedManyWithoutModInput
-    Lists?: ModsListUncheckedCreateNestedManyWithoutModsInput
-    Favorits?: ModsFavoritsUncheckedCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadUncheckedCreateNestedManyWithoutModInput
+    Images?: Mod_ImageUncheckedCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedCreateNestedManyWithoutModInput
+    Tags?: Mod_TagUncheckedCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionUncheckedCreateNestedManyWithoutModInput
+    Lists?: Mods_ListUncheckedCreateNestedManyWithoutModsInput
+    Favorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedCreateNestedManyWithoutModInput
   }
 
   export type ModCreateOrConnectWithoutIssuesInput = {
@@ -19630,14 +22334,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorCreateNestedManyWithoutUserInput
-    ModIssuePosts?: ModIssuePostCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorCreateNestedManyWithoutUserInput
+    ModIssuePosts?: Mod_Issue_PostCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutModIssuesInput = {
@@ -19646,14 +22351,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthUncheckedCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedCreateNestedManyWithoutUserInput
-    ModIssuePosts?: ModIssuePostUncheckedCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedCreateNestedManyWithoutUserInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutModIssuesInput = {
@@ -19661,26 +22367,26 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutModIssuesInput, UserUncheckedCreateWithoutModIssuesInput>
   }
 
-  export type ModIssuePostCreateWithoutIssueInput = {
+  export type Mod_Issue_PostCreateWithoutIssueInput = {
     createDate?: Date | string
     text: string
     Author: UserCreateNestedOneWithoutModIssuePostsInput
   }
 
-  export type ModIssuePostUncheckedCreateWithoutIssueInput = {
+  export type Mod_Issue_PostUncheckedCreateWithoutIssueInput = {
     id?: number
     author_id: number
     createDate?: Date | string
     text: string
   }
 
-  export type ModIssuePostCreateOrConnectWithoutIssueInput = {
-    where: ModIssuePostWhereUniqueInput
-    create: XOR<ModIssuePostCreateWithoutIssueInput, ModIssuePostUncheckedCreateWithoutIssueInput>
+  export type Mod_Issue_PostCreateOrConnectWithoutIssueInput = {
+    where: Mod_Issue_PostWhereUniqueInput
+    create: XOR<Mod_Issue_PostCreateWithoutIssueInput, Mod_Issue_PostUncheckedCreateWithoutIssueInput>
   }
 
-  export type ModIssuePostCreateManyIssueInputEnvelope = {
-    data: Enumerable<ModIssuePostCreateManyIssueInput>
+  export type Mod_Issue_PostCreateManyIssueInputEnvelope = {
+    data: Enumerable<Mod_Issue_PostCreateManyIssueInput>
     skipDuplicates?: boolean
   }
 
@@ -19702,15 +22408,15 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Collection?: ModsCollectionUpdateOneRequiredWithoutModsInput
-    Images?: ModImageUpdateManyWithoutModInput
-    Authors?: ModAuthorUpdateManyWithoutModInput
-    Tags?: ModTagUpdateManyWithoutModInput
-    Versions?: ModVersionUpdateManyWithoutModInput
-    Lists?: ModsListUpdateManyWithoutModsInput
-    Favorits?: ModsFavoritsUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUpdateManyWithoutModInput
-    Downloads?: ModDownloadUpdateManyWithoutModInput
+    Collection?: Mods_CollectionUpdateOneRequiredWithoutModsInput
+    Images?: Mod_ImageUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUpdateManyWithoutModInput
+    Tags?: Mod_TagUpdateManyWithoutModInput
+    Versions?: Mod_VersionUpdateManyWithoutModInput
+    Lists?: Mods_ListUpdateManyWithoutModsInput
+    Favorits?: Mods_FavoritsUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUpdateManyWithoutModInput
   }
 
   export type ModUncheckedUpdateWithoutIssuesInput = {
@@ -19728,14 +22434,14 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Images?: ModImageUncheckedUpdateManyWithoutModInput
-    Authors?: ModAuthorUncheckedUpdateManyWithoutModInput
-    Tags?: ModTagUncheckedUpdateManyWithoutModInput
-    Versions?: ModVersionUncheckedUpdateManyWithoutModInput
-    Lists?: ModsListUncheckedUpdateManyWithoutModsInput
-    Favorits?: ModsFavoritsUncheckedUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedUpdateManyWithoutModInput
-    Downloads?: ModDownloadUncheckedUpdateManyWithoutModInput
+    Images?: Mod_ImageUncheckedUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedUpdateManyWithoutModInput
+    Tags?: Mod_TagUncheckedUpdateManyWithoutModInput
+    Versions?: Mod_VersionUncheckedUpdateManyWithoutModInput
+    Lists?: Mods_ListUncheckedUpdateManyWithoutModsInput
+    Favorits?: Mods_FavoritsUncheckedUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedUpdateManyWithoutModInput
   }
 
   export type UserUpsertWithoutModIssuesInput = {
@@ -19748,14 +22454,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUpdateManyWithoutUserInput
-    ModIssuePosts?: ModIssuePostUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUpdateManyWithoutUserInput
+    ModIssuePosts?: Mod_Issue_PostUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUpdateManyWithoutUserInput
+    UserSession?: User_SessionUpdateManyWithoutUserInput
   }
 
   export type UserUncheckedUpdateWithoutModIssuesInput = {
@@ -19764,52 +22471,53 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUncheckedUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedUpdateManyWithoutUserInput
-    ModIssuePosts?: ModIssuePostUncheckedUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedUpdateManyWithoutUserInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedUpdateManyWithoutUserInput
+    UserSession?: User_SessionUncheckedUpdateManyWithoutUserInput
   }
 
-  export type ModIssuePostUpsertWithWhereUniqueWithoutIssueInput = {
-    where: ModIssuePostWhereUniqueInput
-    update: XOR<ModIssuePostUpdateWithoutIssueInput, ModIssuePostUncheckedUpdateWithoutIssueInput>
-    create: XOR<ModIssuePostCreateWithoutIssueInput, ModIssuePostUncheckedCreateWithoutIssueInput>
+  export type Mod_Issue_PostUpsertWithWhereUniqueWithoutIssueInput = {
+    where: Mod_Issue_PostWhereUniqueInput
+    update: XOR<Mod_Issue_PostUpdateWithoutIssueInput, Mod_Issue_PostUncheckedUpdateWithoutIssueInput>
+    create: XOR<Mod_Issue_PostCreateWithoutIssueInput, Mod_Issue_PostUncheckedCreateWithoutIssueInput>
   }
 
-  export type ModIssuePostUpdateWithWhereUniqueWithoutIssueInput = {
-    where: ModIssuePostWhereUniqueInput
-    data: XOR<ModIssuePostUpdateWithoutIssueInput, ModIssuePostUncheckedUpdateWithoutIssueInput>
+  export type Mod_Issue_PostUpdateWithWhereUniqueWithoutIssueInput = {
+    where: Mod_Issue_PostWhereUniqueInput
+    data: XOR<Mod_Issue_PostUpdateWithoutIssueInput, Mod_Issue_PostUncheckedUpdateWithoutIssueInput>
   }
 
-  export type ModIssuePostUpdateManyWithWhereWithoutIssueInput = {
-    where: ModIssuePostScalarWhereInput
-    data: XOR<ModIssuePostUpdateManyMutationInput, ModIssuePostUncheckedUpdateManyWithoutModIssuePostInput>
+  export type Mod_Issue_PostUpdateManyWithWhereWithoutIssueInput = {
+    where: Mod_Issue_PostScalarWhereInput
+    data: XOR<Mod_Issue_PostUpdateManyMutationInput, Mod_Issue_PostUncheckedUpdateManyWithoutModIssuePostInput>
   }
 
-  export type ModIssueCreateWithoutModIssuePostInput = {
+  export type Mod_IssueCreateWithoutModIssuePostInput = {
     name: string
-    type: ModIssueType
+    type: Mod_Issue_Type
     createDate?: Date | string
     Mod: ModCreateNestedOneWithoutIssuesInput
     Author: UserCreateNestedOneWithoutModIssuesInput
   }
 
-  export type ModIssueUncheckedCreateWithoutModIssuePostInput = {
+  export type Mod_IssueUncheckedCreateWithoutModIssuePostInput = {
     id?: number
     mod_id: number
     name: string
-    type: ModIssueType
+    type: Mod_Issue_Type
     author_id: number
     createDate?: Date | string
   }
 
-  export type ModIssueCreateOrConnectWithoutModIssuePostInput = {
-    where: ModIssueWhereUniqueInput
-    create: XOR<ModIssueCreateWithoutModIssuePostInput, ModIssueUncheckedCreateWithoutModIssuePostInput>
+  export type Mod_IssueCreateOrConnectWithoutModIssuePostInput = {
+    where: Mod_IssueWhereUniqueInput
+    create: XOR<Mod_IssueCreateWithoutModIssuePostInput, Mod_IssueUncheckedCreateWithoutModIssuePostInput>
   }
 
   export type UserCreateWithoutModIssuePostsInput = {
@@ -19817,14 +22525,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutModIssuePostsInput = {
@@ -19833,14 +22542,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthUncheckedCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutModIssuePostsInput = {
@@ -19848,24 +22558,24 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutModIssuePostsInput, UserUncheckedCreateWithoutModIssuePostsInput>
   }
 
-  export type ModIssueUpsertWithoutModIssuePostInput = {
-    update: XOR<ModIssueUpdateWithoutModIssuePostInput, ModIssueUncheckedUpdateWithoutModIssuePostInput>
-    create: XOR<ModIssueCreateWithoutModIssuePostInput, ModIssueUncheckedCreateWithoutModIssuePostInput>
+  export type Mod_IssueUpsertWithoutModIssuePostInput = {
+    update: XOR<Mod_IssueUpdateWithoutModIssuePostInput, Mod_IssueUncheckedUpdateWithoutModIssuePostInput>
+    create: XOR<Mod_IssueCreateWithoutModIssuePostInput, Mod_IssueUncheckedCreateWithoutModIssuePostInput>
   }
 
-  export type ModIssueUpdateWithoutModIssuePostInput = {
+  export type Mod_IssueUpdateWithoutModIssuePostInput = {
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
+    type?: EnumMod_Issue_TypeFieldUpdateOperationsInput | Mod_Issue_Type
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     Mod?: ModUpdateOneRequiredWithoutIssuesInput
     Author?: UserUpdateOneRequiredWithoutModIssuesInput
   }
 
-  export type ModIssueUncheckedUpdateWithoutModIssuePostInput = {
+  export type Mod_IssueUncheckedUpdateWithoutModIssuePostInput = {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
+    type?: EnumMod_Issue_TypeFieldUpdateOperationsInput | Mod_Issue_Type
     author_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19880,14 +22590,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUpdateManyWithoutUserInput
+    UserSession?: User_SessionUpdateManyWithoutUserInput
   }
 
   export type UserUncheckedUpdateWithoutModIssuePostsInput = {
@@ -19896,14 +22607,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUncheckedUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedUpdateManyWithoutUserInput
+    UserSession?: User_SessionUncheckedUpdateManyWithoutUserInput
   }
 
   export type UserCreateWithoutModsListsInput = {
@@ -19911,14 +22623,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutModsListsInput = {
@@ -19927,14 +22640,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthUncheckedCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutModsListsInput = {
@@ -19955,15 +22669,15 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Collection: ModsCollectionCreateNestedOneWithoutModsInput
-    Images?: ModImageCreateNestedManyWithoutModInput
-    Authors?: ModAuthorCreateNestedManyWithoutModInput
-    Tags?: ModTagCreateNestedManyWithoutModInput
-    Versions?: ModVersionCreateNestedManyWithoutModInput
-    Issues?: ModIssueCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadCreateNestedManyWithoutModInput
+    Collection: Mods_CollectionCreateNestedOneWithoutModsInput
+    Images?: Mod_ImageCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorCreateNestedManyWithoutModInput
+    Tags?: Mod_TagCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionCreateNestedManyWithoutModInput
+    Issues?: Mod_IssueCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadCreateNestedManyWithoutModInput
   }
 
   export type ModUncheckedCreateWithoutListsInput = {
@@ -19981,14 +22695,14 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Images?: ModImageUncheckedCreateNestedManyWithoutModInput
-    Authors?: ModAuthorUncheckedCreateNestedManyWithoutModInput
-    Tags?: ModTagUncheckedCreateNestedManyWithoutModInput
-    Versions?: ModVersionUncheckedCreateNestedManyWithoutModInput
-    Issues?: ModIssueUncheckedCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadUncheckedCreateNestedManyWithoutModInput
+    Images?: Mod_ImageUncheckedCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedCreateNestedManyWithoutModInput
+    Tags?: Mod_TagUncheckedCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionUncheckedCreateNestedManyWithoutModInput
+    Issues?: Mod_IssueUncheckedCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedCreateNestedManyWithoutModInput
   }
 
   export type ModCreateOrConnectWithoutListsInput = {
@@ -20006,14 +22720,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUpdateManyWithoutUserInput
+    UserSession?: User_SessionUpdateManyWithoutUserInput
   }
 
   export type UserUncheckedUpdateWithoutModsListsInput = {
@@ -20022,14 +22737,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUncheckedUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedUpdateManyWithoutUserInput
+    UserSession?: User_SessionUncheckedUpdateManyWithoutUserInput
   }
 
   export type ModUpsertWithWhereUniqueWithoutListsInput = {
@@ -20053,14 +22769,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListCreateNestedManyWithoutAuthorInput
-    ModSubscribers?: ModSubscribersCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListCreateNestedManyWithoutAuthorInput
+    ModSubscribers?: Mod_SubscribersCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutModsFavoritsInput = {
@@ -20069,14 +22786,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthUncheckedCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedCreateNestedManyWithoutAuthorInput
-    ModSubscribers?: ModSubscribersUncheckedCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedCreateNestedManyWithoutAuthorInput
+    ModSubscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutModsFavoritsInput = {
@@ -20097,15 +22815,15 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Collection: ModsCollectionCreateNestedOneWithoutModsInput
-    Images?: ModImageCreateNestedManyWithoutModInput
-    Authors?: ModAuthorCreateNestedManyWithoutModInput
-    Tags?: ModTagCreateNestedManyWithoutModInput
-    Versions?: ModVersionCreateNestedManyWithoutModInput
-    Lists?: ModsListCreateNestedManyWithoutModsInput
-    Issues?: ModIssueCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadCreateNestedManyWithoutModInput
+    Collection: Mods_CollectionCreateNestedOneWithoutModsInput
+    Images?: Mod_ImageCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorCreateNestedManyWithoutModInput
+    Tags?: Mod_TagCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionCreateNestedManyWithoutModInput
+    Lists?: Mods_ListCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadCreateNestedManyWithoutModInput
   }
 
   export type ModUncheckedCreateWithoutFavoritsInput = {
@@ -20123,14 +22841,14 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Images?: ModImageUncheckedCreateNestedManyWithoutModInput
-    Authors?: ModAuthorUncheckedCreateNestedManyWithoutModInput
-    Tags?: ModTagUncheckedCreateNestedManyWithoutModInput
-    Versions?: ModVersionUncheckedCreateNestedManyWithoutModInput
-    Lists?: ModsListUncheckedCreateNestedManyWithoutModsInput
-    Issues?: ModIssueUncheckedCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadUncheckedCreateNestedManyWithoutModInput
+    Images?: Mod_ImageUncheckedCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedCreateNestedManyWithoutModInput
+    Tags?: Mod_TagUncheckedCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionUncheckedCreateNestedManyWithoutModInput
+    Lists?: Mods_ListUncheckedCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedCreateNestedManyWithoutModInput
   }
 
   export type ModCreateOrConnectWithoutFavoritsInput = {
@@ -20148,14 +22866,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUpdateManyWithoutAuthorInput
-    ModSubscribers?: ModSubscribersUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUpdateManyWithoutAuthorInput
+    ModSubscribers?: Mod_SubscribersUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUpdateManyWithoutUserInput
+    UserSession?: User_SessionUpdateManyWithoutUserInput
   }
 
   export type UserUncheckedUpdateWithoutModsFavoritsInput = {
@@ -20164,14 +22883,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUncheckedUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedUpdateManyWithoutAuthorInput
-    ModSubscribers?: ModSubscribersUncheckedUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedUpdateManyWithoutAuthorInput
+    ModSubscribers?: Mod_SubscribersUncheckedUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedUpdateManyWithoutUserInput
+    UserSession?: User_SessionUncheckedUpdateManyWithoutUserInput
   }
 
   export type ModUpsertWithoutFavoritsInput = {
@@ -20192,15 +22912,15 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Collection?: ModsCollectionUpdateOneRequiredWithoutModsInput
-    Images?: ModImageUpdateManyWithoutModInput
-    Authors?: ModAuthorUpdateManyWithoutModInput
-    Tags?: ModTagUpdateManyWithoutModInput
-    Versions?: ModVersionUpdateManyWithoutModInput
-    Lists?: ModsListUpdateManyWithoutModsInput
-    Issues?: ModIssueUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUpdateManyWithoutModInput
-    Downloads?: ModDownloadUpdateManyWithoutModInput
+    Collection?: Mods_CollectionUpdateOneRequiredWithoutModsInput
+    Images?: Mod_ImageUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUpdateManyWithoutModInput
+    Tags?: Mod_TagUpdateManyWithoutModInput
+    Versions?: Mod_VersionUpdateManyWithoutModInput
+    Lists?: Mods_ListUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUpdateManyWithoutModInput
   }
 
   export type ModUncheckedUpdateWithoutFavoritsInput = {
@@ -20218,14 +22938,14 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Images?: ModImageUncheckedUpdateManyWithoutModInput
-    Authors?: ModAuthorUncheckedUpdateManyWithoutModInput
-    Tags?: ModTagUncheckedUpdateManyWithoutModInput
-    Versions?: ModVersionUncheckedUpdateManyWithoutModInput
-    Lists?: ModsListUncheckedUpdateManyWithoutModsInput
-    Issues?: ModIssueUncheckedUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedUpdateManyWithoutModInput
-    Downloads?: ModDownloadUncheckedUpdateManyWithoutModInput
+    Images?: Mod_ImageUncheckedUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedUpdateManyWithoutModInput
+    Tags?: Mod_TagUncheckedUpdateManyWithoutModInput
+    Versions?: Mod_VersionUncheckedUpdateManyWithoutModInput
+    Lists?: Mods_ListUncheckedUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedUpdateManyWithoutModInput
   }
 
   export type UserCreateWithoutModSubscribersInput = {
@@ -20233,14 +22953,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutModSubscribersInput = {
@@ -20249,14 +22970,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthUncheckedCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedCreateNestedManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutModSubscribersInput = {
@@ -20277,15 +22999,15 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Collection: ModsCollectionCreateNestedOneWithoutModsInput
-    Images?: ModImageCreateNestedManyWithoutModInput
-    Authors?: ModAuthorCreateNestedManyWithoutModInput
-    Tags?: ModTagCreateNestedManyWithoutModInput
-    Versions?: ModVersionCreateNestedManyWithoutModInput
-    Lists?: ModsListCreateNestedManyWithoutModsInput
-    Issues?: ModIssueCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadCreateNestedManyWithoutModInput
+    Collection: Mods_CollectionCreateNestedOneWithoutModsInput
+    Images?: Mod_ImageCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorCreateNestedManyWithoutModInput
+    Tags?: Mod_TagCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionCreateNestedManyWithoutModInput
+    Lists?: Mods_ListCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadCreateNestedManyWithoutModInput
   }
 
   export type ModUncheckedCreateWithoutSubscribersInput = {
@@ -20303,14 +23025,14 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Images?: ModImageUncheckedCreateNestedManyWithoutModInput
-    Authors?: ModAuthorUncheckedCreateNestedManyWithoutModInput
-    Tags?: ModTagUncheckedCreateNestedManyWithoutModInput
-    Versions?: ModVersionUncheckedCreateNestedManyWithoutModInput
-    Lists?: ModsListUncheckedCreateNestedManyWithoutModsInput
-    Issues?: ModIssueUncheckedCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedCreateNestedManyWithoutModInput
-    Downloads?: ModDownloadUncheckedCreateNestedManyWithoutModInput
+    Images?: Mod_ImageUncheckedCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedCreateNestedManyWithoutModInput
+    Tags?: Mod_TagUncheckedCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionUncheckedCreateNestedManyWithoutModInput
+    Lists?: Mods_ListUncheckedCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedCreateNestedManyWithoutModInput
   }
 
   export type ModCreateOrConnectWithoutSubscribersInput = {
@@ -20328,14 +23050,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUpdateManyWithoutUserInput
+    UserSession?: User_SessionUpdateManyWithoutUserInput
   }
 
   export type UserUncheckedUpdateWithoutModSubscribersInput = {
@@ -20344,14 +23067,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUncheckedUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedUpdateManyWithoutUserInput
-    ModDownloads?: ModDownloadUncheckedUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedUpdateManyWithoutUserInput
+    UserSession?: User_SessionUncheckedUpdateManyWithoutUserInput
   }
 
   export type ModUpsertWithoutSubscribersInput = {
@@ -20372,15 +23096,15 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Collection?: ModsCollectionUpdateOneRequiredWithoutModsInput
-    Images?: ModImageUpdateManyWithoutModInput
-    Authors?: ModAuthorUpdateManyWithoutModInput
-    Tags?: ModTagUpdateManyWithoutModInput
-    Versions?: ModVersionUpdateManyWithoutModInput
-    Lists?: ModsListUpdateManyWithoutModsInput
-    Issues?: ModIssueUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUpdateManyWithoutModInput
-    Downloads?: ModDownloadUpdateManyWithoutModInput
+    Collection?: Mods_CollectionUpdateOneRequiredWithoutModsInput
+    Images?: Mod_ImageUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUpdateManyWithoutModInput
+    Tags?: Mod_TagUpdateManyWithoutModInput
+    Versions?: Mod_VersionUpdateManyWithoutModInput
+    Lists?: Mods_ListUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUpdateManyWithoutModInput
   }
 
   export type ModUncheckedUpdateWithoutSubscribersInput = {
@@ -20398,14 +23122,14 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Images?: ModImageUncheckedUpdateManyWithoutModInput
-    Authors?: ModAuthorUncheckedUpdateManyWithoutModInput
-    Tags?: ModTagUncheckedUpdateManyWithoutModInput
-    Versions?: ModVersionUncheckedUpdateManyWithoutModInput
-    Lists?: ModsListUncheckedUpdateManyWithoutModsInput
-    Issues?: ModIssueUncheckedUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedUpdateManyWithoutModInput
-    Downloads?: ModDownloadUncheckedUpdateManyWithoutModInput
+    Images?: Mod_ImageUncheckedUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedUpdateManyWithoutModInput
+    Tags?: Mod_TagUncheckedUpdateManyWithoutModInput
+    Versions?: Mod_VersionUncheckedUpdateManyWithoutModInput
+    Lists?: Mods_ListUncheckedUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedUpdateManyWithoutModInput
   }
 
   export type UserCreateWithoutModDownloadsInput = {
@@ -20413,14 +23137,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutModDownloadsInput = {
@@ -20429,14 +23154,15 @@ export namespace Prisma {
     createDate?: Date | string
     is_active?: boolean
     avatar?: string
-    UserAuth?: UserAuthUncheckedCreateNestedOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedCreateNestedManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedCreateNestedManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedCreateNestedManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedCreateNestedManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedCreateNestedManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedCreateNestedManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedCreateNestedManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutUserInput
+    UserSession?: User_SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutModDownloadsInput = {
@@ -20457,15 +23183,15 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Collection: ModsCollectionCreateNestedOneWithoutModsInput
-    Images?: ModImageCreateNestedManyWithoutModInput
-    Authors?: ModAuthorCreateNestedManyWithoutModInput
-    Tags?: ModTagCreateNestedManyWithoutModInput
-    Versions?: ModVersionCreateNestedManyWithoutModInput
-    Lists?: ModsListCreateNestedManyWithoutModsInput
-    Issues?: ModIssueCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersCreateNestedManyWithoutModInput
+    Collection: Mods_CollectionCreateNestedOneWithoutModsInput
+    Images?: Mod_ImageCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorCreateNestedManyWithoutModInput
+    Tags?: Mod_TagCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionCreateNestedManyWithoutModInput
+    Lists?: Mods_ListCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersCreateNestedManyWithoutModInput
   }
 
   export type ModUncheckedCreateWithoutDownloadsInput = {
@@ -20483,14 +23209,14 @@ export namespace Prisma {
     change_list: string
     repository: string
     docs_url: string
-    Images?: ModImageUncheckedCreateNestedManyWithoutModInput
-    Authors?: ModAuthorUncheckedCreateNestedManyWithoutModInput
-    Tags?: ModTagUncheckedCreateNestedManyWithoutModInput
-    Versions?: ModVersionUncheckedCreateNestedManyWithoutModInput
-    Lists?: ModsListUncheckedCreateNestedManyWithoutModsInput
-    Issues?: ModIssueUncheckedCreateNestedManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedCreateNestedManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedCreateNestedManyWithoutModInput
+    Images?: Mod_ImageUncheckedCreateNestedManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedCreateNestedManyWithoutModInput
+    Tags?: Mod_TagUncheckedCreateNestedManyWithoutModInput
+    Versions?: Mod_VersionUncheckedCreateNestedManyWithoutModInput
+    Lists?: Mods_ListUncheckedCreateNestedManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedCreateNestedManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutModInput
   }
 
   export type ModCreateOrConnectWithoutDownloadsInput = {
@@ -20498,14 +23224,14 @@ export namespace Prisma {
     create: XOR<ModCreateWithoutDownloadsInput, ModUncheckedCreateWithoutDownloadsInput>
   }
 
-  export type ModVersionCreateWithoutDownloadsInput = {
+  export type Mod_VersionCreateWithoutDownloadsInput = {
     version: string
     game_version: string
     releaseDate?: Date | string
     Mod: ModCreateNestedOneWithoutVersionsInput
   }
 
-  export type ModVersionUncheckedCreateWithoutDownloadsInput = {
+  export type Mod_VersionUncheckedCreateWithoutDownloadsInput = {
     id?: number
     mod_id: number
     version: string
@@ -20513,9 +23239,9 @@ export namespace Prisma {
     releaseDate?: Date | string
   }
 
-  export type ModVersionCreateOrConnectWithoutDownloadsInput = {
-    where: ModVersionWhereUniqueInput
-    create: XOR<ModVersionCreateWithoutDownloadsInput, ModVersionUncheckedCreateWithoutDownloadsInput>
+  export type Mod_VersionCreateOrConnectWithoutDownloadsInput = {
+    where: Mod_VersionWhereUniqueInput
+    create: XOR<Mod_VersionCreateWithoutDownloadsInput, Mod_VersionUncheckedCreateWithoutDownloadsInput>
   }
 
   export type UserUpsertWithoutModDownloadsInput = {
@@ -20528,14 +23254,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUpdateManyWithoutUserInput
+    UserSession?: User_SessionUpdateManyWithoutUserInput
   }
 
   export type UserUncheckedUpdateWithoutModDownloadsInput = {
@@ -20544,14 +23271,15 @@ export namespace Prisma {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     avatar?: StringFieldUpdateOperationsInput | string
-    UserAuth?: UserAuthUncheckedUpdateOneWithoutUserInput
-    ModsCollections?: ModsCollectionUncheckedUpdateManyWithoutAuthorInput
-    ModAuthors?: ModAuthorUncheckedUpdateManyWithoutUserInput
-    ModIssues?: ModIssueUncheckedUpdateManyWithoutAuthorInput
-    ModIssuePosts?: ModIssuePostUncheckedUpdateManyWithoutAuthorInput
-    ModsLists?: ModsListUncheckedUpdateManyWithoutAuthorInput
-    ModsFavorits?: ModsFavoritsUncheckedUpdateManyWithoutUserInput
-    ModSubscribers?: ModSubscribersUncheckedUpdateManyWithoutUserInput
+    UserAuth?: User_AuthUncheckedUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedUpdateManyWithoutUserInput
+    UserSession?: User_SessionUncheckedUpdateManyWithoutUserInput
   }
 
   export type ModUpsertWithoutDownloadsInput = {
@@ -20572,15 +23300,15 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Collection?: ModsCollectionUpdateOneRequiredWithoutModsInput
-    Images?: ModImageUpdateManyWithoutModInput
-    Authors?: ModAuthorUpdateManyWithoutModInput
-    Tags?: ModTagUpdateManyWithoutModInput
-    Versions?: ModVersionUpdateManyWithoutModInput
-    Lists?: ModsListUpdateManyWithoutModsInput
-    Issues?: ModIssueUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUpdateManyWithoutModInput
+    Collection?: Mods_CollectionUpdateOneRequiredWithoutModsInput
+    Images?: Mod_ImageUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUpdateManyWithoutModInput
+    Tags?: Mod_TagUpdateManyWithoutModInput
+    Versions?: Mod_VersionUpdateManyWithoutModInput
+    Lists?: Mods_ListUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUpdateManyWithoutModInput
   }
 
   export type ModUncheckedUpdateWithoutDownloadsInput = {
@@ -20598,29 +23326,29 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Images?: ModImageUncheckedUpdateManyWithoutModInput
-    Authors?: ModAuthorUncheckedUpdateManyWithoutModInput
-    Tags?: ModTagUncheckedUpdateManyWithoutModInput
-    Versions?: ModVersionUncheckedUpdateManyWithoutModInput
-    Lists?: ModsListUncheckedUpdateManyWithoutModsInput
-    Issues?: ModIssueUncheckedUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedUpdateManyWithoutModInput
+    Images?: Mod_ImageUncheckedUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedUpdateManyWithoutModInput
+    Tags?: Mod_TagUncheckedUpdateManyWithoutModInput
+    Versions?: Mod_VersionUncheckedUpdateManyWithoutModInput
+    Lists?: Mods_ListUncheckedUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedUpdateManyWithoutModInput
   }
 
-  export type ModVersionUpsertWithoutDownloadsInput = {
-    update: XOR<ModVersionUpdateWithoutDownloadsInput, ModVersionUncheckedUpdateWithoutDownloadsInput>
-    create: XOR<ModVersionCreateWithoutDownloadsInput, ModVersionUncheckedCreateWithoutDownloadsInput>
+  export type Mod_VersionUpsertWithoutDownloadsInput = {
+    update: XOR<Mod_VersionUpdateWithoutDownloadsInput, Mod_VersionUncheckedUpdateWithoutDownloadsInput>
+    create: XOR<Mod_VersionCreateWithoutDownloadsInput, Mod_VersionUncheckedCreateWithoutDownloadsInput>
   }
 
-  export type ModVersionUpdateWithoutDownloadsInput = {
+  export type Mod_VersionUpdateWithoutDownloadsInput = {
     version?: StringFieldUpdateOperationsInput | string
     game_version?: StringFieldUpdateOperationsInput | string
     releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
     Mod?: ModUpdateOneRequiredWithoutVersionsInput
   }
 
-  export type ModVersionUncheckedUpdateWithoutDownloadsInput = {
+  export type Mod_VersionUncheckedUpdateWithoutDownloadsInput = {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     version?: StringFieldUpdateOperationsInput | string
@@ -20628,7 +23356,192 @@ export namespace Prisma {
     releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ModsCollectionCreateManyAuthorInput = {
+  export type UserCreateWithoutUserSessionInput = {
+    nick: string
+    createDate?: Date | string
+    is_active?: boolean
+    avatar?: string
+    UserAuth?: User_AuthCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutUserSessionInput = {
+    id?: number
+    nick: string
+    createDate?: Date | string
+    is_active?: boolean
+    avatar?: string
+    UserAuth?: User_AuthUncheckedCreateNestedOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedCreateNestedManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedCreateNestedManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedCreateNestedManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedCreateNestedManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedCreateNestedManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedCreateNestedManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedCreateNestedManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutUserSessionInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserSessionInput, UserUncheckedCreateWithoutUserSessionInput>
+  }
+
+  export type User_TokenCreateWithoutSessionInput = {
+    type: User_Token_Type
+    token: string
+    createDate?: Date | string
+    is_enable?: boolean
+  }
+
+  export type User_TokenUncheckedCreateWithoutSessionInput = {
+    id?: number
+    type: User_Token_Type
+    token: string
+    createDate?: Date | string
+    is_enable?: boolean
+  }
+
+  export type User_TokenCreateOrConnectWithoutSessionInput = {
+    where: User_TokenWhereUniqueInput
+    create: XOR<User_TokenCreateWithoutSessionInput, User_TokenUncheckedCreateWithoutSessionInput>
+  }
+
+  export type User_TokenCreateManySessionInputEnvelope = {
+    data: Enumerable<User_TokenCreateManySessionInput>
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutUserSessionInput = {
+    update: XOR<UserUpdateWithoutUserSessionInput, UserUncheckedUpdateWithoutUserSessionInput>
+    create: XOR<UserCreateWithoutUserSessionInput, UserUncheckedCreateWithoutUserSessionInput>
+  }
+
+  export type UserUpdateWithoutUserSessionInput = {
+    nick?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    avatar?: StringFieldUpdateOperationsInput | string
+    UserAuth?: User_AuthUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUpdateManyWithoutUserInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserSessionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nick?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    avatar?: StringFieldUpdateOperationsInput | string
+    UserAuth?: User_AuthUncheckedUpdateOneWithoutUserInput
+    ModsCollections?: Mods_CollectionUncheckedUpdateManyWithoutAuthorInput
+    ModAuthors?: Mod_AuthorUncheckedUpdateManyWithoutUserInput
+    ModIssues?: Mod_IssueUncheckedUpdateManyWithoutAuthorInput
+    ModIssuePosts?: Mod_Issue_PostUncheckedUpdateManyWithoutAuthorInput
+    ModsLists?: Mods_ListUncheckedUpdateManyWithoutAuthorInput
+    ModsFavorits?: Mods_FavoritsUncheckedUpdateManyWithoutUserInput
+    ModSubscribers?: Mod_SubscribersUncheckedUpdateManyWithoutUserInput
+    ModDownloads?: Mod_DownloadUncheckedUpdateManyWithoutUserInput
+  }
+
+  export type User_TokenUpsertWithWhereUniqueWithoutSessionInput = {
+    where: User_TokenWhereUniqueInput
+    update: XOR<User_TokenUpdateWithoutSessionInput, User_TokenUncheckedUpdateWithoutSessionInput>
+    create: XOR<User_TokenCreateWithoutSessionInput, User_TokenUncheckedCreateWithoutSessionInput>
+  }
+
+  export type User_TokenUpdateWithWhereUniqueWithoutSessionInput = {
+    where: User_TokenWhereUniqueInput
+    data: XOR<User_TokenUpdateWithoutSessionInput, User_TokenUncheckedUpdateWithoutSessionInput>
+  }
+
+  export type User_TokenUpdateManyWithWhereWithoutSessionInput = {
+    where: User_TokenScalarWhereInput
+    data: XOR<User_TokenUpdateManyMutationInput, User_TokenUncheckedUpdateManyWithoutTokensInput>
+  }
+
+  export type User_TokenScalarWhereInput = {
+    AND?: Enumerable<User_TokenScalarWhereInput>
+    OR?: Enumerable<User_TokenScalarWhereInput>
+    NOT?: Enumerable<User_TokenScalarWhereInput>
+    id?: IntFilter | number
+    sessionId?: IntFilter | number
+    type?: EnumUser_Token_TypeFilter | User_Token_Type
+    token?: StringFilter | string
+    createDate?: DateTimeFilter | Date | string
+    is_enable?: BoolFilter | boolean
+  }
+
+  export type User_SessionCreateWithoutTokensInput = {
+    userAgent: string
+    userAgentType: User_Agent_Type
+    userAgentOS: User_Agent_OS
+    userAgentDevice: string
+    uuid: string
+    ipv4: string
+    is_active?: boolean
+    User: UserCreateNestedOneWithoutUserSessionInput
+  }
+
+  export type User_SessionUncheckedCreateWithoutTokensInput = {
+    id?: number
+    userId: number
+    userAgent: string
+    userAgentType: User_Agent_Type
+    userAgentOS: User_Agent_OS
+    userAgentDevice: string
+    uuid: string
+    ipv4: string
+    is_active?: boolean
+  }
+
+  export type User_SessionCreateOrConnectWithoutTokensInput = {
+    where: User_SessionWhereUniqueInput
+    create: XOR<User_SessionCreateWithoutTokensInput, User_SessionUncheckedCreateWithoutTokensInput>
+  }
+
+  export type User_SessionUpsertWithoutTokensInput = {
+    update: XOR<User_SessionUpdateWithoutTokensInput, User_SessionUncheckedUpdateWithoutTokensInput>
+    create: XOR<User_SessionCreateWithoutTokensInput, User_SessionUncheckedCreateWithoutTokensInput>
+  }
+
+  export type User_SessionUpdateWithoutTokensInput = {
+    userAgent?: StringFieldUpdateOperationsInput | string
+    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
+    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
+    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    uuid?: StringFieldUpdateOperationsInput | string
+    ipv4?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    User?: UserUpdateOneRequiredWithoutUserSessionInput
+  }
+
+  export type User_SessionUncheckedUpdateWithoutTokensInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    userAgent?: StringFieldUpdateOperationsInput | string
+    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
+    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
+    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    uuid?: StringFieldUpdateOperationsInput | string
+    ipv4?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type Mods_CollectionCreateManyAuthorInput = {
     id?: number
     avatar: string
     name: string
@@ -20637,46 +23550,57 @@ export namespace Prisma {
     is_active?: boolean
   }
 
-  export type ModAuthorCreateManyUserInput = {
+  export type Mod_AuthorCreateManyUserInput = {
     mod_id: number
     type: number
   }
 
-  export type ModIssueCreateManyAuthorInput = {
+  export type Mod_IssueCreateManyAuthorInput = {
     id?: number
     mod_id: number
     name: string
-    type: ModIssueType
+    type: Mod_Issue_Type
     createDate?: Date | string
   }
 
-  export type ModIssuePostCreateManyAuthorInput = {
+  export type Mod_Issue_PostCreateManyAuthorInput = {
     id?: number
     issue_id: number
     createDate?: Date | string
     text: string
   }
 
-  export type ModsListCreateManyAuthorInput = {
+  export type Mods_ListCreateManyAuthorInput = {
     id?: number
     is_public: boolean
     name: string
   }
 
-  export type ModsFavoritsCreateManyUserInput = {
+  export type Mods_FavoritsCreateManyUserInput = {
     mod_id: number
   }
 
-  export type ModSubscribersCreateManyUserInput = {
+  export type Mod_SubscribersCreateManyUserInput = {
     mod_id: number
   }
 
-  export type ModDownloadCreateManyUserInput = {
+  export type Mod_DownloadCreateManyUserInput = {
     mod_id: number
     version_id: number
   }
 
-  export type ModsCollectionUpdateWithoutAuthorInput = {
+  export type User_SessionCreateManyUserInput = {
+    id?: number
+    userAgent: string
+    userAgentType: User_Agent_Type
+    userAgentOS: User_Agent_OS
+    userAgentDevice: string
+    uuid: string
+    ipv4: string
+    is_active?: boolean
+  }
+
+  export type Mods_CollectionUpdateWithoutAuthorInput = {
     avatar?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -20685,7 +23609,7 @@ export namespace Prisma {
     Mods?: ModUpdateManyWithoutCollectionInput
   }
 
-  export type ModsCollectionUncheckedUpdateWithoutAuthorInput = {
+  export type Mods_CollectionUncheckedUpdateWithoutAuthorInput = {
     id?: IntFieldUpdateOperationsInput | number
     avatar?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -20695,7 +23619,7 @@ export namespace Prisma {
     Mods?: ModUncheckedUpdateManyWithoutCollectionInput
   }
 
-  export type ModsCollectionUncheckedUpdateManyWithoutModsCollectionsInput = {
+  export type Mods_CollectionUncheckedUpdateManyWithoutModsCollectionsInput = {
     id?: IntFieldUpdateOperationsInput | number
     avatar?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -20704,122 +23628,156 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
-  export type ModAuthorUpdateWithoutUserInput = {
+  export type Mod_AuthorUpdateWithoutUserInput = {
     type?: IntFieldUpdateOperationsInput | number
     Mod?: ModUpdateOneRequiredWithoutAuthorsInput
   }
 
-  export type ModAuthorUncheckedUpdateWithoutUserInput = {
+  export type Mod_AuthorUncheckedUpdateWithoutUserInput = {
     mod_id?: IntFieldUpdateOperationsInput | number
     type?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModAuthorUncheckedUpdateManyWithoutModAuthorsInput = {
+  export type Mod_AuthorUncheckedUpdateManyWithoutModAuthorsInput = {
     mod_id?: IntFieldUpdateOperationsInput | number
     type?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModIssueUpdateWithoutAuthorInput = {
+  export type Mod_IssueUpdateWithoutAuthorInput = {
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
+    type?: EnumMod_Issue_TypeFieldUpdateOperationsInput | Mod_Issue_Type
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     Mod?: ModUpdateOneRequiredWithoutIssuesInput
-    ModIssuePost?: ModIssuePostUpdateManyWithoutIssueInput
+    ModIssuePost?: Mod_Issue_PostUpdateManyWithoutIssueInput
   }
 
-  export type ModIssueUncheckedUpdateWithoutAuthorInput = {
+  export type Mod_IssueUncheckedUpdateWithoutAuthorInput = {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
+    type?: EnumMod_Issue_TypeFieldUpdateOperationsInput | Mod_Issue_Type
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    ModIssuePost?: ModIssuePostUncheckedUpdateManyWithoutIssueInput
+    ModIssuePost?: Mod_Issue_PostUncheckedUpdateManyWithoutIssueInput
   }
 
-  export type ModIssueUncheckedUpdateManyWithoutModIssuesInput = {
+  export type Mod_IssueUncheckedUpdateManyWithoutModIssuesInput = {
     id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
+    type?: EnumMod_Issue_TypeFieldUpdateOperationsInput | Mod_Issue_Type
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ModIssuePostUpdateWithoutAuthorInput = {
+  export type Mod_Issue_PostUpdateWithoutAuthorInput = {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     text?: StringFieldUpdateOperationsInput | string
-    Issue?: ModIssueUpdateOneRequiredWithoutModIssuePostInput
+    Issue?: Mod_IssueUpdateOneRequiredWithoutModIssuePostInput
   }
 
-  export type ModIssuePostUncheckedUpdateWithoutAuthorInput = {
+  export type Mod_Issue_PostUncheckedUpdateWithoutAuthorInput = {
     id?: IntFieldUpdateOperationsInput | number
     issue_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     text?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModIssuePostUncheckedUpdateManyWithoutModIssuePostsInput = {
+  export type Mod_Issue_PostUncheckedUpdateManyWithoutModIssuePostsInput = {
     id?: IntFieldUpdateOperationsInput | number
     issue_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     text?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModsListUpdateWithoutAuthorInput = {
+  export type Mods_ListUpdateWithoutAuthorInput = {
     is_public?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
     Mods?: ModUpdateManyWithoutListsInput
   }
 
-  export type ModsListUncheckedUpdateWithoutAuthorInput = {
+  export type Mods_ListUncheckedUpdateWithoutAuthorInput = {
     id?: IntFieldUpdateOperationsInput | number
     is_public?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
     Mods?: ModUncheckedUpdateManyWithoutListsInput
   }
 
-  export type ModsListUncheckedUpdateManyWithoutModsListsInput = {
+  export type Mods_ListUncheckedUpdateManyWithoutModsListsInput = {
     id?: IntFieldUpdateOperationsInput | number
     is_public?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModsFavoritsUpdateWithoutUserInput = {
+  export type Mods_FavoritsUpdateWithoutUserInput = {
     Mod?: ModUpdateOneRequiredWithoutFavoritsInput
   }
 
-  export type ModsFavoritsUncheckedUpdateWithoutUserInput = {
+  export type Mods_FavoritsUncheckedUpdateWithoutUserInput = {
     mod_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModsFavoritsUncheckedUpdateManyWithoutModsFavoritsInput = {
+  export type Mods_FavoritsUncheckedUpdateManyWithoutModsFavoritsInput = {
     mod_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModSubscribersUpdateWithoutUserInput = {
+  export type Mod_SubscribersUpdateWithoutUserInput = {
     Mod?: ModUpdateOneRequiredWithoutSubscribersInput
   }
 
-  export type ModSubscribersUncheckedUpdateWithoutUserInput = {
+  export type Mod_SubscribersUncheckedUpdateWithoutUserInput = {
     mod_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModSubscribersUncheckedUpdateManyWithoutModSubscribersInput = {
+  export type Mod_SubscribersUncheckedUpdateManyWithoutModSubscribersInput = {
     mod_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModDownloadUpdateWithoutUserInput = {
+  export type Mod_DownloadUpdateWithoutUserInput = {
     Mod?: ModUpdateOneRequiredWithoutDownloadsInput
-    Version?: ModVersionUpdateOneRequiredWithoutDownloadsInput
+    Version?: Mod_VersionUpdateOneRequiredWithoutDownloadsInput
   }
 
-  export type ModDownloadUncheckedUpdateWithoutUserInput = {
+  export type Mod_DownloadUncheckedUpdateWithoutUserInput = {
     mod_id?: IntFieldUpdateOperationsInput | number
     version_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModDownloadUncheckedUpdateManyWithoutModDownloadsInput = {
+  export type Mod_DownloadUncheckedUpdateManyWithoutModDownloadsInput = {
     mod_id?: IntFieldUpdateOperationsInput | number
     version_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type User_SessionUpdateWithoutUserInput = {
+    userAgent?: StringFieldUpdateOperationsInput | string
+    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
+    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
+    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    uuid?: StringFieldUpdateOperationsInput | string
+    ipv4?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    Tokens?: User_TokenUpdateManyWithoutSessionInput
+  }
+
+  export type User_SessionUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userAgent?: StringFieldUpdateOperationsInput | string
+    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
+    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
+    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    uuid?: StringFieldUpdateOperationsInput | string
+    ipv4?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    Tokens?: User_TokenUncheckedUpdateManyWithoutSessionInput
+  }
+
+  export type User_SessionUncheckedUpdateManyWithoutUserSessionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userAgent?: StringFieldUpdateOperationsInput | string
+    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
+    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
+    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    uuid?: StringFieldUpdateOperationsInput | string
+    ipv4?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ModCreateManyCollectionInput = {
@@ -20851,15 +23809,15 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Images?: ModImageUpdateManyWithoutModInput
-    Authors?: ModAuthorUpdateManyWithoutModInput
-    Tags?: ModTagUpdateManyWithoutModInput
-    Versions?: ModVersionUpdateManyWithoutModInput
-    Lists?: ModsListUpdateManyWithoutModsInput
-    Issues?: ModIssueUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUpdateManyWithoutModInput
-    Downloads?: ModDownloadUpdateManyWithoutModInput
+    Images?: Mod_ImageUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUpdateManyWithoutModInput
+    Tags?: Mod_TagUpdateManyWithoutModInput
+    Versions?: Mod_VersionUpdateManyWithoutModInput
+    Lists?: Mods_ListUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUpdateManyWithoutModInput
   }
 
   export type ModUncheckedUpdateWithoutCollectionInput = {
@@ -20876,15 +23834,15 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Images?: ModImageUncheckedUpdateManyWithoutModInput
-    Authors?: ModAuthorUncheckedUpdateManyWithoutModInput
-    Tags?: ModTagUncheckedUpdateManyWithoutModInput
-    Versions?: ModVersionUncheckedUpdateManyWithoutModInput
-    Lists?: ModsListUncheckedUpdateManyWithoutModsInput
-    Issues?: ModIssueUncheckedUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedUpdateManyWithoutModInput
-    Downloads?: ModDownloadUncheckedUpdateManyWithoutModInput
+    Images?: Mod_ImageUncheckedUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedUpdateManyWithoutModInput
+    Tags?: Mod_TagUncheckedUpdateManyWithoutModInput
+    Versions?: Mod_VersionUncheckedUpdateManyWithoutModInput
+    Lists?: Mods_ListUncheckedUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedUpdateManyWithoutModInput
   }
 
   export type ModUncheckedUpdateManyWithoutModsInput = {
@@ -20903,189 +23861,189 @@ export namespace Prisma {
     docs_url?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModImageCreateManyModInput = {
+  export type Mod_ImageCreateManyModInput = {
     id?: number
     url: string
   }
 
-  export type ModAuthorCreateManyModInput = {
+  export type Mod_AuthorCreateManyModInput = {
     user_id: number
     type: number
   }
 
-  export type ModVersionCreateManyModInput = {
+  export type Mod_VersionCreateManyModInput = {
     id?: number
     version: string
     game_version: string
     releaseDate?: Date | string
   }
 
-  export type ModIssueCreateManyModInput = {
+  export type Mod_IssueCreateManyModInput = {
     id?: number
     name: string
-    type: ModIssueType
+    type: Mod_Issue_Type
     author_id: number
     createDate?: Date | string
   }
 
-  export type ModsFavoritsCreateManyModInput = {
+  export type Mods_FavoritsCreateManyModInput = {
     user_id: number
   }
 
-  export type ModSubscribersCreateManyModInput = {
+  export type Mod_SubscribersCreateManyModInput = {
     user_id: number
   }
 
-  export type ModDownloadCreateManyModInput = {
+  export type Mod_DownloadCreateManyModInput = {
     user_id: number
     version_id: number
   }
 
-  export type ModImageUpdateWithoutModInput = {
+  export type Mod_ImageUpdateWithoutModInput = {
     url?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModImageUncheckedUpdateWithoutModInput = {
+  export type Mod_ImageUncheckedUpdateWithoutModInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModImageUncheckedUpdateManyWithoutImagesInput = {
+  export type Mod_ImageUncheckedUpdateManyWithoutImagesInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModAuthorUpdateWithoutModInput = {
+  export type Mod_AuthorUpdateWithoutModInput = {
     type?: IntFieldUpdateOperationsInput | number
     User?: UserUpdateOneRequiredWithoutModAuthorsInput
   }
 
-  export type ModAuthorUncheckedUpdateWithoutModInput = {
+  export type Mod_AuthorUncheckedUpdateWithoutModInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     type?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModAuthorUncheckedUpdateManyWithoutAuthorsInput = {
+  export type Mod_AuthorUncheckedUpdateManyWithoutAuthorsInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     type?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModTagUpdateWithoutModInput = {
+  export type Mod_TagUpdateWithoutModInput = {
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModTagUncheckedUpdateWithoutModInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ModTagUncheckedUpdateManyWithoutTagsInput = {
+  export type Mod_TagUncheckedUpdateWithoutModInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModVersionUpdateWithoutModInput = {
+  export type Mod_TagUncheckedUpdateManyWithoutTagsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type Mod_VersionUpdateWithoutModInput = {
     version?: StringFieldUpdateOperationsInput | string
     game_version?: StringFieldUpdateOperationsInput | string
     releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    Downloads?: ModDownloadUpdateManyWithoutVersionInput
+    Downloads?: Mod_DownloadUpdateManyWithoutVersionInput
   }
 
-  export type ModVersionUncheckedUpdateWithoutModInput = {
+  export type Mod_VersionUncheckedUpdateWithoutModInput = {
     id?: IntFieldUpdateOperationsInput | number
     version?: StringFieldUpdateOperationsInput | string
     game_version?: StringFieldUpdateOperationsInput | string
     releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    Downloads?: ModDownloadUncheckedUpdateManyWithoutVersionInput
+    Downloads?: Mod_DownloadUncheckedUpdateManyWithoutVersionInput
   }
 
-  export type ModVersionUncheckedUpdateManyWithoutVersionsInput = {
+  export type Mod_VersionUncheckedUpdateManyWithoutVersionsInput = {
     id?: IntFieldUpdateOperationsInput | number
     version?: StringFieldUpdateOperationsInput | string
     game_version?: StringFieldUpdateOperationsInput | string
     releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ModsListUpdateWithoutModsInput = {
+  export type Mods_ListUpdateWithoutModsInput = {
     is_public?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
     Author?: UserUpdateOneRequiredWithoutModsListsInput
   }
 
-  export type ModsListUncheckedUpdateWithoutModsInput = {
+  export type Mods_ListUncheckedUpdateWithoutModsInput = {
     id?: IntFieldUpdateOperationsInput | number
     author_id?: IntFieldUpdateOperationsInput | number
     is_public?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModsListUncheckedUpdateManyWithoutListsInput = {
+  export type Mods_ListUncheckedUpdateManyWithoutListsInput = {
     id?: IntFieldUpdateOperationsInput | number
     author_id?: IntFieldUpdateOperationsInput | number
     is_public?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModIssueUpdateWithoutModInput = {
+  export type Mod_IssueUpdateWithoutModInput = {
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
+    type?: EnumMod_Issue_TypeFieldUpdateOperationsInput | Mod_Issue_Type
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     Author?: UserUpdateOneRequiredWithoutModIssuesInput
-    ModIssuePost?: ModIssuePostUpdateManyWithoutIssueInput
+    ModIssuePost?: Mod_Issue_PostUpdateManyWithoutIssueInput
   }
 
-  export type ModIssueUncheckedUpdateWithoutModInput = {
+  export type Mod_IssueUncheckedUpdateWithoutModInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
+    type?: EnumMod_Issue_TypeFieldUpdateOperationsInput | Mod_Issue_Type
     author_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    ModIssuePost?: ModIssuePostUncheckedUpdateManyWithoutIssueInput
+    ModIssuePost?: Mod_Issue_PostUncheckedUpdateManyWithoutIssueInput
   }
 
-  export type ModIssueUncheckedUpdateManyWithoutIssuesInput = {
+  export type Mod_IssueUncheckedUpdateManyWithoutIssuesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumModIssueTypeFieldUpdateOperationsInput | ModIssueType
+    type?: EnumMod_Issue_TypeFieldUpdateOperationsInput | Mod_Issue_Type
     author_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ModsFavoritsUpdateWithoutModInput = {
+  export type Mods_FavoritsUpdateWithoutModInput = {
     User?: UserUpdateOneRequiredWithoutModsFavoritsInput
   }
 
-  export type ModsFavoritsUncheckedUpdateWithoutModInput = {
+  export type Mods_FavoritsUncheckedUpdateWithoutModInput = {
     user_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModsFavoritsUncheckedUpdateManyWithoutFavoritsInput = {
+  export type Mods_FavoritsUncheckedUpdateManyWithoutFavoritsInput = {
     user_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModSubscribersUpdateWithoutModInput = {
+  export type Mod_SubscribersUpdateWithoutModInput = {
     User?: UserUpdateOneRequiredWithoutModSubscribersInput
   }
 
-  export type ModSubscribersUncheckedUpdateWithoutModInput = {
+  export type Mod_SubscribersUncheckedUpdateWithoutModInput = {
     user_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModSubscribersUncheckedUpdateManyWithoutSubscribersInput = {
+  export type Mod_SubscribersUncheckedUpdateManyWithoutSubscribersInput = {
     user_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModDownloadUpdateWithoutModInput = {
+  export type Mod_DownloadUpdateWithoutModInput = {
     User?: UserUpdateOneRequiredWithoutModDownloadsInput
-    Version?: ModVersionUpdateOneRequiredWithoutDownloadsInput
+    Version?: Mod_VersionUpdateOneRequiredWithoutDownloadsInput
   }
 
-  export type ModDownloadUncheckedUpdateWithoutModInput = {
+  export type Mod_DownloadUncheckedUpdateWithoutModInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     version_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModDownloadUncheckedUpdateManyWithoutDownloadsInput = {
+  export type Mod_DownloadUncheckedUpdateManyWithoutDownloadsInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     version_id?: IntFieldUpdateOperationsInput | number
   }
@@ -21103,15 +24061,15 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Collection?: ModsCollectionUpdateOneRequiredWithoutModsInput
-    Images?: ModImageUpdateManyWithoutModInput
-    Authors?: ModAuthorUpdateManyWithoutModInput
-    Versions?: ModVersionUpdateManyWithoutModInput
-    Lists?: ModsListUpdateManyWithoutModsInput
-    Issues?: ModIssueUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUpdateManyWithoutModInput
-    Downloads?: ModDownloadUpdateManyWithoutModInput
+    Collection?: Mods_CollectionUpdateOneRequiredWithoutModsInput
+    Images?: Mod_ImageUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUpdateManyWithoutModInput
+    Versions?: Mod_VersionUpdateManyWithoutModInput
+    Lists?: Mods_ListUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUpdateManyWithoutModInput
   }
 
   export type ModUncheckedUpdateWithoutTagsInput = {
@@ -21129,14 +24087,14 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Images?: ModImageUncheckedUpdateManyWithoutModInput
-    Authors?: ModAuthorUncheckedUpdateManyWithoutModInput
-    Versions?: ModVersionUncheckedUpdateManyWithoutModInput
-    Lists?: ModsListUncheckedUpdateManyWithoutModsInput
-    Issues?: ModIssueUncheckedUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedUpdateManyWithoutModInput
-    Downloads?: ModDownloadUncheckedUpdateManyWithoutModInput
+    Images?: Mod_ImageUncheckedUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedUpdateManyWithoutModInput
+    Versions?: Mod_VersionUncheckedUpdateManyWithoutModInput
+    Lists?: Mods_ListUncheckedUpdateManyWithoutModsInput
+    Issues?: Mod_IssueUncheckedUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedUpdateManyWithoutModInput
   }
 
   export type ModUncheckedUpdateManyWithoutModInput = {
@@ -21156,42 +24114,42 @@ export namespace Prisma {
     docs_url?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModDownloadCreateManyVersionInput = {
+  export type Mod_DownloadCreateManyVersionInput = {
     user_id: number
     mod_id: number
   }
 
-  export type ModDownloadUpdateWithoutVersionInput = {
+  export type Mod_DownloadUpdateWithoutVersionInput = {
     User?: UserUpdateOneRequiredWithoutModDownloadsInput
     Mod?: ModUpdateOneRequiredWithoutDownloadsInput
   }
 
-  export type ModDownloadUncheckedUpdateWithoutVersionInput = {
+  export type Mod_DownloadUncheckedUpdateWithoutVersionInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     mod_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ModIssuePostCreateManyIssueInput = {
+  export type Mod_Issue_PostCreateManyIssueInput = {
     id?: number
     author_id: number
     createDate?: Date | string
     text: string
   }
 
-  export type ModIssuePostUpdateWithoutIssueInput = {
+  export type Mod_Issue_PostUpdateWithoutIssueInput = {
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     text?: StringFieldUpdateOperationsInput | string
     Author?: UserUpdateOneRequiredWithoutModIssuePostsInput
   }
 
-  export type ModIssuePostUncheckedUpdateWithoutIssueInput = {
+  export type Mod_Issue_PostUncheckedUpdateWithoutIssueInput = {
     id?: IntFieldUpdateOperationsInput | number
     author_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     text?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ModIssuePostUncheckedUpdateManyWithoutModIssuePostInput = {
+  export type Mod_Issue_PostUncheckedUpdateManyWithoutModIssuePostInput = {
     id?: IntFieldUpdateOperationsInput | number
     author_id?: IntFieldUpdateOperationsInput | number
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21211,15 +24169,15 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Collection?: ModsCollectionUpdateOneRequiredWithoutModsInput
-    Images?: ModImageUpdateManyWithoutModInput
-    Authors?: ModAuthorUpdateManyWithoutModInput
-    Tags?: ModTagUpdateManyWithoutModInput
-    Versions?: ModVersionUpdateManyWithoutModInput
-    Issues?: ModIssueUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUpdateManyWithoutModInput
-    Downloads?: ModDownloadUpdateManyWithoutModInput
+    Collection?: Mods_CollectionUpdateOneRequiredWithoutModsInput
+    Images?: Mod_ImageUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUpdateManyWithoutModInput
+    Tags?: Mod_TagUpdateManyWithoutModInput
+    Versions?: Mod_VersionUpdateManyWithoutModInput
+    Issues?: Mod_IssueUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUpdateManyWithoutModInput
   }
 
   export type ModUncheckedUpdateWithoutListsInput = {
@@ -21237,14 +24195,45 @@ export namespace Prisma {
     change_list?: StringFieldUpdateOperationsInput | string
     repository?: StringFieldUpdateOperationsInput | string
     docs_url?: StringFieldUpdateOperationsInput | string
-    Images?: ModImageUncheckedUpdateManyWithoutModInput
-    Authors?: ModAuthorUncheckedUpdateManyWithoutModInput
-    Tags?: ModTagUncheckedUpdateManyWithoutModInput
-    Versions?: ModVersionUncheckedUpdateManyWithoutModInput
-    Issues?: ModIssueUncheckedUpdateManyWithoutModInput
-    Favorits?: ModsFavoritsUncheckedUpdateManyWithoutModInput
-    Subscribers?: ModSubscribersUncheckedUpdateManyWithoutModInput
-    Downloads?: ModDownloadUncheckedUpdateManyWithoutModInput
+    Images?: Mod_ImageUncheckedUpdateManyWithoutModInput
+    Authors?: Mod_AuthorUncheckedUpdateManyWithoutModInput
+    Tags?: Mod_TagUncheckedUpdateManyWithoutModInput
+    Versions?: Mod_VersionUncheckedUpdateManyWithoutModInput
+    Issues?: Mod_IssueUncheckedUpdateManyWithoutModInput
+    Favorits?: Mods_FavoritsUncheckedUpdateManyWithoutModInput
+    Subscribers?: Mod_SubscribersUncheckedUpdateManyWithoutModInput
+    Downloads?: Mod_DownloadUncheckedUpdateManyWithoutModInput
+  }
+
+  export type User_TokenCreateManySessionInput = {
+    id?: number
+    type: User_Token_Type
+    token: string
+    createDate?: Date | string
+    is_enable?: boolean
+  }
+
+  export type User_TokenUpdateWithoutSessionInput = {
+    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
+    token?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type User_TokenUncheckedUpdateWithoutSessionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
+    token?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type User_TokenUncheckedUpdateManyWithoutTokensInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
+    token?: StringFieldUpdateOperationsInput | string
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enable?: BoolFieldUpdateOperationsInput | boolean
   }
 
 
