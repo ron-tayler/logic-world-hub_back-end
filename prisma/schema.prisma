@@ -236,7 +236,7 @@ model User_Token {
   id          Int             @id @default(autoincrement())
   sessionId   Int
   type        User_Token_Type
-  token       String          @db.VarChar(100)
+  token       String          @db.VarChar(100) @unique
   createDate  DateTime        @default(now()) @db.DateTime(0)
   is_enable   Boolean         @default(false)
 

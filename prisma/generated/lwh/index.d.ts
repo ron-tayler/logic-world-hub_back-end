@@ -17240,6 +17240,7 @@ export namespace Prisma {
 
   export type User_TokenWhereUniqueInput = {
     id?: number
+    token?: string
   }
 
   export type User_TokenOrderByWithAggregationInput = {
