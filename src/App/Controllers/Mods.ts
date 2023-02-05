@@ -1,12 +1,24 @@
 import {inject} from "inversify";
 import * as IO from "io-ts"
-import {ModelMod} from "@/App/Model/Mods/Mod";
-import {controller, httpGet, httpPost, queryParam, requestParam, requestBody, request} from "inversify-express-utils";
+import {ModelMod} from "@/App/Models/Mods/Mod";
+import {
+    controller,
+    httpGet,
+    httpPost,
+    queryParam,
+    requestParam,
+    requestBody,
+    request,
+    httpPut,
+    BaseHttpController
+} from "inversify-express-utils";
 import {Author, Issue, IssueMinimal, IssuePost, ModMinimal, SchemaMod, Tag, Version} from "@/App/Schemes/Mod";
 import {HelperObject} from "@/Helpers/Object";
 import {IOCreateIssue} from "@/App/Schemes/Requests/CreateIssue";
 import {ModIssueTypes} from "@/App/Schemes/Types";
 import {ModIssueType} from "../../../prisma/generated/lwh";
+import {Request, NextFunction} from "express"
+import {SelectelStorage} from "@/Services/SelectelStorage";
 
 // (a * t) + ((1 - a) * p)
 // a = 1/кол-во активности за день
@@ -15,6 +27,7 @@ import {ModIssueType} from "../../../prisma/generated/lwh";
 @controller("/mods")
 export class ControllerModsGetMods extends BaseHttpController {
     @inject("Model/Mods/Mod") private _model_mod!: ModelMod
+    @inject("Selectel") private _selectel!: SelectelStorage
 
     @httpGet("/most-downloaded")
     async getMostDownloaded(@queryParam("page") page_raw: string|undefined){
@@ -281,6 +294,12 @@ export class ControllerModsGetMods extends BaseHttpController {
 
         await this._model_mod.createIssuePost(issue_id,author_id,data.right.text)
 
+        return "OK"
+    }
+
+    @httpPut("/mod/:id/image")
+    async uploadImage(@request() req: Request, @requestParam("id") id: string){
+        await this._selectel.uploadFile(`logic-world-hub/mods/mod_${id}/test/img_1.jpg`,req)
         return "OK"
     }
 }
