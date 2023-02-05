@@ -1,7 +1,10 @@
-import {injectable, inject} from "inversify"
+import {inject} from "inversify"
+import {provide, fluentProvide} from "inversify-binding-decorators"
 import {PrismaClient, ModIssueType} from "@/../prisma/generated/lwh";
 
-@injectable()
+@fluentProvide("Model/Mods/Mod")
+    .inSingletonScope()
+    .done()
 export class ModelMod {
     @inject("Prisma") private _prisma!: PrismaClient
 
