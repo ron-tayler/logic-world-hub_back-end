@@ -187,6 +187,7 @@ export type User_Session = {
   userAgentDevice: string
   uuid: string
   ipv4: string
+  fingerprint_id: string
   is_active: boolean
 }
 
@@ -14411,6 +14412,7 @@ export namespace Prisma {
     userAgentDevice: string | null
     uuid: string | null
     ipv4: string | null
+    fingerprint_id: string | null
     is_active: boolean | null
   }
 
@@ -14423,6 +14425,7 @@ export namespace Prisma {
     userAgentDevice: string | null
     uuid: string | null
     ipv4: string | null
+    fingerprint_id: string | null
     is_active: boolean | null
   }
 
@@ -14435,6 +14438,7 @@ export namespace Prisma {
     userAgentDevice: number
     uuid: number
     ipv4: number
+    fingerprint_id: number
     is_active: number
     _all: number
   }
@@ -14459,6 +14463,7 @@ export namespace Prisma {
     userAgentDevice?: true
     uuid?: true
     ipv4?: true
+    fingerprint_id?: true
     is_active?: true
   }
 
@@ -14471,6 +14476,7 @@ export namespace Prisma {
     userAgentDevice?: true
     uuid?: true
     ipv4?: true
+    fingerprint_id?: true
     is_active?: true
   }
 
@@ -14483,6 +14489,7 @@ export namespace Prisma {
     userAgentDevice?: true
     uuid?: true
     ipv4?: true
+    fingerprint_id?: true
     is_active?: true
     _all?: true
   }
@@ -14588,6 +14595,7 @@ export namespace Prisma {
     userAgentDevice: string
     uuid: string
     ipv4: string
+    fingerprint_id: string
     is_active: boolean
     _count: User_SessionCountAggregateOutputType | null
     _avg: User_SessionAvgAggregateOutputType | null
@@ -14619,6 +14627,7 @@ export namespace Prisma {
     userAgentDevice?: boolean
     uuid?: boolean
     ipv4?: boolean
+    fingerprint_id?: boolean
     is_active?: boolean
     User?: boolean | UserArgs
     Tokens?: boolean | User_TokenFindManyArgs
@@ -16397,6 +16406,7 @@ export namespace Prisma {
     userAgentDevice: 'userAgentDevice',
     uuid: 'uuid',
     ipv4: 'ipv4',
+    fingerprint_id: 'fingerprint_id',
     is_active: 'is_active'
   };
 
@@ -17160,6 +17170,7 @@ export namespace Prisma {
     userAgentDevice?: StringFilter | string
     uuid?: StringFilter | string
     ipv4?: StringFilter | string
+    fingerprint_id?: StringFilter | string
     is_active?: BoolFilter | boolean
     User?: XOR<UserRelationFilter, UserWhereInput>
     Tokens?: User_TokenListRelationFilter
@@ -17174,6 +17185,7 @@ export namespace Prisma {
     userAgentDevice?: SortOrder
     uuid?: SortOrder
     ipv4?: SortOrder
+    fingerprint_id?: SortOrder
     is_active?: SortOrder
     User?: UserOrderByWithRelationInput
     Tokens?: User_TokenOrderByRelationAggregateInput
@@ -17192,6 +17204,7 @@ export namespace Prisma {
     userAgentDevice?: SortOrder
     uuid?: SortOrder
     ipv4?: SortOrder
+    fingerprint_id?: SortOrder
     is_active?: SortOrder
     _count?: User_SessionCountOrderByAggregateInput
     _avg?: User_SessionAvgOrderByAggregateInput
@@ -17212,6 +17225,7 @@ export namespace Prisma {
     userAgentDevice?: StringWithAggregatesFilter | string
     uuid?: StringWithAggregatesFilter | string
     ipv4?: StringWithAggregatesFilter | string
+    fingerprint_id?: StringWithAggregatesFilter | string
     is_active?: BoolWithAggregatesFilter | boolean
   }
 
@@ -18071,6 +18085,7 @@ export namespace Prisma {
     userAgentDevice: string
     uuid: string
     ipv4: string
+    fingerprint_id: string
     is_active?: boolean
     User: UserCreateNestedOneWithoutUserSessionInput
     Tokens?: User_TokenCreateNestedManyWithoutSessionInput
@@ -18085,6 +18100,7 @@ export namespace Prisma {
     userAgentDevice: string
     uuid: string
     ipv4: string
+    fingerprint_id: string
     is_active?: boolean
     Tokens?: User_TokenUncheckedCreateNestedManyWithoutSessionInput
   }
@@ -18096,6 +18112,7 @@ export namespace Prisma {
     userAgentDevice?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
+    fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     User?: UserUpdateOneRequiredWithoutUserSessionInput
     Tokens?: User_TokenUpdateManyWithoutSessionInput
@@ -18110,6 +18127,7 @@ export namespace Prisma {
     userAgentDevice?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
+    fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     Tokens?: User_TokenUncheckedUpdateManyWithoutSessionInput
   }
@@ -18123,6 +18141,7 @@ export namespace Prisma {
     userAgentDevice: string
     uuid: string
     ipv4: string
+    fingerprint_id: string
     is_active?: boolean
   }
 
@@ -18133,6 +18152,7 @@ export namespace Prisma {
     userAgentDevice?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
+    fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -18145,6 +18165,7 @@ export namespace Prisma {
     userAgentDevice?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
+    fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -18999,6 +19020,7 @@ export namespace Prisma {
     userAgentDevice?: SortOrder
     uuid?: SortOrder
     ipv4?: SortOrder
+    fingerprint_id?: SortOrder
     is_active?: SortOrder
   }
 
@@ -19016,6 +19038,7 @@ export namespace Prisma {
     userAgentDevice?: SortOrder
     uuid?: SortOrder
     ipv4?: SortOrder
+    fingerprint_id?: SortOrder
     is_active?: SortOrder
   }
 
@@ -19028,6 +19051,7 @@ export namespace Prisma {
     userAgentDevice?: SortOrder
     uuid?: SortOrder
     ipv4?: SortOrder
+    fingerprint_id?: SortOrder
     is_active?: SortOrder
   }
 
@@ -20844,6 +20868,7 @@ export namespace Prisma {
     userAgentDevice: string
     uuid: string
     ipv4: string
+    fingerprint_id: string
     is_active?: boolean
     Tokens?: User_TokenCreateNestedManyWithoutSessionInput
   }
@@ -20856,6 +20881,7 @@ export namespace Prisma {
     userAgentDevice: string
     uuid: string
     ipv4: string
+    fingerprint_id: string
     is_active?: boolean
     Tokens?: User_TokenUncheckedCreateNestedManyWithoutSessionInput
   }
@@ -21121,6 +21147,7 @@ export namespace Prisma {
     userAgentDevice?: StringFilter | string
     uuid?: StringFilter | string
     ipv4?: StringFilter | string
+    fingerprint_id?: StringFilter | string
     is_active?: BoolFilter | boolean
   }
 
@@ -23493,6 +23520,7 @@ export namespace Prisma {
     userAgentDevice: string
     uuid: string
     ipv4: string
+    fingerprint_id: string
     is_active?: boolean
     User: UserCreateNestedOneWithoutUserSessionInput
   }
@@ -23506,6 +23534,7 @@ export namespace Prisma {
     userAgentDevice: string
     uuid: string
     ipv4: string
+    fingerprint_id: string
     is_active?: boolean
   }
 
@@ -23526,6 +23555,7 @@ export namespace Prisma {
     userAgentDevice?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
+    fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     User?: UserUpdateOneRequiredWithoutUserSessionInput
   }
@@ -23539,6 +23569,7 @@ export namespace Prisma {
     userAgentDevice?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
+    fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -23598,6 +23629,7 @@ export namespace Prisma {
     userAgentDevice: string
     uuid: string
     ipv4: string
+    fingerprint_id: string
     is_active?: boolean
   }
 
@@ -23754,6 +23786,7 @@ export namespace Prisma {
     userAgentDevice?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
+    fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     Tokens?: User_TokenUpdateManyWithoutSessionInput
   }
@@ -23766,6 +23799,7 @@ export namespace Prisma {
     userAgentDevice?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
+    fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     Tokens?: User_TokenUncheckedUpdateManyWithoutSessionInput
   }
@@ -23778,6 +23812,7 @@ export namespace Prisma {
     userAgentDevice?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
+    fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 

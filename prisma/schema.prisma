@@ -219,7 +219,8 @@ model User_Session {
   userAgentOS     User_Agent_OS
   userAgentDevice String          @db.Text
   uuid            String          @db.VarChar(100)
-  ipv4            String          @db.VarChar(100)
+  ipv4            String          @db.VarChar(30)
+  fingerprint_id  String          @db.VarChar(30)
   is_active       Boolean         @default(false)
 
   User   User         @relation(fields: [userId], references: [id])

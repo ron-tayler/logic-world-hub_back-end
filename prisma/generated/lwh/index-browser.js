@@ -191,6 +191,7 @@ exports.Prisma.User_SessionScalarFieldEnum = makeEnum({
   userAgentDevice: 'userAgentDevice',
   uuid: 'uuid',
   ipv4: 'ipv4',
+  fingerprint_id: 'fingerprint_id',
   is_active: 'is_active'
 });
 
