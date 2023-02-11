@@ -16524,6 +16524,7 @@ export namespace Prisma {
 
   export type User_AuthWhereUniqueInput = {
     userId?: number
+    email?: string
   }
 
   export type User_AuthOrderByWithAggregationInput = {
