@@ -32,6 +32,7 @@ export type User_Auth = {
   userId: number
   email: string
   password: string
+  is_active: boolean
 }
 
 /**
@@ -198,10 +199,11 @@ export type User_Session = {
 export type User_Token = {
   id: number
   sessionId: number
-  type: User_Token_Type
-  token: string
+  access_token: string
+  refresh_token: string
   createDate: Date
   is_enable: boolean
+  is_super_access: boolean
 }
 
 
@@ -247,15 +249,6 @@ export const User_Agent_OS: {
 };
 
 export type User_Agent_OS = (typeof User_Agent_OS)[keyof typeof User_Agent_OS]
-
-
-export const User_Token_Type: {
-  AUTH: 'AUTH',
-  REFRESH: 'REFRESH',
-  ACCESS: 'ACCESS'
-};
-
-export type User_Token_Type = (typeof User_Token_Type)[keyof typeof User_Token_Type]
 
 
 /**
@@ -2563,18 +2556,21 @@ export namespace Prisma {
     userId: number | null
     email: string | null
     password: string | null
+    is_active: boolean | null
   }
 
   export type User_AuthMaxAggregateOutputType = {
     userId: number | null
     email: string | null
     password: string | null
+    is_active: boolean | null
   }
 
   export type User_AuthCountAggregateOutputType = {
     userId: number
     email: number
     password: number
+    is_active: number
     _all: number
   }
 
@@ -2591,18 +2587,21 @@ export namespace Prisma {
     userId?: true
     email?: true
     password?: true
+    is_active?: true
   }
 
   export type User_AuthMaxAggregateInputType = {
     userId?: true
     email?: true
     password?: true
+    is_active?: true
   }
 
   export type User_AuthCountAggregateInputType = {
     userId?: true
     email?: true
     password?: true
+    is_active?: true
     _all?: true
   }
 
@@ -2702,6 +2701,7 @@ export namespace Prisma {
     userId: number
     email: string
     password: string
+    is_active: boolean
     _count: User_AuthCountAggregateOutputType | null
     _avg: User_AuthAvgAggregateOutputType | null
     _sum: User_AuthSumAggregateOutputType | null
@@ -2727,6 +2727,7 @@ export namespace Prisma {
     userId?: boolean
     email?: boolean
     password?: boolean
+    is_active?: boolean
     User?: boolean | UserArgs
   }
 
@@ -15358,28 +15359,31 @@ export namespace Prisma {
   export type User_TokenMinAggregateOutputType = {
     id: number | null
     sessionId: number | null
-    type: User_Token_Type | null
-    token: string | null
+    access_token: string | null
+    refresh_token: string | null
     createDate: Date | null
     is_enable: boolean | null
+    is_super_access: boolean | null
   }
 
   export type User_TokenMaxAggregateOutputType = {
     id: number | null
     sessionId: number | null
-    type: User_Token_Type | null
-    token: string | null
+    access_token: string | null
+    refresh_token: string | null
     createDate: Date | null
     is_enable: boolean | null
+    is_super_access: boolean | null
   }
 
   export type User_TokenCountAggregateOutputType = {
     id: number
     sessionId: number
-    type: number
-    token: number
+    access_token: number
+    refresh_token: number
     createDate: number
     is_enable: number
+    is_super_access: number
     _all: number
   }
 
@@ -15397,28 +15401,31 @@ export namespace Prisma {
   export type User_TokenMinAggregateInputType = {
     id?: true
     sessionId?: true
-    type?: true
-    token?: true
+    access_token?: true
+    refresh_token?: true
     createDate?: true
     is_enable?: true
+    is_super_access?: true
   }
 
   export type User_TokenMaxAggregateInputType = {
     id?: true
     sessionId?: true
-    type?: true
-    token?: true
+    access_token?: true
+    refresh_token?: true
     createDate?: true
     is_enable?: true
+    is_super_access?: true
   }
 
   export type User_TokenCountAggregateInputType = {
     id?: true
     sessionId?: true
-    type?: true
-    token?: true
+    access_token?: true
+    refresh_token?: true
     createDate?: true
     is_enable?: true
+    is_super_access?: true
     _all?: true
   }
 
@@ -15517,10 +15524,11 @@ export namespace Prisma {
   export type User_TokenGroupByOutputType = {
     id: number
     sessionId: number
-    type: User_Token_Type
-    token: string
+    access_token: string
+    refresh_token: string
     createDate: Date
     is_enable: boolean
+    is_super_access: boolean
     _count: User_TokenCountAggregateOutputType | null
     _avg: User_TokenAvgAggregateOutputType | null
     _sum: User_TokenSumAggregateOutputType | null
@@ -15545,10 +15553,11 @@ export namespace Prisma {
   export type User_TokenSelect = {
     id?: boolean
     sessionId?: boolean
-    type?: boolean
-    token?: boolean
+    access_token?: boolean
+    refresh_token?: boolean
     createDate?: boolean
     is_enable?: boolean
+    is_super_access?: boolean
     Session?: boolean | User_SessionArgs
   }
 
@@ -16263,7 +16272,8 @@ export namespace Prisma {
   export const User_AuthScalarFieldEnum: {
     userId: 'userId',
     email: 'email',
-    password: 'password'
+    password: 'password',
+    is_active: 'is_active'
   };
 
   export type User_AuthScalarFieldEnum = (typeof User_AuthScalarFieldEnum)[keyof typeof User_AuthScalarFieldEnum]
@@ -16416,10 +16426,11 @@ export namespace Prisma {
   export const User_TokenScalarFieldEnum: {
     id: 'id',
     sessionId: 'sessionId',
-    type: 'type',
-    token: 'token',
+    access_token: 'access_token',
+    refresh_token: 'refresh_token',
     createDate: 'createDate',
-    is_enable: 'is_enable'
+    is_enable: 'is_enable',
+    is_super_access: 'is_super_access'
   };
 
   export type User_TokenScalarFieldEnum = (typeof User_TokenScalarFieldEnum)[keyof typeof User_TokenScalarFieldEnum]
@@ -16512,6 +16523,7 @@ export namespace Prisma {
     userId?: IntFilter | number
     email?: StringFilter | string
     password?: StringFilter | string
+    is_active?: BoolFilter | boolean
     User?: XOR<UserRelationFilter, UserWhereInput>
   }
 
@@ -16519,6 +16531,7 @@ export namespace Prisma {
     userId?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    is_active?: SortOrder
     User?: UserOrderByWithRelationInput
   }
 
@@ -16531,6 +16544,7 @@ export namespace Prisma {
     userId?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    is_active?: SortOrder
     _count?: User_AuthCountOrderByAggregateInput
     _avg?: User_AuthAvgOrderByAggregateInput
     _max?: User_AuthMaxOrderByAggregateInput
@@ -16545,6 +16559,7 @@ export namespace Prisma {
     userId?: IntWithAggregatesFilter | number
     email?: StringWithAggregatesFilter | string
     password?: StringWithAggregatesFilter | string
+    is_active?: BoolWithAggregatesFilter | boolean
   }
 
   export type Mods_CollectionWhereInput = {
@@ -17236,35 +17251,39 @@ export namespace Prisma {
     NOT?: Enumerable<User_TokenWhereInput>
     id?: IntFilter | number
     sessionId?: IntFilter | number
-    type?: EnumUser_Token_TypeFilter | User_Token_Type
-    token?: StringFilter | string
+    access_token?: StringFilter | string
+    refresh_token?: StringFilter | string
     createDate?: DateTimeFilter | Date | string
     is_enable?: BoolFilter | boolean
+    is_super_access?: BoolFilter | boolean
     Session?: XOR<User_SessionRelationFilter, User_SessionWhereInput>
   }
 
   export type User_TokenOrderByWithRelationInput = {
     id?: SortOrder
     sessionId?: SortOrder
-    type?: SortOrder
-    token?: SortOrder
+    access_token?: SortOrder
+    refresh_token?: SortOrder
     createDate?: SortOrder
     is_enable?: SortOrder
+    is_super_access?: SortOrder
     Session?: User_SessionOrderByWithRelationInput
   }
 
   export type User_TokenWhereUniqueInput = {
     id?: number
-    token?: string
+    access_token?: string
+    refresh_token?: string
   }
 
   export type User_TokenOrderByWithAggregationInput = {
     id?: SortOrder
     sessionId?: SortOrder
-    type?: SortOrder
-    token?: SortOrder
+    access_token?: SortOrder
+    refresh_token?: SortOrder
     createDate?: SortOrder
     is_enable?: SortOrder
+    is_super_access?: SortOrder
     _count?: User_TokenCountOrderByAggregateInput
     _avg?: User_TokenAvgOrderByAggregateInput
     _max?: User_TokenMaxOrderByAggregateInput
@@ -17278,10 +17297,11 @@ export namespace Prisma {
     NOT?: Enumerable<User_TokenScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
     sessionId?: IntWithAggregatesFilter | number
-    type?: EnumUser_Token_TypeWithAggregatesFilter | User_Token_Type
-    token?: StringWithAggregatesFilter | string
+    access_token?: StringWithAggregatesFilter | string
+    refresh_token?: StringWithAggregatesFilter | string
     createDate?: DateTimeWithAggregatesFilter | Date | string
     is_enable?: BoolWithAggregatesFilter | boolean
+    is_super_access?: BoolWithAggregatesFilter | boolean
   }
 
   export type UserCreateInput = {
@@ -17380,6 +17400,7 @@ export namespace Prisma {
   export type User_AuthCreateInput = {
     email: string
     password: string
+    is_active: boolean
     User: UserCreateNestedOneWithoutUserAuthInput
   }
 
@@ -17387,11 +17408,13 @@ export namespace Prisma {
     userId: number
     email: string
     password: string
+    is_active: boolean
   }
 
   export type User_AuthUpdateInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     User?: UserUpdateOneRequiredWithoutUserAuthInput
   }
 
@@ -17399,23 +17422,27 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type User_AuthCreateManyInput = {
     userId: number
     email: string
     password: string
+    is_active: boolean
   }
 
   export type User_AuthUpdateManyMutationInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type User_AuthUncheckedUpdateManyInput = {
     userId?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type Mods_CollectionCreateInput = {
@@ -18171,62 +18198,69 @@ export namespace Prisma {
   }
 
   export type User_TokenCreateInput = {
-    type: User_Token_Type
-    token: string
+    access_token: string
+    refresh_token: string
     createDate?: Date | string
     is_enable?: boolean
+    is_super_access?: boolean
     Session: User_SessionCreateNestedOneWithoutTokensInput
   }
 
   export type User_TokenUncheckedCreateInput = {
     id?: number
     sessionId: number
-    type: User_Token_Type
-    token: string
+    access_token: string
+    refresh_token: string
     createDate?: Date | string
     is_enable?: boolean
+    is_super_access?: boolean
   }
 
   export type User_TokenUpdateInput = {
-    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
-    token?: StringFieldUpdateOperationsInput | string
+    access_token?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enable?: BoolFieldUpdateOperationsInput | boolean
+    is_super_access?: BoolFieldUpdateOperationsInput | boolean
     Session?: User_SessionUpdateOneRequiredWithoutTokensInput
   }
 
   export type User_TokenUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     sessionId?: IntFieldUpdateOperationsInput | number
-    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
-    token?: StringFieldUpdateOperationsInput | string
+    access_token?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enable?: BoolFieldUpdateOperationsInput | boolean
+    is_super_access?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type User_TokenCreateManyInput = {
     id?: number
     sessionId: number
-    type: User_Token_Type
-    token: string
+    access_token: string
+    refresh_token: string
     createDate?: Date | string
     is_enable?: boolean
+    is_super_access?: boolean
   }
 
   export type User_TokenUpdateManyMutationInput = {
-    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
-    token?: StringFieldUpdateOperationsInput | string
+    access_token?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enable?: BoolFieldUpdateOperationsInput | boolean
+    is_super_access?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type User_TokenUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     sessionId?: IntFieldUpdateOperationsInput | number
-    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
-    token?: StringFieldUpdateOperationsInput | string
+    access_token?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enable?: BoolFieldUpdateOperationsInput | boolean
+    is_super_access?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type IntFilter = {
@@ -18461,6 +18495,7 @@ export namespace Prisma {
     userId?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    is_active?: SortOrder
   }
 
   export type User_AuthAvgOrderByAggregateInput = {
@@ -18471,12 +18506,14 @@ export namespace Prisma {
     userId?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    is_active?: SortOrder
   }
 
   export type User_AuthMinOrderByAggregateInput = {
     userId?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    is_active?: SortOrder
   }
 
   export type User_AuthSumOrderByAggregateInput = {
@@ -19081,13 +19118,6 @@ export namespace Prisma {
     _max?: NestedEnumUser_Agent_OSFilter
   }
 
-  export type EnumUser_Token_TypeFilter = {
-    equals?: User_Token_Type
-    in?: Enumerable<User_Token_Type>
-    notIn?: Enumerable<User_Token_Type>
-    not?: NestedEnumUser_Token_TypeFilter | User_Token_Type
-  }
-
   export type User_SessionRelationFilter = {
     is?: User_SessionWhereInput
     isNot?: User_SessionWhereInput
@@ -19096,10 +19126,11 @@ export namespace Prisma {
   export type User_TokenCountOrderByAggregateInput = {
     id?: SortOrder
     sessionId?: SortOrder
-    type?: SortOrder
-    token?: SortOrder
+    access_token?: SortOrder
+    refresh_token?: SortOrder
     createDate?: SortOrder
     is_enable?: SortOrder
+    is_super_access?: SortOrder
   }
 
   export type User_TokenAvgOrderByAggregateInput = {
@@ -19110,34 +19141,26 @@ export namespace Prisma {
   export type User_TokenMaxOrderByAggregateInput = {
     id?: SortOrder
     sessionId?: SortOrder
-    type?: SortOrder
-    token?: SortOrder
+    access_token?: SortOrder
+    refresh_token?: SortOrder
     createDate?: SortOrder
     is_enable?: SortOrder
+    is_super_access?: SortOrder
   }
 
   export type User_TokenMinOrderByAggregateInput = {
     id?: SortOrder
     sessionId?: SortOrder
-    type?: SortOrder
-    token?: SortOrder
+    access_token?: SortOrder
+    refresh_token?: SortOrder
     createDate?: SortOrder
     is_enable?: SortOrder
+    is_super_access?: SortOrder
   }
 
   export type User_TokenSumOrderByAggregateInput = {
     id?: SortOrder
     sessionId?: SortOrder
-  }
-
-  export type EnumUser_Token_TypeWithAggregatesFilter = {
-    equals?: User_Token_Type
-    in?: Enumerable<User_Token_Type>
-    notIn?: Enumerable<User_Token_Type>
-    not?: NestedEnumUser_Token_TypeWithAggregatesFilter | User_Token_Type
-    _count?: NestedIntFilter
-    _min?: NestedEnumUser_Token_TypeFilter
-    _max?: NestedEnumUser_Token_TypeFilter
   }
 
   export type User_AuthCreateNestedOneWithoutUserInput = {
@@ -20482,10 +20505,6 @@ export namespace Prisma {
     connect?: User_SessionWhereUniqueInput
   }
 
-  export type EnumUser_Token_TypeFieldUpdateOperationsInput = {
-    set?: User_Token_Type
-  }
-
   export type User_SessionUpdateOneRequiredWithoutTokensInput = {
     create?: XOR<User_SessionCreateWithoutTokensInput, User_SessionUncheckedCreateWithoutTokensInput>
     connectOrCreate?: User_SessionCreateOrConnectWithoutTokensInput
@@ -20652,31 +20671,16 @@ export namespace Prisma {
     _max?: NestedEnumUser_Agent_OSFilter
   }
 
-  export type NestedEnumUser_Token_TypeFilter = {
-    equals?: User_Token_Type
-    in?: Enumerable<User_Token_Type>
-    notIn?: Enumerable<User_Token_Type>
-    not?: NestedEnumUser_Token_TypeFilter | User_Token_Type
-  }
-
-  export type NestedEnumUser_Token_TypeWithAggregatesFilter = {
-    equals?: User_Token_Type
-    in?: Enumerable<User_Token_Type>
-    notIn?: Enumerable<User_Token_Type>
-    not?: NestedEnumUser_Token_TypeWithAggregatesFilter | User_Token_Type
-    _count?: NestedIntFilter
-    _min?: NestedEnumUser_Token_TypeFilter
-    _max?: NestedEnumUser_Token_TypeFilter
-  }
-
   export type User_AuthCreateWithoutUserInput = {
     email: string
     password: string
+    is_active: boolean
   }
 
   export type User_AuthUncheckedCreateWithoutUserInput = {
     email: string
     password: string
+    is_active: boolean
   }
 
   export type User_AuthCreateOrConnectWithoutUserInput = {
@@ -20905,11 +20909,13 @@ export namespace Prisma {
   export type User_AuthUpdateWithoutUserInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type User_AuthUncheckedUpdateWithoutUserInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type Mods_CollectionUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -23424,18 +23430,20 @@ export namespace Prisma {
   }
 
   export type User_TokenCreateWithoutSessionInput = {
-    type: User_Token_Type
-    token: string
+    access_token: string
+    refresh_token: string
     createDate?: Date | string
     is_enable?: boolean
+    is_super_access?: boolean
   }
 
   export type User_TokenUncheckedCreateWithoutSessionInput = {
     id?: number
-    type: User_Token_Type
-    token: string
+    access_token: string
+    refresh_token: string
     createDate?: Date | string
     is_enable?: boolean
+    is_super_access?: boolean
   }
 
   export type User_TokenCreateOrConnectWithoutSessionInput = {
@@ -23508,10 +23516,11 @@ export namespace Prisma {
     NOT?: Enumerable<User_TokenScalarWhereInput>
     id?: IntFilter | number
     sessionId?: IntFilter | number
-    type?: EnumUser_Token_TypeFilter | User_Token_Type
-    token?: StringFilter | string
+    access_token?: StringFilter | string
+    refresh_token?: StringFilter | string
     createDate?: DateTimeFilter | Date | string
     is_enable?: BoolFilter | boolean
+    is_super_access?: BoolFilter | boolean
   }
 
   export type User_SessionCreateWithoutTokensInput = {
@@ -24244,33 +24253,37 @@ export namespace Prisma {
 
   export type User_TokenCreateManySessionInput = {
     id?: number
-    type: User_Token_Type
-    token: string
+    access_token: string
+    refresh_token: string
     createDate?: Date | string
     is_enable?: boolean
+    is_super_access?: boolean
   }
 
   export type User_TokenUpdateWithoutSessionInput = {
-    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
-    token?: StringFieldUpdateOperationsInput | string
+    access_token?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enable?: BoolFieldUpdateOperationsInput | boolean
+    is_super_access?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type User_TokenUncheckedUpdateWithoutSessionInput = {
     id?: IntFieldUpdateOperationsInput | number
-    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
-    token?: StringFieldUpdateOperationsInput | string
+    access_token?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enable?: BoolFieldUpdateOperationsInput | boolean
+    is_super_access?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type User_TokenUncheckedUpdateManyWithoutTokensInput = {
     id?: IntFieldUpdateOperationsInput | number
-    type?: EnumUser_Token_TypeFieldUpdateOperationsInput | User_Token_Type
-    token?: StringFieldUpdateOperationsInput | string
+    access_token?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
     createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enable?: BoolFieldUpdateOperationsInput | boolean
+    is_super_access?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

@@ -30,9 +30,10 @@ model User {
 }
 
 model User_Auth {
-  userId   Int    @unique
-  email    String @unique @db.VarChar(100)
-  password String @db.VarChar(100)
+  userId    Int     @unique
+  email     String  @unique @db.VarChar(100)
+  password  String  @db.VarChar(100)
+  is_active Boolean
 
   User User @relation(fields: [userId], references: [id])
 }
@@ -227,19 +228,14 @@ model User_Session {
   Tokens User_Token[]
 }
 
-enum User_Token_Type {
-  AUTH
-  REFRESH
-  ACCESS
-}
-
 model User_Token {
-  id          Int             @id @default(autoincrement())
-  sessionId   Int
-  type        User_Token_Type
-  token       String          @db.VarChar(100) @unique
-  createDate  DateTime        @default(now()) @db.DateTime(0)
-  is_enable   Boolean         @default(false)
+  id              Int      @id @default(autoincrement())
+  sessionId       Int
+  access_token    String   @unique @db.VarChar(100)
+  refresh_token   String   @unique @db.VarChar(100)
+  createDate      DateTime @default(now()) @db.DateTime(0)
+  is_enable       Boolean  @default(false)
+  is_super_access Boolean  @default(false)
 
   Session User_Session @relation(fields: [sessionId], references: [id])
 }

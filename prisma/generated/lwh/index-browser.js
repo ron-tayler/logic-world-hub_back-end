@@ -87,7 +87,8 @@ exports.Prisma.UserScalarFieldEnum = makeEnum({
 exports.Prisma.User_AuthScalarFieldEnum = makeEnum({
   userId: 'userId',
   email: 'email',
-  password: 'password'
+  password: 'password',
+  is_active: 'is_active'
 });
 
 exports.Prisma.Mods_CollectionScalarFieldEnum = makeEnum({
@@ -198,10 +199,11 @@ exports.Prisma.User_SessionScalarFieldEnum = makeEnum({
 exports.Prisma.User_TokenScalarFieldEnum = makeEnum({
   id: 'id',
   sessionId: 'sessionId',
-  type: 'type',
-  token: 'token',
+  access_token: 'access_token',
+  refresh_token: 'refresh_token',
   createDate: 'createDate',
-  is_enable: 'is_enable'
+  is_enable: 'is_enable',
+  is_super_access: 'is_super_access'
 });
 
 exports.Prisma.SortOrder = makeEnum({
@@ -234,12 +236,6 @@ exports.User_Agent_OS = makeEnum({
   IOS: 'IOS',
   ANDROID: 'ANDROID',
   OTHER: 'OTHER'
-});
-
-exports.User_Token_Type = makeEnum({
-  AUTH: 'AUTH',
-  REFRESH: 'REFRESH',
-  ACCESS: 'ACCESS'
 });
 
 exports.Prisma.ModelName = makeEnum({
