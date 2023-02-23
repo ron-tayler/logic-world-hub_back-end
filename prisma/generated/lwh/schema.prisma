@@ -191,38 +191,19 @@ model Mod_Download {
   @@index([version_id], map: "ModDownload_version_id_fkey")
 }
 
-enum User_Agent_Type {
-  WEBKIT
-  OPERA
-  IE
-  CHROME
-  SAFARI
-  MOBILE_SAFARI
-  FIREFOX
-  MOZILLA
-  ANDROID
-  OTHER
-}
-
-enum User_Agent_OS {
-  WINDOWS
-  LINUX
-  IOS
-  ANDROID
-  OTHER
-}
-
 model User_Session {
-  id              Int             @id @default(autoincrement())
-  userId          Int
-  userAgent       String          @db.Text
-  userAgentType   User_Agent_Type
-  userAgentOS     User_Agent_OS
-  userAgentDevice String          @db.Text
-  uuid            String          @db.VarChar(100)
-  ipv4            String          @db.VarChar(30)
-  fingerprint_id  String          @db.VarChar(30)
-  is_active       Boolean         @default(false)
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  userAgent      String   @db.Text
+  userAgentName  String   @db.Text
+  osName         String   @db.Text
+  deviceName     String   @db.Text
+  name           String   @db.Text
+  uuid           String   @unique @db.VarChar(100)
+  ipv4           String   @db.VarChar(30)
+  fingerprint_id String   @db.VarChar(30)
+  is_active      Boolean  @default(false)
+  createDate     DateTime @default(now()) @db.DateTime(0)
 
   User   User         @relation(fields: [userId], references: [id])
   Tokens User_Token[]

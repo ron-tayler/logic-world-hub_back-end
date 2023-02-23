@@ -16,7 +16,7 @@ import {Author, Issue, IssueMinimal, IssuePost, ModMinimal, SchemaMod, Tag, Vers
 import {HelperObject} from "@/Helpers/Object";
 import {IOCreateIssue} from "@/App/Schemes/Requests/CreateIssue";
 import {ModIssueTypes} from "@/App/Schemes/Types";
-import {ModIssueType} from "../../../prisma/generated/lwh";
+import {Mod_Issue_Type} from "@/../prisma/generated/lwh";
 import {Request, NextFunction} from "express"
 import {SelectelStorage} from "@/Services/SelectelStorage";
 
@@ -269,7 +269,7 @@ export class ControllerModsGetMods extends BaseHttpController {
         const issue_data = result.right
         if(issue_data.name.length < 1) throw new Error("Error name")
         if(issue_data.text.length < 1) throw new Error("Error text")
-        const issue_type = ModIssueTypes[issue_data.type] as ModIssueType|undefined
+        const issue_type = ModIssueTypes[issue_data.type] as Mod_Issue_Type|undefined
         if(issue_type == undefined) throw new Error("Error type")
 
         const issue = await this._model_mod.createIssue(mod_id,author_id,issue_data.name,issue_type)

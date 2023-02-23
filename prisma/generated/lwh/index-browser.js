@@ -187,13 +187,15 @@ exports.Prisma.User_SessionScalarFieldEnum = makeEnum({
   id: 'id',
   userId: 'userId',
   userAgent: 'userAgent',
-  userAgentType: 'userAgentType',
-  userAgentOS: 'userAgentOS',
-  userAgentDevice: 'userAgentDevice',
+  userAgentName: 'userAgentName',
+  osName: 'osName',
+  deviceName: 'deviceName',
+  name: 'name',
   uuid: 'uuid',
   ipv4: 'ipv4',
   fingerprint_id: 'fingerprint_id',
-  is_active: 'is_active'
+  is_active: 'is_active',
+  createDate: 'createDate'
 });
 
 exports.Prisma.User_TokenScalarFieldEnum = makeEnum({
@@ -215,27 +217,6 @@ exports.Mod_Issue_Type = makeEnum({
   BUGS: 'BUGS',
   ANNOUNCEMENTS: 'ANNOUNCEMENTS',
   IDEAS: 'IDEAS'
-});
-
-exports.User_Agent_Type = makeEnum({
-  WEBKIT: 'WEBKIT',
-  OPERA: 'OPERA',
-  IE: 'IE',
-  CHROME: 'CHROME',
-  SAFARI: 'SAFARI',
-  MOBILE_SAFARI: 'MOBILE_SAFARI',
-  FIREFOX: 'FIREFOX',
-  MOZILLA: 'MOZILLA',
-  ANDROID: 'ANDROID',
-  OTHER: 'OTHER'
-});
-
-exports.User_Agent_OS = makeEnum({
-  WINDOWS: 'WINDOWS',
-  LINUX: 'LINUX',
-  IOS: 'IOS',
-  ANDROID: 'ANDROID',
-  OTHER: 'OTHER'
 });
 
 exports.Prisma.ModelName = makeEnum({

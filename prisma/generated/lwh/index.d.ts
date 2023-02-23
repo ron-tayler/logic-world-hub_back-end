@@ -183,13 +183,15 @@ export type User_Session = {
   id: number
   userId: number
   userAgent: string
-  userAgentType: User_Agent_Type
-  userAgentOS: User_Agent_OS
-  userAgentDevice: string
+  userAgentName: string
+  osName: string
+  deviceName: string
+  name: string
   uuid: string
   ipv4: string
   fingerprint_id: string
   is_active: boolean
+  createDate: Date
 }
 
 /**
@@ -222,33 +224,6 @@ export const Mod_Issue_Type: {
 };
 
 export type Mod_Issue_Type = (typeof Mod_Issue_Type)[keyof typeof Mod_Issue_Type]
-
-
-export const User_Agent_Type: {
-  WEBKIT: 'WEBKIT',
-  OPERA: 'OPERA',
-  IE: 'IE',
-  CHROME: 'CHROME',
-  SAFARI: 'SAFARI',
-  MOBILE_SAFARI: 'MOBILE_SAFARI',
-  FIREFOX: 'FIREFOX',
-  MOZILLA: 'MOZILLA',
-  ANDROID: 'ANDROID',
-  OTHER: 'OTHER'
-};
-
-export type User_Agent_Type = (typeof User_Agent_Type)[keyof typeof User_Agent_Type]
-
-
-export const User_Agent_OS: {
-  WINDOWS: 'WINDOWS',
-  LINUX: 'LINUX',
-  IOS: 'IOS',
-  ANDROID: 'ANDROID',
-  OTHER: 'OTHER'
-};
-
-export type User_Agent_OS = (typeof User_Agent_OS)[keyof typeof User_Agent_OS]
 
 
 /**
@@ -14408,39 +14383,45 @@ export namespace Prisma {
     id: number | null
     userId: number | null
     userAgent: string | null
-    userAgentType: User_Agent_Type | null
-    userAgentOS: User_Agent_OS | null
-    userAgentDevice: string | null
+    userAgentName: string | null
+    osName: string | null
+    deviceName: string | null
+    name: string | null
     uuid: string | null
     ipv4: string | null
     fingerprint_id: string | null
     is_active: boolean | null
+    createDate: Date | null
   }
 
   export type User_SessionMaxAggregateOutputType = {
     id: number | null
     userId: number | null
     userAgent: string | null
-    userAgentType: User_Agent_Type | null
-    userAgentOS: User_Agent_OS | null
-    userAgentDevice: string | null
+    userAgentName: string | null
+    osName: string | null
+    deviceName: string | null
+    name: string | null
     uuid: string | null
     ipv4: string | null
     fingerprint_id: string | null
     is_active: boolean | null
+    createDate: Date | null
   }
 
   export type User_SessionCountAggregateOutputType = {
     id: number
     userId: number
     userAgent: number
-    userAgentType: number
-    userAgentOS: number
-    userAgentDevice: number
+    userAgentName: number
+    osName: number
+    deviceName: number
+    name: number
     uuid: number
     ipv4: number
     fingerprint_id: number
     is_active: number
+    createDate: number
     _all: number
   }
 
@@ -14459,39 +14440,45 @@ export namespace Prisma {
     id?: true
     userId?: true
     userAgent?: true
-    userAgentType?: true
-    userAgentOS?: true
-    userAgentDevice?: true
+    userAgentName?: true
+    osName?: true
+    deviceName?: true
+    name?: true
     uuid?: true
     ipv4?: true
     fingerprint_id?: true
     is_active?: true
+    createDate?: true
   }
 
   export type User_SessionMaxAggregateInputType = {
     id?: true
     userId?: true
     userAgent?: true
-    userAgentType?: true
-    userAgentOS?: true
-    userAgentDevice?: true
+    userAgentName?: true
+    osName?: true
+    deviceName?: true
+    name?: true
     uuid?: true
     ipv4?: true
     fingerprint_id?: true
     is_active?: true
+    createDate?: true
   }
 
   export type User_SessionCountAggregateInputType = {
     id?: true
     userId?: true
     userAgent?: true
-    userAgentType?: true
-    userAgentOS?: true
-    userAgentDevice?: true
+    userAgentName?: true
+    osName?: true
+    deviceName?: true
+    name?: true
     uuid?: true
     ipv4?: true
     fingerprint_id?: true
     is_active?: true
+    createDate?: true
     _all?: true
   }
 
@@ -14591,13 +14578,15 @@ export namespace Prisma {
     id: number
     userId: number
     userAgent: string
-    userAgentType: User_Agent_Type
-    userAgentOS: User_Agent_OS
-    userAgentDevice: string
+    userAgentName: string
+    osName: string
+    deviceName: string
+    name: string
     uuid: string
     ipv4: string
     fingerprint_id: string
     is_active: boolean
+    createDate: Date
     _count: User_SessionCountAggregateOutputType | null
     _avg: User_SessionAvgAggregateOutputType | null
     _sum: User_SessionSumAggregateOutputType | null
@@ -14623,13 +14612,15 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     userAgent?: boolean
-    userAgentType?: boolean
-    userAgentOS?: boolean
-    userAgentDevice?: boolean
+    userAgentName?: boolean
+    osName?: boolean
+    deviceName?: boolean
+    name?: boolean
     uuid?: boolean
     ipv4?: boolean
     fingerprint_id?: boolean
     is_active?: boolean
+    createDate?: boolean
     User?: boolean | UserArgs
     Tokens?: boolean | User_TokenFindManyArgs
     _count?: boolean | User_SessionCountOutputTypeArgs
@@ -16411,13 +16402,15 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     userAgent: 'userAgent',
-    userAgentType: 'userAgentType',
-    userAgentOS: 'userAgentOS',
-    userAgentDevice: 'userAgentDevice',
+    userAgentName: 'userAgentName',
+    osName: 'osName',
+    deviceName: 'deviceName',
+    name: 'name',
     uuid: 'uuid',
     ipv4: 'ipv4',
     fingerprint_id: 'fingerprint_id',
-    is_active: 'is_active'
+    is_active: 'is_active',
+    createDate: 'createDate'
   };
 
   export type User_SessionScalarFieldEnum = (typeof User_SessionScalarFieldEnum)[keyof typeof User_SessionScalarFieldEnum]
@@ -17181,13 +17174,15 @@ export namespace Prisma {
     id?: IntFilter | number
     userId?: IntFilter | number
     userAgent?: StringFilter | string
-    userAgentType?: EnumUser_Agent_TypeFilter | User_Agent_Type
-    userAgentOS?: EnumUser_Agent_OSFilter | User_Agent_OS
-    userAgentDevice?: StringFilter | string
+    userAgentName?: StringFilter | string
+    osName?: StringFilter | string
+    deviceName?: StringFilter | string
+    name?: StringFilter | string
     uuid?: StringFilter | string
     ipv4?: StringFilter | string
     fingerprint_id?: StringFilter | string
     is_active?: BoolFilter | boolean
+    createDate?: DateTimeFilter | Date | string
     User?: XOR<UserRelationFilter, UserWhereInput>
     Tokens?: User_TokenListRelationFilter
   }
@@ -17196,32 +17191,37 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     userAgent?: SortOrder
-    userAgentType?: SortOrder
-    userAgentOS?: SortOrder
-    userAgentDevice?: SortOrder
+    userAgentName?: SortOrder
+    osName?: SortOrder
+    deviceName?: SortOrder
+    name?: SortOrder
     uuid?: SortOrder
     ipv4?: SortOrder
     fingerprint_id?: SortOrder
     is_active?: SortOrder
+    createDate?: SortOrder
     User?: UserOrderByWithRelationInput
     Tokens?: User_TokenOrderByRelationAggregateInput
   }
 
   export type User_SessionWhereUniqueInput = {
     id?: number
+    uuid?: string
   }
 
   export type User_SessionOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     userAgent?: SortOrder
-    userAgentType?: SortOrder
-    userAgentOS?: SortOrder
-    userAgentDevice?: SortOrder
+    userAgentName?: SortOrder
+    osName?: SortOrder
+    deviceName?: SortOrder
+    name?: SortOrder
     uuid?: SortOrder
     ipv4?: SortOrder
     fingerprint_id?: SortOrder
     is_active?: SortOrder
+    createDate?: SortOrder
     _count?: User_SessionCountOrderByAggregateInput
     _avg?: User_SessionAvgOrderByAggregateInput
     _max?: User_SessionMaxOrderByAggregateInput
@@ -17236,13 +17236,15 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter | number
     userId?: IntWithAggregatesFilter | number
     userAgent?: StringWithAggregatesFilter | string
-    userAgentType?: EnumUser_Agent_TypeWithAggregatesFilter | User_Agent_Type
-    userAgentOS?: EnumUser_Agent_OSWithAggregatesFilter | User_Agent_OS
-    userAgentDevice?: StringWithAggregatesFilter | string
+    userAgentName?: StringWithAggregatesFilter | string
+    osName?: StringWithAggregatesFilter | string
+    deviceName?: StringWithAggregatesFilter | string
+    name?: StringWithAggregatesFilter | string
     uuid?: StringWithAggregatesFilter | string
     ipv4?: StringWithAggregatesFilter | string
     fingerprint_id?: StringWithAggregatesFilter | string
     is_active?: BoolWithAggregatesFilter | boolean
+    createDate?: DateTimeWithAggregatesFilter | Date | string
   }
 
   export type User_TokenWhereInput = {
@@ -18108,13 +18110,15 @@ export namespace Prisma {
 
   export type User_SessionCreateInput = {
     userAgent: string
-    userAgentType: User_Agent_Type
-    userAgentOS: User_Agent_OS
-    userAgentDevice: string
+    userAgentName: string
+    osName: string
+    deviceName: string
+    name: string
     uuid: string
     ipv4: string
     fingerprint_id: string
     is_active?: boolean
+    createDate?: Date | string
     User: UserCreateNestedOneWithoutUserSessionInput
     Tokens?: User_TokenCreateNestedManyWithoutSessionInput
   }
@@ -18123,25 +18127,29 @@ export namespace Prisma {
     id?: number
     userId: number
     userAgent: string
-    userAgentType: User_Agent_Type
-    userAgentOS: User_Agent_OS
-    userAgentDevice: string
+    userAgentName: string
+    osName: string
+    deviceName: string
+    name: string
     uuid: string
     ipv4: string
     fingerprint_id: string
     is_active?: boolean
+    createDate?: Date | string
     Tokens?: User_TokenUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type User_SessionUpdateInput = {
     userAgent?: StringFieldUpdateOperationsInput | string
-    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
-    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
-    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    userAgentName?: StringFieldUpdateOperationsInput | string
+    osName?: StringFieldUpdateOperationsInput | string
+    deviceName?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
     fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneRequiredWithoutUserSessionInput
     Tokens?: User_TokenUpdateManyWithoutSessionInput
   }
@@ -18150,13 +18158,15 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     userAgent?: StringFieldUpdateOperationsInput | string
-    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
-    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
-    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    userAgentName?: StringFieldUpdateOperationsInput | string
+    osName?: StringFieldUpdateOperationsInput | string
+    deviceName?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
     fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     Tokens?: User_TokenUncheckedUpdateManyWithoutSessionInput
   }
 
@@ -18164,37 +18174,43 @@ export namespace Prisma {
     id?: number
     userId: number
     userAgent: string
-    userAgentType: User_Agent_Type
-    userAgentOS: User_Agent_OS
-    userAgentDevice: string
+    userAgentName: string
+    osName: string
+    deviceName: string
+    name: string
     uuid: string
     ipv4: string
     fingerprint_id: string
     is_active?: boolean
+    createDate?: Date | string
   }
 
   export type User_SessionUpdateManyMutationInput = {
     userAgent?: StringFieldUpdateOperationsInput | string
-    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
-    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
-    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    userAgentName?: StringFieldUpdateOperationsInput | string
+    osName?: StringFieldUpdateOperationsInput | string
+    deviceName?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
     fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type User_SessionUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     userAgent?: StringFieldUpdateOperationsInput | string
-    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
-    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
-    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    userAgentName?: StringFieldUpdateOperationsInput | string
+    osName?: StringFieldUpdateOperationsInput | string
+    deviceName?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
     fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type User_TokenCreateInput = {
@@ -19025,20 +19041,6 @@ export namespace Prisma {
     version_id?: SortOrder
   }
 
-  export type EnumUser_Agent_TypeFilter = {
-    equals?: User_Agent_Type
-    in?: Enumerable<User_Agent_Type>
-    notIn?: Enumerable<User_Agent_Type>
-    not?: NestedEnumUser_Agent_TypeFilter | User_Agent_Type
-  }
-
-  export type EnumUser_Agent_OSFilter = {
-    equals?: User_Agent_OS
-    in?: Enumerable<User_Agent_OS>
-    notIn?: Enumerable<User_Agent_OS>
-    not?: NestedEnumUser_Agent_OSFilter | User_Agent_OS
-  }
-
   export type User_TokenListRelationFilter = {
     every?: User_TokenWhereInput
     some?: User_TokenWhereInput
@@ -19053,13 +19055,15 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     userAgent?: SortOrder
-    userAgentType?: SortOrder
-    userAgentOS?: SortOrder
-    userAgentDevice?: SortOrder
+    userAgentName?: SortOrder
+    osName?: SortOrder
+    deviceName?: SortOrder
+    name?: SortOrder
     uuid?: SortOrder
     ipv4?: SortOrder
     fingerprint_id?: SortOrder
     is_active?: SortOrder
+    createDate?: SortOrder
   }
 
   export type User_SessionAvgOrderByAggregateInput = {
@@ -19071,51 +19075,35 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     userAgent?: SortOrder
-    userAgentType?: SortOrder
-    userAgentOS?: SortOrder
-    userAgentDevice?: SortOrder
+    userAgentName?: SortOrder
+    osName?: SortOrder
+    deviceName?: SortOrder
+    name?: SortOrder
     uuid?: SortOrder
     ipv4?: SortOrder
     fingerprint_id?: SortOrder
     is_active?: SortOrder
+    createDate?: SortOrder
   }
 
   export type User_SessionMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     userAgent?: SortOrder
-    userAgentType?: SortOrder
-    userAgentOS?: SortOrder
-    userAgentDevice?: SortOrder
+    userAgentName?: SortOrder
+    osName?: SortOrder
+    deviceName?: SortOrder
+    name?: SortOrder
     uuid?: SortOrder
     ipv4?: SortOrder
     fingerprint_id?: SortOrder
     is_active?: SortOrder
+    createDate?: SortOrder
   }
 
   export type User_SessionSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-  }
-
-  export type EnumUser_Agent_TypeWithAggregatesFilter = {
-    equals?: User_Agent_Type
-    in?: Enumerable<User_Agent_Type>
-    notIn?: Enumerable<User_Agent_Type>
-    not?: NestedEnumUser_Agent_TypeWithAggregatesFilter | User_Agent_Type
-    _count?: NestedIntFilter
-    _min?: NestedEnumUser_Agent_TypeFilter
-    _max?: NestedEnumUser_Agent_TypeFilter
-  }
-
-  export type EnumUser_Agent_OSWithAggregatesFilter = {
-    equals?: User_Agent_OS
-    in?: Enumerable<User_Agent_OS>
-    notIn?: Enumerable<User_Agent_OS>
-    not?: NestedEnumUser_Agent_OSWithAggregatesFilter | User_Agent_OS
-    _count?: NestedIntFilter
-    _min?: NestedEnumUser_Agent_OSFilter
-    _max?: NestedEnumUser_Agent_OSFilter
   }
 
   export type User_SessionRelationFilter = {
@@ -20455,14 +20443,6 @@ export namespace Prisma {
     connect?: Enumerable<User_TokenWhereUniqueInput>
   }
 
-  export type EnumUser_Agent_TypeFieldUpdateOperationsInput = {
-    set?: User_Agent_Type
-  }
-
-  export type EnumUser_Agent_OSFieldUpdateOperationsInput = {
-    set?: User_Agent_OS
-  }
-
   export type UserUpdateOneRequiredWithoutUserSessionInput = {
     create?: XOR<UserCreateWithoutUserSessionInput, UserUncheckedCreateWithoutUserSessionInput>
     connectOrCreate?: UserCreateOrConnectWithoutUserSessionInput
@@ -20635,40 +20615,6 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedEnumMod_Issue_TypeFilter
     _max?: NestedEnumMod_Issue_TypeFilter
-  }
-
-  export type NestedEnumUser_Agent_TypeFilter = {
-    equals?: User_Agent_Type
-    in?: Enumerable<User_Agent_Type>
-    notIn?: Enumerable<User_Agent_Type>
-    not?: NestedEnumUser_Agent_TypeFilter | User_Agent_Type
-  }
-
-  export type NestedEnumUser_Agent_OSFilter = {
-    equals?: User_Agent_OS
-    in?: Enumerable<User_Agent_OS>
-    notIn?: Enumerable<User_Agent_OS>
-    not?: NestedEnumUser_Agent_OSFilter | User_Agent_OS
-  }
-
-  export type NestedEnumUser_Agent_TypeWithAggregatesFilter = {
-    equals?: User_Agent_Type
-    in?: Enumerable<User_Agent_Type>
-    notIn?: Enumerable<User_Agent_Type>
-    not?: NestedEnumUser_Agent_TypeWithAggregatesFilter | User_Agent_Type
-    _count?: NestedIntFilter
-    _min?: NestedEnumUser_Agent_TypeFilter
-    _max?: NestedEnumUser_Agent_TypeFilter
-  }
-
-  export type NestedEnumUser_Agent_OSWithAggregatesFilter = {
-    equals?: User_Agent_OS
-    in?: Enumerable<User_Agent_OS>
-    notIn?: Enumerable<User_Agent_OS>
-    not?: NestedEnumUser_Agent_OSWithAggregatesFilter | User_Agent_OS
-    _count?: NestedIntFilter
-    _min?: NestedEnumUser_Agent_OSFilter
-    _max?: NestedEnumUser_Agent_OSFilter
   }
 
   export type User_AuthCreateWithoutUserInput = {
@@ -20868,26 +20814,30 @@ export namespace Prisma {
 
   export type User_SessionCreateWithoutUserInput = {
     userAgent: string
-    userAgentType: User_Agent_Type
-    userAgentOS: User_Agent_OS
-    userAgentDevice: string
+    userAgentName: string
+    osName: string
+    deviceName: string
+    name: string
     uuid: string
     ipv4: string
     fingerprint_id: string
     is_active?: boolean
+    createDate?: Date | string
     Tokens?: User_TokenCreateNestedManyWithoutSessionInput
   }
 
   export type User_SessionUncheckedCreateWithoutUserInput = {
     id?: number
     userAgent: string
-    userAgentType: User_Agent_Type
-    userAgentOS: User_Agent_OS
-    userAgentDevice: string
+    userAgentName: string
+    osName: string
+    deviceName: string
+    name: string
     uuid: string
     ipv4: string
     fingerprint_id: string
     is_active?: boolean
+    createDate?: Date | string
     Tokens?: User_TokenUncheckedCreateNestedManyWithoutSessionInput
   }
 
@@ -21149,13 +21099,15 @@ export namespace Prisma {
     id?: IntFilter | number
     userId?: IntFilter | number
     userAgent?: StringFilter | string
-    userAgentType?: EnumUser_Agent_TypeFilter | User_Agent_Type
-    userAgentOS?: EnumUser_Agent_OSFilter | User_Agent_OS
-    userAgentDevice?: StringFilter | string
+    userAgentName?: StringFilter | string
+    osName?: StringFilter | string
+    deviceName?: StringFilter | string
+    name?: StringFilter | string
     uuid?: StringFilter | string
     ipv4?: StringFilter | string
     fingerprint_id?: StringFilter | string
     is_active?: BoolFilter | boolean
+    createDate?: DateTimeFilter | Date | string
   }
 
   export type UserCreateWithoutUserAuthInput = {
@@ -23525,13 +23477,15 @@ export namespace Prisma {
 
   export type User_SessionCreateWithoutTokensInput = {
     userAgent: string
-    userAgentType: User_Agent_Type
-    userAgentOS: User_Agent_OS
-    userAgentDevice: string
+    userAgentName: string
+    osName: string
+    deviceName: string
+    name: string
     uuid: string
     ipv4: string
     fingerprint_id: string
     is_active?: boolean
+    createDate?: Date | string
     User: UserCreateNestedOneWithoutUserSessionInput
   }
 
@@ -23539,13 +23493,15 @@ export namespace Prisma {
     id?: number
     userId: number
     userAgent: string
-    userAgentType: User_Agent_Type
-    userAgentOS: User_Agent_OS
-    userAgentDevice: string
+    userAgentName: string
+    osName: string
+    deviceName: string
+    name: string
     uuid: string
     ipv4: string
     fingerprint_id: string
     is_active?: boolean
+    createDate?: Date | string
   }
 
   export type User_SessionCreateOrConnectWithoutTokensInput = {
@@ -23560,13 +23516,15 @@ export namespace Prisma {
 
   export type User_SessionUpdateWithoutTokensInput = {
     userAgent?: StringFieldUpdateOperationsInput | string
-    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
-    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
-    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    userAgentName?: StringFieldUpdateOperationsInput | string
+    osName?: StringFieldUpdateOperationsInput | string
+    deviceName?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
     fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneRequiredWithoutUserSessionInput
   }
 
@@ -23574,13 +23532,15 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     userAgent?: StringFieldUpdateOperationsInput | string
-    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
-    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
-    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    userAgentName?: StringFieldUpdateOperationsInput | string
+    osName?: StringFieldUpdateOperationsInput | string
+    deviceName?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
     fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type Mods_CollectionCreateManyAuthorInput = {
@@ -23634,13 +23594,15 @@ export namespace Prisma {
   export type User_SessionCreateManyUserInput = {
     id?: number
     userAgent: string
-    userAgentType: User_Agent_Type
-    userAgentOS: User_Agent_OS
-    userAgentDevice: string
+    userAgentName: string
+    osName: string
+    deviceName: string
+    name: string
     uuid: string
     ipv4: string
     fingerprint_id: string
     is_active?: boolean
+    createDate?: Date | string
   }
 
   export type Mods_CollectionUpdateWithoutAuthorInput = {
@@ -23791,39 +23753,45 @@ export namespace Prisma {
 
   export type User_SessionUpdateWithoutUserInput = {
     userAgent?: StringFieldUpdateOperationsInput | string
-    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
-    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
-    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    userAgentName?: StringFieldUpdateOperationsInput | string
+    osName?: StringFieldUpdateOperationsInput | string
+    deviceName?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
     fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     Tokens?: User_TokenUpdateManyWithoutSessionInput
   }
 
   export type User_SessionUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     userAgent?: StringFieldUpdateOperationsInput | string
-    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
-    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
-    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    userAgentName?: StringFieldUpdateOperationsInput | string
+    osName?: StringFieldUpdateOperationsInput | string
+    deviceName?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
     fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
     Tokens?: User_TokenUncheckedUpdateManyWithoutSessionInput
   }
 
   export type User_SessionUncheckedUpdateManyWithoutUserSessionInput = {
     id?: IntFieldUpdateOperationsInput | number
     userAgent?: StringFieldUpdateOperationsInput | string
-    userAgentType?: EnumUser_Agent_TypeFieldUpdateOperationsInput | User_Agent_Type
-    userAgentOS?: EnumUser_Agent_OSFieldUpdateOperationsInput | User_Agent_OS
-    userAgentDevice?: StringFieldUpdateOperationsInput | string
+    userAgentName?: StringFieldUpdateOperationsInput | string
+    osName?: StringFieldUpdateOperationsInput | string
+    deviceName?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     uuid?: StringFieldUpdateOperationsInput | string
     ipv4?: StringFieldUpdateOperationsInput | string
     fingerprint_id?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    createDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ModCreateManyCollectionInput = {
